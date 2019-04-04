@@ -1,0 +1,50 @@
+{
+  "name": "mst-workflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --hot --config webpack/dev.js",
+    "watch": "webpack-dev-server --hot --config webpack/dev.js",
+    "dll": "rm -rfv webpack/dll/* && time webpack --config webpack/dll-dev.js",
+    "dll-release": "time webpack --config webpack/dll-release.js",
+    "release": "rm -rfv dist/* && yarn dll-release && time webpack --progress --config webpack/release.js",
+    "build": "yarn release",
+    "serve": "http-server dist/ -s",
+    "postinstall": "rm -rfv node_modules/@types/*/node_modules/@types/react"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/react": "^16.8.12",
+    "@types/react-dom": "^16.8.3",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.1",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "file-loader": "^3.0.1",
+    "html-webpack-include-assets-plugin": "^1.0.7",
+    "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.0",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.4.1",
+    "typescript-styled-plugin": "^0.14.0",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-hud": "^0.1.2"
+  },
+  "dependencies": {
+    "@jimengio/ruled-router": "^0.2.7",
+    "dayjs": "^1.8.12",
+    "emotion": "^10.0.9",
+    "font-awesome": "^4.7.0",
+    "immer": "^2.1.4",
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
