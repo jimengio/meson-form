@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "emotion";
-import { MesonForm } from "meson-form";
+import { MesonForm, EMesonFieldType } from "meson-form";
 
 export default class Home extends React.Component {
   render() {
@@ -23,7 +23,15 @@ export default class Home extends React.Component {
         >
           Use
         </a>
-        <MesonForm />
+        <MesonForm
+          items={[
+            { type: EMesonFieldType.Input, label: "", value: "", name: "a", required: false },
+            { type: EMesonFieldType.Input, label: "", value: "", name: "b", required: false },
+          ]}
+          onSubmit={(form) => {
+            console.log("submit data", form);
+          }}
+        />
       </div>
     );
   }
