@@ -1,7 +1,12 @@
 import React, { SFC, ReactNode } from "react";
-import { row } from "@jimengio/shared-utils";
+import { row, column } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
+import { useImmer } from "use-immer";
+
+interface ISimpleObject {
+  [k: string]: string;
+}
 
 export enum EMesonFieldType {
   Input = "input",
@@ -14,7 +19,7 @@ export enum EMesonFieldType {
 export interface IMesonFieldBaseProps {
   label: string;
   required?: boolean;
-  hidden?: boolean;
+  shouldHide?: (form: any) => boolean;
   disabled?: boolean;
 }
 
@@ -23,6 +28,7 @@ export interface IMesonInputField extends IMesonFieldBaseProps {
   type: EMesonFieldType.Input;
   value: string;
   onChange?: (text: string) => void;
+  validator?: (value: string) => string;
 }
 
 export interface IMesonNumberField extends IMesonFieldBaseProps {
@@ -30,6 +36,7 @@ export interface IMesonNumberField extends IMesonFieldBaseProps {
   type: EMesonFieldType.Number;
   value: number;
   onChange?: (text: string) => void;
+  validator?: (value: number) => string;
 }
 
 export interface IMesonSelectitem {
@@ -44,11 +51,14 @@ export interface IMesonSelectField extends IMesonFieldBaseProps {
   value: string;
   options: (IMesonSelectitem)[];
   onChange?: (x: string) => void;
+  validator?: (value: string) => string;
 }
 
 export interface IMesonCustomField extends IMesonFieldBaseProps {
+  name: string;
   type: EMesonFieldType.Custom;
-  render: () => ReactNode;
+  render: (value: any, onChange: (x: any) => void) => ReactNode;
+  validator?: (value: any) => string;
 }
 
 export interface IMesonGroupField extends IMesonFieldBaseProps {
@@ -62,67 +72,164 @@ let RequiredMark: SFC<{}> = (props) => {
   return <span className={styleRequired}>*</span>;
 };
 
-let renderValueItem = (item: IMesonFieldItem) => {
-  switch (item.type) {
-    case EMesonFieldType.Input:
-      return (
-        <Input
-          value={item.value}
-          className={styleControlBase}
-          onChange={(event) => {
-            console.log("changed", event);
-          }}
-        />
-      );
-    case EMesonFieldType.Number:
-      return (
-        <InputNumber
-          value={item.value}
-          className={styleControlBase}
-          onChange={(x) => {
-            console.log("changed", event);
-          }}
-        />
-      );
-    case EMesonFieldType.Select:
-      return (
-        <Select value={item.value} className={styleControlBase}>
-          {item.options.map((option) => {
-            return (
-              <Select.Option value={option.value} key={option.key || option.value}>
-                {option.display}
-              </Select.Option>
-            );
-          })}
-        </Select>
-      );
-  }
+let traverseItems = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) => void) => {
+  xs.forEach((x) => {
+    if (x.type === EMesonFieldType.Group) {
+      traverseItems(x.children, method);
+    } else {
+      method(x);
+    }
+  });
 };
 
 export let MesonForm: SFC<{
-  items: (IMesonFieldItem)[];
+  initialValue: any;
+  items: IMesonFieldItem[];
   onFieldChange: (k: string, v: any) => void;
   onSubmit: (form: { string: any }) => void;
+  onCancel: () => void;
 }> = (props) => {
+  let [form, updateForm] = useImmer(props.initialValue);
+  let [errors, updateErrors] = useImmer({} as ISimpleObject);
+
+  console.log("rendering form", form);
+
+  let renderValueItem = (item: IMesonFieldItem) => {
+    switch (item.type) {
+      case EMesonFieldType.Input:
+        return (
+          <Input
+            value={form[item.name]}
+            className={styleControlBase}
+            onChange={(event) => {
+              let newValue = event.target.value;
+              updateForm((draft) => {
+                draft[item.name] = newValue;
+              });
+              props.onFieldChange(item.name, newValue);
+            }}
+            onBlur={() => {
+              if (item.validator != null) {
+                updateErrors((draft) => {
+                  draft[item.name] = item.validator(form[item.name]);
+                });
+              }
+            }}
+          />
+        );
+      case EMesonFieldType.Number:
+        return (
+          <InputNumber
+            value={form[item.name]}
+            className={styleControlBase}
+            onChange={(newValue) => {
+              updateForm((draft) => {
+                draft[item.name] = newValue;
+              });
+              props.onFieldChange(item.name, newValue);
+            }}
+            onBlur={() => {
+              if (item.validator != null) {
+                updateErrors((draft) => {
+                  draft[item.name] = item.validator(form[item.name]);
+                });
+              }
+            }}
+          />
+        );
+      case EMesonFieldType.Select:
+        return (
+          <Select
+            value={form[item.name]}
+            className={styleControlBase}
+            onChange={(newValue) => {
+              updateForm((draft) => {
+                draft[item.name] = newValue;
+              });
+              props.onFieldChange(item.name, newValue);
+            }}
+            onBlur={() => {
+              if (item.validator != null) {
+                updateErrors((draft) => {
+                  draft[item.name] = item.validator(form[item.name]);
+                });
+              }
+            }}
+          >
+            {item.options.map((option) => {
+              return (
+                <Select.Option value={option.value} key={option.key || option.value}>
+                  {option.display}
+                </Select.Option>
+              );
+            })}
+          </Select>
+        );
+      case EMesonFieldType.Group:
+        return renderItems(item.children);
+      case EMesonFieldType.Custom:
+        let onChange = (value: any) => {
+          updateForm((draft) => {
+            draft[item.name] = value;
+          });
+          props.onFieldChange(item.name, value);
+        };
+        return item.render(form[item.name], onChange);
+    }
+    return <div>Unknown type: {(item as any).type}</div>;
+  };
+
+  let renderItems = (items: IMesonFieldItem[]) => {
+    return items.map((item, idx) => {
+      if (item.shouldHide != null && item.shouldHide(form)) {
+        return null;
+      }
+
+      let name: string = (item as any).name;
+      let error = name != null ? errors[name] : null;
+
+      return (
+        <div key={idx} className={cx(row, styleItemRow)}>
+          <div className={styleLabel}>
+            {item.required ? <RequiredMark /> : null}
+            {item.label}:
+          </div>
+          <div className={cx(column, styleValueArea)}>
+            {renderValueItem(item)}
+            {error != null ? <div className={styleError}>{error}</div> : null}
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div>
-      {props.items.map((item, idx) => {
-        return (
-          <div key={idx} className={cx(row, styleItemRow)}>
-            <div className={styleLabel}>
-              {item.required ? <RequiredMark /> : null}
-              {item.label}:
-            </div>
-            <div className={styleValueArea}>{renderValueItem(item)}</div>
-          </div>
-        );
-      })}
+      {renderItems(props.items)}
       <div className={cx(row, styleItemRow)}>
         <div className={styleLabel} />
         <div className={cx(row, styleValueArea)}>
-          <Button type={"primary"}>{"确认"}</Button>
+          <Button
+            type={"primary"}
+            onClick={() => {
+              let currentErrors: ISimpleObject = {};
+              traverseItems(props.items, (item) => {
+                let { name, validator } = item as any;
+
+                if (name && validator) {
+                  currentErrors[name] = validator(form[name]);
+                }
+              });
+              updateErrors((draft) => {
+                return currentErrors;
+              });
+              console.warn("submit form", form);
+            }}
+          >
+            {"确认"}
+          </Button>
           <div style={{ width: 12 }} />
-          <Button>{"取消"}</Button>
+          <Button onClick={props.onCancel}>{"取消"}</Button>
         </div>
       </div>
     </div>
@@ -152,4 +259,8 @@ let styleItemRow = css`
 
 let styleControlBase = css`
   min-width: 180px;
+`;
+
+let styleError = css`
+  color: red;
 `;
