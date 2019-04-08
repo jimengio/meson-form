@@ -7,6 +7,8 @@ import { routerRules } from "./models/router-rules";
 
 import Container from "./pages/container";
 
+import "antd/dist/antd.css";
+
 const renderApp = () => {
   let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules);
 
@@ -22,7 +24,7 @@ window.addEventListener("hashchange", () => {
 declare var module: any;
 
 if (module.hot) {
-  module.hot.accept([], () => {
+  module.hot.accept(["./pages/container"], () => {
     renderApp();
   });
 }
