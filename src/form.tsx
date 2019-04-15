@@ -3,85 +3,13 @@ import { row, column } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
 import { useImmer } from "use-immer";
-import { lingual } from "./lingual";
+import { lingual, formatString } from "./lingual";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject } from "./model/types";
+import { validateValueRequired } from "./util/validation";
+import { traverseItems } from "./util/render";
+import { RequiredMark } from "./component/misc";
 
-interface ISimpleObject {
-  [k: string]: string;
-}
-
-export enum EMesonFieldType {
-  Input = "input",
-  Number = "number",
-  Select = "select",
-  Custom = "custom",
-  Group = "group",
-}
-
-export interface IMesonFieldBaseProps {
-  label: string;
-  required?: boolean;
-  shouldHide?: (form: any) => boolean;
-  disabled?: boolean;
-}
-
-export interface IMesonInputField extends IMesonFieldBaseProps {
-  name: string;
-  type: EMesonFieldType.Input;
-  value: string;
-  onChange?: (text: string) => void;
-  validator?: (value: string) => string;
-}
-
-export interface IMesonNumberField extends IMesonFieldBaseProps {
-  name: string;
-  type: EMesonFieldType.Number;
-  value: number;
-  onChange?: (text: string) => void;
-  validator?: (value: number) => string;
-}
-
-export interface IMesonSelectitem {
-  value: string;
-  key?: string;
-  display?: string;
-}
-
-export interface IMesonSelectField extends IMesonFieldBaseProps {
-  name: string;
-  type: EMesonFieldType.Select;
-  value: string;
-  options: (IMesonSelectitem)[];
-  onChange?: (x: string) => void;
-  validator?: (value: string) => string;
-}
-
-export interface IMesonCustomField extends IMesonFieldBaseProps {
-  name: string;
-  type: EMesonFieldType.Custom;
-  render: (value: any, onChange: (x: any) => void) => ReactNode;
-  validator?: (value: any) => string;
-}
-
-export interface IMesonGroupField extends IMesonFieldBaseProps {
-  type: EMesonFieldType.Group;
-  children: IMesonFieldItem[];
-}
-
-export type IMesonFieldItem = IMesonInputField | IMesonNumberField | IMesonSelectField | IMesonCustomField | IMesonGroupField;
-
-let RequiredMark: SFC<{}> = (props) => {
-  return <span className={styleRequired}>*</span>;
-};
-
-let traverseItems = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) => void) => {
-  xs.forEach((x) => {
-    if (x.type === EMesonFieldType.Group) {
-      traverseItems(x.children, method);
-    } else {
-      method(x);
-    }
-  });
-};
+export { IMesonFieldItem, EMesonFieldType } from "./model/types";
 
 export let MesonForm: SFC<{
   initialValue: any;
@@ -93,7 +21,17 @@ export let MesonForm: SFC<{
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({} as ISimpleObject);
 
-  console.log("rendering form", form);
+  let checkItem = (item: IMesonFieldItemHasValue) => {
+    if (item.validator != null) {
+      updateErrors((draft) => {
+        draft[item.name] = item.validator(form[item.name]);
+      });
+    } else if (item.required) {
+      updateErrors((draft) => {
+        draft[item.name] = validateValueRequired(form.item.name, item);
+      });
+    }
+  };
 
   let renderValueItem = (item: IMesonFieldItem) => {
     switch (item.type) {
@@ -110,11 +48,7 @@ export let MesonForm: SFC<{
               props.onFieldChange(item.name, newValue);
             }}
             onBlur={() => {
-              if (item.validator != null) {
-                updateErrors((draft) => {
-                  draft[item.name] = item.validator(form[item.name]);
-                });
-              }
+              checkItem(item);
             }}
           />
         );
@@ -130,11 +64,7 @@ export let MesonForm: SFC<{
               props.onFieldChange(item.name, newValue);
             }}
             onBlur={() => {
-              if (item.validator != null) {
-                updateErrors((draft) => {
-                  draft[item.name] = item.validator(form[item.name]);
-                });
-              }
+              checkItem(item);
             }}
           />
         );
@@ -150,11 +80,7 @@ export let MesonForm: SFC<{
               props.onFieldChange(item.name, newValue);
             }}
             onBlur={() => {
-              if (item.validator != null) {
-                updateErrors((draft) => {
-                  draft[item.name] = item.validator(form[item.name]);
-                });
-              }
+              checkItem(item);
             }}
           >
             {item.options.map((option) => {
@@ -243,11 +169,6 @@ let styleLabel = css`
   width: max-content;
   text-align: right;
   margin-right: 8px;
-`;
-
-let styleRequired = css`
-  color: hsla(0, 100%, 50%, 1);
-  margin-right: 4px;
 `;
 
 let styleValueArea = css``;

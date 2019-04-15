@@ -12,3 +12,11 @@ export function mesonUseZh() {
 export function mesonUseEn() {
   lingual = enUS;
 }
+
+export function formatString(template: string, data: { [k: string]: string }) {
+  for (var key in data) {
+    template = template.split(`{${key}}`).join(data[key]);
+  }
+
+  return template;
+}

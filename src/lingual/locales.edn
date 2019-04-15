@@ -4,6 +4,7 @@
  :locales {
   "cancel" {"zhCN" "取消", "enUS" "Cancel"}
   "confirm" {"zhCN" "确认", "enUS" "Confirm"}
+  "labelIsRequired" {"zhCN" "{label} 必填", "enUS" "{label} is required"}
   "submit" {"zhCN" "提交", "enUS" "Submit"}
  }
  :schema {:version "0.2.x"}

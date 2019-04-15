@@ -50,7 +50,7 @@ export default (props) => {
     {
       type: EMesonFieldType.Group,
       label: "group",
-      children: [{ type: EMesonFieldType.Select, label: "物料", value: null, name: "material", required: true, options: [] }],
+      children: [{ type: EMesonFieldType.Select, label: "物料", value: null, name: "materialInside", required: true, options: [] }],
     },
     {
       type: EMesonFieldType.Custom,
