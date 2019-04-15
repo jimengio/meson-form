@@ -34,6 +34,16 @@ module.exports = {
       "meson-form$": path.resolve(__dirname, "../src/form.tsx"),
     },
   },
+  stats: {
+    all: false,
+    colors: true,
+    errors: true,
+    errorDetails: true,
+    performance: true,
+    reasons: true,
+    timings: true,
+    warnings: true,
+  },
   plugins: [
     new webpack.DllReferencePlugin({
       manifest: path.resolve(__dirname, "dll/manifest-release.json"),
