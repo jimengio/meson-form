@@ -24,11 +24,9 @@ export let MesonForm: SFC<{
 
   let checkItem = (item: IMesonFieldItemHasValue) => {
     let result = validateItem(form[item.name], item);
-    if (result != null) {
-      updateErrors((draft) => {
-        draft[item.name] = result;
-      });
-    }
+    updateErrors((draft) => {
+      draft[item.name] = result;
+    });
   };
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
@@ -136,10 +134,14 @@ export let MesonForm: SFC<{
               traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
                 let result = validateItem(form[item.name], item);
 
+                console.log("validates", item.name, result);
+
                 if (result != null) {
-                  currentErrors[name] = result;
+                  currentErrors[item.name] = result;
                 }
               });
+
+              console.log("currentErrors", currentErrors);
               updateErrors((draft) => {
                 return currentErrors;
               });

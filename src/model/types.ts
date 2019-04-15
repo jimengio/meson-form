@@ -30,7 +30,7 @@ export interface IMesonFieldBaseProps {
 export interface IMesonInputField extends IMesonFieldBaseProps {
   name: string;
   type: EMesonFieldType.Input;
-  value: string;
+  initialValue: string;
   onChange?: (text: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
@@ -39,7 +39,7 @@ export interface IMesonInputField extends IMesonFieldBaseProps {
 export interface IMesonNumberField extends IMesonFieldBaseProps {
   name: string;
   type: EMesonFieldType.Number;
-  value: number;
+  initialValue: number;
   onChange?: (text: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
@@ -54,7 +54,7 @@ export interface IMesonSelectitem {
 export interface IMesonSelectField extends IMesonFieldBaseProps {
   name: string;
   type: EMesonFieldType.Select;
-  value: string;
+  initialValue: string;
   options: IMesonSelectitem[];
   onChange?: (x: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];

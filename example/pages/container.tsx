@@ -3,16 +3,28 @@ import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
 import { css } from "emotion";
 import { MesonForm, IMesonFieldItem, EMesonFieldType } from "meson-form";
 import { Input } from "antd";
+import { EMesonValidate, IMesonSelectitem } from "../../src/model/types";
 
 export default (props) => {
+  let options: IMesonSelectitem[] = [
+    {
+      value: "1",
+      display: "one",
+    },
+    {
+      value: "2",
+      display: "two",
+    },
+  ];
+
   let formItems: IMesonFieldItem[] = [
     {
       type: EMesonFieldType.Select,
       label: "物料",
-      value: null,
+      initialValue: null,
       name: "material",
       required: true,
-      options: [],
+      options: options,
       validator: (x) => {
         if (x == null) {
           return "material is required";
@@ -25,7 +37,7 @@ export default (props) => {
     {
       type: EMesonFieldType.Number,
       label: "数量",
-      value: 1,
+      initialValue: 1,
       name: "amount",
       required: true,
       validator: (x) => {
@@ -38,19 +50,27 @@ export default (props) => {
       },
     },
     {
+      type: EMesonFieldType.Number,
+      label: "计数",
+      initialValue: 1,
+      name: "count",
+      required: true,
+      validateMethods: [EMesonValidate.Number],
+    },
+    {
       type: EMesonFieldType.Input,
       shouldHide: (form) => {
         return form.amount && form.amount > 6;
       },
       label: "单价",
-      value: "x",
+      initialValue: "x",
       name: "price",
       required: true,
     },
     {
       type: EMesonFieldType.Group,
       label: "group",
-      children: [{ type: EMesonFieldType.Select, label: "物料", value: null, name: "materialInside", required: true, options: [] }],
+      children: [{ type: EMesonFieldType.Select, label: "物料", initialValue: null, name: "materialInside", required: true, options: options }],
     },
     {
       type: EMesonFieldType.Custom,
