@@ -8,6 +8,7 @@ import { routerRules } from "./models/router-rules";
 import Container from "./pages/container";
 
 import "antd/dist/antd.css";
+import { mesonUseEn } from "../src/lingual";
 
 const renderApp = () => {
   let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules);

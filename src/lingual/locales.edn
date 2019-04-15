@@ -1,0 +1,11 @@
+{
+ :sessions {}
+ :users {}
+ :locales {
+  "cancel" {"zhCN" "取消", "enUS" "Cancel"}
+  "confirm" {"zhCN" "确认", "enUS" "Confirm"}
+  "submit" {"zhCN" "提交", "enUS" "Submit"}
+ }
+ :schema {:version "0.2.x"}
+ :settings {:app-id "050bf2725352f125", :app-secret "w7qw7ME8c8wGQJBk8EOM5MuFybgoEA9F"}
+}

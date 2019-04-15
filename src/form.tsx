@@ -3,6 +3,7 @@ import { row, column } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
 import { useImmer } from "use-immer";
+import { lingual } from "./lingual";
 
 interface ISimpleObject {
   [k: string]: string;
@@ -226,10 +227,10 @@ export let MesonForm: SFC<{
               console.warn("submit form", form);
             }}
           >
-            {"确认"}
+            {lingual.confirm}
           </Button>
           <div style={{ width: 12 }} />
-          <Button onClick={props.onCancel}>{"取消"}</Button>
+          <Button onClick={props.onCancel}>{lingual.cancel}</Button>
         </div>
       </div>
     </div>
