@@ -5,9 +5,10 @@ import { Input, InputNumber, Select, Button } from "antd";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject } from "./model/types";
-import { validateValueRequired } from "./util/validation";
+import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
+import is from "is";
 
 export { IMesonFieldItem, EMesonFieldType } from "./model/types";
 
@@ -22,15 +23,19 @@ export let MesonForm: SFC<{
   let [errors, updateErrors] = useImmer({} as ISimpleObject);
 
   let checkItem = (item: IMesonFieldItemHasValue) => {
-    if (item.validator != null) {
+    let result = validateItem(form[item.name], item);
+    if (result != null) {
       updateErrors((draft) => {
-        draft[item.name] = item.validator(form[item.name]);
-      });
-    } else if (item.required) {
-      updateErrors((draft) => {
-        draft[item.name] = validateValueRequired(form.item.name, item);
+        draft[item.name] = result;
       });
     }
+  };
+
+  let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
+    updateForm((draft) => {
+      draft[item.name] = x;
+    });
+    props.onFieldChange(item.name, x);
   };
 
   let renderValueItem = (item: IMesonFieldItem) => {
@@ -42,10 +47,7 @@ export let MesonForm: SFC<{
             className={styleControlBase}
             onChange={(event) => {
               let newValue = event.target.value;
-              updateForm((draft) => {
-                draft[item.name] = newValue;
-              });
-              props.onFieldChange(item.name, newValue);
+              updateItem(newValue, item);
             }}
             onBlur={() => {
               checkItem(item);
@@ -58,10 +60,7 @@ export let MesonForm: SFC<{
             value={form[item.name]}
             className={styleControlBase}
             onChange={(newValue) => {
-              updateForm((draft) => {
-                draft[item.name] = newValue;
-              });
-              props.onFieldChange(item.name, newValue);
+              updateItem(newValue, item);
             }}
             onBlur={() => {
               checkItem(item);
@@ -74,10 +73,7 @@ export let MesonForm: SFC<{
             value={form[item.name]}
             className={styleControlBase}
             onChange={(newValue) => {
-              updateForm((draft) => {
-                draft[item.name] = newValue;
-              });
-              props.onFieldChange(item.name, newValue);
+              updateItem(newValue, item);
             }}
             onBlur={() => {
               checkItem(item);
@@ -96,10 +92,7 @@ export let MesonForm: SFC<{
         return renderItems(item.children);
       case EMesonFieldType.Custom:
         let onChange = (value: any) => {
-          updateForm((draft) => {
-            draft[item.name] = value;
-          });
-          props.onFieldChange(item.name, value);
+          updateItem(value, item);
         };
         return item.render(form[item.name], onChange);
     }
@@ -140,11 +133,11 @@ export let MesonForm: SFC<{
             type={"primary"}
             onClick={() => {
               let currentErrors: ISimpleObject = {};
-              traverseItems(props.items, (item) => {
-                let { name, validator } = item as any;
+              traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
+                let result = validateItem(form[item.name], item);
 
-                if (name && validator) {
-                  currentErrors[name] = validator(form[name]);
+                if (result != null) {
+                  currentErrors[name] = result;
                 }
               });
               updateErrors((draft) => {

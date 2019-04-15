@@ -4,6 +4,14 @@ export interface ISimpleObject {
   [k: string]: string;
 }
 
+export enum EMesonValidate {
+  Number = "number",
+  String = "string",
+  Boolean = "boolean",
+}
+
+export type FuncMesonValidator = (x: any, item?: IMesonFieldItemHasValue) => string;
+
 export enum EMesonFieldType {
   Input = "input",
   Number = "number",
@@ -24,7 +32,8 @@ export interface IMesonInputField extends IMesonFieldBaseProps {
   type: EMesonFieldType.Input;
   value: string;
   onChange?: (text: string) => void;
-  validator?: (value: string) => string;
+  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
+  validator?: FuncMesonValidator;
 }
 
 export interface IMesonNumberField extends IMesonFieldBaseProps {
@@ -32,7 +41,8 @@ export interface IMesonNumberField extends IMesonFieldBaseProps {
   type: EMesonFieldType.Number;
   value: number;
   onChange?: (text: string) => void;
-  validator?: (value: number) => string;
+  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
+  validator?: FuncMesonValidator;
 }
 
 export interface IMesonSelectitem {
@@ -47,14 +57,16 @@ export interface IMesonSelectField extends IMesonFieldBaseProps {
   value: string;
   options: IMesonSelectitem[];
   onChange?: (x: string) => void;
-  validator?: (value: string) => string;
+  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
+  validator?: FuncMesonValidator;
 }
 
 export interface IMesonCustomField extends IMesonFieldBaseProps {
   name: string;
   type: EMesonFieldType.Custom;
   render: (value: any, onChange: (x: any) => void) => ReactNode;
-  validator?: (value: any) => string;
+  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
+  validator?: FuncMesonValidator;
 }
 
 export interface IMesonGroupField extends IMesonFieldBaseProps {
