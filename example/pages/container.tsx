@@ -21,7 +21,6 @@ export default (props) => {
     {
       type: EMesonFieldType.Select,
       label: "物料",
-      initialValue: null,
       name: "material",
       required: true,
       options: options,
@@ -37,7 +36,6 @@ export default (props) => {
     {
       type: EMesonFieldType.Number,
       label: "数量",
-      initialValue: 1,
       name: "amount",
       required: true,
       validator: (x) => {
@@ -52,7 +50,6 @@ export default (props) => {
     {
       type: EMesonFieldType.Number,
       label: "计数",
-      initialValue: 1,
       name: "count",
       required: true,
       validateMethods: [EMesonValidate.Number],
@@ -63,14 +60,13 @@ export default (props) => {
         return form.amount && form.amount > 6;
       },
       label: "单价",
-      initialValue: "x",
       name: "price",
       required: true,
     },
     {
       type: EMesonFieldType.Group,
       label: "group",
-      children: [{ type: EMesonFieldType.Select, label: "物料", initialValue: null, name: "materialInside", required: true, options: options }],
+      children: [{ type: EMesonFieldType.Select, label: "物料", name: "materialInside", required: true, options: options }],
     },
     {
       type: EMesonFieldType.Custom,

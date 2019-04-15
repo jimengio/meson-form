@@ -8,6 +8,8 @@
   "labelShouldBeBoolean" {"zhCN" "{label} 应该为布尔值", "enUS" "{label} should be a boolean"}
   "labelShouldBeNumber" {"zhCN" "{label} 应该为数字", "enUS" "{label} should be a number"}
   "labelShouldBeString" {"zhCN" "{label} 应该为字符串", "enUS" "{label} should be a string"}
+  "pleaseInputLabel" {"zhCN" "请输入{label}", "enUS" "Please input {label}"}
+  "pleaseSelectLabel" {"zhCN" "请选择{label}", "enUS" "Please select {label}"}
   "submit" {"zhCN" "提交", "enUS" "Submit"}
  }
  :schema {:version "0.2.x"}

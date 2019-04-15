@@ -29,6 +29,13 @@ export let MesonForm: SFC<{
     });
   };
 
+  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
+    let result = validateItem(x, item);
+    updateErrors((draft) => {
+      draft[item.name] = result;
+    });
+  };
+
   let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
     updateForm((draft) => {
       draft[item.name] = x;
@@ -42,6 +49,7 @@ export let MesonForm: SFC<{
         return (
           <Input
             value={form[item.name]}
+            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(event) => {
               let newValue = event.target.value;
@@ -56,6 +64,7 @@ export let MesonForm: SFC<{
         return (
           <InputNumber
             value={form[item.name]}
+            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(newValue) => {
               updateItem(newValue, item);
@@ -69,9 +78,11 @@ export let MesonForm: SFC<{
         return (
           <Select
             value={form[item.name]}
+            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(newValue) => {
               updateItem(newValue, item);
+              checkItemWithValue(newValue, item);
             }}
             onBlur={() => {
               checkItem(item);
