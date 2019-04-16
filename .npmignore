@@ -1,0 +1,12 @@
+
+dist
+example
+template.ejs
+tsconfig-compile.json
+tsconfig.json
+webpack
+yarn.lock
+
+.cache-loader/*
+.awcache/*
+.vscode/*

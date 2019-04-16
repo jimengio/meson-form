@@ -12,3 +12,5 @@ webpack/dll/*
 
 .cache-loader/*
 
+
+lib/*
