@@ -13,6 +13,7 @@ interface IProps {
   visible: boolean;
   onClose: () => void;
   renderContent: () => ReactNode;
+  hideClose?: boolean;
 }
 
 export default class MesonModal extends React.Component<IProps, any> {
@@ -47,7 +48,7 @@ export default class MesonModal extends React.Component<IProps, any> {
               <div className={cx(rowParted, styleHeader)}>
                 {this.props.title}
 
-                <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />
+                {this.props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />}
               </div>
               {this.props.renderContent()}
             </div>

@@ -182,6 +182,7 @@ export let MesonFormModal: SFC<{
       title={props.title}
       visible={props.visible}
       onClose={props.onClose}
+      hideClose
       renderContent={() => {
         return (
           <MesonForm

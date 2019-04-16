@@ -95,17 +95,6 @@ export default (props) => {
     <div className={styleContainer}>
       <div className={styleTitle}>Form example</div>
 
-      <MesonForm
-        initialValue={{}}
-        items={formItems}
-        onSubmit={(form) => {
-          console.log("submit data", form);
-        }}
-        onCancel={() => {
-          console.log("cancel");
-        }}
-      />
-
       <div className={styleBoxArea}>
         <div>
           <Button
@@ -162,6 +151,17 @@ export default (props) => {
           }}
         />
       </div>
+
+      <MesonForm
+        initialValue={{}}
+        items={formItems}
+        onSubmit={(form) => {
+          console.log("submit data", form);
+        }}
+        onCancel={() => {
+          console.log("cancel");
+        }}
+      />
     </div>
   );
 };
