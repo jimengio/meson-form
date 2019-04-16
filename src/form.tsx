@@ -11,6 +11,7 @@ import { RequiredMark } from "./component/misc";
 import is from "is";
 import { FormFooter } from "./component/form-footer";
 import MesonModal from "./component/modal";
+import TextArea from "antd/lib/input/TextArea";
 
 export let MesonForm: SFC<{
   initialValue: any;
@@ -49,6 +50,22 @@ export let MesonForm: SFC<{
   let renderValueItem = (item: IMesonFieldItem) => {
     switch (item.type) {
       case EMesonFieldType.Input:
+        if (item.textarea) {
+          return (
+            <TextArea
+              value={form[item.name]}
+              placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+              className={cx(styleControlBase, styleTextareaBase)}
+              onChange={(event) => {
+                let newValue = event.target.value;
+                updateItem(newValue, item);
+              }}
+              onBlur={() => {
+                checkItem(item);
+              }}
+            />
+          );
+        }
         return (
           <Input
             value={form[item.name]}
@@ -231,4 +248,8 @@ let styleError = css`
 let styleItemsContainer = css`
   overflow: auto;
   padding-top: 24px;
+`;
+
+let styleTextareaBase = css`
+  min-width: 240px;
 `;

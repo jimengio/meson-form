@@ -32,6 +32,7 @@ export interface IMesonInputField extends IMesonFieldBaseProps {
   type: EMesonFieldType.Input;
   placeholder?: string;
   onChange?: (text: string) => void;
+  textarea?: boolean;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
 }

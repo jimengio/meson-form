@@ -3,7 +3,7 @@ import { formatString, lingual } from "../lingual";
 import is from "is";
 
 export let validateValueRequired = (x: any, item: IMesonFieldItemHasValue) => {
-  if (x == null) {
+  if (x == null || x === "") {
     return formatString(lingual.labelIsRequired, {
       label: item.label,
     });
