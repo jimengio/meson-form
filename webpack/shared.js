@@ -24,6 +24,41 @@ exports.matchFontsRule = {
 
 exports.matchTsRule = {
   test: /\.tsx?$/,
-  loader: "awesome-typescript-loader",
   exclude: /node_modules/,
+  use: [
+    { loader: "cache-loader" },
+    {
+      loader: "thread-loader",
+      options: {
+        workers: require("os").cpus().length - 1,
+        poolTimeout: Infinity,
+      },
+    },
+    {
+      loader: "ts-loader",
+      options: {
+        happyPackMode: true,
+      },
+    },
+  ],
+};
+
+exports.matchTsReleaseRule = {
+  test: /\.tsx?$/,
+  exclude: /node_modules/,
+  use: [
+    { loader: "cache-loader" },
+    {
+      loader: "thread-loader",
+      options: {
+        workers: require("os").cpus().length - 1,
+      },
+    },
+    {
+      loader: "ts-loader",
+      options: {
+        happyPackMode: true,
+      },
+    },
+  ],
 };

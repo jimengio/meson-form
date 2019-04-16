@@ -9,3 +9,6 @@ webpack/dll/*
 .DS_Store
 *.swp
 *.log
+
+.cache-loader/*
+

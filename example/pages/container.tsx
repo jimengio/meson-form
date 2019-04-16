@@ -1,9 +1,9 @@
 import React from "react";
 import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
 import { css } from "emotion";
-import { MesonForm, IMesonFieldItem, EMesonFieldType } from "meson-form";
+import { MesonForm } from "meson-form";
 import { Input } from "antd";
-import { EMesonValidate, IMesonSelectitem } from "../../src/model/types";
+import { EMesonValidate, IMesonSelectitem, IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 
 export default (props) => {
   let options: IMesonSelectitem[] = [

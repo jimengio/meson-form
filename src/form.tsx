@@ -11,8 +11,6 @@ import { RequiredMark } from "./component/misc";
 import is from "is";
 import { FormFooter } from "./component/form-footer";
 
-export { IMesonFieldItem, EMesonFieldType } from "./model/types";
-
 export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
