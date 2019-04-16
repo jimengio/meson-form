@@ -28,7 +28,8 @@ export default class MesonModal extends React.Component<IProps, any> {
     let root = document.querySelector(`.${containerName}`);
 
     if (root == null) {
-      throw new Error(`Required a container element in body: <div class="${containerName}" />`);
+      console.error(`Required a container element in body: <div class="${containerName}" />`);
+      return;
     }
 
     root.appendChild(this.el);
@@ -36,6 +37,12 @@ export default class MesonModal extends React.Component<IProps, any> {
 
   componentWillUnmount() {
     let root = document.querySelector(`.${containerName}`);
+
+    if (root == null) {
+      console.error(`Required a container element in body: <div class="${containerName}" />`);
+      return;
+    }
+
     root.removeChild(this.el);
   }
 
@@ -111,6 +118,7 @@ let stylePopPage = css`
   transition-timing-function: linear;
 `;
 
+// z-index >1000 which is currently in project
 let styleBackdrop = css`
   position: fixed;
   top: 0;
@@ -119,6 +127,7 @@ let styleBackdrop = css`
   height: 100%;
   background-color: hsla(0, 0%, 0%, 0.65);
   transition-timing-function: linear;
+  z-index: 1200;
 
   display: flex;
 `;

@@ -3,7 +3,7 @@ import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
 import { css } from "emotion";
 import { MesonForm, MesonFormModal } from "meson-form";
 import { Input, Button } from "antd";
-import { EMesonValidate, IMesonSelectitem, IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { EMesonValidate, IMesonSelectItem, IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import MesonModal from "../../src/component/modal";
 import { lingual } from "../../src/lingual";
 
@@ -11,7 +11,7 @@ export default (props) => {
   let [visible, setVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 
-  let options: IMesonSelectitem[] = [
+  let options: IMesonSelectItem[] = [
     {
       value: "1",
       display: "one",

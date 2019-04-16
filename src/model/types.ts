@@ -46,8 +46,8 @@ export interface IMesonNumberField extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonSelectitem {
-  value: string;
+export interface IMesonSelectItem {
+  value: any;
   key?: string;
   display?: string;
 }
@@ -56,7 +56,7 @@ export interface IMesonSelectField extends IMesonFieldBaseProps {
   name: string;
   type: EMesonFieldType.Select;
   placeholder?: string;
-  options: IMesonSelectitem[];
+  options: IMesonSelectItem[];
   onChange?: (x: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
