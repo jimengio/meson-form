@@ -15,11 +15,12 @@ export let FormFooter: SFC<{
   onCancel: () => void;
   layout?: EMesonFooterLayout;
   hideSeparator?: boolean;
+  isLoading?: boolean;
 }> = (props) => {
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <Button type={"primary"} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
           {lingual.confirm}
         </Button>
         <div style={{ width: 12 }} />
@@ -33,7 +34,7 @@ export let FormFooter: SFC<{
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
         <Button onClick={props.onCancel}>{lingual.cancel}</Button>
         <div style={{ width: 12 }} />
-        <Button type={"primary"} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
           {lingual.confirm}
         </Button>
       </div>
@@ -47,7 +48,7 @@ export let FormFooter: SFC<{
       <div className={cx(rowMiddle)}>
         <Button onClick={props.onCancel}>{lingual.cancel}</Button>
         <div style={{ width: 12 }} />
-        <Button type={"primary"} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
           {lingual.confirm}
         </Button>
       </div>

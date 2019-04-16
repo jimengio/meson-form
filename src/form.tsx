@@ -20,6 +20,7 @@ export let MesonForm: SFC<{
   onCancel: () => void;
   className?: string;
   style?: CSSProperties;
+  isLoading?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({} as ISimpleObject);
@@ -156,6 +157,7 @@ export let MesonForm: SFC<{
     <div className={cx(column, props.className)} style={props.style}>
       <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
       <FormFooter
+        isLoading={props.isLoading}
         onSubmit={() => {
           let currentErrors: ISimpleObject = {};
           let hasErrors = false;
@@ -193,6 +195,7 @@ export let MesonFormModal: SFC<{
   items: IMesonFieldItem[];
   onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onClose: () => void;
+  isLoading?: boolean;
 }> = (props) => {
   return (
     <MesonModal
@@ -205,6 +208,7 @@ export let MesonFormModal: SFC<{
           <MesonForm
             initialValue={props.initialValue}
             items={props.items}
+            isLoading={props.isLoading}
             onSubmit={(form: any, onServerErrors: (x: any) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
