@@ -9,6 +9,7 @@ import { validateValueRequired, validateByMethods, validateItem } from "./util/v
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
 import is from "is";
+import { FormFooter } from "./component/form-footer";
 
 export { IMesonFieldItem, EMesonFieldType } from "./model/types";
 
@@ -16,7 +17,7 @@ export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
   onFieldChange: (k: string, v: any) => void;
-  onSubmit: (form: { string: any }) => void;
+  onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onCancel: () => void;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
@@ -135,36 +136,33 @@ export let MesonForm: SFC<{
   return (
     <div>
       {renderItems(props.items)}
-      <div className={cx(row, styleItemRow)}>
-        <div className={styleLabel} />
-        <div className={cx(row, styleValueArea)}>
-          <Button
-            type={"primary"}
-            onClick={() => {
-              let currentErrors: ISimpleObject = {};
-              traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-                let result = validateItem(form[item.name], item);
+      <FormFooter
+        onSubmit={() => {
+          let currentErrors: ISimpleObject = {};
+          let hasErrors = false;
+          traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
+            let result = validateItem(form[item.name], item);
 
-                console.log("validates", item.name, result);
+            if (result != null) {
+              currentErrors[item.name] = result;
+              hasErrors = true;
+            }
+          });
 
-                if (result != null) {
-                  currentErrors[item.name] = result;
-                }
-              });
+          updateErrors((draft) => {
+            return currentErrors;
+          });
 
-              console.log("currentErrors", currentErrors);
+          if (!hasErrors) {
+            props.onSubmit(form, (serverErrors) => {
               updateErrors((draft) => {
-                return currentErrors;
+                return serverErrors;
               });
-              console.warn("submit form", form);
-            }}
-          >
-            {lingual.confirm}
-          </Button>
-          <div style={{ width: 12 }} />
-          <Button onClick={props.onCancel}>{lingual.cancel}</Button>
-        </div>
-      </div>
+            });
+          }
+        }}
+        onCancel={props.onCancel}
+      />
     </div>
   );
 };

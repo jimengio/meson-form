@@ -43,7 +43,7 @@ export default (props) => {
           return "amount is required";
         }
         if (x > 10) {
-          return "too marge";
+          return "too large";
         }
       },
     },
