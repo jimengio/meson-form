@@ -8,6 +8,7 @@ import { routerRules } from "./models/router-rules";
 import Container from "./pages/container";
 
 import "antd/dist/antd.css";
+import "./main.css";
 import { mesonUseEn } from "../src/lingual";
 
 const renderApp = () => {

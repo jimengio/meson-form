@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
 import { css } from "emotion";
-import { MesonForm } from "meson-form";
-import { Input } from "antd";
+import { MesonForm, MesonFormModal } from "meson-form";
+import { Input, Button } from "antd";
 import { EMesonValidate, IMesonSelectitem, IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import MesonModal from "../../src/component/modal";
+import { lingual } from "../../src/lingual";
 
 export default (props) => {
+  let [visible, setVisible] = useState(false);
+  let [formVisible, setFormVisible] = useState(false);
+
   let options: IMesonSelectitem[] = [
     {
       value: "1",
@@ -93,9 +98,6 @@ export default (props) => {
       <MesonForm
         initialValue={{}}
         items={formItems}
-        onFieldChange={(k, v) => {
-          console.log("edited", k, v);
-        }}
         onSubmit={(form) => {
           console.log("submit data", form);
         }}
@@ -103,6 +105,63 @@ export default (props) => {
           console.log("cancel");
         }}
       />
+
+      <div className={styleBoxArea}>
+        <div>
+          <Button
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            Try Modal
+          </Button>
+        </div>
+        <MesonModal
+          title={lingual.labelShouldBeString}
+          visible={visible}
+          onClose={() => {
+            setVisible(false);
+          }}
+          renderContent={() => {
+            return (
+              <div>
+                SOMETHING
+                <span
+                  onClick={() => {
+                    setVisible(false);
+                  }}
+                >
+                  Close
+                </span>
+              </div>
+            );
+          }}
+        />
+      </div>
+      <div className={styleBoxArea}>
+        <div>
+          <Button
+            onClick={() => {
+              setFormVisible(true);
+            }}
+          >
+            Open Form Modal
+          </Button>
+        </div>
+        <MesonFormModal
+          title={lingual.labelShouldBeBoolean}
+          visible={formVisible}
+          onClose={() => {
+            setFormVisible(false);
+          }}
+          items={formItems}
+          initialValue={{}}
+          onSubmit={(form) => {
+            console.log("form", form);
+            setFormVisible(false);
+          }}
+        />
+      </div>
     </div>
   );
 };
@@ -113,4 +172,8 @@ const styleContainer = css`
 
 const styleTitle = css`
   margin-bottom: 16px;
+`;
+
+let styleBoxArea = css`
+  padding: 20px;
 `;

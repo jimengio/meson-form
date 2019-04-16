@@ -21,6 +21,7 @@
     "@types/lodash": "^4.14.123",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
+    "@types/react-transition-group": "^2.9.0",
     "cache-loader": "^2.0.1",
     "css-loader": "^2.1.1",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
@@ -42,6 +43,7 @@
     "webpack-hud": "^0.1.2"
   },
   "dependencies": {
+    "@jimengio/jimo-icons": "^0.1.14",
     "@jimengio/ruled-router": "^0.2.7",
     "@jimengio/shared-utils": "^0.1.1",
     "antd": "^3.16.3",
@@ -53,6 +55,7 @@
     "lodash": "^4.17.11",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-transition-group": "^3.0.0",
     "use-immer": "^0.2.1"
   }
 }

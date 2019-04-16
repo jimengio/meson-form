@@ -1,5 +1,5 @@
-import React, { SFC, ReactNode } from "react";
-import { row, column } from "@jimengio/shared-utils";
+import React, { SFC, ReactNode, CSSProperties } from "react";
+import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
 import { useImmer } from "use-immer";
@@ -10,13 +10,15 @@ import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
 import is from "is";
 import { FormFooter } from "./component/form-footer";
+import MesonModal from "./component/modal";
 
 export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
-  onFieldChange: (k: string, v: any) => void;
   onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onCancel: () => void;
+  className?: string;
+  style?: CSSProperties;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({} as ISimpleObject);
@@ -36,10 +38,12 @@ export let MesonForm: SFC<{
   };
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
-    updateForm((draft) => {
+    updateForm((draft: any) => {
       draft[item.name] = x;
     });
-    props.onFieldChange(item.name, x);
+    if (item.onChange != null) {
+      item.onChange(x);
+    }
   };
 
   let renderValueItem = (item: IMesonFieldItem) => {
@@ -132,8 +136,8 @@ export let MesonForm: SFC<{
   };
 
   return (
-    <div>
-      {renderItems(props.items)}
+    <div className={cx(column, props.className)} style={props.style}>
+      <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
       <FormFooter
         onSubmit={() => {
           let currentErrors: ISimpleObject = {};
@@ -147,13 +151,13 @@ export let MesonForm: SFC<{
             }
           });
 
-          updateErrors((draft) => {
+          updateErrors((draft: ISimpleObject) => {
             return currentErrors;
           });
 
           if (!hasErrors) {
             props.onSubmit(form, (serverErrors) => {
-              updateErrors((draft) => {
+              updateErrors((draft: ISimpleObject) => {
                 return serverErrors;
               });
             });
@@ -164,6 +168,40 @@ export let MesonForm: SFC<{
     </div>
   );
 };
+
+export let MesonFormModal: SFC<{
+  title: string;
+  visible: boolean;
+  initialValue: any;
+  items: IMesonFieldItem[];
+  onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onClose: () => void;
+}> = (props) => {
+  return (
+    <MesonModal
+      title={props.title}
+      visible={props.visible}
+      onClose={props.onClose}
+      renderContent={() => {
+        return (
+          <MesonForm
+            initialValue={props.initialValue}
+            items={props.items}
+            onSubmit={(form: any, onServerErrors: (x: any) => void) => {
+              props.onSubmit(form, onServerErrors);
+            }}
+            onCancel={props.onClose}
+            className={styleForm}
+          />
+        );
+      }}
+    />
+  );
+};
+
+let styleForm = css`
+  flex: 1;
+`;
 
 let styleLabel = css`
   color: hsla(0, 0%, 20%, 1);
@@ -187,4 +225,9 @@ let styleControlBase = css`
 
 let styleError = css`
   color: red;
+`;
+
+let styleItemsContainer = css`
+  overflow: auto;
+  padding-top: 24px;
 `;
