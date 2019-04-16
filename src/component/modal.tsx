@@ -118,7 +118,7 @@ let stylePopPage = css`
   transition-timing-function: linear;
 `;
 
-// z-index >1000 which is currently in project
+// z-index = 1000 to simulate an antd modal
 let styleBackdrop = css`
   position: fixed;
   top: 0;
@@ -127,7 +127,7 @@ let styleBackdrop = css`
   height: 100%;
   background-color: hsla(0, 0%, 0%, 0.65);
   transition-timing-function: linear;
-  z-index: 1200;
+  z-index: 1000;
 
   display: flex;
 `;
