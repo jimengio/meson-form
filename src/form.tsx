@@ -162,6 +162,10 @@ export let MesonForm: SFC<{
           let currentErrors: ISimpleObject = {};
           let hasErrors = false;
           traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
+            if (item.shouldHide != null && item.shouldHide(form)) {
+              return null;
+            }
+
             let result = validateItem(form[item.name], item);
 
             if (result != null) {
