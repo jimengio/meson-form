@@ -20,15 +20,15 @@ export enum EMesonFieldType {
   Group = "group",
 }
 
-export interface IMesonFieldBaseProps {
+export interface IMesonFieldBaseProps<K = string> {
   label: string;
   required?: boolean;
   shouldHide?: (form: any) => boolean;
   disabled?: boolean;
 }
 
-export interface IMesonInputField extends IMesonFieldBaseProps {
-  name: string;
+export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
+  name: K;
   type: EMesonFieldType.Input;
   placeholder?: string;
   onChange?: (text: string) => void;
@@ -37,8 +37,8 @@ export interface IMesonInputField extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonNumberField extends IMesonFieldBaseProps {
-  name: string;
+export interface IMesonNumberField<K = string> extends IMesonFieldBaseProps {
+  name: K;
   type: EMesonFieldType.Number;
   placeholder?: string;
   onChange?: (text: string) => void;
@@ -52,8 +52,8 @@ export interface IMesonSelectItem {
   display?: string;
 }
 
-export interface IMesonSelectField extends IMesonFieldBaseProps {
-  name: string;
+export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
+  name: K;
   type: EMesonFieldType.Select;
   placeholder?: string;
   options: IMesonSelectItem[];
@@ -62,8 +62,8 @@ export interface IMesonSelectField extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonCustomField extends IMesonFieldBaseProps {
-  name: string;
+export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
+  name: K;
   type: EMesonFieldType.Custom;
   render: (value: any, onChange: (x: any) => void) => ReactNode;
   onChange?: (x: any) => void;
@@ -76,5 +76,5 @@ export interface IMesonGroupField extends IMesonFieldBaseProps {
   children: IMesonFieldItem[];
 }
 
-export type IMesonFieldItemHasValue = IMesonInputField | IMesonNumberField | IMesonSelectField | IMesonCustomField;
-export type IMesonFieldItem = IMesonInputField | IMesonNumberField | IMesonSelectField | IMesonCustomField | IMesonGroupField;
+export type IMesonFieldItemHasValue<K = string> = IMesonInputField<K> | IMesonNumberField<K> | IMesonSelectField<K> | IMesonCustomField<K>;
+export type IMesonFieldItem<K = string> = IMesonInputField<K> | IMesonNumberField<K> | IMesonSelectField<K> | IMesonCustomField<K> | IMesonGroupField;

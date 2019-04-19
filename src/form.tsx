@@ -23,7 +23,7 @@ export let MesonForm: SFC<{
   isLoading?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
-  let [errors, updateErrors] = useImmer({} as ISimpleObject);
+  let [errors, updateErrors] = useImmer({});
 
   let checkItem = (item: IMesonFieldItemHasValue) => {
     let result = validateItem(form[item.name], item);

@@ -59,6 +59,6 @@
     "react": "*",
     "react-dom": "*",
     "react-transition-group": "^3.0.0",
-    "use-immer": "^0.2.1"
+    "use-immer": "^0.2.2"
   }
 }
