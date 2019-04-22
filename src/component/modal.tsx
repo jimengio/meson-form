@@ -111,7 +111,6 @@ let stylePopPage = css`
   background-color: white;
   min-width: 520px;
   min-height: 160px;
-  border-radius: 4px;
 
   transform-origin: 50% -50%;
 
@@ -133,7 +132,9 @@ let styleBackdrop = css`
 `;
 
 let styleHeader = css`
-  padding: 12px;
+  padding: 0 24px;
+  height: 56px;
+  font-size: 16px;
   font-weight: bold;
   border-bottom: 1px solid hsl(0, 0%, 91%);
 `;
@@ -141,4 +142,5 @@ let styleHeader = css`
 let styleIcon = css`
   color: #aaa;
   cursor: pointer;
+  font-size: 12px;
 `;
