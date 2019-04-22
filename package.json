@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.1.0",
+  "version": "0.1.1-a2",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -13,6 +13,7 @@
     "build": "yarn release",
     "serve": "http-server dist/ -s",
     "compile": "tsc -d --project tsconfig-compile.json --outDir lib/",
+    "prepare": "yarn compile",
     "upload": "rsync -avr --progress dist/ fe.jimu.io:~/repo/jimengio/meson-form",
     "postinstall": "rm -rfv node_modules/@types/*/node_modules/@types/react"
   },
