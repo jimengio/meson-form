@@ -7,6 +7,16 @@ import { EMesonValidate, IMesonSelectItem, IMesonFieldItem, EMesonFieldType } fr
 import MesonModal from "../../src/component/modal";
 import { lingual } from "../../src/lingual";
 
+interface IDemo {
+  material: string;
+  amount: string;
+  count: string;
+  price: string;
+  name: string;
+  size: number;
+  description: string;
+}
+
 export default (props) => {
   let [visible, setVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
@@ -22,7 +32,7 @@ export default (props) => {
     },
   ];
 
-  let formItems: IMesonFieldItem[] = [
+  let formItems: IMesonFieldItem<keyof IDemo>[] = [
     {
       type: EMesonFieldType.Select,
       label: "物料",
