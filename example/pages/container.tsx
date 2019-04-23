@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import { MesonForm, MesonFormModal } from "meson-form";
 import { Input, Button } from "antd";
 import { EMesonValidate, IMesonSelectItem, IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import MesonModal from "../../src/component/modal";
 import { lingual } from "../../src/lingual";
+import { EMesonFooterLayout } from "../../src/component/form-footer";
+import { column } from "@jimengio/shared-utils";
 
 interface IDemo {
   material: string;
@@ -169,16 +171,19 @@ export default (props) => {
         />
       </div>
 
-      <MesonForm
-        initialValue={{}}
-        items={formItems}
-        onSubmit={(form) => {
-          console.log("submit data", form);
-        }}
-        onCancel={() => {
-          console.log("cancel");
-        }}
-      />
+      <div className={cx(column, styleFormArea)}>
+        <MesonForm
+          initialValue={{}}
+          items={formItems}
+          onSubmit={(form) => {
+            console.log("submit data", form);
+          }}
+          onCancel={() => {
+            console.log("cancel");
+          }}
+          footerLayout={EMesonFooterLayout.Center}
+        />
+      </div>
     </div>
   );
 };
@@ -193,4 +198,10 @@ const styleTitle = css`
 
 let styleBoxArea = css`
   padding: 20px;
+`;
+
+let styleFormArea = css`
+  width: 480px;
+  height: 660px;
+  border: 1px solid #ccc;
 `;

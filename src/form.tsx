@@ -9,17 +9,19 @@ import { validateValueRequired, validateByMethods, validateItem } from "./util/v
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
 import is from "is";
-import { FormFooter } from "./component/form-footer";
+import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 
 export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onCancel: () => void;
   className?: string;
   style?: CSSProperties;
+  footerLayout?: EMesonFooterLayout;
+  renderFooter?: (isLoading: boolean, onSubmit: (form: { [k: string]: any }) => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
@@ -153,41 +155,43 @@ export let MesonForm: SFC<{
     });
   };
 
+  let onSubmit = () => {
+    let currentErrors: ISimpleObject = {};
+    let hasErrors = false;
+    traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
+      if (item.shouldHide != null && item.shouldHide(form)) {
+        return null;
+      }
+
+      let result = validateItem(form[item.name], item);
+
+      if (result != null) {
+        currentErrors[item.name] = result;
+        hasErrors = true;
+      }
+    });
+
+    updateErrors((draft: ISimpleObject) => {
+      return currentErrors;
+    });
+
+    if (!hasErrors) {
+      props.onSubmit(form, (serverErrors) => {
+        updateErrors((draft: ISimpleObject) => {
+          return serverErrors;
+        });
+      });
+    }
+  };
+
   return (
-    <div className={cx(column, props.className)} style={props.style}>
+    <div className={cx(column, flex, props.className)} style={props.style}>
       <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
-      <FormFooter
-        isLoading={props.isLoading}
-        onSubmit={() => {
-          let currentErrors: ISimpleObject = {};
-          let hasErrors = false;
-          traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-            if (item.shouldHide != null && item.shouldHide(form)) {
-              return null;
-            }
-
-            let result = validateItem(form[item.name], item);
-
-            if (result != null) {
-              currentErrors[item.name] = result;
-              hasErrors = true;
-            }
-          });
-
-          updateErrors((draft: ISimpleObject) => {
-            return currentErrors;
-          });
-
-          if (!hasErrors) {
-            props.onSubmit(form, (serverErrors) => {
-              updateErrors((draft: ISimpleObject) => {
-                return serverErrors;
-              });
-            });
-          }
-        }}
-        onCancel={props.onCancel}
-      />
+      {props.renderFooter ? (
+        props.renderFooter(props.isLoading, onSubmit, props.onCancel)
+      ) : (
+        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onSubmit} onCancel={props.onCancel} />
+      )}
     </div>
   );
 };
