@@ -21,7 +21,7 @@ export let MesonForm: SFC<{
   className?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
-  renderFooter?: (isLoading: boolean, onSubmit: (form: { [k: string]: any }) => void, onCancel: () => void) => ReactNode;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
