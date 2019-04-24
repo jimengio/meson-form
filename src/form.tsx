@@ -137,6 +137,10 @@ export let MesonForm: SFC<{
         return null;
       }
 
+      if (item.type === EMesonFieldType.Fragment) {
+        return <>{renderItems(item.children)}</>;
+      }
+
       let name: string = (item as any).name;
       let error = name != null ? errors[name] : null;
 
