@@ -65,7 +65,7 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
 export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   name: K;
   type: EMesonFieldType.Custom;
-  render: (value: any, onChange: (x: any) => void) => ReactNode;
+  render: (value: any, onChange: (x: any) => void, form: any) => ReactNode;
   onChange?: (x: any) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;

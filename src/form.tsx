@@ -126,7 +126,7 @@ export let MesonForm: SFC<{
         let onChange = (value: any) => {
           updateItem(value, item);
         };
-        return item.render(form[item.name], onChange);
+        return item.render(form[item.name], onChange, form);
     }
     return <div>Unknown type: {(item as any).type}</div>;
   };
