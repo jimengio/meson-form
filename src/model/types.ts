@@ -18,6 +18,8 @@ export enum EMesonFieldType {
   Select = "select",
   Custom = "custom",
   Group = "group",
+  // like React fragment
+  Fragment = "fragment",
 }
 
 export interface IMesonFieldBaseProps<K = string> {
@@ -65,7 +67,7 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
 export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   name: K;
   type: EMesonFieldType.Custom;
-  render: (value: any, onChange: (x: any) => void) => ReactNode;
+  render: (value: any, onChange: (x: any) => void, form: any) => ReactNode;
   onChange?: (x: any) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
@@ -76,5 +78,17 @@ export interface IMesonGroupField extends IMesonFieldBaseProps {
   children: IMesonFieldItem[];
 }
 
+export interface IMesonFieldsFragment {
+  type: EMesonFieldType.Fragment;
+  shouldHide?: (form: any) => boolean;
+  children: IMesonFieldItem[];
+}
+
 export type IMesonFieldItemHasValue<K = string> = IMesonInputField<K> | IMesonNumberField<K> | IMesonSelectField<K> | IMesonCustomField<K>;
-export type IMesonFieldItem<K = string> = IMesonInputField<K> | IMesonNumberField<K> | IMesonSelectField<K> | IMesonCustomField<K> | IMesonGroupField;
+export type IMesonFieldItem<K = string> =
+  | IMesonInputField<K>
+  | IMesonNumberField<K>
+  | IMesonSelectField<K>
+  | IMesonCustomField<K>
+  | IMesonGroupField
+  | IMesonFieldsFragment;

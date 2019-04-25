@@ -1,4 +1,4 @@
-import React, { SFC, ReactNode, CSSProperties } from "react";
+import React, { SFC, ReactNode, CSSProperties, useState } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
@@ -23,9 +23,11 @@ export let MesonForm: SFC<{
   footerLayout?: EMesonFooterLayout;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
+  onFieldChange?: (name: string, v: any) => void;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
+  let [modified, setModified] = useState<boolean>(false);
 
   let checkItem = (item: IMesonFieldItemHasValue) => {
     let result = validateItem(form[item.name], item);
@@ -47,6 +49,9 @@ export let MesonForm: SFC<{
     });
     if (item.onChange != null) {
       item.onChange(x);
+    }
+    if (props.onFieldChange != null) {
+      props.onFieldChange(item.name, x);
     }
   };
 
@@ -126,7 +131,7 @@ export let MesonForm: SFC<{
         let onChange = (value: any) => {
           updateItem(value, item);
         };
-        return item.render(form[item.name], onChange);
+        return item.render(form[item.name], onChange, form);
     }
     return <div>Unknown type: {(item as any).type}</div>;
   };
@@ -135,6 +140,10 @@ export let MesonForm: SFC<{
     return items.map((item, idx) => {
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
+      }
+
+      if (item.type === EMesonFieldType.Fragment) {
+        return <>{renderItems(item.children)}</>;
       }
 
       let name: string = (item as any).name;
@@ -181,6 +190,7 @@ export let MesonForm: SFC<{
           return serverErrors;
         });
       });
+      setModified(false);
     }
   };
 

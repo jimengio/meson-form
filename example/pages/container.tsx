@@ -88,6 +88,19 @@ export default (props) => {
       required: true,
     },
     {
+      type: EMesonFieldType.Fragment,
+      shouldHide: () => true,
+      children: [
+        {
+          type: EMesonFieldType.Input,
+          textarea: true,
+          label: "描述",
+          name: "description",
+          required: true,
+        },
+      ],
+    },
+    {
       type: EMesonFieldType.Group,
       label: "group",
       children: [{ type: EMesonFieldType.Select, label: "物料", name: "materialInside", required: true, options: options }],
