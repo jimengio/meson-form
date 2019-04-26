@@ -8,7 +8,6 @@ import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObjec
 import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
-import is from "is";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
@@ -128,10 +127,7 @@ export let MesonForm: SFC<{
       case EMesonFieldType.Group:
         return renderItems(item.children);
       case EMesonFieldType.Custom:
-        let onChange = (value: any) => {
-          updateItem(value, item);
-        };
-        return item.render(form[item.name], onChange, form);
+      // already handled outside
     }
     return <div>Unknown type: {(item as any).type}</div>;
   };
@@ -149,15 +145,37 @@ export let MesonForm: SFC<{
       let name: string = (item as any).name;
       let error = name != null ? errors[name] : null;
 
+      let labelNode = (
+        <div className={styleLabel}>
+          {item.required ? <RequiredMark /> : null}
+          {item.label}:
+        </div>
+      );
+
+      let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
+
+      if (item.type === EMesonFieldType.Custom) {
+        let onChange = (value: any) => {
+          updateItem(value, item);
+        };
+
+        return (
+          <div key={idx} className={cx(row, styleItemRow)}>
+            {labelNode}
+            <div className={cx(flex, column, styleValueArea)}>
+              {item.render(form[item.name], onChange, form)}
+              {errorNode}
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div key={idx} className={cx(row, styleItemRow)}>
-          <div className={styleLabel}>
-            {item.required ? <RequiredMark /> : null}
-            {item.label}:
-          </div>
-          <div className={cx(column, styleValueArea)}>
+          {labelNode}
+          <div className={cx(styleValueArea)}>
             {renderValueItem(item)}
-            {error != null ? <div className={styleError}>{error}</div> : null}
+            {errorNode}
           </div>
         </div>
       );
@@ -251,16 +269,19 @@ let styleLabel = css`
   margin-right: 8px;
 `;
 
-let styleValueArea = css``;
+let styleValueArea = css`
+  overflow: auto;
+`;
 
 let styleItemRow = css`
   line-height: 32px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 14px;
 `;
 
 let styleControlBase = css`
   min-width: 180px;
+  width: 180px;
 `;
 
 let styleError = css`
@@ -269,9 +290,10 @@ let styleError = css`
 
 let styleItemsContainer = css`
   overflow: auto;
-  padding-top: 24px;
+  padding: 24px 16px 24px;
 `;
 
 let styleTextareaBase = css`
+  width: 240px;
   min-width: 240px;
 `;

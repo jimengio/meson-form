@@ -7,7 +7,7 @@ import { EMesonValidate, IMesonSelectItem, IMesonFieldItem, EMesonFieldType } fr
 import MesonModal from "../../src/component/modal";
 import { lingual } from "../../src/lingual";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
-import { column } from "@jimengio/shared-utils";
+import { column, row } from "@jimengio/shared-utils";
 
 interface IDemo {
   material: string;
@@ -101,6 +101,14 @@ export default (props) => {
       ],
     },
     {
+      type: EMesonFieldType.Custom,
+      name: null,
+      label: "Width test",
+      render: (value) => {
+        return <div className={styleWideColor} />;
+      },
+    },
+    {
       type: EMesonFieldType.Group,
       label: "group",
       children: [{ type: EMesonFieldType.Select, label: "物料", name: "materialInside", required: true, options: options }],
@@ -111,13 +119,17 @@ export default (props) => {
       label: "自定义",
       render: (value, onChange) => {
         return (
-          <Input
-            value={value}
-            onChange={(event) => {
-              let newValue = event.target.value;
-              onChange(newValue);
-            }}
-          />
+          <div className={row}>
+            <div>
+              <Input
+                value={value}
+                onChange={(event) => {
+                  let newValue = event.target.value;
+                  onChange(newValue);
+                }}
+              />
+            </div>
+          </div>
         );
       },
     },
@@ -125,8 +137,6 @@ export default (props) => {
 
   return (
     <div className={styleContainer}>
-      <div className={styleTitle}>Form example</div>
-
       <div className={styleBoxArea}>
         <div>
           <Button
@@ -135,32 +145,7 @@ export default (props) => {
             }}
           >
             Try Modal
-          </Button>
-        </div>
-        <MesonModal
-          title={lingual.labelShouldBeString}
-          visible={visible}
-          onClose={() => {
-            setVisible(false);
-          }}
-          renderContent={() => {
-            return (
-              <div>
-                SOMETHING
-                <span
-                  onClick={() => {
-                    setVisible(false);
-                  }}
-                >
-                  Close
-                </span>
-              </div>
-            );
-          }}
-        />
-      </div>
-      <div className={styleBoxArea}>
-        <div>
+          </Button>{" "}
           <Button
             onClick={() => {
               setFormVisible(true);
@@ -169,19 +154,6 @@ export default (props) => {
             Open Form Modal
           </Button>
         </div>
-        <MesonFormModal
-          title={lingual.labelShouldBeBoolean}
-          visible={formVisible}
-          onClose={() => {
-            setFormVisible(false);
-          }}
-          items={formItems}
-          initialValue={{}}
-          onSubmit={(form) => {
-            console.log("form", form);
-            setFormVisible(false);
-          }}
-        />
       </div>
 
       <div className={cx(column, styleFormArea)}>
@@ -197,16 +169,48 @@ export default (props) => {
           footerLayout={EMesonFooterLayout.Center}
         />
       </div>
+
+      <MesonModal
+        title={lingual.labelShouldBeString}
+        visible={visible}
+        onClose={() => {
+          setVisible(false);
+        }}
+        renderContent={() => {
+          return (
+            <div>
+              SOMETHING
+              <span
+                onClick={() => {
+                  setVisible(false);
+                }}
+              >
+                Close
+              </span>
+            </div>
+          );
+        }}
+      />
+      <MesonFormModal
+        title={lingual.labelShouldBeBoolean}
+        visible={formVisible}
+        onClose={() => {
+          setFormVisible(false);
+        }}
+        items={formItems}
+        initialValue={{}}
+        onSubmit={(form) => {
+          console.log("form", form);
+          setFormVisible(false);
+        }}
+      />
     </div>
   );
 };
 
 const styleContainer = css`
   font-family: "Helvetica";
-`;
-
-const styleTitle = css`
-  margin-bottom: 16px;
+  padding: 16px;
 `;
 
 let styleBoxArea = css`
@@ -217,4 +221,11 @@ let styleFormArea = css`
   width: 480px;
   height: 660px;
   border: 1px solid #ccc;
+`;
+
+let styleWideColor = css`
+  background-color: #eee;
+  height: 40px;
+  width: 600px;
+  max-width: 100%;
 `;
