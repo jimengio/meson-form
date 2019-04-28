@@ -24,9 +24,7 @@ export let MesonForm: SFC<{
   footerLayout?: EMesonFooterLayout;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any) => void;
-  /** listen to changes and do something, such as auto-submitting */
-  onFormChange?: (form: any, modified: boolean, onSubmit: FuncOnSubmit) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: any) => void;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
@@ -55,7 +53,7 @@ export let MesonForm: SFC<{
       item.onChange(x);
     }
     if (props.onFieldChange != null) {
-      props.onFieldChange(item.name, x);
+      props.onFieldChange(item.name, x, form);
     }
   };
 
@@ -216,13 +214,6 @@ export let MesonForm: SFC<{
       setModified(false);
     }
   };
-
-  // detect when form changed
-  useEffect(() => {
-    if (props.onFormChange != null) {
-      props.onFormChange(form, modified, onSubmit);
-    }
-  }, [form]);
 
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>

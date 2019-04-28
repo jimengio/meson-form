@@ -96,8 +96,6 @@ export let MesonForm: SFC<{
   isLoading?: boolean;
   /** 可能用在记录是否有修改的地方. 另外每个 item 上修改值的时候也有各自的 onChange 钩子 */
   onFieldChange?: (name: string, v: any) => void;
-  /** 监听 form 修改. 注意初始状态可能拿到空数据 */
-  onFormChange?: (form: any, modified: boolean, onSubmit: FuncOnSubmit) => void;
 }> = (props) => {
   // Form
 };

@@ -167,9 +167,6 @@ export default (props) => {
             console.log("cancel");
           }}
           footerLayout={EMesonFooterLayout.Center}
-          onFormChange={(form, onSubmit) => {
-            console.log("form", form);
-          }}
         />
       </div>
 
