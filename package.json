@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.1.6-a2",
+  "version": "0.1.6-a3",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -50,17 +50,19 @@
     "immer": "*",
     "react": "*",
     "react-dom": "*",
+    "@jimengio/jimo-icons": "*",
+    "@jimengio/shared-utils": "*",
     "webpack-hud": "^0.1.2"
   },
   "peerDependencies": {
     "antd": "^3.16.3",
     "immer": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "@jimengio/jimo-icons": "*",
+    "@jimengio/shared-utils": "*"
   },
   "dependencies": {
-    "@jimengio/jimo-icons": "*",
-    "@jimengio/shared-utils": "*",
     "dayjs": "*",
     "emotion": "*",
     "font-awesome": "^4.7.0",
