@@ -1,4 +1,4 @@
-import React, { SFC, ReactNode, CSSProperties, useState } from "react";
+import React, { SFC, ReactNode, CSSProperties, useState, useEffect } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
@@ -22,7 +22,7 @@ export let MesonForm: SFC<{
   footerLayout?: EMesonFooterLayout;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: any) => void;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
@@ -46,11 +46,12 @@ export let MesonForm: SFC<{
     updateForm((draft: any) => {
       draft[item.name] = x;
     });
+    setModified(true);
     if (item.onChange != null) {
       item.onChange(x);
     }
     if (props.onFieldChange != null) {
-      props.onFieldChange(item.name, x);
+      props.onFieldChange(item.name, x, form);
     }
   };
 
