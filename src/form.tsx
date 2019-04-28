@@ -12,12 +12,10 @@ import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 
-type FuncOnSubmit = (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
-
 export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: FuncOnSubmit;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onCancel: () => void;
   className?: string;
   style?: CSSProperties;
