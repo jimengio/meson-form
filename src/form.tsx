@@ -1,4 +1,4 @@
-import React, { SFC, ReactNode, CSSProperties, useState } from "react";
+import React, { SFC, ReactNode, CSSProperties, useState, useEffect } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
@@ -12,10 +12,12 @@ import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 
+type FuncOnSubmit = (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+
 export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: FuncOnSubmit;
   onCancel: () => void;
   className?: string;
   style?: CSSProperties;
@@ -23,6 +25,8 @@ export let MesonForm: SFC<{
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any) => void;
+  /** listen to changes and do something, such as auto-submitting */
+  onFormChange?: (form: any, modified: boolean, onSubmit: FuncOnSubmit) => void;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
@@ -46,6 +50,7 @@ export let MesonForm: SFC<{
     updateForm((draft: any) => {
       draft[item.name] = x;
     });
+    setModified(true);
     if (item.onChange != null) {
       item.onChange(x);
     }
@@ -211,6 +216,13 @@ export let MesonForm: SFC<{
       setModified(false);
     }
   };
+
+  // detect when form changed
+  useEffect(() => {
+    if (props.onFormChange != null) {
+      props.onFormChange(form, modified, onSubmit);
+    }
+  }, [form]);
 
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
