@@ -17,7 +17,7 @@ export let MesonForm: SFC<{
   initialValue: any;
   items: IMesonFieldItem[];
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;

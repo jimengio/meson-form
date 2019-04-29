@@ -87,7 +87,7 @@ export let MesonForm: SFC<{
   /** JSON 结构的表单定义, 建议定义变量传过来, 一来定义会比较长, 二来 TS 类型推断在变量加类型的情况才准确 */
   items: IMesonFieldItem[];
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
   /** Footer 默认提供了几种布局, 但是更可能还是需要直接提供一个渲染方案进行自定义 */
