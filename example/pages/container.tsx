@@ -117,7 +117,7 @@ export default (props) => {
       type: EMesonFieldType.Custom,
       name: "size",
       label: "自定义",
-      render: (value, onChange) => {
+      render: (value, onChange, form, onCheck) => {
         return (
           <div className={row}>
             <div>
@@ -126,6 +126,9 @@ export default (props) => {
                 onChange={(event) => {
                   let newValue = event.target.value;
                   onChange(newValue);
+                }}
+                onBlur={() => {
+                  onCheck(value);
                 }}
               />
             </div>
@@ -167,6 +170,7 @@ export default (props) => {
             console.log("cancel");
           }}
           footerLayout={EMesonFooterLayout.Center}
+          submitOnEdit
         />
       </div>
 
