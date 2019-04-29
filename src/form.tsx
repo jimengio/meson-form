@@ -24,7 +24,7 @@ export let MesonForm: SFC<{
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: any) => void;
-  saveOnEdit?: boolean;
+  submitOnEdit?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
@@ -35,7 +35,7 @@ export let MesonForm: SFC<{
     let currentErrors: ISimpleObject = {};
     let hasErrors = false;
     traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-      if (item.shouldHide != null && item.shouldHide(form)) {
+      if (item.shouldHide != null && item.shouldHide(latestForm)) {
         return null;
       }
 
@@ -52,7 +52,7 @@ export let MesonForm: SFC<{
     });
 
     if (!hasErrors) {
-      props.onSubmit(form, (serverErrors) => {
+      props.onSubmit(latestForm, (serverErrors) => {
         updateErrors((draft: ISimpleObject) => {
           return serverErrors;
         });
@@ -62,8 +62,8 @@ export let MesonForm: SFC<{
   };
 
   let checkItem = (item: IMesonFieldItemHasValue) => {
-    if (props.saveOnEdit) {
-      onCheckSubmit();
+    if (props.submitOnEdit) {
+      onCheckSubmit(form);
       return;
     }
 
@@ -74,7 +74,7 @@ export let MesonForm: SFC<{
   };
 
   let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
-    if (props.saveOnEdit) {
+    if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
       });

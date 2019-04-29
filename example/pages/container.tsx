@@ -167,6 +167,7 @@ export default (props) => {
             console.log("cancel");
           }}
           footerLayout={EMesonFooterLayout.Center}
+          submitOnEdit
         />
       </div>
 
