@@ -70,7 +70,7 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   /** parent container is using column,
    * for antd inputs with default with 100%, you need to take care of that by yourself
    */
-  render: (value: any, onChange: (x: any) => void, form: any) => ReactNode;
+  render: (value: any, onChange: (x: any) => void, form: any, onCheck: (x: any) => void) => ReactNode;
   onChange?: (x: any) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;

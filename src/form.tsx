@@ -204,6 +204,9 @@ export let MesonForm: SFC<{
       if (item.type === EMesonFieldType.Custom) {
         let onChange = (value: any) => {
           updateItem(value, item);
+        };
+
+        let onCheck = (value: any) => {
           checkItemWithValue(value, item);
         };
 
@@ -211,7 +214,7 @@ export let MesonForm: SFC<{
           <div key={idx} className={cx(row, styleItemRow)}>
             {labelNode}
             <div className={cx(flex, column, styleValueArea)}>
-              {item.render(form[item.name], onChange, form)}
+              {item.render(form[item.name], onChange, form, onCheck)}
               {errorNode}
             </div>
           </div>
