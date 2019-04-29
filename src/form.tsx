@@ -11,6 +11,7 @@ import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
+import produce from "immer";
 
 export let MesonForm: SFC<{
   initialValue: any;
@@ -23,12 +24,49 @@ export let MesonForm: SFC<{
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: any) => void;
+  saveOnEdit?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
   let [modified, setModified] = useState<boolean>(false);
 
+  let onCheckSubmit = (specifiedForm?: any) => {
+    let latestForm = specifiedForm || form;
+    let currentErrors: ISimpleObject = {};
+    let hasErrors = false;
+    traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
+      if (item.shouldHide != null && item.shouldHide(form)) {
+        return null;
+      }
+
+      let result = validateItem(latestForm[item.name], item);
+
+      if (result != null) {
+        currentErrors[item.name] = result;
+        hasErrors = true;
+      }
+    });
+
+    updateErrors((draft: ISimpleObject) => {
+      return currentErrors;
+    });
+
+    if (!hasErrors) {
+      props.onSubmit(form, (serverErrors) => {
+        updateErrors((draft: ISimpleObject) => {
+          return serverErrors;
+        });
+      });
+      setModified(false);
+    }
+  };
+
   let checkItem = (item: IMesonFieldItemHasValue) => {
+    if (props.saveOnEdit) {
+      onCheckSubmit();
+      return;
+    }
+
     let result = validateItem(form[item.name], item);
     updateErrors((draft) => {
       draft[item.name] = result;
@@ -36,6 +74,14 @@ export let MesonForm: SFC<{
   };
 
   let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
+    if (props.saveOnEdit) {
+      let newForm = produce(form, (draft) => {
+        draft[item.name] = x;
+      });
+      onCheckSubmit(newForm);
+      return;
+    }
+
     let result = validateItem(x, item);
     updateErrors((draft) => {
       draft[item.name] = result;
@@ -158,6 +204,7 @@ export let MesonForm: SFC<{
       if (item.type === EMesonFieldType.Custom) {
         let onChange = (value: any) => {
           updateItem(value, item);
+          checkItemWithValue(value, item);
         };
 
         return (
@@ -183,43 +230,13 @@ export let MesonForm: SFC<{
     });
   };
 
-  let onSubmit = () => {
-    let currentErrors: ISimpleObject = {};
-    let hasErrors = false;
-    traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-      if (item.shouldHide != null && item.shouldHide(form)) {
-        return null;
-      }
-
-      let result = validateItem(form[item.name], item);
-
-      if (result != null) {
-        currentErrors[item.name] = result;
-        hasErrors = true;
-      }
-    });
-
-    updateErrors((draft: ISimpleObject) => {
-      return currentErrors;
-    });
-
-    if (!hasErrors) {
-      props.onSubmit(form, (serverErrors) => {
-        updateErrors((draft: ISimpleObject) => {
-          return serverErrors;
-        });
-      });
-      setModified(false);
-    }
-  };
-
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
       <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
       {props.renderFooter ? (
-        props.renderFooter(props.isLoading, onSubmit, props.onCancel)
+        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel)
       ) : (
-        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onSubmit} onCancel={props.onCancel} />
+        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
       )}
     </div>
   );
