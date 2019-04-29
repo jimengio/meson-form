@@ -46,6 +46,8 @@ export interface IMesonNumberField<K = string> extends IMesonFieldBaseProps {
   onChange?: (text: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
+  min?: number;
+  max?: number;
 }
 
 export interface IMesonSelectItem {
@@ -62,6 +64,8 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
   onChange?: (x: string) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
+  translateNonStringvalue?: boolean;
+  allowClear?: boolean;
 }
 
 export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
