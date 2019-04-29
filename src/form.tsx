@@ -146,25 +146,40 @@ export let MesonForm: SFC<{
             onBlur={() => {
               checkItem(item);
             }}
+            min={item.min}
+            max={item.max}
           />
         );
       case EMesonFieldType.Select:
+        let currentValue = form[item.name];
+        if (item.translateNonStringvalue && currentValue != null) {
+          currentValue = `${currentValue}`;
+        }
         return (
           <Select
-            value={form[item.name]}
+            value={currentValue}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(newValue) => {
+              if (item.translateNonStringvalue && newValue != null) {
+                let target = item.options.find((x) => `${x.value}` === newValue);
+                newValue = target.value;
+              }
               updateItem(newValue, item);
               checkItemWithValue(newValue, item);
             }}
+            allowClear={item.allowClear}
             onBlur={() => {
               checkItem(item);
             }}
           >
             {item.options.map((option) => {
+              let value = option.value;
+              if (item.translateNonStringvalue) {
+                value = `${value}`;
+              }
               return (
-                <Select.Option value={option.value} key={option.key || option.value}>
+                <Select.Option value={value} key={option.key || value}>
                   {option.display}
                 </Select.Option>
               );

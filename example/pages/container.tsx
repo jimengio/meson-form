@@ -8,6 +8,7 @@ import MesonModal from "../../src/component/modal";
 import { lingual } from "../../src/lingual";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
 import { column, row } from "@jimengio/shared-utils";
+import SelectPage from "./select-page";
 
 interface IDemo {
   material: string;
@@ -173,6 +174,8 @@ export default (props) => {
           submitOnEdit
         />
       </div>
+
+      <SelectPage />
 
       <MesonModal
         title={lingual.labelShouldBeString}
