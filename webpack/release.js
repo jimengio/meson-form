@@ -31,6 +31,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    modules: [path.join(__dirname, "../example"), "node_modules"],
     alias: {
       "meson-form$": path.resolve(__dirname, "../src/form.tsx"),
     },

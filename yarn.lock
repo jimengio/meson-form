@@ -117,12 +117,12 @@
   resolved "https://registry.yarnpkg.com/@jimengio/router-code-generator/-/router-code-generator-0.1.2.tgz#f830451c730d5e0bdd15af92c706df91597f7af5"
   integrity sha512-Us5nkGucj7JVHS3iJEEBbrn54Wl5/JSJyDHmlL5HM2H03VrkoXxPzHeq0plmnFZE5fhH71xtta9c0Q43EJkZhA==
 
-"@jimengio/ruled-router@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@jimengio/ruled-router/-/ruled-router-0.2.9.tgz#beb8717289fe17e31f9e732e14f4fc2d2c8d3d59"
-  integrity sha512-vcfLI0j9ye9VtPGrJlGStUv6Mmc3gO0+bCrZ/Sm6a0tm9ellJ2XM2IODnFUCArw+qE5koCn7Y9Z+h9xPp2YulQ==
+"@jimengio/ruled-router@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@jimengio/ruled-router/-/ruled-router-0.2.10.tgz#b08a7922b0fa8988b5691d9861ce6834e94e6179"
+  integrity sha512-rrJqeoC3LiQp2rZoDFweDEnwMoY8Kubf7TFV6L3tzpPIKYPYmNVxUBpoxvdzCRHrgbJO4JOyoaM9YPyDB57ZTw==
   dependencies:
-    query-string "^6.4.2"
+    query-string "^6.5.0"
 
 "@jimengio/shared-utils@^0.1.3":
   version "0.1.3"
@@ -4167,7 +4167,7 @@ qs@~2.3.3:
   resolved "https://registry.yarnpkg.com/qs/-/qs-2.3.3.tgz#e9e85adbe75da0bbe4c8e0476a086290f863b404"
   integrity sha1-6eha2+ddoLvkyOBHaghikPhjtAQ=
 
-query-string@^6.4.2:
+query-string@^6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.5.0.tgz#2e1a70125af01f6f04573692d02c09302a1d8bfc"
   integrity sha512-TYC4hDjZSvVxLMEucDMySkuAS9UIzSbAiYGyA9GWCjLKB8fQpviFbjd20fD7uejCDxZS+ftSdBKE6DS+xucJFg==

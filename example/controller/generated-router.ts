@@ -25,6 +25,12 @@ export let genRouter = {
     path: () => `/auto-save`,
     go: () => switchPath(`/auto-save`),
   },
+  modal: {
+    name: "modal",
+    raw: "modal",
+    path: () => `/modal`,
+    go: () => switchPath(`/modal`),
+  },
   draft: {
     name: "draft",
     raw: "draft",
@@ -36,6 +42,24 @@ export let genRouter = {
     raw: "drawer",
     path: () => `/drawer`,
     go: () => switchPath(`/drawer`),
+  },
+  select: {
+    name: "select",
+    raw: "select",
+    path: () => `/select`,
+    go: () => switchPath(`/select`),
+  },
+  validation: {
+    name: "validation",
+    raw: "validation",
+    path: () => `/validation`,
+    go: () => switchPath(`/validation`),
+  },
+  custom: {
+    name: "custom",
+    raw: "custom",
+    path: () => `/custom`,
+    go: () => switchPath(`/custom`),
   },
   _: {
     name: "home",

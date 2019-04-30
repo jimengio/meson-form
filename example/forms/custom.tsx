@@ -4,16 +4,35 @@ import { MesonForm } from "../../lib/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
+import { Input } from "antd";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
-    name: "name",
-    label: "名字",
+    type: EMesonFieldType.Custom,
+    name: "x",
+    label: "自定义",
+    render: (value, onChange, form, onCheck) => {
+      return (
+        <div className={row}>
+          <div>
+            Custome input
+            <Input
+              onChange={(event) => {
+                onChange(event.target.value);
+              }}
+              placeholder={"Custom field"}
+              onBlur={() => {
+                onCheck(value);
+              }}
+            />
+          </div>
+        </div>
+      );
+    },
   },
 ];
 
-let FormBasic: SFC<{}> = (props) => {
+let CustomPage: SFC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (
@@ -30,6 +49,6 @@ let FormBasic: SFC<{}> = (props) => {
   );
 };
 
-export default FormBasic;
+export default CustomPage;
 
 let styleContainer = css``;

@@ -1,32 +1,24 @@
 import React, { SFC, useState } from "react";
 import { css, cx } from "emotion";
-import { row } from "@jimengio/shared-utils";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
+import { row } from "@jimengio/shared-utils";
 
-let formItems: IMesonFieldItem[] = [
-  {
-    type: EMesonFieldType.Input,
-    name: "name",
-    label: "名字",
-    required: true,
-  },
-];
+let formItems: IMesonFieldItem[] = [{ type: EMesonFieldType.Input, required: true, label: "名称", name: "name" }];
 
-let AutoSavePage: SFC<{}> = (props) => {
+let ValidationPage: SFC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (
     <div className={cx(row, styleContainer)}>
       <MesonForm
+        initialValue={{}}
         items={formItems}
-        initialValue={form}
         onSubmit={(form) => {
           setForm(form);
         }}
         submitOnEdit
-        renderFooter={() => null}
       />
 
       <DataPreview data={form} />
@@ -34,6 +26,6 @@ let AutoSavePage: SFC<{}> = (props) => {
   );
 };
 
-export default AutoSavePage;
+export default ValidationPage;
 
 let styleContainer = css``;
