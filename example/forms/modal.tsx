@@ -6,6 +6,7 @@ import MesonModal from "../../src/component/modal";
 import { IMesonFieldItem } from "../../src/model/types";
 import { Button } from "antd";
 import DataPreview from "kits/data-preview";
+import SourceLink from "kits/source-link";
 
 let ModalPage: SFC<{}> = (props) => {
   let [visible, setVisible] = useState(false);
@@ -70,8 +71,10 @@ let ModalPage: SFC<{}> = (props) => {
           setFormVisible(false);
         }}
       />
-
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"modal.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };

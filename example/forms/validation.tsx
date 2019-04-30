@@ -4,6 +4,7 @@ import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { row } from "@jimengio/shared-utils";
+import SourceLink from "kits/source-link";
 
 let formItems: IMesonFieldItem[] = [{ type: EMesonFieldType.Input, required: true, label: "名称", name: "name" }];
 
@@ -21,7 +22,10 @@ let ValidationPage: SFC<{}> = (props) => {
         submitOnEdit
       />
 
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"validation.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };

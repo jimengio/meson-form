@@ -5,6 +5,7 @@ import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { Input } from "antd";
+import SourceLink from "kits/source-link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -44,7 +45,10 @@ let CustomPage: SFC<{}> = (props) => {
           setForm(form);
         }}
       />
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"custom.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };

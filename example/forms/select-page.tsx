@@ -4,6 +4,7 @@ import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem, EMesonFieldType }
 import { MesonForm } from "../../src/form";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
+import SourceLink from "kits/source-link";
 
 let booleanOptions: IMesonSelectItem[] = [{ value: true, display: "True" }, { value: false, display: "False" }];
 
@@ -30,7 +31,10 @@ let SelectPage: SFC<{}> = (props) => {
           setForm(form);
         }}
       />
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"select-page.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };
