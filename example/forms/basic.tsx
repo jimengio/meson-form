@@ -4,6 +4,7 @@ import { MesonForm } from "../../lib/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
+import SourceLink from "kits/source-link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -25,7 +26,10 @@ let FormBasic: SFC<{}> = (props) => {
           setForm(form);
         }}
       />
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"basic.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };

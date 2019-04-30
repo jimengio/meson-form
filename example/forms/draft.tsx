@@ -6,6 +6,7 @@ import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } fr
 import { Input } from "antd";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
+import SourceLink from "kits/source-link";
 
 interface IDemo {
   material: string;
@@ -151,7 +152,10 @@ let DraftForm: SFC<{}> = (props) => {
           submitOnEdit={false}
         />
       </div>
-      <DataPreview data={form} />
+      <div>
+        <SourceLink fileName={"draft.tsx"} />
+        <DataPreview data={form} />
+      </div>
     </div>
   );
 };
