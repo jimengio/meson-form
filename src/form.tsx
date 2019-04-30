@@ -30,8 +30,8 @@ export let MesonForm: SFC<{
   let [errors, updateErrors] = useImmer({});
   let [modified, setModified] = useState<boolean>(false);
 
-  let onCheckSubmit = (specifiedForm?: any) => {
-    let latestForm = specifiedForm || form;
+  let onCheckSubmitWithValue = (specifiedForm?: any) => {
+    let latestForm = specifiedForm;
     let currentErrors: ISimpleObject = {};
     let hasErrors = false;
     traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
@@ -61,9 +61,13 @@ export let MesonForm: SFC<{
     }
   };
 
+  let onCheckSubmit = () => {
+    onCheckSubmitWithValue(form);
+  };
+
   let checkItem = (item: IMesonFieldItemHasValue) => {
     if (props.submitOnEdit) {
-      onCheckSubmit(form);
+      onCheckSubmitWithValue(form);
       return;
     }
 
@@ -78,7 +82,7 @@ export let MesonForm: SFC<{
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
       });
-      onCheckSubmit(newForm);
+      onCheckSubmitWithValue(newForm);
       return;
     }
 
