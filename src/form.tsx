@@ -23,14 +23,14 @@ export let MesonForm: SFC<{
   footerLayout?: EMesonFooterLayout;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any, prevForm?: any) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }) => void;
   submitOnEdit?: boolean;
 }> = (props) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
   let [modified, setModified] = useState<boolean>(false);
 
-  let onCheckSubmitWithValue = (specifiedForm?: any) => {
+  let onCheckSubmitWithValue = (specifiedForm?: { [k: string]: any }) => {
     let latestForm = specifiedForm;
     let currentErrors: ISimpleObject = {};
     let hasErrors = false;
@@ -93,7 +93,7 @@ export let MesonForm: SFC<{
   };
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
-    updateForm((draft: any) => {
+    updateForm((draft: { [k: string]: any }) => {
       draft[item.name] = x;
     });
     setModified(true);
@@ -267,9 +267,9 @@ export let MesonForm: SFC<{
 export let MesonFormModal: SFC<{
   title: string;
   visible: boolean;
-  initialValue: any;
+  initialValue: { [k: string]: any };
   items: IMesonFieldItem[];
-  onSubmit: (form: { string: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
 }> = (props) => {
@@ -285,7 +285,7 @@ export let MesonFormModal: SFC<{
             initialValue={props.initialValue}
             items={props.items}
             isLoading={props.isLoading}
-            onSubmit={(form: any, onServerErrors: (x: any) => void) => {
+            onSubmit={(form: { [k: string]: any }, onServerErrors: (x: { [k: string]: any }) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
