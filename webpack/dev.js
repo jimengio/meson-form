@@ -1,7 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
-let HtmlIncludeAssetsPlugin = require("html-webpack-include-assets-plugin");
+let HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
 let ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 let { matchCssRule, matchFontsRule, matchTsRule } = require("./shared");
@@ -59,8 +59,8 @@ module.exports = {
       filename: "index.html",
       template: "template.ejs",
     }),
-    new HtmlIncludeAssetsPlugin({
-      assets: [`dll/${dllManifest.name}.js`],
+    new HtmlWebpackTagsPlugin({
+      tags: [`dll/${dllManifest.name}.js`],
       append: false,
     }),
   ],
