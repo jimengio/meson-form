@@ -127,6 +127,7 @@ export let MesonForm: SFC<{
         return (
           <Input
             value={form[item.name]}
+            type={item.inputType || "text"}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(event) => {

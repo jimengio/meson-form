@@ -102,6 +102,18 @@ export let MesonForm: SFC<{
 };
 ```
 
+### Low level Hooks API
+
+`useMesonCore` is a low level API for maintaining form states. The UI part need extra code.
+
+```ts
+let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm } = useMesonCore({
+  initialValue: submittedForm,
+  items: formItems,
+  onSubmit: onSubmit,
+});
+```
+
 ### Workflow
 
 https://github.com/jimengio/ts-workflow
