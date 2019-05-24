@@ -61,6 +61,12 @@ export let genRouter = {
     path: () => `/custom`,
     go: () => switchPath(`/custom`),
   },
+  wrapMesonCore: {
+    name: "wrap-meson-core",
+    raw: "wrap-meson-core",
+    path: () => `/wrap-meson-core`,
+    go: () => switchPath(`/wrap-meson-core`),
+  },
   _: {
     name: "home",
     raw: "",

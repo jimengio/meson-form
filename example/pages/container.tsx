@@ -11,6 +11,7 @@ import SelectPage from "forms/select-page";
 import ValidationPage from "forms/validation";
 import CustomPage from "forms/custom";
 import AutoSavePage from "forms/auto-save";
+import WrapMesonCore from "forms/wrap-meson-core";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -45,6 +46,10 @@ let pages: { title: string; path: string }[] = [
     title: "Auto save",
     path: genRouter.autoSave.name,
   },
+  {
+    title: "Use meson core",
+    path: genRouter.wrapMesonCore.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -64,6 +69,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <CustomPage />;
       case genRouter.autoSave.name:
         return <AutoSavePage />;
+      case genRouter.wrapMesonCore.name:
+        return <WrapMesonCore />;
       default:
         return <FormBasic />;
     }

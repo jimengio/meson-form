@@ -32,6 +32,8 @@ export interface IMesonFieldBaseProps<K = string> {
 export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
   name: K;
   type: EMesonFieldType.Input;
+  /** real type property on <input/> */
+  inputType?: string;
   placeholder?: string;
   onChange?: (text: string) => void;
   textarea?: boolean;
