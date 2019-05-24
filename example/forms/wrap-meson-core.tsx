@@ -47,7 +47,7 @@ let WrapMesonCore: FC<{}> = (props) => {
     <div className={styleContainer}>
       <div>
         This page demonstrates a form using hooks and renders by user.{" "}
-        <a href="https://github.com/jimengio/meson-form/tree/master/example/forms/wrap-form-core.tsx">Source code</a>
+        <a href="https://github.com/jimengio/meson-form/tree/master/example/forms/wrap-meson-core.tsx">Source code</a>
       </div>
       <div>
         Data:
