@@ -38,6 +38,16 @@ module.exports = {
       },
     ],
   },
+  stats: {
+    all: false,
+    colors: true,
+    errors: true,
+    errorDetails: true,
+    performance: true,
+    reasons: true,
+    timings: true,
+    warnings: true,
+  },
   externals: {
     prettier: "commonjs prettier",
     "@jimengio/router-code-generator": "commonjs @jimengio/router-code-generator",
