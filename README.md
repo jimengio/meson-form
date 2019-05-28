@@ -76,6 +76,39 @@ let [formVisible, setFormVisible] = useState(false);
 - `Group`, 嵌套的分组,
 - `Fragment`, 类似 Group 但是这个分组不进行嵌套, 用在属性批量控制显示隐藏的情况.
 
+对于自定义渲染的位置, 配置 `Custom` 类型, 并且需要传入一个 `render` 方法用于渲染值以及操作区域,
+
+```ts
+{
+  type: EMesonFieldType.Custom,
+  name: "size",
+  label: "自定义",
+  render: (value, onChange, form, onCheck) => {
+    return (
+      <div className={row}>
+        <div>
+          <Input
+            value={value}
+            onChange={(event) => {
+              let newValue = event.target.value;
+              onChange(newValue);
+            }}
+            onBlur={() => {
+              onCheck(value);
+            }}
+          />
+        </div>
+      </div>
+    );
+  },
+},
+```
+
+其中,
+
+- `onChange: (x: any) => void` 用来更新 `form` 当中当前字段的值.
+- `onCheck: (x: any) => void` 用来校验当前该字段提供的值, 需要传入最新的值, 或者 `value` 认为是最新的值传入.
+
 关于表单的具体参数:
 
 ```ts

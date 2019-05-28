@@ -75,6 +75,10 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   type: EMesonFieldType.Custom;
   /** parent container is using column,
    * for antd inputs with default with 100%, you need to take care of that by yourself
+   * @param current value in this field
+   * @param onChange update value in this field
+   * @param form the form
+   * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
   render: (value: any, onChange: (x: any) => void, form: any, onCheck: (x: any) => void) => ReactNode;
   onChange?: (x: any) => void;
