@@ -58,6 +58,7 @@ let [formVisible, setFormVisible] = useState(false);
   }}
   items={formItems}
   initialValue={{}}
+  hideClose={false}
   onSubmit={(form) => {
     console.log("form", form);
     setFormVisible(false);
