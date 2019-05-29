@@ -273,13 +273,14 @@ export let MesonFormModal: SFC<{
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
+  hideClose?: boolean;
 }> = (props) => {
   return (
     <MesonModal
       title={props.title}
       visible={props.visible}
       onClose={props.onClose}
-      hideClose
+      hideClose={props.hideClose}
       renderContent={() => {
         return (
           <MesonForm
