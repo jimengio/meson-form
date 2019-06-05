@@ -67,6 +67,12 @@ export let genRouter = {
     path: () => `/wrap-meson-core`,
     go: () => switchPath(`/wrap-meson-core`),
   },
+  forwardForm: {
+    name: "forward-form",
+    raw: "forward-form",
+    path: () => `/forward-form`,
+    go: () => switchPath(`/forward-form`),
+  },
   _: {
     name: "home",
     raw: "",

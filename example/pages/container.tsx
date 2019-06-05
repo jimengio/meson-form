@@ -12,6 +12,7 @@ import ValidationPage from "forms/validation";
 import CustomPage from "forms/custom";
 import AutoSavePage from "forms/auto-save";
 import WrapMesonCore from "forms/wrap-meson-core";
+import ForwardForm from "forms/forward-form";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -50,6 +51,10 @@ let pages: { title: string; path: string }[] = [
     title: "Use meson core",
     path: genRouter.wrapMesonCore.name,
   },
+  {
+    title: "forward form",
+    path: genRouter.forwardForm.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -71,6 +76,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <AutoSavePage />;
       case genRouter.wrapMesonCore.name:
         return <WrapMesonCore />;
+      case genRouter.forwardForm.name:
+        return <ForwardForm />;
       default:
         return <FormBasic />;
     }
