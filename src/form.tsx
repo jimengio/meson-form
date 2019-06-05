@@ -11,24 +11,63 @@ import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
-import produce from "immer";
+import produce, { Draft } from "immer";
 
-export let MesonForm: SFC<{
+/**
+ * 清空draft对象的value值
+ * @param draft immer的draft对象
+ */
+function clearDraftValue<T>(draft: Draft<T>) {
+  Object.keys(draft).forEach((key) => {
+    if (key in draft) {
+      draft[key] = undefined;
+    }
+  });
+}
+
+export interface MesonFormHandler {
+  onSubmit(): void;
+  onReset(): void;
+}
+
+export interface MesonFormProps {
   initialValue: any;
   items: IMesonFieldItem[];
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onReset?: () => void;
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
+  hideFooter?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }) => void;
   submitOnEdit?: boolean;
-}> = (props) => {
+}
+
+export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonFormProps> = (props, ref) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
   let [modified, setModified] = useState<boolean>(false);
+
+  /**
+   * 父组件可以通过ref调用onSubmit、onReset
+   */
+  React.useImperativeHandle(ref, () => ({
+    onSubmit: () => {
+      onCheckSubmit();
+    },
+    onReset: () => {
+      updateForm(clearDraftValue);
+      updateErrors(clearDraftValue);
+      setModified(false);
+
+      if (props.onReset != null) {
+        props.onReset();
+      }
+    },
+  }));
 
   let onCheckSubmitWithValue = (specifiedForm?: { [k: string]: any }) => {
     let latestForm = specifiedForm;
@@ -256,14 +295,20 @@ export let MesonForm: SFC<{
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
       <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
-      {props.renderFooter ? (
-        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel)
-      ) : (
-        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
+      {!props.hideFooter && (
+        <>
+          {props.renderFooter ? (
+            props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel)
+          ) : (
+            <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
+          )}
+        </>
       )}
     </div>
   );
 };
+
+export let MesonForm = React.forwardRef(ForwardForm);
 
 export let MesonFormModal: SFC<{
   title: string;

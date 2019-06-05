@@ -12,5 +12,6 @@ export const routerRules: IRouteRule[] = [
   { path: "validation" },
   { path: "custom" },
   { path: "wrap-meson-core" },
+  { path: "forward-form" },
   { path: "", name: "home" },
 ];
