@@ -35,6 +35,8 @@ export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
   /** real type property on <input/> */
   inputType?: string;
   placeholder?: string;
+  /** false by default, "" and " " will emit value `undefined` */
+  useEmptyBlank?: boolean;
   onChange?: (text: string) => void;
   textarea?: boolean;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];

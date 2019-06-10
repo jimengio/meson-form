@@ -171,6 +171,14 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             className={styleControlBase}
             onChange={(event) => {
               let newValue = event.target.value;
+
+              // reset empty string to undefined by default
+              if (newValue.trim() === "") {
+                if (!item.useEmptyBlank) {
+                  newValue = undefined;
+                }
+              }
+
               updateItem(newValue, item);
             }}
             onBlur={() => {
