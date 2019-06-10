@@ -160,6 +160,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
               onBlur={() => {
                 checkItem(item);
               }}
+              {...item.inputProps}
             />
           );
         }
@@ -174,7 +175,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
 
               // reset empty string to undefined by default, FR-96
               if (newValue.trim() === "") {
-                if (!item.useEmptyBlank) {
+                if (!item.useBlank) {
                   newValue = undefined;
                 }
               }
@@ -184,6 +185,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             onBlur={() => {
               checkItem(item);
             }}
+            {...item.inputProps}
           />
         );
       case EMesonFieldType.Number:
