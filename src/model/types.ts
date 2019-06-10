@@ -12,6 +12,11 @@ export enum EMesonValidate {
 
 export type FuncMesonValidator = (x: any, item?: IMesonFieldItemHasValue) => string;
 
+/** expose a function to modify form values directly, FR-97
+ * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.
+ */
+export type FuncMesonModifyForm<T = any> = (modifter: (form: T) => void) => void;
+
 export enum EMesonFieldType {
   Input = "input",
   Number = "number",
@@ -37,7 +42,7 @@ export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useEmptyBlank?: boolean;
-  onChange?: (text: string) => void;
+  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
   textarea?: boolean;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
@@ -47,7 +52,7 @@ export interface IMesonNumberField<K = string> extends IMesonFieldBaseProps {
   name: K;
   type: EMesonFieldType.Number;
   placeholder?: string;
-  onChange?: (text: string) => void;
+  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
   min?: number;
@@ -65,7 +70,7 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
   type: EMesonFieldType.Select;
   placeholder?: string;
   options: IMesonSelectItem[];
-  onChange?: (x: string) => void;
+  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
   translateNonStringvalue?: boolean;
@@ -83,7 +88,7 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
    * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
   render: (value: any, onChange: (x: any) => void, form: any, onCheck: (x: any) => void) => ReactNode;
-  onChange?: (x: any) => void;
+  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
 }

@@ -42,7 +42,7 @@ export interface MesonFormProps {
   hideFooter?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: (x: any) => void) => void;
   submitOnEdit?: boolean;
 }
 
@@ -137,10 +137,10 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     });
     setModified(true);
     if (item.onChange != null) {
-      item.onChange(x);
+      item.onChange(x, updateForm);
     }
     if (props.onFieldChange != null) {
-      props.onFieldChange(item.name, x, form);
+      props.onFieldChange(item.name, x, form, updateForm);
     }
   };
 
@@ -172,7 +172,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             onChange={(event) => {
               let newValue = event.target.value;
 
-              // reset empty string to undefined by default
+              // reset empty string to undefined by default, FR-96
               if (newValue.trim() === "") {
                 if (!item.useEmptyBlank) {
                   newValue = undefined;
