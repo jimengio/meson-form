@@ -73,6 +73,12 @@ export let genRouter = {
     path: () => `/forward-form`,
     go: () => switchPath(`/forward-form`),
   },
+  modifyOnChange: {
+    name: "modify-on-change",
+    raw: "modify-on-change",
+    path: () => `/modify-on-change`,
+    go: () => switchPath(`/modify-on-change`),
+  },
   _: {
     name: "home",
     raw: "",
