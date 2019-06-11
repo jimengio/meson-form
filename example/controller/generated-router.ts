@@ -79,6 +79,12 @@ export let genRouter = {
     path: () => `/modify-on-change`,
     go: () => switchPath(`/modify-on-change`),
   },
+  switch: {
+    name: "switch",
+    raw: "switch",
+    path: () => `/switch`,
+    go: () => switchPath(`/switch`),
+  },
   _: {
     name: "home",
     raw: "",

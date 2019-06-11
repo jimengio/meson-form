@@ -1,7 +1,7 @@
 import React, { SFC, ReactNode, CSSProperties, useState, useEffect } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { Input, InputNumber, Select, Button } from "antd";
+import { Input, InputNumber, Select, Button, Switch } from "antd";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";
@@ -203,6 +203,15 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             }}
             min={item.min}
             max={item.max}
+          />
+        );
+      case EMesonFieldType.Switch:
+        return (
+          <Switch
+            checked={form[item.name]}
+            onChange={(value) => {
+              updateItem(value, item);
+            }}
           />
         );
       case EMesonFieldType.Select:

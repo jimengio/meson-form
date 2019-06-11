@@ -14,6 +14,7 @@ import AutoSavePage from "forms/auto-save";
 import WrapMesonCore from "forms/wrap-meson-core";
 import ForwardForm from "forms/forward-form";
 import ModifyOnChange from "forms/modify-on-change";
+import SwitchPage from "forms/switch";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -60,6 +61,10 @@ let pages: { title: string; path: string }[] = [
     title: "modify on change",
     path: genRouter.modifyOnChange.name,
   },
+  {
+    title: "Switch",
+    path: genRouter.switch.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -85,6 +90,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <ForwardForm />;
       case genRouter.modifyOnChange.name:
         return <ModifyOnChange />;
+      case genRouter.switch.name:
+        return <SwitchPage />;
       default:
         return <FormBasic />;
     }
