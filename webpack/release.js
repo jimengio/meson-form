@@ -34,6 +34,7 @@ module.exports = {
     modules: [path.join(__dirname, "../example"), "node_modules"],
     alias: {
       "meson-form$": path.resolve(__dirname, "../src/form.tsx"),
+      immutable$: path.join(__dirname, "../node_modules/immutable/dist/immutable.min.js"),
     },
   },
   stats: {
