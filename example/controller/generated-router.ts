@@ -85,6 +85,12 @@ export let genRouter = {
     path: () => `/switch`,
     go: () => switchPath(`/switch`),
   },
+  inlineForm: {
+    name: "inline-form",
+    raw: "inline-form",
+    path: () => `/inline-form`,
+    go: () => switchPath(`/inline-form`),
+  },
   _: {
     name: "home",
     raw: "",

@@ -15,6 +15,7 @@ import WrapMesonCore from "forms/wrap-meson-core";
 import ForwardForm from "forms/forward-form";
 import ModifyOnChange from "forms/modify-on-change";
 import SwitchPage from "forms/switch";
+import InlineFormPage from "forms/inline-form";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -65,6 +66,10 @@ let pages: { title: string; path: string }[] = [
     title: "Switch",
     path: genRouter.switch.name,
   },
+  {
+    title: "Inline form",
+    path: genRouter.inlineForm.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -92,6 +97,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <ModifyOnChange />;
       case genRouter.switch.name:
         return <SwitchPage />;
+      case genRouter.inlineForm.name:
+        return <InlineFormPage />;
       default:
         return <FormBasic />;
     }
