@@ -70,7 +70,7 @@ let [formVisible, setFormVisible] = useState(false);
 
 `IMesonFieldItem` 的不同类型, 对应的表单上的不同元素或者结构
 
-- `Input`, 文本框类型, 设置 `textarea: true` 之后样式显示为多行输入, 逻辑保持一致.
+- `Input`, 文本框类型, 设置 `textarea: true` 之后样式显示为多行输入, 逻辑保持一致. 默认属性用 `inputProps` 传入.
 - `Number`, 数字类型,
 - `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
 - `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
@@ -129,7 +129,7 @@ export let MesonForm: SFC<{
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   /** 可能用在记录是否有修改的地方. 另外每个 item 上修改值的时候也有各自的 onChange 钩子 */
-  onFieldChange?: (name: string, v: any) => void;
+  onFieldChange?: (name: string, v: any, form: any, modifyForm: FuncMesonModifyForm<any>) => void;
   submitOnEdit?: boolean;
 }> = (props) => {
   // Form

@@ -4,7 +4,7 @@ import { css, cx } from "emotion";
 import { Input, InputNumber, Select, Button } from "antd";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject } from "./model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";
 import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
@@ -42,7 +42,7 @@ export interface MesonFormProps {
   hideFooter?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: (x: any) => void) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }
 
@@ -157,10 +157,11 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
                 let newValue = event.target.value;
                 updateItem(newValue, item);
               }}
-              onBlur={() => {
+              onBlur={(event: any) => {
                 checkItem(item);
               }}
-              {...item.inputProps}
+              // should use TextareaProps, but for convenience
+              {...item.inputProps as any}
             />
           );
         }

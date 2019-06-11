@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { InputProps } from "antd/lib/input";
 
 export interface ISimpleObject {
   [k: string]: string;
@@ -39,12 +40,12 @@ export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
   type: EMesonFieldType.Input;
   /** real type property on <input/> */
   inputType?: string;
-  /** other props for input and textarea */
-  inputProps?: ISimpleObject;
+  /** other props for input and textarea, actially need TextareaProps */
+  inputProps?: InputProps;
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
   textarea?: boolean;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
@@ -54,7 +55,7 @@ export interface IMesonNumberField<K = string> extends IMesonFieldBaseProps {
   name: K;
   type: EMesonFieldType.Number;
   placeholder?: string;
-  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
   min?: number;
@@ -72,7 +73,7 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
   type: EMesonFieldType.Select;
   placeholder?: string;
   options: IMesonSelectItem[];
-  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
   translateNonStringvalue?: boolean;
@@ -90,7 +91,7 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
    * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
   render: (value: any, onChange: (x: any) => void, form: any, onCheck: (x: any) => void) => ReactNode;
-  onChange?: (x: any, modifyFormObject?: (x: any) => void) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator)[];
   validator?: FuncMesonValidator;
 }
