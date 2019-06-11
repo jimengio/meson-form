@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.1.15",
+  "version": "0.1.16-a1",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -63,7 +63,7 @@
   "peerDependencies": {
     "@jimengio/jimo-icons": "*",
     "@jimengio/shared-utils": "*",
-    "antd": "^3.16.3",
+    "antd": "^3.18.2",
     "immer": "*",
     "react": "*",
     "react-dom": "*"

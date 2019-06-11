@@ -3,7 +3,7 @@ import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
 import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } from "../../src/model/types";
-import { Input } from "antd";
+import Input from "antd/lib/input";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";

@@ -73,6 +73,7 @@ let [formVisible, setFormVisible] = useState(false);
 - `Input`, 文本框类型, 设置 `textarea: true` 之后样式显示为多行输入, 逻辑保持一致. 默认属性用 `inputProps` 传入.
 - `Number`, 数字类型,
 - `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
+- `Switch`, 开关类型,
 - `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
 - `Group`, 嵌套的分组,
 - `Fragment`, 类似 Group 但是这个分组不进行嵌套, 用在属性批量控制显示隐藏的情况.

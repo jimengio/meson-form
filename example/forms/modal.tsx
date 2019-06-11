@@ -4,7 +4,7 @@ import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
 import MesonModal from "../../src/component/modal";
 import { IMesonFieldItem } from "../../src/model/types";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 

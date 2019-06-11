@@ -14,5 +14,6 @@ export const routerRules: IRouteRule[] = [
   { path: "wrap-meson-core" },
   { path: "forward-form" },
   { path: "modify-on-change" },
+  { path: "switch" },
   { path: "", name: "home" },
 ];
