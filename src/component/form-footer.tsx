@@ -1,6 +1,6 @@
 import { css, cx } from "emotion";
 import React, { SFC } from "react";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/shared-utils";
 import { lingual } from "../lingual";
 

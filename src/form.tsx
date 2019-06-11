@@ -1,7 +1,10 @@
 import React, { SFC, ReactNode, CSSProperties, useState, useEffect } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { Input, InputNumber, Select, Button, Switch } from "antd";
+import Input from "antd/lib/input";
+import Switch from "antd/lib/switch";
+import Select from "antd/lib/select";
+import InputNumber from "antd/lib/input-number";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";

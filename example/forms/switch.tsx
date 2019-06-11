@@ -4,7 +4,6 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { Input } from "antd";
 import SourceLink from "kits/source-link";
 
 let formItems: IMesonFieldItem[] = [
