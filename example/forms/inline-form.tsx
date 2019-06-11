@@ -34,7 +34,7 @@ let InlineFormPage: SFC<{}> = (props) => {
         submitOnEdit={true}
       />
       <div>
-        <SourceLink fileName={"switch.tsx"} />
+        <SourceLink fileName={"inline-form.tsx"} />
         <DataPreview data={form} />
       </div>
     </div>

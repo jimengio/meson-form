@@ -22,7 +22,7 @@ let MesonInlineForm: FC<{
   submitOnEdit?: boolean;
 }> = (props) => {
   let onSubmit = (form: any) => {
-    console.log("submit form", form);
+    props.onSubmit(form);
   };
 
   let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm, checkItemWithValue } = useMesonCore({
