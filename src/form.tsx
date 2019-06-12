@@ -43,7 +43,7 @@ export interface MesonFormProps {
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
-  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
@@ -321,7 +321,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       {!props.hideFooter && (
         <>
           {props.renderFooter ? (
-            props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel)
+            props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, form)
           ) : (
             <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
           )}
@@ -342,7 +342,7 @@ export let MesonFormModal: SFC<{
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
-  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
 }> = (props) => {
   return (
     <MesonModal
