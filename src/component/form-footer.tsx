@@ -1,8 +1,10 @@
 import { css, cx } from "emotion";
 import React, { SFC } from "react";
-import Button from "antd/lib/button";
+import Button, { ButtonProps } from "antd/lib/button";
 import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/shared-utils";
 import { lingual } from "../lingual";
+
+export type footButtonProps = ButtonProps;
 
 export enum EMesonFooterLayout {
   Center = "center",
@@ -16,15 +18,19 @@ export let FormFooter: SFC<{
   layout?: EMesonFooterLayout;
   hideSeparator?: boolean;
   isLoading?: boolean;
+  okButtonProps?: footButtonProps;
+  cancelButtonProps?: footButtonProps;
 }> = (props) => {
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit} {...props.okButtonProps}>
           {lingual.confirm}
         </Button>
         <div style={{ width: 12 }} />
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <Button onClick={props.onCancel} {...props.cancelButtonProps}>
+          {lingual.cancel}
+        </Button>
       </div>
     );
   }
@@ -32,9 +38,11 @@ export let FormFooter: SFC<{
   if (props.layout === EMesonFooterLayout.Center) {
     return (
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <Button onClick={props.onCancel} {...props.cancelButtonProps}>
+          {lingual.cancel}
+        </Button>
         <div style={{ width: 12 }} />
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit} {...props.okButtonProps}>
           {lingual.confirm}
         </Button>
       </div>
@@ -46,9 +54,11 @@ export let FormFooter: SFC<{
     <div className={cx(rowParted, styleFooter, props.hideSeparator ? null : styleBorder)}>
       <span />
       <div className={cx(rowMiddle)}>
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <Button onClick={props.onCancel} {...props.cancelButtonProps}>
+          {lingual.cancel}
+        </Button>
         <div style={{ width: 12 }} />
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
+        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit} {...props.okButtonProps}>
           {lingual.confirm}
         </Button>
       </div>

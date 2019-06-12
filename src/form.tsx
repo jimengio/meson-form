@@ -11,7 +11,7 @@ import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObjec
 import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
-import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
+import { FormFooter, EMesonFooterLayout, footButtonProps } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 import produce, { Draft } from "immer";
@@ -47,6 +47,8 @@ export interface MesonFormProps {
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
+  okButtonProps?: footButtonProps;
+  cancelButtonProps?: footButtonProps;
 }
 
 export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonFormProps> = (props, ref) => {
@@ -323,7 +325,14 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
           {props.renderFooter ? (
             props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel)
           ) : (
-            <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
+            <FormFooter
+              isLoading={props.isLoading}
+              layout={props.footerLayout}
+              onSubmit={onCheckSubmit}
+              onCancel={props.onCancel}
+              okButtonProps={props.okButtonProps}
+              cancelButtonProps={props.cancelButtonProps}
+            />
           )}
         </>
       )}
@@ -342,6 +351,8 @@ export let MesonFormModal: SFC<{
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  okButtonProps?: footButtonProps;
+  cancelButtonProps?: footButtonProps;
 }> = (props) => {
   return (
     <MesonModal
@@ -360,6 +371,8 @@ export let MesonFormModal: SFC<{
             }}
             onCancel={props.onClose}
             className={styleForm}
+            okButtonProps={props.okButtonProps}
+            cancelButtonProps={props.cancelButtonProps}
           />
         );
       }}
