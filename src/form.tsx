@@ -342,6 +342,7 @@ export let MesonFormModal: SFC<{
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
 }> = (props) => {
   return (
     <MesonModal
@@ -360,6 +361,7 @@ export let MesonFormModal: SFC<{
             }}
             onCancel={props.onClose}
             className={styleForm}
+            renderFooter={props.renderFooter}
           />
         );
       }}
