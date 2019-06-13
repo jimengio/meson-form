@@ -400,8 +400,7 @@ let styleError = css`
   word-break: break-all;
   line-height: 1.5;
   color: red;
-  max-width: 180;
-  max-width: fit-content;
+  max-width: 180px;
   padding: 4px 0px;
 `;
 
