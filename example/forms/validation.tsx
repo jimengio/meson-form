@@ -39,7 +39,13 @@ let formItems: IMesonFieldItem[] = [
     },
     render: (value, onChange, form, onCheck) => {
       return (
-        <Select allowClear value={value} placeholder={formatString(lingual.pleaseSelectLabel, { label: "性别" })} onChange={onChange}>
+        <Select
+          allowClear
+          className={styleMediumItem}
+          value={value}
+          placeholder={formatString(lingual.pleaseSelectLabel, { label: "性别" })}
+          onChange={onChange}
+        >
           <Select.Option key="male" value="male">
             男
           </Select.Option>
@@ -57,16 +63,18 @@ let formItems: IMesonFieldItem[] = [
     required: true,
     render: (value, onChange, form, onCheck) => {
       return (
-        <TextArea
-          value={value}
-          placeholder={formatString(lingual.pleaseInputLabel, { label: "自定义描述" })}
-          onChange={(e) => {
-            onChange(e.target.value);
-          }}
-          onBlur={() => {
-            onCheck(value);
-          }}
-        />
+        <div className={styleMediumItem}>
+          <TextArea
+            value={value}
+            placeholder={formatString(lingual.pleaseInputLabel, { label: "自定义描述" })}
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
+            onBlur={() => {
+              onCheck(value);
+            }}
+          />
+        </div>
       );
     },
     validator: (value) => {
@@ -114,3 +122,7 @@ let ValidationPage: SFC<{}> = (props) => {
 export default ValidationPage;
 
 let styleContainer = css``;
+
+let styleMediumItem = css`
+  width: 240px;
+`;
