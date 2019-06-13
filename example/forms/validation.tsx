@@ -57,6 +57,14 @@ let formItems: IMesonFieldItem[] = [
         />
       );
     },
+  },
+  {
+    type: EMesonFieldType.Input,
+    textarea: true,
+    label: "描述",
+    name: "description",
+    required: true,
+    placeholder: formatString(lingual.pleaseInputLabel, { label: "描述" }),
     validator: (value) => {
       if (!value) {
         return "这个错误信息是测试错误信息过长时，是否会换行显示";

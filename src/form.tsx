@@ -155,7 +155,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             <TextArea
               value={form[item.name]}
               placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-              className={styleFullWidth}
+              className={cx(styleControlBase, styleTextareaBase)}
               onChange={(event) => {
                 let newValue = event.target.value;
                 updateItem(newValue, item);
@@ -173,7 +173,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             value={form[item.name]}
             type={item.inputType || "text"}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleFullWidth}
+            className={styleControlBase}
             onChange={(event) => {
               let newValue = event.target.value;
 
@@ -197,7 +197,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
           <InputNumber
             value={form[item.name]}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleFullWidth}
+            className={styleControlBase}
             onChange={(newValue) => {
               updateItem(newValue, item);
             }}
@@ -226,7 +226,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
           <Select
             value={currentValue}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleFullWidth}
+            className={styleControlBase}
             onChange={(newValue) => {
               if (item.translateNonStringvalue && newValue != null) {
                 let target = item.options.find((x) => `${x.value}` === newValue);
@@ -295,11 +295,9 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <div key={idx} className={cx(row, styleItemRow)}>
             {labelNode}
-            <div className={cx(flex, styleMinWidth0, styleValueArea)}>
-              <div className={cx(styleControlBase, column, item.className)} style={item.style}>
-                {item.render(form[item.name], onChange, form, onCheck)}
-                {errorNode}
-              </div>
+            <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
+              {item.render(form[item.name], onChange, form, onCheck)}
+              {errorNode}
             </div>
           </div>
         );
@@ -308,11 +306,9 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       return (
         <div key={idx} className={cx(row, styleItemRow)}>
           {labelNode}
-          <div className={cx(flex, styleMinWidth0, styleValueArea)}>
-            <div className={cx(styleControlBase, column, item.className)} style={item.style}>
-              {renderValueItem(item)}
-              {errorNode}
-            </div>
+          <div className={cx(styleValueArea, item.className)} style={item.style}>
+            {renderValueItem(item)}
+            {errorNode}
           </div>
         </div>
       );
@@ -404,6 +400,8 @@ let styleError = css`
   word-break: break-all;
   line-height: 1.5;
   color: red;
+  max-width: 240px;
+  padding: 4px 0px;
 `;
 
 let styleItemsContainer = css`
@@ -414,12 +412,4 @@ let styleItemsContainer = css`
 let styleTextareaBase = css`
   width: 240px;
   min-width: 240px;
-`;
-
-const styleMinWidth0 = css`
-  min-width: 0;
-`;
-
-const styleFullWidth = css`
-  width: 100%;
 `;
