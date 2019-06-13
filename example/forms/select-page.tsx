@@ -17,6 +17,15 @@ let items: IMesonFieldItem[] = [
     translateNonStringvalue: true,
     allowClear: true,
   },
+  {
+    type: EMesonFieldType.Select,
+    label: "BOOLEAN Disabled",
+    disabled: true,
+    name: "status",
+    options: booleanOptions,
+    translateNonStringvalue: true,
+    allowClear: true,
+  },
 ];
 
 let SelectPage: SFC<{}> = (props) => {

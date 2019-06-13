@@ -12,6 +12,12 @@ let formItems: IMesonFieldItem[] = [
     name: "name",
     label: "名字",
   },
+  {
+    type: EMesonFieldType.Input,
+    name: "name",
+    label: "名字禁用",
+    disabled: true,
+  },
 ];
 
 let FormBasic: SFC<{}> = (props) => {

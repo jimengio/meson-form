@@ -154,6 +154,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
           return (
             <TextArea
               value={form[item.name]}
+              disabled={item.disabled}
               placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
               className={cx(styleControlBase, styleTextareaBase)}
               onChange={(event) => {
@@ -171,6 +172,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <Input
             value={form[item.name]}
+            disabled={item.disabled}
             type={item.inputType || "text"}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
@@ -196,6 +198,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <InputNumber
             value={form[item.name]}
+            disabled={item.disabled}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(newValue) => {
@@ -212,6 +215,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <Switch
             checked={form[item.name]}
+            disabled={item.disabled}
             onChange={(value) => {
               updateItem(value, item);
             }}
@@ -225,6 +229,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <Select
             value={currentValue}
+            disabled={item.disabled}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(newValue) => {

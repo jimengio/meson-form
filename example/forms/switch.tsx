@@ -12,6 +12,12 @@ let formItems: IMesonFieldItem[] = [
     name: "checked",
     label: "Checked",
   },
+  {
+    type: EMesonFieldType.Switch,
+    name: "checked",
+    label: "Check disabled",
+    disabled: true,
+  },
 ];
 
 let SwitchPage: SFC<{}> = (props) => {
