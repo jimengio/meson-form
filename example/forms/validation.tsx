@@ -5,8 +5,65 @@ import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { row } from "@jimengio/shared-utils";
 import SourceLink from "kits/source-link";
+import Select from "antd/lib/select";
+import TextArea from "antd/lib/input/TextArea";
+import { lingual, formatString } from "../../src/lingual";
 
-let formItems: IMesonFieldItem[] = [{ type: EMesonFieldType.Input, required: true, label: "名称", name: "name" }];
+let formItems: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Input,
+    required: true,
+    label: "名称",
+    name: "name",
+  },
+  {
+    type: EMesonFieldType.Custom,
+    label: "性别",
+    name: "sex",
+    /** 测试自定义layout样式 */
+    style: {
+      width: "100%",
+      minWidth: 200,
+    },
+    render: (value, onChange, form, onCheck) => {
+      return (
+        <Select allowClear value={value} placeholder={formatString(lingual.pleaseSelectLabel, { label: "性别" })} onChange={onChange}>
+          <Select.Option key="male" value="male">
+            男
+          </Select.Option>
+          <Select.Option key="female" value="female">
+            女
+          </Select.Option>
+        </Select>
+      );
+    },
+  },
+  {
+    type: EMesonFieldType.Custom,
+    label: "描述",
+    name: "description",
+    required: true,
+    render: (value, onChange, form, onCheck) => {
+      return (
+        <TextArea
+          value={value}
+          placeholder={formatString(lingual.pleaseInputLabel, { label: "描述" })}
+          onChange={(e) => {
+            onChange(e.target.value);
+          }}
+          onBlur={() => {
+            onCheck(value);
+          }}
+        />
+      );
+    },
+    validator: (value) => {
+      if (!value) {
+        return "这个错误信息是测试错误信息过长时，是否会换行显示";
+      }
+    },
+  },
+];
 
 let ValidationPage: SFC<{}> = (props) => {
   let [form, setForm] = useState({});
