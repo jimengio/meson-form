@@ -40,14 +40,14 @@ let formItems: IMesonFieldItem[] = [
   },
   {
     type: EMesonFieldType.Custom,
-    label: "描述",
-    name: "description",
+    label: "自定义描述",
+    name: "customDescription",
     required: true,
     render: (value, onChange, form, onCheck) => {
       return (
         <TextArea
           value={value}
-          placeholder={formatString(lingual.pleaseInputLabel, { label: "描述" })}
+          placeholder={formatString(lingual.pleaseInputLabel, { label: "自定义描述" })}
           onChange={(e) => {
             onChange(e.target.value);
           }}
@@ -56,6 +56,11 @@ let formItems: IMesonFieldItem[] = [
           }}
         />
       );
+    },
+    validator: (value) => {
+      if (!value) {
+        return "这个错误信息是测试错误信息过长时，是否会换行显示";
+      }
     },
   },
   {
@@ -84,7 +89,6 @@ let ValidationPage: SFC<{}> = (props) => {
         onSubmit={(form) => {
           setForm(form);
         }}
-        submitOnEdit
       />
 
       <div>
