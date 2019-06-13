@@ -16,6 +16,18 @@ let formItems: IMesonFieldItem[] = [
     label: "名称",
     name: "name",
   },
+
+  {
+    type: EMesonFieldType.Input,
+    required: true,
+    label: "名称",
+    name: "longName",
+    validator: (value) => {
+      if (!value) {
+        return "这个错误信息是测试错误信息过长时，是否会换行显示";
+      }
+    },
+  },
   {
     type: EMesonFieldType.Custom,
     label: "性别",

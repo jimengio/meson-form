@@ -297,7 +297,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             {labelNode}
             <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
               {item.render(form[item.name], onChange, form, onCheck)}
-              {errorNode}
+              <div className={styleErrorWrapper}>{errorNode}</div>
             </div>
           </div>
         );
@@ -400,7 +400,8 @@ let styleError = css`
   word-break: break-all;
   line-height: 1.5;
   color: red;
-  max-width: 240px;
+  max-width: 180;
+  max-width: fit-content;
   padding: 4px 0px;
 `;
 
@@ -412,4 +413,9 @@ let styleItemsContainer = css`
 let styleTextareaBase = css`
   width: 240px;
   min-width: 240px;
+`;
+
+/** 添加 wrapper 避免 error text flow 自动撑开到很大 */
+let styleErrorWrapper = css`
+  overflow: auto;
 `;
