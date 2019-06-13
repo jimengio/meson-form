@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
 import MesonModal from "../../src/component/modal";
-import { IMesonFieldItem } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
@@ -14,7 +14,13 @@ let ModalPage: SFC<{}> = (props) => {
 
   let [form, setForm] = useState({});
 
-  let formItems: IMesonFieldItem[] = [];
+  let formItems: IMesonFieldItem[] = [
+    {
+      type: EMesonFieldType.Input,
+      name: "demo",
+      label: "DEMO",
+    },
+  ];
 
   return (
     <div className={styleContainer}>

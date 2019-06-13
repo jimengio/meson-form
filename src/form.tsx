@@ -152,66 +152,74 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       case EMesonFieldType.Input:
         if (item.textarea) {
           return (
-            <TextArea
-              value={form[item.name]}
-              placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-              className={cx(styleControlBase, styleTextareaBase)}
-              onChange={(event) => {
-                let newValue = event.target.value;
-                updateItem(newValue, item);
-              }}
-              onBlur={(event: any) => {
-                checkItem(item);
-              }}
-              // should use TextareaProps, but for convenience
-              {...item.inputProps as any}
-            />
+            <div className={cx(styleControlBase, styleTextareaBase)}>
+              <TextArea
+                value={form[item.name]}
+                disabled={item.disabled}
+                placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+                onChange={(event) => {
+                  let newValue = event.target.value;
+                  updateItem(newValue, item);
+                }}
+                onBlur={(event: any) => {
+                  checkItem(item);
+                }}
+                // should use TextareaProps, but for convenience
+                {...item.inputProps as any}
+              />
+            </div>
           );
         }
         return (
-          <Input
-            value={form[item.name]}
-            type={item.inputType || "text"}
-            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleControlBase}
-            onChange={(event) => {
-              let newValue = event.target.value;
+          <div className={styleControlBase}>
+            <Input
+              value={form[item.name]}
+              disabled={item.disabled}
+              type={item.inputType || "text"}
+              placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+              onChange={(event) => {
+                let newValue = event.target.value;
 
-              // reset empty string to undefined by default, FR-96
-              if (newValue.trim() === "") {
-                if (!item.useBlank) {
-                  newValue = undefined;
+                // reset empty string to undefined by default, FR-96
+                if (newValue.trim() === "") {
+                  if (!item.useBlank) {
+                    newValue = undefined;
+                  }
                 }
-              }
 
-              updateItem(newValue, item);
-            }}
-            onBlur={() => {
-              checkItem(item);
-            }}
-            {...item.inputProps}
-          />
+                updateItem(newValue, item);
+              }}
+              onBlur={() => {
+                checkItem(item);
+              }}
+              {...item.inputProps}
+            />
+          </div>
         );
       case EMesonFieldType.Number:
         return (
-          <InputNumber
-            value={form[item.name]}
-            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleControlBase}
-            onChange={(newValue) => {
-              updateItem(newValue, item);
-            }}
-            onBlur={() => {
-              checkItem(item);
-            }}
-            min={item.min}
-            max={item.max}
-          />
+          <div className={styleControlBase}>
+            <InputNumber
+              value={form[item.name]}
+              disabled={item.disabled}
+              placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+              onChange={(newValue) => {
+                updateItem(newValue, item);
+              }}
+              onBlur={() => {
+                checkItem(item);
+              }}
+              min={item.min}
+              max={item.max}
+            />
+          </div>
         );
       case EMesonFieldType.Switch:
         return (
           <Switch
             checked={form[item.name]}
+            className={styleSwitch}
+            disabled={item.disabled}
             onChange={(value) => {
               updateItem(value, item);
             }}
@@ -225,8 +233,9 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <Select
             value={currentValue}
-            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+            disabled={item.disabled}
             className={styleControlBase}
+            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             onChange={(newValue) => {
               if (item.translateNonStringvalue && newValue != null) {
                 let target = item.options.find((x) => `${x.value}` === newValue);
@@ -295,9 +304,9 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return (
           <div key={idx} className={cx(row, styleItemRow)}>
             {labelNode}
-            <div className={cx(flex, column, styleValueArea)}>
+            <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
               {item.render(form[item.name], onChange, form, onCheck)}
-              {errorNode}
+              <div className={styleErrorWrapper}>{errorNode}</div>
             </div>
           </div>
         );
@@ -306,7 +315,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       return (
         <div key={idx} className={cx(row, styleItemRow)}>
           {labelNode}
-          <div className={cx(styleValueArea)}>
+          <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
             {renderValueItem(item)}
             {errorNode}
           </div>
@@ -397,7 +406,10 @@ let styleControlBase = css`
 `;
 
 let styleError = css`
+  word-break: break-all;
+  line-height: 1.5;
   color: red;
+  padding: 4px 0px;
 `;
 
 let styleItemsContainer = css`
@@ -408,4 +420,15 @@ let styleItemsContainer = css`
 let styleTextareaBase = css`
   width: 240px;
   min-width: 240px;
+`;
+
+/** 添加 wrapper 避免 error text flow 自动撑开到很大 */
+let styleErrorWrapper = css`
+  overflow: auto;
+`;
+
+let styleSwitch = css`
+  &.ant-switch {
+    margin: 4px 0;
+  }
 `;

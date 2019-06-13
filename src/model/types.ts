@@ -34,6 +34,8 @@ export interface IMesonFieldBaseProps<K = string> {
   required?: boolean;
   shouldHide?: (form: any) => boolean;
   disabled?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
