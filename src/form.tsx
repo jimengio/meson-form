@@ -290,6 +290,10 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         </div>
       );
 
+      if (item.label == null) {
+        labelNode = <div className={styleLabel} />;
+      }
+
       let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
 
       if (item.type === EMesonFieldType.Custom) {

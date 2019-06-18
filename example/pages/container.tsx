@@ -16,6 +16,7 @@ import ForwardForm from "forms/forward-form";
 import ModifyOnChange from "forms/modify-on-change";
 import SwitchPage from "forms/switch";
 import InlineFormPage from "forms/inline-form";
+import FormBlankLabel from "forms/blank-label";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -70,6 +71,10 @@ let pages: { title: string; path: string }[] = [
     title: "Inline form",
     path: genRouter.inlineForm.name,
   },
+  {
+    title: "Blank label",
+    path: genRouter.blankLabel.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -99,6 +104,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <SwitchPage />;
       case genRouter.inlineForm.name:
         return <InlineFormPage />;
+      case genRouter.blankLabel.name:
+        return <FormBlankLabel />;
       default:
         return <FormBasic />;
     }
