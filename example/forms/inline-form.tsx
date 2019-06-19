@@ -18,6 +18,12 @@ let formItems: IMesonFieldItem[] = [
     name: "address",
     label: "Address",
   },
+  {
+    type: EMesonFieldType.Select,
+    name: "area",
+    label: "Area",
+    options: [],
+  },
 ];
 
 let InlineFormPage: SFC<{}> = (props) => {
