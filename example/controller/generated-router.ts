@@ -91,6 +91,12 @@ export let genRouter = {
     path: () => `/inline-form`,
     go: () => switchPath(`/inline-form`),
   },
+  blankLabel: {
+    name: "blank-label",
+    raw: "blank-label",
+    path: () => `/blank-label`,
+    go: () => switchPath(`/blank-label`),
+  },
   _: {
     name: "home",
     raw: "",

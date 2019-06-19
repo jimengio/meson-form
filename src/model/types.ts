@@ -30,7 +30,7 @@ export enum EMesonFieldType {
 }
 
 export interface IMesonFieldBaseProps<K = string> {
-  label: string;
+  label?: string;
   required?: boolean;
   shouldHide?: (form: any) => boolean;
   disabled?: boolean;

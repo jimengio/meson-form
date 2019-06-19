@@ -16,5 +16,6 @@ export const routerRules: IRouteRule[] = [
   { path: "modify-on-change" },
   { path: "switch" },
   { path: "inline-form" },
+  { path: "blank-label" },
   { path: "", name: "home" },
 ];
