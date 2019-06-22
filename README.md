@@ -60,11 +60,13 @@ let [formVisible, setFormVisible] = useState(false);
   initialValue={{}}
   hideClose={false}
   onSubmit={(form) => {
-    console.log("form", form);
     setFormVisible(false);
+    console.log("form", form);
   }}
 />;
 ```
+
+`MesonFormDrawer` is almost same to `MesonFormModal` but with an extra `witdh?` property.
 
 ### Types(类型)
 

@@ -44,7 +44,7 @@ let ModalPage: SFC<{}> = (props) => {
       </div>
 
       <MesonModal
-        title={lingual.labelShouldBeString}
+        title={"DEMO modal"}
         visible={visible}
         onClose={() => {
           setVisible(false);
@@ -65,7 +65,7 @@ let ModalPage: SFC<{}> = (props) => {
         }}
       />
       <MesonFormModal
-        title={lingual.labelShouldBeBoolean}
+        title={"DEMO form in modal"}
         visible={formVisible}
         onClose={() => {
           setFormVisible(false);
@@ -73,8 +73,8 @@ let ModalPage: SFC<{}> = (props) => {
         items={formItems}
         initialValue={form}
         onSubmit={(form) => {
-          console.log("form", form);
           setFormVisible(false);
+          setForm(form);
         }}
       />
       <div>
