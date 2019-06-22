@@ -32,12 +32,13 @@ let MesonInlineForm: FC<{
     submitOnEdit: props.submitOnEdit,
   });
 
-  let renderItem = (item: IMesonFieldItem) => {
+  let renderItem = (item: IMesonFieldItem, idx: number) => {
     switch (item.type) {
       case EMesonFieldType.Input:
         return (
           <Input
             value={formAny[item.name]}
+            key={`${item.name}+${idx}`}
             type={item.inputType || "text"}
             style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -69,6 +70,7 @@ let MesonInlineForm: FC<{
         return (
           <Select
             value={currentValue}
+            key={`${item.name}+${idx}`}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             style={item.style}
@@ -99,13 +101,13 @@ let MesonInlineForm: FC<{
           </Select>
         );
       default:
-        return <span>Not supported {item.type}</span>;
+        return <span key={`_+${idx}`}>Not supported {item.type}</span>;
     }
   };
 
   return (
     <div className={cx(row, styleContainer)}>
-      {props.items.map((item) => {
+      {props.items.map((item, idx) => {
         if (item.type === EMesonFieldType.Fragment) {
           return <>{item.children.map(renderItem)}</>;
         }
@@ -127,9 +129,9 @@ let MesonInlineForm: FC<{
         );
 
         return (
-          <div className={styleItem}>
+          <div className={styleItem} key={`${item.name}+${idx}`}>
             {labelNode}
-            <div>{renderItem(item)}</div>
+            <div>{renderItem(item, idx)}</div>
           </div>
         );
       })}
