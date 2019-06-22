@@ -39,6 +39,7 @@ let MesonInlineForm: FC<{
           <Input
             value={formAny[item.name]}
             type={item.inputType || "text"}
+            style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
             onChange={(event) => {
@@ -70,6 +71,7 @@ let MesonInlineForm: FC<{
             value={currentValue}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
             className={styleControlBase}
+            style={item.style}
             onChange={(newValue) => {
               if (item.translateNonStringvalue && newValue != null) {
                 let target = item.options.find((x) => `${x.value}` === newValue);
@@ -144,10 +146,13 @@ let styleError = css`
   margin-left: 8px;
 `;
 
-let styleControlBase = css``;
+let styleControlBase = css`
+  min-width: 120px;
+`;
 
 let styleLabel = css`
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 20px;
   color: hsla(0, 0%, 0%, 0.65);
 `;
 
