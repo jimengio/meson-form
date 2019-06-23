@@ -1,6 +1,6 @@
 import React, { useState, SFC } from "react";
 import { css, cx } from "emotion";
-import { column, row } from "@jimengio/shared-utils";
+import { column, row, fullscreen } from "@jimengio/shared-utils";
 import { IRouteParseResult } from "@jimengio/ruled-router";
 import { HashLink } from "@jimengio/ruled-router/lib/dom";
 import { genRouter } from "controller/generated-router";
@@ -57,11 +57,11 @@ let pages: { title: string; path: string }[] = [
     path: genRouter.wrapMesonCore.name,
   },
   {
-    title: "forward form",
+    title: "Forwarded form",
     path: genRouter.forwardForm.name,
   },
   {
-    title: "modify on change",
+    title: "Modify on change",
     path: genRouter.modifyOnChange.name,
   },
   {
@@ -115,7 +115,7 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
   };
 
   return (
-    <div className={cx(row, styleContainer)}>
+    <div className={cx(fullscreen, row, styleContainer)}>
       <div className={cx(column, styleSidebar)}>
         {pages.map((page) => {
           let isActive = page.path === props.router.name;
@@ -137,6 +137,7 @@ const styleContainer = css`
 let styleSidebar = css`
   margin-right: 16px;
   width: 200px;
+  border-right: 1px solid #ddd;
 `;
 
 let styleEntry = css`
