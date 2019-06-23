@@ -15,6 +15,7 @@ import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 import produce, { Draft } from "immer";
+import MesonDrawer from "./component/drawer";
 
 /**
  * 清空draft对象的value值
@@ -361,6 +362,44 @@ export let MesonFormModal: SFC<{
     <MesonModal
       title={props.title}
       visible={props.visible}
+      onClose={props.onClose}
+      hideClose={props.hideClose}
+      renderContent={() => {
+        return (
+          <MesonForm
+            initialValue={props.initialValue}
+            items={props.items}
+            isLoading={props.isLoading}
+            onSubmit={(form: { [k: string]: any }, onServerErrors: (x: { [k: string]: any }) => void) => {
+              props.onSubmit(form, onServerErrors);
+            }}
+            onCancel={props.onClose}
+            className={styleForm}
+            renderFooter={props.renderFooter}
+          />
+        );
+      }}
+    />
+  );
+};
+
+export let MesonFormDrawer: SFC<{
+  title: string;
+  visible: boolean;
+  width?: number;
+  initialValue: { [k: string]: any };
+  items: IMesonFieldItem[];
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onClose: () => void;
+  isLoading?: boolean;
+  hideClose?: boolean;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
+}> = (props) => {
+  return (
+    <MesonDrawer
+      title={props.title}
+      visible={props.visible}
+      width={props.width}
       onClose={props.onClose}
       hideClose={props.hideClose}
       renderContent={() => {

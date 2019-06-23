@@ -17,6 +17,7 @@ import ModifyOnChange from "forms/modify-on-change";
 import SwitchPage from "forms/switch";
 import InlineFormPage from "forms/inline-form";
 import FormBlankLabel from "forms/blank-label";
+import DrawerPage from "forms/drawer";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -86,6 +87,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <DraftForm />;
       case genRouter.modal.name:
         return <ModalPage />;
+      case genRouter.drawer.name:
+        return <DrawerPage />;
       case genRouter.select.name:
         return <SelectPage />;
       case genRouter.validation.name:
