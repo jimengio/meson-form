@@ -56,6 +56,7 @@ let [formVisible, setFormVisible] = useState(false);
   onClose={() => {
     setFormVisible(false);
   }}
+  width={800}
   items={formItems}
   initialValue={{}}
   hideClose={false}
@@ -66,7 +67,7 @@ let [formVisible, setFormVisible] = useState(false);
 />;
 ```
 
-`MesonFormDrawer` is almost same to `MesonFormModal` but with an extra `witdh?` property.
+Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
 
 ### Types(类型)
 
