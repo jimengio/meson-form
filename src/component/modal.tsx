@@ -11,6 +11,7 @@ let containerName = "meson-modal-container";
 interface IProps {
   title: string;
   visible: boolean;
+  width?: number | string;
   onClose: () => void;
   renderContent: () => ReactNode;
   hideClose?: boolean;
@@ -51,7 +52,11 @@ export default class MesonModal extends React.Component<IProps, any> {
       <div onClick={this.onContainerClick} className={styleAnimations}>
         <CSSTransition in={this.props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
           <div className={styleBackdrop} onClick={this.props.onClose}>
-            <div className={cx(column, stylePopPage, "modal-card")} style={{ maxHeight: window.innerHeight - 80 }} onClick={this.onContainerClick}>
+            <div
+              className={cx(column, stylePopPage, "modal-card")}
+              style={{ maxHeight: window.innerHeight - 80, width: this.props.width }}
+              onClick={this.onContainerClick}
+            >
               <div className={cx(rowParted, styleHeader)}>
                 {this.props.title}
 
