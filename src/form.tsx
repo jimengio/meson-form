@@ -249,6 +249,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             onBlur={() => {
               checkItem(item);
             }}
+            {...item.selectProps}
           >
             {item.options.map((option) => {
               let value = option.value;
