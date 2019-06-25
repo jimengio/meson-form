@@ -24,6 +24,24 @@ let formItems: IMesonFieldItem[] = [
     label: "Area",
     options: [],
   },
+  {
+    type: EMesonFieldType.Custom,
+    name: "description",
+    label: "Description",
+    render: (x, onChange) => {
+      return (
+        <div className={row}>
+          <input
+            value={x}
+            onChange={(event) => {
+              onChange(event.target.value);
+            }}
+          />
+          {JSON.stringify(x)}
+        </div>
+      );
+    },
+  },
 ];
 
 let InlineFormPage: SFC<{}> = (props) => {
