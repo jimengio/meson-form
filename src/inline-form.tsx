@@ -150,7 +150,15 @@ let MesonInlineForm: FC<{
 
 export default MesonInlineForm;
 
-let styleContainer = css``;
+let styleItem = css`
+  margin-right: 12px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+`;
+
+let styleContainer = null;
 
 let styleError = css`
   color: red;
@@ -165,8 +173,4 @@ let styleLabel = css`
   font-size: 14px;
   line-height: 32px;
   color: hsla(0, 0%, 0%, 0.65);
-`;
-
-let styleItem = css`
-  margin: 0 4px;
 `;
