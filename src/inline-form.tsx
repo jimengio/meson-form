@@ -34,6 +34,15 @@ let MesonInlineForm: FC<{
 
   let renderItem = (item: IMesonFieldItem, idx: number) => {
     switch (item.type) {
+      case EMesonFieldType.Custom:
+        let onChange = (value: any) => {
+          updateItem(value, item);
+        };
+
+        let onCheck = (value: any) => {
+          checkItemWithValue(value, item);
+        };
+        return item.render(formAny[item.name], onChange, formAny, onCheck);
       case EMesonFieldType.Input:
         return (
           <Input
@@ -153,8 +162,8 @@ let styleControlBase = css`
 `;
 
 let styleLabel = css`
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 32px;
   color: hsla(0, 0%, 0%, 0.65);
 `;
 
