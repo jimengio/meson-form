@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { InputProps } from "antd/lib/input";
+import { SelectProps } from "antd/lib/select";
 
 export interface ISimpleObject {
   [k: string]: string;
@@ -89,6 +90,7 @@ export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
+  selectProps?: SelectProps;
 }
 
 export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
