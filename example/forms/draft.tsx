@@ -10,7 +10,7 @@ import SourceLink from "kits/source-link";
 
 interface IDemo {
   material: string;
-  amount: string;
+  amount: number;
   count: string;
   price: string;
   name: string;
@@ -30,7 +30,7 @@ let options: IMesonSelectItem[] = [
   },
 ];
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Select,
     label: "物料",

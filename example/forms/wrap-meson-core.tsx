@@ -9,7 +9,7 @@ interface ILoginForm {
   password: string;
 }
 
-let formItems: IMesonFieldItem[] = [
+let formItems: IMesonFieldItem<ILoginForm>[] = [
   {
     type: EMesonFieldType.Input,
     name: "username",
