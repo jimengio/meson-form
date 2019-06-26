@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 import { InputProps } from "antd/lib/input";
 import { SelectProps } from "antd/lib/select";
+import { Draft } from "immer";
 
 export interface ISimpleObject<T = any> {
   [k: string]: T;
 }
 
-export interface IMesonErrors {
-  [k: string]: string;
-}
+export type IMesonErrors<T = any> = { [K in keyof T]: string };
+export type IMesonFormBase = { [k: string]: any };
 
 export enum EMesonValidate {
   Number = "number",
@@ -16,12 +16,12 @@ export enum EMesonValidate {
   Boolean = "boolean",
 }
 
-export type FuncMesonValidator = (x: any, item?: IMesonFieldItemHasValue) => string;
+export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>) => string;
 
 /** expose a function to modify form values directly, FR-97
  * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.
  */
-export type FuncMesonModifyForm<T = any> = (modifter: (form: T) => void) => void;
+export type FuncMesonModifyForm<T = any> = (modifter: (form: Draft<T>) => void) => void;
 
 export enum EMesonFieldType {
   Input = "input",
@@ -35,17 +35,17 @@ export enum EMesonFieldType {
   Group = "group",
 }
 
-export interface IMesonFieldBaseProps<K = string> {
+export interface IMesonFieldBaseProps<T> {
   label?: string;
   required?: boolean;
-  shouldHide?: (form: any) => boolean;
+  shouldHide?: (form: T) => boolean;
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
-  name: K;
+export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
   type: EMesonFieldType.Input;
   /** real type property on <input/> */
   inputType?: string;
@@ -54,29 +54,29 @@ export interface IMesonInputField<K = string> extends IMesonFieldBaseProps {
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   textarea?: boolean;
-  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
-  validator?: FuncMesonValidator;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonNumberField<K = string> extends IMesonFieldBaseProps {
-  name: K;
+export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
   type: EMesonFieldType.Number;
   placeholder?: string;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
-  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
-  validator?: FuncMesonValidator;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
   min?: number;
   max?: number;
 }
 
-export interface IMesonSwitchField<K = string> extends IMesonFieldBaseProps {
-  name: K;
+export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
   type: EMesonFieldType.Switch;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
-  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
-  validator?: FuncMesonValidator;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
 }
 
 export interface IMesonSelectItem {
@@ -85,21 +85,21 @@ export interface IMesonSelectItem {
   display?: string;
 }
 
-export interface IMesonSelectField<K> extends IMesonFieldBaseProps {
-  name: K;
+export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
   type: EMesonFieldType.Select;
   placeholder?: string;
   options: IMesonSelectItem[];
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
-  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
-  validator?: FuncMesonValidator;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
   selectProps?: SelectProps;
 }
 
-export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
-  name: K;
+export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
   type: EMesonFieldType.Custom;
   /** parent container is using column,
    * for antd inputs with default with 100%, you need to take care of that by yourself
@@ -108,49 +108,44 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
    * @param form the form
    * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
-  render: (value: any, onChange: (x: any) => void, form: any, onCheck: (x: any) => void) => ReactNode;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm) => void;
-  validateMethods?: (EMesonValidate | FuncMesonValidator)[];
-  validator?: FuncMesonValidator;
+  render: (value: any, onChange: (x: any) => void, form: T, onCheck: (x: any) => void) => ReactNode;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonFieldCustomMultiple<K = string> extends IMesonFieldBaseProps {
+export interface IMesonFieldCustomMultiple<T> extends IMesonFieldBaseProps<T> {
   type: EMesonFieldType.CustomMultiple;
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
    * @param checkForm accepts an object of new values
    */
-  names: K[];
+  names: (keyof T)[];
   /** get form and render into form item */
   renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (changedValues: any) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<K>) => IMesonErrors;
+  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<T>) => IMesonErrors;
 }
 
-export interface IMesonFieldNested<K> extends IMesonFieldBaseProps {
+export interface IMesonFieldNested<T> extends IMesonFieldBaseProps<T> {
   type: EMesonFieldType.Nested;
-  children: IMesonFieldItem<K>[];
+  children: IMesonFieldItem<T>[];
 }
 
-export interface IMesonFieldsGroup<K> {
+export interface IMesonFieldsGroup<T> {
   type: EMesonFieldType.Group;
   shouldHide?: (form: any) => boolean;
-  children: IMesonFieldItem<K>[];
+  children: IMesonFieldItem<T>[];
 }
 
-export type IMesonFieldItemHasValue<K = string> =
-  | IMesonInputField<K>
-  | IMesonNumberField<K>
-  | IMesonSelectField<K>
-  | IMesonCustomField<K>
-  | IMesonSwitchField<K>;
+export type IMesonFieldItemHasValue<T = any> = IMesonInputField<T> | IMesonNumberField<T> | IMesonSelectField<T> | IMesonCustomField<T> | IMesonSwitchField<T>;
 
-export type IMesonFieldItem<K = string> =
-  | IMesonInputField<K>
-  | IMesonNumberField<K>
-  | IMesonSelectField<K>
-  | IMesonCustomField<K>
-  | IMesonSwitchField<K>
-  | IMesonFieldNested<K>
-  | IMesonFieldsGroup<K>
-  | IMesonFieldCustomMultiple<K>;
+export type IMesonFieldItem<T = any> =
+  | IMesonInputField<T>
+  | IMesonNumberField<T>
+  | IMesonSelectField<T>
+  | IMesonCustomField<T>
+  | IMesonSwitchField<T>
+  | IMesonFieldNested<T>
+  | IMesonFieldsGroup<T>
+  | IMesonFieldCustomMultiple<T>;

@@ -10,17 +10,17 @@ import { formatString, lingual } from "./lingual";
 import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 
-let MesonInlineForm: FC<{
+export function MesonInlineForm<T>(props: {
   initialValue: any;
-  items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
-}> = (props) => {
+}) {
   let onSubmit = (form: any) => {
     props.onSubmit(form);
   };
@@ -32,7 +32,7 @@ let MesonInlineForm: FC<{
     submitOnEdit: props.submitOnEdit,
   });
 
-  let renderItem = (item: IMesonFieldItem, idx: number) => {
+  let renderItem = (item: IMesonFieldItem<T>, idx: number) => {
     switch (item.type) {
       case EMesonFieldType.Custom:
         let onChange = (value: any) => {
@@ -150,7 +150,7 @@ let MesonInlineForm: FC<{
       })}
     </div>
   );
-};
+}
 
 export default MesonInlineForm;
 

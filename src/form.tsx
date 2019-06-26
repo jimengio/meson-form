@@ -6,7 +6,9 @@ import Switch from "antd/lib/switch";
 import Select from "antd/lib/select";
 import InputNumber from "antd/lib/input-number";
 import { lingual, formatString } from "./lingual";
+
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors } from "./model/types";
+
 import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
@@ -33,23 +35,23 @@ export interface MesonFormHandler {
   onReset(): void;
 }
 
-export interface MesonFormProps {
-  initialValue: any;
-  items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+export interface MesonFormProps<T> {
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
-  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }
 
-export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonFormProps> = (props, ref) => {
+export function ForwardForm<T>(props: MesonFormProps<T>, ref: React.Ref<MesonFormHandler>) {
   let {
     formAny: form,
     updateForm,
@@ -87,7 +89,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     },
   }));
 
-  let renderValueItem = (item: IMesonFieldItem) => {
+  let renderValueItem = (item: IMesonFieldItem<T>) => {
     switch (item.type) {
       case EMesonFieldType.Input:
         if (item.textarea) {
@@ -213,7 +215,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem[]) => {
+  let renderItems = (items: IMesonFieldItem<T>[]) => {
     return items.map((item, idx) => {
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
@@ -269,7 +271,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         };
 
         // errors related to multiple fields, need to extract
-        let error = showErrorByNames(errors, item.names);
+        let error = showErrorByNames(errors, item.names as string[]);
         let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
 
         return (
@@ -309,21 +311,21 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       )}
     </div>
   );
-};
+}
 
 export let MesonForm = React.forwardRef(ForwardForm);
 
-export let MesonFormModal: SFC<{
+export function MesonFormModal<T>(props: {
   title: string;
   visible: boolean;
-  initialValue: { [k: string]: any };
-  items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+  initialValue: Partial<T>;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
-  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
-}> = (props) => {
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+}) {
   return (
     <MesonModal
       title={props.title}
@@ -334,9 +336,9 @@ export let MesonFormModal: SFC<{
         return (
           <MesonForm
             initialValue={props.initialValue}
-            items={props.items}
+            items={props.items as IMesonFieldItem<any>[]}
             isLoading={props.isLoading}
-            onSubmit={(form: { [k: string]: any }, onServerErrors: (x: { [k: string]: any }) => void) => {
+            onSubmit={(form: T, onServerErrors: (x: Partial<IMesonErrors<T>>) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
@@ -347,20 +349,20 @@ export let MesonFormModal: SFC<{
       }}
     />
   );
-};
+}
 
-export let MesonFormDrawer: SFC<{
+export function MesonFormDrawer<T>(props: {
   title: string;
   visible: boolean;
   width?: number;
-  initialValue: { [k: string]: any };
-  items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+  initialValue: Partial<T>;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
-  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, from?: any) => ReactNode;
-}> = (props) => {
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+}) {
   return (
     <MesonDrawer
       title={props.title}
@@ -372,9 +374,9 @@ export let MesonFormDrawer: SFC<{
         return (
           <MesonForm
             initialValue={props.initialValue}
-            items={props.items}
+            items={props.items as IMesonFieldItem<any>[]}
             isLoading={props.isLoading}
-            onSubmit={(form: { [k: string]: any }, onServerErrors: (x: { [k: string]: any }) => void) => {
+            onSubmit={(form: T, onServerErrors: (x: Partial<IMesonErrors<T>>) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
@@ -385,7 +387,7 @@ export let MesonFormDrawer: SFC<{
       }}
     />
   );
-};
+}
 
 let styleForm = css`
   flex: 1;
