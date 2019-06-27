@@ -7,7 +7,7 @@ import Select from "antd/lib/select";
 import InputNumber from "antd/lib/input-number";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm, FuncMesonModifyErrors } from "./model/types";
 import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
@@ -312,6 +312,30 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             {labelNode}
             <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
               {item.render(form[item.name], onChange, form, onCheck)}
+              <div className={styleErrorWrapper}>{errorNode}</div>
+            </div>
+          </div>
+        );
+      }
+
+      if (item.type === EMesonFieldType.HighlyCustomized) {
+        let formModifider: FuncMesonModifyForm = (f) => {
+          updateForm(f);
+        };
+
+        let errorsModifier: FuncMesonModifyErrors = (f) => {
+          updateErrors(f);
+        };
+
+        // errors related to multiple fields, need to extract
+        let error = item.extractError(errors);
+        let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
+
+        return (
+          <div key={idx} className={cx(row, styleItemRow)}>
+            {labelNode}
+            <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
+              {item.renderFormWithModifiers(form, formModifider, errorsModifier)}
               <div className={styleErrorWrapper}>{errorNode}</div>
             </div>
           </div>
