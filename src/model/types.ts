@@ -18,7 +18,6 @@ export type FuncMesonValidator = (x: any, item?: IMesonFieldItemHasValue) => str
  * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.
  */
 export type FuncMesonModifyForm<T = any> = (modifter: (form: T) => void) => void;
-export type FuncMesonModifyErrors = (modifter: (errors: ISimpleObject) => void) => void;
 
 export enum EMesonFieldType {
   Input = "input",
@@ -111,10 +110,12 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonHighlyCustomizedField extends IMesonFieldBaseProps {
+export interface IMesonFieldHighlyCustomized extends IMesonFieldBaseProps {
   type: EMesonFieldType.HighlyCustomized;
-  renderFormWithModifiers: (form: any, onModifyForm: FuncMesonModifyForm, onModifyErrors: FuncMesonModifyErrors) => ReactNode;
+  names: string[];
+  renderFormWithModifiers: (form: any, onModifyForm: FuncMesonModifyForm, onCheck: (xs: any) => void) => ReactNode;
   extractError: (errors: ISimpleObject) => string;
+  validateRelated: (form: any, item: IMesonFieldHighlyCustomized) => ISimpleObject;
 }
 
 export interface IMesonGroupField extends IMesonFieldBaseProps {
@@ -143,4 +144,4 @@ export type IMesonFieldItem<K = string> =
   | IMesonSwitchField<K>
   | IMesonGroupField
   | IMesonFieldsFragment
-  | IMesonHighlyCustomizedField;
+  | IMesonFieldHighlyCustomized;

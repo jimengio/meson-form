@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "../model/types";
-import { validateValueRequired, validateByMethods, validateItem } from "../util/validation";
-import { traverseItems } from "../util/render";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm, IMesonFieldHighlyCustomized } from "../model/types";
+import { validateValueRequired, validateByMethods, validateItem, hasErrorInObject } from "../util/validation";
+import { traverseItems, traverseItemsReachHighlyCustomized } from "../util/render";
 import produce from "immer";
 
 /** low level hook for creating forms with very specific UIs */
@@ -21,6 +21,7 @@ export let useMesonCore = (props: {
     let latestForm = specifiedForm;
     let currentErrors: ISimpleObject = {};
     let hasErrors = false;
+
     traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
       if (item.shouldHide != null && item.shouldHide(latestForm)) {
         return null;
@@ -30,6 +31,18 @@ export let useMesonCore = (props: {
 
       if (result != null) {
         currentErrors[item.name] = result;
+        hasErrors = true;
+      }
+    });
+
+    traverseItemsReachHighlyCustomized(props.items, (item: IMesonFieldHighlyCustomized) => {
+      if (item.shouldHide != null && item.shouldHide(latestForm)) {
+        return null;
+      }
+
+      let results = item.validateRelated(latestForm, item);
+      if (hasErrorInObject(results)) {
+        Object.assign(currentErrors, results);
         hasErrors = true;
       }
     });
@@ -48,22 +61,6 @@ export let useMesonCore = (props: {
     }
   };
 
-  let onCheckSubmit = () => {
-    onCheckSubmitWithValue(form);
-  };
-
-  let checkItem = (item: IMesonFieldItemHasValue) => {
-    if (props.submitOnEdit) {
-      onCheckSubmitWithValue(form);
-      return;
-    }
-
-    let result = validateItem(form[item.name], item);
-    updateErrors((draft) => {
-      draft[item.name] = result;
-    });
-  };
-
   let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
@@ -76,6 +73,26 @@ export let useMesonCore = (props: {
     let result = validateItem(x, item);
     updateErrors((draft) => {
       draft[item.name] = result;
+    });
+  };
+
+  let checkItemHighlyCustomized = (values: any, item: IMesonFieldHighlyCustomized) => {
+    let newForm = produce(form, (draft) => {
+      Object.assign(draft, values);
+    });
+
+    if (props.submitOnEdit) {
+      onCheckSubmitWithValue(newForm);
+      return;
+    }
+
+    let results = item.validateRelated(newForm, item);
+    updateErrors((draft) => {
+      // reset errors of related fields first
+      item.names.forEach((name) => {
+        draft[name] = null;
+      });
+      Object.assign(draft, results);
     });
   };
 
@@ -105,9 +122,14 @@ export let useMesonCore = (props: {
     errors,
     updateErrors,
     isModified: modified,
-    onCheckSubmit,
+    onCheckSubmit: () => {
+      onCheckSubmitWithValue(form);
+    },
     onCheckSubmitWithValue,
-    checkItem,
+    checkItem: (item: IMesonFieldItemHasValue) => {
+      checkItemWithValue(form[item.name], item);
+    },
+    checkItemHighlyCustomized,
     checkItemWithValue,
     updateItem,
     forcelyResetForm,
