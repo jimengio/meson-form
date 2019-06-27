@@ -4,6 +4,8 @@ export let traverseItems = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) 
   xs.forEach((x) => {
     if (x.type === EMesonFieldType.Group) {
       traverseItems(x.children, method);
+    } else if (x.type === EMesonFieldType.Fragment) {
+      traverseItems(x.children, method);
     } else {
       method(x);
     }

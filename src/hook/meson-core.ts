@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject } from "../model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "../model/types";
 import { validateValueRequired, validateByMethods, validateItem } from "../util/validation";
 import { traverseItems } from "../util/render";
 import produce from "immer";
@@ -10,7 +10,7 @@ export let useMesonCore = (props: {
   initialValue: any;
   items: IMesonFieldItem[];
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }) => {
   let [form, updateForm] = useImmer(props.initialValue);
@@ -85,10 +85,10 @@ export let useMesonCore = (props: {
     });
     setModified(true);
     if (item.onChange != null) {
-      item.onChange(x);
+      item.onChange(x, updateForm);
     }
     if (props.onFieldChange != null) {
-      props.onFieldChange(item.name, x, form);
+      props.onFieldChange(item.name, x, form, updateForm);
     }
   };
 
@@ -101,7 +101,9 @@ export let useMesonCore = (props: {
 
   return {
     formAny: form,
+    updateForm,
     errors,
+    updateErrors,
     isModified: modified,
     onCheckSubmit,
     onCheckSubmitWithValue,
