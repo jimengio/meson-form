@@ -138,8 +138,10 @@ export interface IMesonFieldsGroup<T> {
   children: IMesonFieldItem<T>[];
 }
 
+// 默认any过渡
 export type IMesonFieldItemHasValue<T = any> = IMesonInputField<T> | IMesonNumberField<T> | IMesonSelectField<T> | IMesonCustomField<T> | IMesonSwitchField<T>;
 
+// 默认any过渡
 export type IMesonFieldItem<T = any> =
   | IMesonInputField<T>
   | IMesonNumberField<T>
