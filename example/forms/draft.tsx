@@ -141,7 +141,7 @@ let DraftForm: SFC<{}> = (props) => {
     <div className={cx(row, styleContainer)}>
       <div className={styleFormArea}>
         <MesonForm
-          initialValue={form}
+          initialValue={form as IDemo}
           items={formItems}
           onSubmit={(form) => {
             setForm(form);

@@ -45,7 +45,7 @@ export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>): string 
   return undefined;
 };
 
-export let hasErrorInObject = (x: IMesonErrors): boolean => {
+export let hasErrorInObject = (x: IMesonErrors<any>): boolean => {
   for (let k in x) {
     if (x[k] != null) {
       return true;
@@ -54,7 +54,7 @@ export let hasErrorInObject = (x: IMesonErrors): boolean => {
   return false;
 };
 
-export let showErrorByNames = (x: IMesonErrors, names: string[]): string => {
+export let showErrorByNames = (x: IMesonErrors<any>, names: string[]): string => {
   for (let k in names) {
     let name = names[k];
     if (x[name] != null) {

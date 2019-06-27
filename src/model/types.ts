@@ -7,7 +7,7 @@ export interface ISimpleObject<T = any> {
   [k: string]: T;
 }
 
-export type IMesonErrors<T = any> = { [K in keyof T]: string };
+export type IMesonErrors<T> = { [K in keyof T]: string };
 export type IMesonFormBase = { [k: string]: any };
 
 export enum EMesonValidate {
@@ -124,7 +124,7 @@ export interface IMesonFieldCustomMultiple<T> extends IMesonFieldBaseProps<T> {
   /** get form and render into form item */
   renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (changedValues: any) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<T>) => IMesonErrors;
+  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<T>) => IMesonErrors<T>;
 }
 
 export interface IMesonFieldNested<T> extends IMesonFieldBaseProps<T> {

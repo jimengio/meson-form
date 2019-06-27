@@ -11,9 +11,9 @@ import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 
 export function MesonInlineForm<T>(props: {
-  initialValue: any;
+  initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;

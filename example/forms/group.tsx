@@ -27,7 +27,7 @@ let options: IMesonSelectItem[] = [
   },
 ];
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Switch,
     label: "Show/hide",

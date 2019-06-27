@@ -6,10 +6,10 @@ import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render"
 import produce from "immer";
 
 /** low level hook for creating forms with very specific UIs */
-export let useMesonCore = (props: {
+export let useMesonCore = <T>(props: {
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyForm?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }) => {
@@ -19,7 +19,7 @@ export let useMesonCore = (props: {
 
   let onCheckSubmitWithValue = (passedForm?: { [k: string]: any }) => {
     let latestForm = passedForm;
-    let currentErrors: IMesonErrors = {};
+    let currentErrors = {} as IMesonErrors<T>;
     let hasErrors = false;
 
     traverseItems(props.items, latestForm, (item: IMesonFieldItemHasValue) => {
@@ -30,7 +30,7 @@ export let useMesonCore = (props: {
       }
     });
 
-    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonFieldCustomMultiple) => {
+    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonFieldCustomMultiple<T>) => {
       let results = item.validateMultiple(latestForm, item);
       if (hasErrorInObject(results)) {
         Object.assign(currentErrors, results);
@@ -38,14 +38,14 @@ export let useMesonCore = (props: {
       }
     });
 
-    updateErrors((draft: IMesonErrors) => {
+    updateErrors((draft: IMesonErrors<T>) => {
       return currentErrors;
     });
 
     if (!hasErrors) {
       props.onSubmit(latestForm, (serverErrors) => {
         // errors from server not in use yet
-        updateErrors((draft: IMesonErrors) => {
+        updateErrors((draft: IMesonErrors<T>) => {
           return serverErrors;
         });
       });
@@ -68,7 +68,7 @@ export let useMesonCore = (props: {
     });
   };
 
-  let checkItemCustomMultiple = (values: any, item: IMesonFieldCustomMultiple) => {
+  let checkItemCustomMultiple = (values: any, item: IMesonFieldCustomMultiple<T>) => {
     let newForm = produce(form, (draft) => {
       Object.assign(draft, values);
     });
@@ -82,7 +82,7 @@ export let useMesonCore = (props: {
     updateErrors((draft) => {
       // reset errors of related fields first
       item.names.forEach((name) => {
-        draft[name] = null;
+        draft[name as string] = null;
       });
       Object.assign(draft, results);
     });

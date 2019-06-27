@@ -14,7 +14,7 @@ interface IDemo {
   b: string;
 }
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Input,
     label: "simple",
@@ -82,7 +82,7 @@ let CustomMultiplePage: SFC<{}> = (props) => {
   return (
     <div className={cx(row, styleContainer)}>
       <MesonForm
-        initialValue={form}
+        initialValue={form as IDemo}
         items={formItems}
         onSubmit={(form) => {
           setForm(form);
