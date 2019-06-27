@@ -7,6 +7,8 @@ export interface ISimpleObject {
   [k: string]: string;
 }
 
+export type IStringObject<T> = { [P in keyof T]?: string };
+
 export enum EMesonValidate {
   Number = "number",
   String = "string",

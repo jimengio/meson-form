@@ -7,7 +7,7 @@ import Select from "antd/lib/select";
 import InputNumber from "antd/lib/input-number";
 import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm } from "./model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IStringObject } from "./model/types";
 import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
 import { traverseItems } from "./util/render";
 import { RequiredMark } from "./component/misc";
@@ -37,7 +37,7 @@ export interface MesonFormHandler {
 export interface MesonFormProps<T> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: Partial<T>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IStringObject<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -75,7 +75,7 @@ export function ForwardForm<T>(props: MesonFormProps<T>, ref: React.Ref<MesonFor
 
   let onCheckSubmitWithValue = (specifiedForm?: T) => {
     let latestForm = specifiedForm;
-    let currentErrors: Partial<T> = {};
+    let currentErrors: IStringObject<T> = {};
     let hasErrors = false;
     traverseItems(props.items, (item: IMesonFieldItemHasValue<T>) => {
       if (item.shouldHide != null && item.shouldHide(latestForm)) {
@@ -90,13 +90,13 @@ export function ForwardForm<T>(props: MesonFormProps<T>, ref: React.Ref<MesonFor
       }
     });
 
-    updateErrors((draft: Partial<T>) => {
+    updateErrors((draft: IStringObject<T>) => {
       return currentErrors;
     });
 
     if (!hasErrors) {
       props.onSubmit(latestForm, (serverErrors) => {
-        updateErrors((draft: Partial<T>) => {
+        updateErrors((draft: IStringObject<T>) => {
           return serverErrors;
         });
       });
@@ -351,9 +351,9 @@ export let MesonForm = React.forwardRef(ForwardForm);
 export function MesonFormModal<T>(props: {
   title: string;
   visible: boolean;
-  initialValue: Partial<T>;
+  initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: Partial<T>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IStringObject<T>) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
@@ -371,7 +371,7 @@ export function MesonFormModal<T>(props: {
             initialValue={props.initialValue}
             items={props.items}
             isLoading={props.isLoading}
-            onSubmit={(form: T, onServerErrors: (x: Partial<T>) => void) => {
+            onSubmit={(form: T, onServerErrors: (x: IStringObject<T>) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
@@ -388,9 +388,9 @@ export function MesonFormDrawer<T>(props: {
   title: string;
   visible: boolean;
   width?: number;
-  initialValue: Partial<T>;
+  initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: Partial<T>) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IStringObject<T>) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
@@ -409,7 +409,7 @@ export function MesonFormDrawer<T>(props: {
             initialValue={props.initialValue}
             items={props.items}
             isLoading={props.isLoading}
-            onSubmit={(form: T, onServerErrors: (x: Partial<T>) => void) => {
+            onSubmit={(form: T, onServerErrors: (x: IStringObject<T>) => void) => {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}

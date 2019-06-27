@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, ISimpleObject, FuncMesonModifyForm } from "./model/types";
+import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, FuncMesonModifyForm, IStringObject } from "./model/types";
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -11,9 +11,9 @@ import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 
 export function MesonInlineForm<T>(props: {
-  initialValue: any;
+  initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: Partial<T>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IStringObject<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
