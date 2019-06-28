@@ -260,11 +260,11 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
-        let formModifider: FuncMesonModifyForm = (f) => {
+        let modifidForm: FuncMesonModifyForm = (f) => {
           updateForm(f);
         };
 
-        let onCheckValues = (xs: any) => {
+        let checkForm = (xs: any) => {
           checkItemCustomMultiple(xs, item);
         };
 
@@ -276,7 +276,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
           <div key={idx} className={cx(row, styleItemRow)}>
             {labelNode}
             <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
-              {item.renderFormWithModifiers(form, formModifider, onCheckValues)}
+              {item.renderMultiple(form, modifidForm, checkForm)}
               <div className={styleErrorWrapper}>{errorNode}</div>
             </div>
           </div>

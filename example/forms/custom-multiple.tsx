@@ -1,18 +1,19 @@
 import React, { SFC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 import Input from "antd/lib/input";
+import { Draft } from "immer";
 
 interface IDemo {
   a: string;
   b: string;
 }
 
-let formItems: IMesonFieldItem[] = [
+let formItems: IMesonFieldItem<keyof IDemo>[] = [
   {
     type: EMesonFieldType.CustomMultiple,
     names: ["a", "b"],
@@ -24,7 +25,7 @@ let formItems: IMesonFieldItem[] = [
         b: form.b ? null : "b is required",
       };
     },
-    renderFormWithModifiers: (form: IDemo, onChange, onCheck) => {
+    renderMultiple: (form: IDemo, onChange: FuncMesonModifyForm<IDemo>, onCheck) => {
       return (
         <div className={row}>
           <div>

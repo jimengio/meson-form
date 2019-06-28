@@ -114,11 +114,17 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonFieldCustomMultiple extends IMesonFieldBaseProps {
+export interface IMesonFieldCustomMultiple<K = string> extends IMesonFieldBaseProps {
   type: EMesonFieldType.CustomMultiple;
-  names: string[];
-  renderFormWithModifiers: (form: any, onModifyForm: FuncMesonModifyForm, onCheck: (xs: any) => void) => ReactNode;
-  validateMultiple: (form: any, item: IMesonFieldCustomMultiple) => IMesonErrors;
+  /** multiple fields to edit and to check
+   * @param modifyForm accepts a function to modify the form
+   * @param checkForm accepts an object of new values
+   */
+  names: K[];
+  /** get form and render into form item */
+  renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (xs: any) => void) => ReactNode;
+  /** get form and return errors of related fields in object */
+  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<K>) => IMesonErrors;
 }
 
 export interface IMesonGroupField extends IMesonFieldBaseProps {
@@ -147,4 +153,4 @@ export type IMesonFieldItem<K = string> =
   | IMesonSwitchField<K>
   | IMesonGroupField
   | IMesonFieldsFragment
-  | IMesonFieldCustomMultiple;
+  | IMesonFieldCustomMultiple<K>;
