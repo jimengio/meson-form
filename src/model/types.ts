@@ -2,7 +2,11 @@ import { ReactNode } from "react";
 import { InputProps } from "antd/lib/input";
 import { SelectProps } from "antd/lib/select";
 
-export interface ISimpleObject {
+export interface ISimpleObject<T = any> {
+  [k: string]: T;
+}
+
+export interface IMesonErrors {
   [k: string]: string;
 }
 
@@ -24,7 +28,7 @@ export enum EMesonFieldType {
   Number = "number",
   Select = "select",
   Custom = "custom",
-  HighlyCustomized = "highly-custimized",
+  CustomMultiple = "custom-multiple",
   Group = "group",
   Switch = "switch",
   // like React fragment
@@ -110,12 +114,11 @@ export interface IMesonCustomField<K> extends IMesonFieldBaseProps {
   validator?: FuncMesonValidator;
 }
 
-export interface IMesonFieldHighlyCustomized extends IMesonFieldBaseProps {
-  type: EMesonFieldType.HighlyCustomized;
+export interface IMesonFieldCustomMultiple extends IMesonFieldBaseProps {
+  type: EMesonFieldType.CustomMultiple;
   names: string[];
   renderFormWithModifiers: (form: any, onModifyForm: FuncMesonModifyForm, onCheck: (xs: any) => void) => ReactNode;
-  extractError: (errors: ISimpleObject) => string;
-  validateRelated: (form: any, item: IMesonFieldHighlyCustomized) => ISimpleObject;
+  validateMultiple: (form: any, item: IMesonFieldCustomMultiple) => IMesonErrors;
 }
 
 export interface IMesonGroupField extends IMesonFieldBaseProps {
@@ -144,4 +147,4 @@ export type IMesonFieldItem<K = string> =
   | IMesonSwitchField<K>
   | IMesonGroupField
   | IMesonFieldsFragment
-  | IMesonFieldHighlyCustomized;
+  | IMesonFieldCustomMultiple;

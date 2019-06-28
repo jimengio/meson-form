@@ -3,7 +3,7 @@ import { IMesonFieldItem, EMesonFieldType } from "../model/types";
 export let traverseItems = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) => void) => {
   xs.forEach((x) => {
     switch (x.type) {
-      case EMesonFieldType.HighlyCustomized:
+      case EMesonFieldType.CustomMultiple:
         return;
       case EMesonFieldType.Group:
       case EMesonFieldType.Fragment:
@@ -14,10 +14,10 @@ export let traverseItems = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) 
   });
 };
 
-export let traverseItemsReachHighlyCustomized = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) => void) => {
+export let traverseItemsReachCustomMultiple = (xs: IMesonFieldItem[], method: (x: IMesonFieldItem) => void) => {
   xs.forEach((x) => {
     switch (x.type) {
-      case EMesonFieldType.HighlyCustomized:
+      case EMesonFieldType.CustomMultiple:
         method(x);
         return;
       case EMesonFieldType.Group:

@@ -5,11 +5,8 @@ import Input from "antd/lib/input";
 import Switch from "antd/lib/switch";
 import Select from "antd/lib/select";
 import InputNumber from "antd/lib/input-number";
-import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";
-import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
-import { traverseItems } from "./util/render";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors } from "./model/types";
 import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
@@ -17,6 +14,7 @@ import TextArea from "antd/lib/input/TextArea";
 import produce, { Draft } from "immer";
 import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
+import { showErrorByNames } from "./util/validation";
 
 /**
  * 清空draft对象的value值
@@ -38,7 +36,7 @@ export interface MesonFormHandler {
 export interface MesonFormProps {
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -65,7 +63,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     updateItem,
     checkItemWithValue,
     forcelyResetForm,
-    checkItemHighlyCustomized,
+    checkItemCustomMultiple,
   } = useMesonCore({
     initialValue: props.initialValue,
     items: props.items,
@@ -261,17 +259,17 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         );
       }
 
-      if (item.type === EMesonFieldType.HighlyCustomized) {
+      if (item.type === EMesonFieldType.CustomMultiple) {
         let formModifider: FuncMesonModifyForm = (f) => {
           updateForm(f);
         };
 
         let onCheckValues = (xs: any) => {
-          checkItemHighlyCustomized(xs, item);
+          checkItemCustomMultiple(xs, item);
         };
 
         // errors related to multiple fields, need to extract
-        let error = item.extractError(errors);
+        let error = showErrorByNames(errors, item.names);
         let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
 
         return (
@@ -320,7 +318,7 @@ export let MesonFormModal: SFC<{
   visible: boolean;
   initialValue: { [k: string]: any };
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
@@ -357,7 +355,7 @@ export let MesonFormDrawer: SFC<{
   width?: number;
   initialValue: { [k: string]: any };
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;

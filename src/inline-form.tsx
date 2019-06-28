@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, ISimpleObject, FuncMesonModifyForm } from "./model/types";
+import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, FuncMesonModifyForm, IMesonErrors } from "./model/types";
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -13,7 +13,7 @@ import { RequiredMark } from "./component/misc";
 let MesonInlineForm: FC<{
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -125,7 +125,7 @@ let MesonInlineForm: FC<{
           return `Not supported type: ${item.type}`;
         }
 
-        if (item.type === EMesonFieldType.HighlyCustomized) {
+        if (item.type === EMesonFieldType.CustomMultiple) {
           return `Not supported type: ${item.type}`;
         }
 
