@@ -16,6 +16,7 @@ interface IDemo {
   name: string;
   size: number;
   description: string;
+  materialInside: string;
 }
 
 let options: IMesonSelectItem[] = [
@@ -83,7 +84,7 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
     required: true,
   },
   {
-    type: EMesonFieldType.Fragment,
+    type: EMesonFieldType.Group,
     shouldHide: () => true,
     children: [
       {
@@ -104,8 +105,8 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
     },
   },
   {
-    type: EMesonFieldType.Group,
-    label: "group",
+    type: EMesonFieldType.Nested,
+    label: "Nested",
     children: [{ type: EMesonFieldType.Select, label: "物料", name: "materialInside", required: true, options: options }],
   },
   {

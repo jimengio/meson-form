@@ -103,6 +103,12 @@ export let genRouter = {
     path: () => `/blank-label`,
     go: () => switchPath(`/blank-label`),
   },
+  group: {
+    name: "group",
+    raw: "group",
+    path: () => `/group`,
+    go: () => switchPath(`/group`),
+  },
   _: {
     name: "home",
     raw: "",

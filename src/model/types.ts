@@ -29,10 +29,10 @@ export enum EMesonFieldType {
   Select = "select",
   Custom = "custom",
   CustomMultiple = "custom-multiple",
-  Group = "group",
+  Nested = "nested",
   Switch = "switch",
   // like React fragment
-  Fragment = "fragment",
+  Group = "group",
 }
 
 export interface IMesonFieldBaseProps<K = string> {
@@ -127,15 +127,15 @@ export interface IMesonFieldCustomMultiple<K = string> extends IMesonFieldBasePr
   validateMultiple: (form: any, item: IMesonFieldCustomMultiple<K>) => IMesonErrors;
 }
 
-export interface IMesonGroupField extends IMesonFieldBaseProps {
-  type: EMesonFieldType.Group;
-  children: IMesonFieldItem[];
+export interface IMesonFieldNested<K> extends IMesonFieldBaseProps {
+  type: EMesonFieldType.Nested;
+  children: IMesonFieldItem<K>[];
 }
 
-export interface IMesonFieldsFragment {
-  type: EMesonFieldType.Fragment;
+export interface IMesonFieldsGroup<K> {
+  type: EMesonFieldType.Group;
   shouldHide?: (form: any) => boolean;
-  children: IMesonFieldItem[];
+  children: IMesonFieldItem<K>[];
 }
 
 export type IMesonFieldItemHasValue<K = string> =
@@ -151,6 +151,6 @@ export type IMesonFieldItem<K = string> =
   | IMesonSelectField<K>
   | IMesonCustomField<K>
   | IMesonSwitchField<K>
-  | IMesonGroupField
-  | IMesonFieldsFragment
+  | IMesonFieldNested<K>
+  | IMesonFieldsGroup<K>
   | IMesonFieldCustomMultiple<K>;

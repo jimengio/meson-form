@@ -156,14 +156,16 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         );
       case EMesonFieldType.Switch:
         return (
-          <Switch
-            checked={form[item.name]}
-            className={styleSwitch}
-            disabled={item.disabled}
-            onChange={(value) => {
-              updateItem(value, item);
-            }}
-          />
+          <div>
+            <Switch
+              checked={form[item.name]}
+              className={styleSwitch}
+              disabled={item.disabled}
+              onChange={(value) => {
+                updateItem(value, item);
+              }}
+            />
+          </div>
         );
       case EMesonFieldType.Select:
         let currentValue = form[item.name];
@@ -203,7 +205,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
             })}
           </Select>
         );
-      case EMesonFieldType.Group:
+      case EMesonFieldType.Nested:
         return renderItems(item.children);
       case EMesonFieldType.Custom:
       // already handled outside
@@ -217,7 +219,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         return null;
       }
 
-      if (item.type === EMesonFieldType.Fragment) {
+      if (item.type === EMesonFieldType.Group) {
         return <>{renderItems(item.children)}</>;
       }
 

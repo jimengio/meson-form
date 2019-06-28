@@ -9,8 +9,8 @@ export let traverseItems = (xs: IMesonFieldItem[], form: ISimpleObject, method: 
     switch (x.type) {
       case EMesonFieldType.CustomMultiple:
         return;
+      case EMesonFieldType.Nested:
       case EMesonFieldType.Group:
-      case EMesonFieldType.Fragment:
         traverseItems(x.children, form, method);
       default:
         method(x);
@@ -27,8 +27,8 @@ export let traverseItemsReachCustomMultiple = (xs: IMesonFieldItem[], form: ISim
       case EMesonFieldType.CustomMultiple:
         method(x);
         return;
+      case EMesonFieldType.Nested:
       case EMesonFieldType.Group:
-      case EMesonFieldType.Fragment:
         traverseItemsReachCustomMultiple(x.children, form, method);
       default:
         return;

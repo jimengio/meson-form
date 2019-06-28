@@ -117,11 +117,11 @@ let MesonInlineForm: FC<{
   return (
     <div className={cx(row, styleContainer)}>
       {props.items.map((item, idx) => {
-        if (item.type === EMesonFieldType.Fragment) {
+        if (item.type === EMesonFieldType.Group) {
           return <>{item.children.map(renderItem)}</>;
         }
 
-        if (item.type === EMesonFieldType.Group) {
+        if (item.type === EMesonFieldType.Nested) {
           return `Not supported type: ${item.type}`;
         }
 

@@ -18,5 +18,6 @@ export const routerRules: IRouteRule[] = [
   { path: "switch" },
   { path: "inline-form" },
   { path: "blank-label" },
+  { path: "group" },
   { path: "", name: "home" },
 ];
