@@ -18,6 +18,7 @@ import SwitchPage from "forms/switch";
 import InlineFormPage from "forms/inline-form";
 import FormBlankLabel from "forms/blank-label";
 import DrawerPage from "forms/drawer";
+import CustomMultiplePage from "forms/custom-multiple";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -47,6 +48,10 @@ let pages: { title: string; path: string }[] = [
   {
     title: "Custom",
     path: genRouter.custom.name,
+  },
+  {
+    title: "Custom multiple",
+    path: genRouter.customMultiple.name,
   },
   {
     title: "Auto save",
@@ -95,6 +100,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <ValidationPage />;
       case genRouter.custom.name:
         return <CustomPage />;
+      case genRouter.customMultiple.name:
+        return <CustomMultiplePage />;
       case genRouter.autoSave.name:
         return <AutoSavePage />;
       case genRouter.wrapMesonCore.name:
