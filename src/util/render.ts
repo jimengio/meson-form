@@ -29,7 +29,7 @@ export let traverseItemsReachCustomMultiple = (xs: IMesonFieldItem[], form: ISim
         return;
       case EMesonFieldType.Group:
       case EMesonFieldType.Fragment:
-        traverseItems(x.children, form, method);
+        traverseItemsReachCustomMultiple(x.children, form, method);
       default:
         return;
     }
