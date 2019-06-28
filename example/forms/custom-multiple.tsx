@@ -25,7 +25,7 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
         b: form.b ? null : "b is required",
       };
     },
-    renderMultiple: (form: IDemo, onChange: FuncMesonModifyForm<IDemo>, onCheck) => {
+    renderMultiple: (form: IDemo, modifyForm: FuncMesonModifyForm<IDemo>, checkForm) => {
       return (
         <div className={row}>
           <div>
@@ -34,26 +34,26 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
               value={form.a}
               onChange={(event) => {
                 let text = event.target.value;
-                onChange((draft) => {
+                modifyForm((draft) => {
                   draft.a = text;
                 });
               }}
               placeholder={"Custom field a"}
               onBlur={() => {
-                onCheck(form);
+                checkForm(form);
               }}
             />
             <Input
               value={form.b}
               onChange={(event) => {
                 let text = event.target.value;
-                onChange((draft) => {
+                modifyForm((draft) => {
                   draft.b = text;
                 });
               }}
               placeholder={"Custom field b"}
               onBlur={() => {
-                onCheck(form);
+                checkForm(form);
               }}
             />
           </div>

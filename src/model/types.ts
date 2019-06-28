@@ -122,7 +122,7 @@ export interface IMesonFieldCustomMultiple<K = string> extends IMesonFieldBasePr
    */
   names: K[];
   /** get form and render into form item */
-  renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (xs: any) => void) => ReactNode;
+  renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (changedValues: any) => void) => ReactNode;
   /** get form and return errors of related fields in object */
   validateMultiple: (form: any, item: IMesonFieldCustomMultiple<K>) => IMesonErrors;
 }
