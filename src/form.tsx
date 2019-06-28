@@ -50,8 +50,6 @@ export interface MesonFormProps {
 }
 
 export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonFormProps> = (props, ref) => {
-  let [modified, setModified] = useState<boolean>(false);
-
   let {
     formAny: form,
     updateForm,
@@ -63,6 +61,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     updateItem,
     checkItemWithValue,
     checkItemCustomMultiple,
+    resetModified,
   } = useMesonCore({
     initialValue: props.initialValue,
     items: props.items,
@@ -80,7 +79,7 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     onReset: () => {
       updateForm(clearDraftValue);
       updateErrors(clearDraftValue);
-      setModified(false);
+      resetModified();
 
       if (props.onReset != null) {
         props.onReset();

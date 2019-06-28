@@ -117,5 +117,8 @@ export let useMesonCore = (props: {
     checkItemCustomMultiple,
     checkItemWithValue,
     updateItem,
+    resetModified: () => {
+      modifiedState.current = false;
+    },
   };
 };
