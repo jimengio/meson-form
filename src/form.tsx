@@ -5,17 +5,16 @@ import Input from "antd/lib/input";
 import Switch from "antd/lib/switch";
 import Select from "antd/lib/select";
 import InputNumber from "antd/lib/input-number";
-import { useImmer } from "use-immer";
 import { lingual, formatString } from "./lingual";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, ISimpleObject, FuncMesonModifyForm } from "./model/types";
-import { validateValueRequired, validateByMethods, validateItem } from "./util/validation";
-import { traverseItems } from "./util/render";
+import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors } from "./model/types";
 import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import TextArea from "antd/lib/input/TextArea";
 import produce, { Draft } from "immer";
 import MesonDrawer from "./component/drawer";
+import { useMesonCore } from "./hook/meson-core";
+import { showErrorByNames } from "./util/validation";
 
 /**
  * 清空draft对象的value值
@@ -37,7 +36,7 @@ export interface MesonFormHandler {
 export interface MesonFormProps {
   initialValue: any;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -51,9 +50,24 @@ export interface MesonFormProps {
 }
 
 export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonFormProps> = (props, ref) => {
-  let [form, updateForm] = useImmer(props.initialValue);
-  let [errors, updateErrors] = useImmer({});
-  let [modified, setModified] = useState<boolean>(false);
+  let {
+    formAny: form,
+    updateForm,
+    errors,
+    updateErrors,
+    onCheckSubmit,
+    checkItem,
+    onCheckSubmitWithValue,
+    updateItem,
+    checkItemWithValue,
+    checkItemCustomMultiple,
+    resetModified,
+  } = useMesonCore({
+    initialValue: props.initialValue,
+    items: props.items,
+    submitOnEdit: props.submitOnEdit,
+    onSubmit: props.onSubmit,
+  });
 
   /**
    * 父组件可以通过ref调用onSubmit、onReset
@@ -65,88 +79,13 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     onReset: () => {
       updateForm(clearDraftValue);
       updateErrors(clearDraftValue);
-      setModified(false);
+      resetModified();
 
       if (props.onReset != null) {
         props.onReset();
       }
     },
   }));
-
-  let onCheckSubmitWithValue = (specifiedForm?: { [k: string]: any }) => {
-    let latestForm = specifiedForm;
-    let currentErrors: ISimpleObject = {};
-    let hasErrors = false;
-    traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-      if (item.shouldHide != null && item.shouldHide(latestForm)) {
-        return null;
-      }
-
-      let result = validateItem(latestForm[item.name], item);
-
-      if (result != null) {
-        currentErrors[item.name] = result;
-        hasErrors = true;
-      }
-    });
-
-    updateErrors((draft: ISimpleObject) => {
-      return currentErrors;
-    });
-
-    if (!hasErrors) {
-      props.onSubmit(latestForm, (serverErrors) => {
-        updateErrors((draft: ISimpleObject) => {
-          return serverErrors;
-        });
-      });
-      setModified(false);
-    }
-  };
-
-  let onCheckSubmit = () => {
-    onCheckSubmitWithValue(form);
-  };
-
-  let checkItem = (item: IMesonFieldItemHasValue) => {
-    if (props.submitOnEdit) {
-      onCheckSubmitWithValue(form);
-      return;
-    }
-
-    let result = validateItem(form[item.name], item);
-    updateErrors((draft) => {
-      draft[item.name] = result;
-    });
-  };
-
-  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
-    if (props.submitOnEdit) {
-      let newForm = produce(form, (draft) => {
-        draft[item.name] = x;
-      });
-      onCheckSubmitWithValue(newForm);
-      return;
-    }
-
-    let result = validateItem(x, item);
-    updateErrors((draft) => {
-      draft[item.name] = result;
-    });
-  };
-
-  let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
-    updateForm((draft: { [k: string]: any }) => {
-      draft[item.name] = x;
-    });
-    setModified(true);
-    if (item.onChange != null) {
-      item.onChange(x, updateForm);
-    }
-    if (props.onFieldChange != null) {
-      props.onFieldChange(item.name, x, form, updateForm);
-    }
-  };
 
   let renderValueItem = (item: IMesonFieldItem) => {
     switch (item.type) {
@@ -318,6 +257,30 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
         );
       }
 
+      if (item.type === EMesonFieldType.CustomMultiple) {
+        let modifidForm: FuncMesonModifyForm = (f) => {
+          updateForm(f);
+        };
+
+        let checkForm = (xs: any) => {
+          checkItemCustomMultiple(xs, item);
+        };
+
+        // errors related to multiple fields, need to extract
+        let error = showErrorByNames(errors, item.names);
+        let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
+
+        return (
+          <div key={idx} className={cx(row, styleItemRow)}>
+            {labelNode}
+            <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
+              {item.renderMultiple(form, modifidForm, checkForm)}
+              <div className={styleErrorWrapper}>{errorNode}</div>
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div key={idx} className={cx(row, styleItemRow)}>
           {labelNode}
@@ -353,7 +316,7 @@ export let MesonFormModal: SFC<{
   visible: boolean;
   initialValue: { [k: string]: any };
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
@@ -390,7 +353,7 @@ export let MesonFormDrawer: SFC<{
   width?: number;
   initialValue: { [k: string]: any };
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;

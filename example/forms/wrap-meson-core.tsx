@@ -35,7 +35,7 @@ let WrapMesonCore: FC<{}> = (props) => {
     setSubmittedForm(form);
   };
 
-  let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm } = useMesonCore({
+  let { formAny, errors, onCheckSubmit, checkItem, updateItem, updateForm, updateErrors } = useMesonCore({
     initialValue: submittedForm,
     items: formItems,
     onSubmit: onSubmit,
@@ -55,7 +55,12 @@ let WrapMesonCore: FC<{}> = (props) => {
         <button
           onClick={() => {
             setSubmittedForm({});
-            forcelyResetForm({});
+            updateForm((draft) => {
+              return {};
+            });
+            updateErrors((draft) => {
+              return {};
+            });
           }}
         >
           Reset

@@ -124,7 +124,7 @@ export let MesonForm: SFC<{
   initialValue: any;
   /** JSON 结构的表单定义, 建议定义变量传过来, 一来定义会比较长, 二来 TS 类型推断在变量加类型的情况才准确 */
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: ISimpleObject) => void) => void;
+  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
@@ -145,7 +145,7 @@ export let MesonForm: SFC<{
 `useMesonCore` is a low level API for maintaining form states. The UI part need extra code.
 
 ```ts
-let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm } = useMesonCore({
+let { formAny, errors, onCheckSubmit, checkItem, updateItem } = useMesonCore({
   initialValue: submittedForm,
   items: formItems,
   onSubmit: onSubmit,

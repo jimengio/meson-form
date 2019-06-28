@@ -1,4 +1,4 @@
-import { EMesonFieldType, IMesonFieldItem, IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator } from "../model/types";
+import { EMesonFieldType, IMesonFieldItem, IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
 import { formatString, lingual } from "../lingual";
 import is from "is";
 
@@ -43,4 +43,22 @@ export let validateItem = (x: any, item: IMesonFieldItemHasValue): string => {
     return validateValueRequired(x, item);
   }
   return undefined;
+};
+
+export let hasErrorInObject = (x: IMesonErrors): boolean => {
+  for (let k in x) {
+    if (x[k] != null) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export let showErrorByNames = (x: IMesonErrors, names: string[]): string => {
+  for (let k in x) {
+    if (x[k] != null) {
+      return x[k];
+    }
+  }
+  return null;
 };
