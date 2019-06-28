@@ -19,6 +19,7 @@ import InlineFormPage from "forms/inline-form";
 import FormBlankLabel from "forms/blank-label";
 import DrawerPage from "forms/drawer";
 import CustomMultiplePage from "forms/custom-multiple";
+import GroupPage from "forms/group";
 
 let pages: { title: string; path: string }[] = [
   {
@@ -81,6 +82,10 @@ let pages: { title: string; path: string }[] = [
     title: "Blank label",
     path: genRouter.blankLabel.name,
   },
+  {
+    title: "Group",
+    path: genRouter.group.name,
+  },
 ];
 
 let Container: SFC<{ router: IRouteParseResult }> = (props) => {
@@ -116,6 +121,8 @@ let Container: SFC<{ router: IRouteParseResult }> = (props) => {
         return <InlineFormPage />;
       case genRouter.blankLabel.name:
         return <FormBlankLabel />;
+      case genRouter.group.name:
+        return <GroupPage />;
       default:
         return <FormBasic />;
     }

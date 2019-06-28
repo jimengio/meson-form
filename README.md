@@ -78,8 +78,8 @@ Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
 - `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
 - `Switch`, 开关类型,
 - `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
-- `Group`, 嵌套的分组,
-- `Fragment`, 类似 Group 但是这个分组不进行嵌套, 用在属性批量控制显示隐藏的情况.
+- `Group`, 不嵌套的分组, 用在属性批量控制显示隐藏的情况,
+- `Nested`, 嵌套的分组.
 
 对于自定义渲染的位置, 配置 `Custom` 类型, 并且需要传入一个 `render` 方法用于渲染值以及操作区域,
 
