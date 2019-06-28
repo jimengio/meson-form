@@ -62,7 +62,6 @@ export let ForwardForm: React.RefForwardingComponent<MesonFormHandler, MesonForm
     onCheckSubmitWithValue,
     updateItem,
     checkItemWithValue,
-    forcelyResetForm,
     checkItemCustomMultiple,
   } = useMesonCore({
     initialValue: props.initialValue,

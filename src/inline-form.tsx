@@ -25,7 +25,7 @@ let MesonInlineForm: FC<{
     props.onSubmit(form);
   };
 
-  let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm, checkItemWithValue } = useMesonCore({
+  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore({
     initialValue: props.initialValue,
     items: props.items,
     onSubmit: onSubmit,

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonFieldCustomMultiple, IMesonErrors } from "../model/types";
-import { validateValueRequired, validateByMethods, validateItem, hasErrorInObject } from "../util/validation";
+import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonFieldCustomMultiple, IMesonErrors } from "../model/types";
+import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce from "immer";
 
@@ -10,36 +10,27 @@ export let useMesonCore = (props: {
   initialValue: any;
   items: IMesonFieldItem[];
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyForm?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }) => {
   let [form, updateForm] = useImmer(props.initialValue);
   let [errors, updateErrors] = useImmer({});
-  let [modified, setModified] = useState<boolean>(false);
+  let modifiedState = useRef(false);
 
-  let onCheckSubmitWithValue = (specifiedForm?: { [k: string]: any }) => {
-    let latestForm = specifiedForm;
+  let onCheckSubmitWithValue = (passedForm?: { [k: string]: any }) => {
+    let latestForm = passedForm;
     let currentErrors: IMesonErrors = {};
     let hasErrors = false;
 
-    traverseItems(props.items, (item: IMesonFieldItemHasValue) => {
-      if (item.shouldHide != null && item.shouldHide(latestForm)) {
-        return null;
-      }
-
+    traverseItems(props.items, latestForm, (item: IMesonFieldItemHasValue) => {
       let result = validateItem(latestForm[item.name], item);
-
       if (result != null) {
         currentErrors[item.name] = result;
         hasErrors = true;
       }
     });
 
-    traverseItemsReachCustomMultiple(props.items, (item: IMesonFieldCustomMultiple) => {
-      if (item.shouldHide != null && item.shouldHide(latestForm)) {
-        return null;
-      }
-
+    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonFieldCustomMultiple) => {
       let results = item.validateMultiple(latestForm, item);
       if (hasErrorInObject(results)) {
         Object.assign(currentErrors, results);
@@ -53,11 +44,12 @@ export let useMesonCore = (props: {
 
     if (!hasErrors) {
       props.onSubmit(latestForm, (serverErrors) => {
+        // errors from server not in use yet
         updateErrors((draft: IMesonErrors) => {
           return serverErrors;
         });
       });
-      setModified(false);
+      modifiedState.current = false;
     }
   };
 
@@ -100,7 +92,7 @@ export let useMesonCore = (props: {
     updateForm((draft: { [k: string]: any }) => {
       draft[item.name] = x;
     });
-    setModified(true);
+    modifiedState.current = true;
     if (item.onChange != null) {
       item.onChange(x, updateForm);
     }
@@ -109,19 +101,12 @@ export let useMesonCore = (props: {
     }
   };
 
-  /** forcely */
-  let forcelyResetForm = (newForm: any) => {
-    updateForm((draft) => {
-      return newForm;
-    });
-  };
-
   return {
     formAny: form,
     updateForm,
     errors,
     updateErrors,
-    isModified: modified,
+    isModified: modifiedState.current,
     onCheckSubmit: () => {
       onCheckSubmitWithValue(form);
     },
@@ -132,6 +117,5 @@ export let useMesonCore = (props: {
     checkItemCustomMultiple,
     checkItemWithValue,
     updateItem,
-    forcelyResetForm,
   };
 };

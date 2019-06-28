@@ -145,7 +145,7 @@ export let MesonForm: SFC<{
 `useMesonCore` is a low level API for maintaining form states. The UI part need extra code.
 
 ```ts
-let { formAny, errors, onCheckSubmit, checkItem, updateItem, forcelyResetForm } = useMesonCore({
+let { formAny, errors, onCheckSubmit, checkItem, updateItem } = useMesonCore({
   initialValue: submittedForm,
   items: formItems,
   onSubmit: onSubmit,
