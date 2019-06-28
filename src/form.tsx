@@ -312,7 +312,10 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
   );
 }
 
-export let MesonForm = React.forwardRef(ForwardForm);
+/** this type is tricky to missing type after calling forwardRef */
+export type FuncMesonFormForwarded<T = any> = React.ForwardRefExoticComponent<MesonFormProps<T> & React.RefAttributes<MesonFormHandler>>;
+
+export let MesonForm: FuncMesonFormForwarded = React.forwardRef(ForwardForm);
 
 export function MesonFormModal<T>(props: {
   title: string;
