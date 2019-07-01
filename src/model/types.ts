@@ -7,7 +7,7 @@ export interface ISimpleObject<T = any> {
   [k: string]: T;
 }
 
-export type IMesonErrors<T> = { [K in keyof T]: string };
+export type IMesonErrors<T> = { [K in keyof T]?: string };
 export type IMesonFormBase = { [k: string]: any };
 
 export enum EMesonValidate {

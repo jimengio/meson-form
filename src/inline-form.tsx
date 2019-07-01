@@ -12,7 +12,7 @@ import { RequiredMark } from "./component/misc";
 export function MesonInlineForm<T>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
