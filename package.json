@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.2.0-a1",
+  "version": "0.2.0-a2",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
