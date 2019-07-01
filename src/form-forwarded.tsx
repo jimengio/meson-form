@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties, useState, useEffect } from "react";
+import React from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors, IMesonFormBase } from "./model/types";
@@ -6,7 +6,7 @@ import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonMod
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
 import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderItemLayout } from "./renderer";
-import { MesonFormProps } from "meson-form";
+import { MesonFormProps } from "./form";
 import { Draft } from "immer";
 
 /**
@@ -39,7 +39,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
     checkItemWithValue,
     checkItemCustomMultiple,
     resetModified,
-  } = useMesonCore({
+  } = useMesonCore<T>({
     initialValue: props.initialValue,
     items: props.items,
     submitOnEdit: props.submitOnEdit,
