@@ -205,7 +205,7 @@ export function MesonFormDrawer<T>(props: {
   );
 }
 
-export { MesonFormForworded } from "./form-forwarded";
+export { MesonFormForwarded } from "./form-forwarded";
 
 let styleForm = css`
   flex: 1;

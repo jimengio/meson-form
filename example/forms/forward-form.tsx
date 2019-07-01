@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
-import { MesonFormHandler, MesonFormForworded } from "../../src/form-forwarded";
+import { MesonFormHandler, MesonFormForwarded } from "../../src/form-forwarded";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
@@ -21,7 +21,7 @@ let FormBasic: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonFormForworded
+      <MesonFormForwarded
         ref={formRef}
         initialValue={form}
         items={formItems}

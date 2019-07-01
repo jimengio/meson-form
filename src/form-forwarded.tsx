@@ -138,8 +138,8 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
   );
 }
 
-/** MesonFormForworded is implemented based on MesonForm, edit in MesonForm first */
-export let MesonFormForworded = React.forwardRef(ForwardForm);
+/** MesonFormForwarded is implemented based on MesonForm, edit in MesonForm first */
+export let MesonFormForwarded = React.forwardRef(ForwardForm);
 
 let styleItemsContainer = css`
   overflow: auto;
