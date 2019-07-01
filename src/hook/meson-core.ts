@@ -3,21 +3,21 @@ import { useImmer } from "use-immer";
 import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors } from "../model/types";
 import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
-import produce from "immer";
+import produce, { Draft } from "immer";
 
 /** low level hook for creating forms with very specific UIs */
 export let useMesonCore = <T>(props: {
-  initialValue: any;
+  initialValue: T;
   items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyForm?: FuncMesonModifyForm) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
-  let [form, updateForm] = useImmer(props.initialValue);
+  let [form, updateForm] = useImmer(props.initialValue as T);
   let [errors, updateErrors] = useImmer({});
   let modifiedState = useRef(false);
 
-  let onCheckSubmitWithValue = (passedForm?: { [k: string]: any }) => {
+  let onCheckSubmitWithValue = (passedForm?: T) => {
     let latestForm = passedForm;
     let currentErrors = {} as IMesonErrors<T>;
     let hasErrors = false;
@@ -68,7 +68,7 @@ export let useMesonCore = <T>(props: {
     });
   };
 
-  let checkItemCustomMultiple = (values: any, item: IMesonCustomMultipleField<T>) => {
+  let checkItemCustomMultiple = (values: Partial<T>, item: IMesonCustomMultipleField<T>) => {
     let newForm = produce(form, (draft) => {
       Object.assign(draft, values);
     });
@@ -79,7 +79,7 @@ export let useMesonCore = <T>(props: {
     }
 
     let results = item.validateMultiple(newForm, item);
-    updateErrors((draft) => {
+    updateErrors((draft: T) => {
       // reset errors of related fields first
       item.names.forEach((name) => {
         draft[name as string] = null;
@@ -89,7 +89,7 @@ export let useMesonCore = <T>(props: {
   };
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
-    updateForm((draft: { [k: string]: any }) => {
+    updateForm((draft: Draft<T>) => {
       draft[item.name] = x;
     });
     modifiedState.current = true;

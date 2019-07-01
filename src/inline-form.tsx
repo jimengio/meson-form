@@ -5,7 +5,6 @@ import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, Fu
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
-import TextArea from "antd/lib/input/TextArea";
 import { formatString, lingual } from "./lingual";
 import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
@@ -21,11 +20,11 @@ export function MesonInlineForm<T>(props: {
   onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) {
-  let onSubmit = (form: any) => {
+  let onSubmit = (form: T) => {
     props.onSubmit(form);
   };
 
-  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore({
+  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore<T>({
     initialValue: props.initialValue,
     items: props.items,
     onSubmit: onSubmit,
@@ -48,6 +47,7 @@ export function MesonInlineForm<T>(props: {
           <Input
             value={formAny[item.name]}
             key={`${item.name}+${idx}`}
+            disabled={item.disabled}
             type={item.inputType || "text"}
             style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
