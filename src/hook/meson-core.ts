@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonFieldCustomMultiple, IMesonErrors } from "../model/types";
+import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors } from "../model/types";
 import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce from "immer";
@@ -30,7 +30,7 @@ export let useMesonCore = <T>(props: {
       }
     });
 
-    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonFieldCustomMultiple<T>) => {
+    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonCustomMultipleField<T>) => {
       let results = item.validateMultiple(latestForm, item);
       if (hasErrorInObject(results)) {
         Object.assign(currentErrors, results);
@@ -68,7 +68,7 @@ export let useMesonCore = <T>(props: {
     });
   };
 
-  let checkItemCustomMultiple = (values: any, item: IMesonFieldCustomMultiple<T>) => {
+  let checkItemCustomMultiple = (values: any, item: IMesonCustomMultipleField<T>) => {
     let newForm = produce(form, (draft) => {
       Object.assign(draft, values);
     });

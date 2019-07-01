@@ -114,7 +114,7 @@ export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonFieldCustomMultiple<T> extends IMesonFieldBaseProps<T> {
+export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
   type: EMesonFieldType.CustomMultiple;
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
@@ -124,15 +124,15 @@ export interface IMesonFieldCustomMultiple<T> extends IMesonFieldBaseProps<T> {
   /** get form and render into form item */
   renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (changedValues: any) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple: (form: any, item: IMesonFieldCustomMultiple<T>) => IMesonErrors<T>;
+  validateMultiple: (form: any, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
 }
 
-export interface IMesonFieldNested<T> extends IMesonFieldBaseProps<T> {
+export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
   type: EMesonFieldType.Nested;
   children: IMesonFieldItem<T>[];
 }
 
-export interface IMesonFieldsGroup<T> {
+export interface IMesonGroupFields<T> {
   type: EMesonFieldType.Group;
   shouldHide?: (form: any) => boolean;
   children: IMesonFieldItem<T>[];
@@ -148,6 +148,6 @@ export type IMesonFieldItem<T = any> =
   | IMesonSelectField<T>
   | IMesonCustomField<T>
   | IMesonSwitchField<T>
-  | IMesonFieldNested<T>
-  | IMesonFieldsGroup<T>
-  | IMesonFieldCustomMultiple<T>;
+  | IMesonNestedFields<T>
+  | IMesonGroupFields<T>
+  | IMesonCustomMultipleField<T>;
