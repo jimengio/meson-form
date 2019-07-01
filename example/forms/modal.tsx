@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
@@ -8,7 +8,7 @@ import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 
-let ModalPage: SFC<{}> = (props) => {
+let ModalPage: FC<{}> = (props) => {
   let [visible, setVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 

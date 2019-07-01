@@ -1,7 +1,7 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
@@ -14,7 +14,7 @@ interface IDemo {
   b: string;
 }
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Input,
     label: "simple",
@@ -30,7 +30,7 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
       return {
         a: form.a ? null : "a is required",
         b: form.b ? null : "b is required",
-      };
+      } as IMesonErrors<IDemo>;
     },
     renderMultiple: (form: IDemo, modifyForm: FuncMesonModifyForm<IDemo>, checkForm: (changedValues: IDemo) => void) => {
       return (
@@ -76,8 +76,8 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
   },
 ];
 
-let CustomMultiplePage: SFC<{}> = (props) => {
-  let [form, setForm] = useState({});
+let CustomMultiplePage: FC<{}> = (props) => {
+  let [form, setForm] = useState({} as IDemo);
 
   return (
     <div className={cx(row, styleContainer)}>

@@ -117,7 +117,7 @@ Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
 关于表单的具体参数:
 
 ```ts
-export let MesonForm: SFC<{
+export let MesonForm: FC<{
   /** 初始值, 后续的更新都在表单内部进行, 包括自定义渲染也是把修改传回到组件内部,
    * 可能会需要通过 key 重置表单, 比如 load 服务端数据回来需要重新初始化的情况
    */

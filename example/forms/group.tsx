@@ -27,7 +27,7 @@ let options: IMesonSelectItem[] = [
   },
 ];
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Switch,
     label: "Show/hide",
@@ -63,19 +63,19 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
 ];
 
 let GroupPage: FC<{}> = (props) => {
-  let [form, setForm] = useState({});
+  let [form, setForm] = useState({} as IDemo);
 
   return (
     <div className={cx(row, styleContainer)}>
       <div className={styleFormArea}>
-        <MesonForm
+        <MesonForm<IDemo>
           initialValue={form}
           items={formItems}
           onSubmit={(form) => {
             setForm(form);
           }}
           onCancel={() => {
-            setForm({});
+            setForm({} as IDemo);
           }}
           footerLayout={EMesonFooterLayout.Center}
           submitOnEdit={false}

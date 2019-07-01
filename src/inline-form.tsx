@@ -5,34 +5,33 @@ import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, Fu
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
-import TextArea from "antd/lib/input/TextArea";
 import { formatString, lingual } from "./lingual";
 import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 
-let MesonInlineForm: FC<{
-  initialValue: any;
-  items: IMesonFieldItem[];
-  onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
+export function MesonInlineForm<T>(props: {
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: string, v: any, prevForm?: { [k: string]: any }, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
-}> = (props) => {
-  let onSubmit = (form: any) => {
+}) {
+  let onSubmit = (form: T) => {
     props.onSubmit(form);
   };
 
-  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore({
+  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore<T>({
     initialValue: props.initialValue,
     items: props.items,
     onSubmit: onSubmit,
     submitOnEdit: props.submitOnEdit,
   });
 
-  let renderItem = (item: IMesonFieldItem, idx: number) => {
+  let renderItem = (item: IMesonFieldItem<T>, idx: number) => {
     switch (item.type) {
       case EMesonFieldType.Custom:
         let onChange = (value: any) => {
@@ -48,6 +47,7 @@ let MesonInlineForm: FC<{
           <Input
             value={formAny[item.name]}
             key={`${item.name}+${idx}`}
+            disabled={item.disabled}
             type={item.inputType || "text"}
             style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -150,7 +150,7 @@ let MesonInlineForm: FC<{
       })}
     </div>
   );
-};
+}
 
 export default MesonInlineForm;
 

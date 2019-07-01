@@ -2,7 +2,7 @@ import { EMesonFieldType, IMesonFieldItem, IMesonFieldItemHasValue, EMesonValida
 import { formatString, lingual } from "../lingual";
 import is from "is";
 
-export let validateValueRequired = (x: any, item: IMesonFieldItemHasValue) => {
+export let validateValueRequired = <T>(x: any, item: IMesonFieldItemHasValue<T>) => {
   if (x == null || x === "") {
     return formatString(lingual.labelIsRequired, {
       label: item.label,
@@ -10,7 +10,7 @@ export let validateValueRequired = (x: any, item: IMesonFieldItemHasValue) => {
   }
 };
 
-export let validateByMethods = (x: any, methods: (EMesonValidate | FuncMesonValidator)[], item: IMesonFieldItemHasValue): string => {
+export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonValidator<T>)[], item: IMesonFieldItemHasValue<T>): string => {
   for (let idx in methods) {
     let method = methods[idx];
     if (method === EMesonValidate.Number) {
@@ -34,7 +34,7 @@ export let validateByMethods = (x: any, methods: (EMesonValidate | FuncMesonVali
   return null;
 };
 
-export let validateItem = (x: any, item: IMesonFieldItemHasValue): string => {
+export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>): string => {
   if (item.validator != null) {
     return item.validator(x);
   } else if (is.array(item.validateMethods)) {
@@ -45,7 +45,7 @@ export let validateItem = (x: any, item: IMesonFieldItemHasValue): string => {
   return undefined;
 };
 
-export let hasErrorInObject = (x: IMesonErrors): boolean => {
+export let hasErrorInObject = (x: IMesonErrors<any>): boolean => {
   for (let k in x) {
     if (x[k] != null) {
       return true;
@@ -54,7 +54,7 @@ export let hasErrorInObject = (x: IMesonErrors): boolean => {
   return false;
 };
 
-export let showErrorByNames = (x: IMesonErrors, names: string[]): string => {
+export let showErrorByNames = (x: IMesonErrors<any>, names: string[]): string => {
   for (let k in names) {
     let name = names[k];
     if (x[name] != null) {

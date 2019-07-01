@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
@@ -10,7 +10,7 @@ import SourceLink from "kits/source-link";
 
 interface IDemo {
   material: string;
-  amount: string;
+  amount: number;
   count: string;
   price: string;
   name: string;
@@ -30,7 +30,7 @@ let options: IMesonSelectItem[] = [
   },
 ];
 
-let formItems: IMesonFieldItem<keyof IDemo>[] = [
+let formItems: IMesonFieldItem<IDemo>[] = [
   {
     type: EMesonFieldType.Select,
     label: "物料",
@@ -134,8 +134,8 @@ let formItems: IMesonFieldItem<keyof IDemo>[] = [
   },
 ];
 
-let DraftForm: SFC<{}> = (props) => {
-  let [form, setForm] = useState({});
+let DraftForm: FC<{}> = (props) => {
+  let [form, setForm] = useState({} as IDemo);
 
   return (
     <div className={cx(row, styleContainer)}>
@@ -147,7 +147,7 @@ let DraftForm: SFC<{}> = (props) => {
             setForm(form);
           }}
           onCancel={() => {
-            setForm({});
+            setForm({} as IDemo);
           }}
           footerLayout={EMesonFooterLayout.Center}
           submitOnEdit={false}

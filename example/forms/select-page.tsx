@@ -1,5 +1,5 @@
 import { css, cx } from "emotion";
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem, EMesonFieldType } from "../../src/model/types";
 import { MesonForm } from "../../src/form";
 import { row } from "@jimengio/shared-utils";
@@ -28,7 +28,7 @@ let items: IMesonFieldItem[] = [
   },
 ];
 
-let SelectPage: SFC<{}> = (props) => {
+let SelectPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

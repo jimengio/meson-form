@@ -1,7 +1,7 @@
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import { css } from "emotion";
 
-let SourceLink: SFC<{
+let SourceLink: FC<{
   fileName: string;
 }> = (props) => {
   return (

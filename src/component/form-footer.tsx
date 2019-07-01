@@ -1,5 +1,5 @@
 import { css, cx } from "emotion";
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import Button from "antd/lib/button";
 import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/shared-utils";
 import { lingual } from "../lingual";
@@ -10,7 +10,7 @@ export enum EMesonFooterLayout {
   Aligned = "aligned",
 }
 
-export let FormFooter: SFC<{
+export let FormFooter: FC<{
   onSubmit: () => void;
   onCancel: () => void;
   layout?: EMesonFooterLayout;
