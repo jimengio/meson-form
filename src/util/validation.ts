@@ -55,9 +55,10 @@ export let hasErrorInObject = (x: IMesonErrors): boolean => {
 };
 
 export let showErrorByNames = (x: IMesonErrors, names: string[]): string => {
-  for (let k in x) {
-    if (x[k] != null) {
-      return x[k];
+  for (let k in names) {
+    let name = names[k];
+    if (x[name] != null) {
+      return x[name];
     }
   }
   return null;

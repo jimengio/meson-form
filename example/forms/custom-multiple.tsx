@@ -9,11 +9,18 @@ import Input from "antd/lib/input";
 import { Draft } from "immer";
 
 interface IDemo {
+  a0: string;
   a: string;
   b: string;
 }
 
 let formItems: IMesonFieldItem<keyof IDemo>[] = [
+  {
+    type: EMesonFieldType.Input,
+    label: "simple",
+    name: "a0",
+    required: true,
+  },
   {
     type: EMesonFieldType.CustomMultiple,
     names: ["a", "b"],
