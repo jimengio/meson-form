@@ -1,8 +1,8 @@
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import { css, cx } from "emotion";
 import { row } from "@jimengio/shared-utils";
 
-let DataPreview: SFC<{
+let DataPreview: FC<{
   data: any;
 }> = (props) => {
   return (

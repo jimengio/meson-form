@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
@@ -98,7 +98,7 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
-let ValidationPage: SFC<{}> = (props) => {
+let ValidationPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
@@ -27,7 +27,7 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
-let FormBlankLabel: SFC<{}> = (props) => {
+let FormBlankLabel: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

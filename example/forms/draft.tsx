@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
@@ -134,7 +134,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
   },
 ];
 
-let DraftForm: SFC<{}> = (props) => {
+let DraftForm: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

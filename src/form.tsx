@@ -1,9 +1,8 @@
-import React, { SFC, ReactNode, CSSProperties, useState, useEffect } from "react";
+import React, { ReactNode, CSSProperties, useState, useEffect } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors, IMesonFormBase } from "./model/types";
 
-import { RequiredMark } from "./component/misc";
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
 import produce, { Draft } from "immer";
@@ -11,23 +10,6 @@ import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
 import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderItemLayout } from "./renderer";
-
-/**
- * 清空draft对象的value值
- * @param draft immer的draft对象
- */
-function clearDraftValue<T>(draft: Draft<T>) {
-  Object.keys(draft).forEach((key) => {
-    if (key in draft) {
-      draft[key] = undefined;
-    }
-  });
-}
-
-export interface MesonFormHandler {
-  onSubmit(): void;
-  onReset(): void;
-}
 
 export interface MesonFormProps<T> {
   initialValue: T;
@@ -45,7 +27,10 @@ export interface MesonFormProps<T> {
   submitOnEdit?: boolean;
 }
 
-export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: React.Ref<MesonFormHandler>) {
+/** Main form component for Meson
+ * Pick changes to MesonFormForwarded after changes in this component
+ */
+export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
   let {
     formAny: form,
     updateForm,
@@ -64,24 +49,6 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
     submitOnEdit: props.submitOnEdit,
     onSubmit: props.onSubmit,
   });
-
-  /**
-   * 父组件可以通过ref调用onSubmit、onReset
-   */
-  React.useImperativeHandle(ref, () => ({
-    onSubmit: () => {
-      onCheckSubmit();
-    },
-    onReset: () => {
-      updateForm(clearDraftValue);
-      updateErrors(clearDraftValue);
-      resetModified();
-
-      if (props.onReset != null) {
-        props.onReset();
-      }
-    },
-  }));
 
   let renderValueItem = (item: IMesonFieldItem<T>) => {
     switch (item.type) {
@@ -153,23 +120,14 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
       <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
-      {!props.hideFooter && (
-        <>
-          {props.renderFooter ? (
-            props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, form)
-          ) : (
-            <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
-          )}
-        </>
+      {props.hideFooter ? null : props.renderFooter ? (
+        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, form)
+      ) : (
+        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
       )}
     </div>
   );
 }
-
-/** this type is tricky to missing type after calling forwardRef */
-export type FuncMesonFormForwarded<T = any> = React.ForwardRefExoticComponent<MesonFormProps<T> & React.RefAttributes<MesonFormHandler>>;
-
-export let MesonForm: FuncMesonFormForwarded = React.forwardRef(ForwardForm);
 
 /** Modal binding for meson form */
 export function MesonFormModal<T>(props: {
@@ -246,6 +204,8 @@ export function MesonFormDrawer<T>(props: {
     />
   );
 }
+
+export { MesonFormForworded } from "./form-forwarded";
 
 let styleForm = css`
   flex: 1;

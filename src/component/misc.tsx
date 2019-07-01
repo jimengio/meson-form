@@ -1,7 +1,7 @@
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import { css } from "emotion";
 
-export let RequiredMark: SFC<{}> = (props) => {
+export let RequiredMark: FC<{}> = (props) => {
   return <span className={styleRequired}>*</span>;
 };
 

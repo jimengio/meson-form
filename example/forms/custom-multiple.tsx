@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors } from "../../src/model/types";
@@ -76,7 +76,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
   },
 ];
 
-let CustomMultiplePage: SFC<{}> = (props) => {
+let CustomMultiplePage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormDrawer } from "meson-form";
@@ -8,7 +8,7 @@ import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 import MesonDrawer from "../../src/component/drawer";
 
-let DrawerPage: SFC<{}> = (props) => {
+let DrawerPage: FC<{}> = (props) => {
   let [visible, setVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 

@@ -1,6 +1,6 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
-import { MesonForm, MesonFormHandler } from "../../src/form";
+import { MesonFormHandler, MesonFormForworded } from "../../src/form-forwarded";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
@@ -15,13 +15,13 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
-let FormBasic: SFC<{}> = (props) => {
+let FormBasic: FC<{}> = (props) => {
   let [form, setForm] = useState({});
   const formRef = React.useRef<MesonFormHandler>(null);
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm
+      <MesonFormForworded
         ref={formRef}
         initialValue={form}
         items={formItems}

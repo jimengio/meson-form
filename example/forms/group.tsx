@@ -68,8 +68,8 @@ let GroupPage: FC<{}> = (props) => {
   return (
     <div className={cx(row, styleContainer)}>
       <div className={styleFormArea}>
-        <MesonForm
-          initialValue={form}
+        <MesonForm<IDemo>
+          initialValue={form as IDemo}
           items={formItems}
           onSubmit={(form) => {
             setForm(form);

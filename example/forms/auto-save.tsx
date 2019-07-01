@@ -1,4 +1,4 @@
-import React, { SFC, useState } from "react";
+import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { row } from "@jimengio/shared-utils";
 import { MesonForm } from "meson-form";
@@ -15,7 +15,7 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
-let AutoSavePage: SFC<{}> = (props) => {
+let AutoSavePage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (

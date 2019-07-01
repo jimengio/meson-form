@@ -1,4 +1,4 @@
-import React, { SFC, useEffect, useState, ReactNode } from "react";
+import React, { FC, useEffect, useState, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { css, cx } from "emotion";

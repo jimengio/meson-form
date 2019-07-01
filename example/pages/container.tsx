@@ -1,4 +1,4 @@
-import React, { useState, SFC } from "react";
+import React, { useState, FC } from "react";
 import { css, cx } from "emotion";
 import { column, row, fullscreen } from "@jimengio/shared-utils";
 import { IRouteParseResult } from "@jimengio/ruled-router";
@@ -88,7 +88,7 @@ let pages: { title: string; path: string }[] = [
   },
 ];
 
-let Container: SFC<{ router: IRouteParseResult }> = (props) => {
+let Container: FC<{ router: IRouteParseResult }> = (props) => {
   let renderChild = (x) => {
     switch (props.router.name) {
       case genRouter.home.name:
