@@ -1,7 +1,7 @@
 import React, { SFC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
@@ -30,7 +30,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
       return {
         a: form.a ? null : "a is required",
         b: form.b ? null : "b is required",
-      };
+      } as IMesonErrors<IDemo>;
     },
     renderMultiple: (form: IDemo, modifyForm: FuncMesonModifyForm<IDemo>, checkForm: (changedValues: IDemo) => void) => {
       return (
