@@ -89,7 +89,7 @@ let CustomMultiplePage: FC<{}> = (props) => {
         }}
       />
       <div>
-        <SourceLink fileName={"custom.tsx"} />
+        <SourceLink fileName={"custom-multiple.tsx"} />
         <DataPreview data={form} />
       </div>
     </div>
