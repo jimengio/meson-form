@@ -10,6 +10,7 @@ import MesonDrawer from "../../src/component/drawer";
 
 let DrawerPage: FC<{}> = (props) => {
   let [visible, setVisible] = useState(false);
+  let [customVisible, setCustomVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 
   let [form, setForm] = useState({});
@@ -32,6 +33,13 @@ let DrawerPage: FC<{}> = (props) => {
             }}
           >
             Try Drawer
+          </Button>{" "}
+          <Button
+            onClick={() => {
+              setCustomVisible(true);
+            }}
+          >
+            Drawer with header
           </Button>{" "}
           <Button
             onClick={() => {
@@ -65,6 +73,19 @@ let DrawerPage: FC<{}> = (props) => {
           );
         }}
       />
+
+      <MesonDrawer
+        title={"Custom header"}
+        width={800}
+        visible={customVisible}
+        headerClassName={styleHeader}
+        onClose={() => {
+          setCustomVisible(false);
+        }}
+        renderContent={() => {
+          return <div>NOTHING</div>;
+        }}
+      />
       <MesonFormDrawer
         title={"DEMO form in drawer"}
         visible={formVisible}
@@ -93,4 +114,10 @@ let styleContainer = css``;
 
 let styleBoxArea = css`
   padding: 20px;
+`;
+
+let styleHeader = css`
+  background-color: rgb(28, 63, 118);
+  color: white;
+  height: 120px;
 `;
