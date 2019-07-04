@@ -30,9 +30,9 @@ let formItems: IMesonFieldItem<IDemo>[] = [
       return {
         a: form.a ? null : "a is required",
         b: form.b ? null : "b is required",
-      } as IMesonErrors<IDemo>;
+      };
     },
-    renderMultiple: (form: IDemo, modifyForm: FuncMesonModifyForm<IDemo>, checkForm: (changedValues: IDemo) => void) => {
+    renderMultiple: (form, modifyForm, checkForm) => {
       return (
         <div className={row}>
           <div>
