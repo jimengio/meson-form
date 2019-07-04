@@ -124,7 +124,7 @@ export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
   /** get form and render into form item */
   renderMultiple: (form: T, modifyForm: FuncMesonModifyForm<T>, checkForm: (changedValues: Partial<T>) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple: (form: T, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
+  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {

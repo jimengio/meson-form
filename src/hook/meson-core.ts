@@ -31,10 +31,12 @@ export let useMesonCore = <T>(props: {
     });
 
     traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonCustomMultipleField<T>) => {
-      let results = item.validateMultiple(latestForm, item);
-      if (hasErrorInObject(results)) {
-        Object.assign(currentErrors, results);
-        hasErrors = true;
+      if (item.validateMultiple) {
+        let results = item.validateMultiple(latestForm, item);
+        if (hasErrorInObject(results)) {
+          Object.assign(currentErrors, results);
+          hasErrors = true;
+        }
       }
     });
 
@@ -78,7 +80,7 @@ export let useMesonCore = <T>(props: {
       return;
     }
 
-    let results = item.validateMultiple(newForm, item);
+    let results = item.validateMultiple ? item.validateMultiple(newForm, item) : {};
     updateErrors((draft: T) => {
       // reset errors of related fields first
       item.names.forEach((name) => {
