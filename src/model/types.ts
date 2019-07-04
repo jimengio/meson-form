@@ -122,9 +122,9 @@ export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
    */
   names: (keyof T)[];
   /** get form and render into form item */
-  renderMultiple: (form: any, modifyForm: FuncMesonModifyForm, checkForm: (changedValues: any) => void) => ReactNode;
+  renderMultiple: (form: T, modifyForm: FuncMesonModifyForm<T>, checkForm: (changedValues: Partial<T>) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple: (form: any, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
+  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
@@ -134,7 +134,7 @@ export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
 
 export interface IMesonGroupFields<T> {
   type: EMesonFieldType.Group;
-  shouldHide?: (form: any) => boolean;
+  shouldHide?: (form: T) => boolean;
   children: IMesonFieldItem<T>[];
 }
 
