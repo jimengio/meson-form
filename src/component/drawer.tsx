@@ -15,6 +15,7 @@ interface IProps {
   onClose: () => void;
   renderContent: () => ReactNode;
   hideClose?: boolean;
+  headerClassName?: string;
 }
 
 export default class MesonDrawer extends React.Component<IProps, any> {
@@ -53,7 +54,7 @@ export default class MesonDrawer extends React.Component<IProps, any> {
         <CSSTransition in={this.props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
           <div className={styleBackdrop} onClick={this.props.onClose}>
             <div className={cx(column, stylePopPage, "drawer-card")} style={{ width: this.props.width }} onClick={this.onContainerClick}>
-              <div className={cx(rowParted, styleHeader)}>
+              <div className={cx(rowParted, styleHeader, this.props.headerClassName)}>
                 {this.props.title}
 
                 {this.props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />}

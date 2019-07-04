@@ -177,6 +177,7 @@ export function MesonFormDrawer<T>(props: {
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  headerClassName?: string;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
   return (
@@ -186,6 +187,7 @@ export function MesonFormDrawer<T>(props: {
       width={props.width}
       onClose={props.onClose}
       hideClose={props.hideClose}
+      headerClassName={props.headerClassName}
       renderContent={() => {
         return (
           <MesonForm
