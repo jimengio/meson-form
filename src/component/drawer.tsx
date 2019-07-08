@@ -55,9 +55,10 @@ export default class MesonDrawer extends React.Component<IProps, any> {
           <div className={styleBackdrop} onClick={this.props.onClose}>
             <div className={cx(column, stylePopPage, "drawer-card")} style={{ width: this.props.width }} onClick={this.onContainerClick}>
               <div className={cx(rowParted, styleHeader, this.props.headerClassName)}>
+                <span />
                 {this.props.title}
 
-                {this.props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />}
+                {this.props.hideClose ? <span /> : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />}
               </div>
               {this.props.renderContent()}
             </div>
