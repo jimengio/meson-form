@@ -114,10 +114,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@jimengio/doc-frame@^0.1.0-a3":
-  version "0.1.0-a3"
-  resolved "https://registry.yarnpkg.com/@jimengio/doc-frame/-/doc-frame-0.1.0-a3.tgz#8424a5fa21f5f91f5c7506bf1305ca7a33e5e3ec"
-  integrity sha512-EDwd0nLVHuWux9qTC6p1i5GnlnnCn44o/GRPcs7hAqxuGA3OKU0EUAWhjzG0Ie9BaD04bh0cY8DMX+KvAZE5Iw==
+"@jimengio/doc-frame@^0.1.0-a5":
+  version "0.1.0-a5"
+  resolved "https://registry.yarnpkg.com/@jimengio/doc-frame/-/doc-frame-0.1.0-a5.tgz#f0550a719f4236713f2fddf11681b55b90d10222"
+  integrity sha512-4iswlhnii2os0xG0tJdo6gyW6N0OPbc4wMF7SsLdWpGVbb7GIxPXMLhu3KhWhTfTtSPGTeh18rwL65Fs47CRDA==
 
 "@jimengio/jimo-icons@^0.1.19":
   version "0.1.19"
