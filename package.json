@@ -23,10 +23,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@jimengio/doc-frame": "^0.1.0-a5",
+    "@jimengio/doc-frame": "^0.1.0",
     "@jimengio/jimo-icons": "^0.1.19",
     "@jimengio/router-code-generator": "^0.1.4",
-    "@jimengio/ruled-router": "^0.2.10",
+    "@jimengio/ruled-router": "^0.2.15",
     "@jimengio/shared-utils": "^0.1.3",
     "@types/is": "^0.0.21",
     "@types/lodash": "^4.14.132",

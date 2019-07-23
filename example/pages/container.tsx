@@ -21,6 +21,7 @@ import DrawerPage from "forms/drawer";
 import CustomMultiplePage from "forms/custom-multiple";
 import GroupPage from "forms/group";
 import { DocSidebar, ISidebarEntry } from "@jimengio/doc-frame";
+import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 
 let items: ISidebarEntry[] = [
   {
@@ -106,41 +107,9 @@ let items: ISidebarEntry[] = [
 ];
 
 let onSwitchPage = (path: string) => {
-  switch (path) {
-    case genRouter.home.name:
-      return genRouter.home.go();
-    case genRouter.draft.name:
-      return genRouter.draft.go();
-    case genRouter.modal.name:
-      return genRouter.modal.go();
-    case genRouter.drawer.name:
-      return genRouter.drawer.go();
-    case genRouter.select.name:
-      return genRouter.select.go();
-    case genRouter.validation.name:
-      return genRouter.validation.go();
-    case genRouter.custom.name:
-      return genRouter.custom.go();
-    case genRouter.customMultiple.name:
-      return genRouter.customMultiple.go();
-    case genRouter.autoSave.name:
-      return genRouter.autoSave.go();
-    case genRouter.wrapMesonCore.name:
-      return genRouter.wrapMesonCore.go();
-    case genRouter.forwardForm.name:
-      return genRouter.forwardForm.go();
-    case genRouter.modifyOnChange.name:
-      return genRouter.modifyOnChange.go();
-    case genRouter.switch.name:
-      return genRouter.switch.go();
-    case genRouter.inlineForm.name:
-      return genRouter.inlineForm.go();
-    case genRouter.blankLabel.name:
-      return genRouter.blankLabel.go();
-    case genRouter.group.name:
-      return genRouter.group.go();
-    default:
-      console.error("Unknown page", path);
+  let target = findRouteTarget(genRouter, path);
+  if (target != null) {
+    target.go();
   }
 };
 

@@ -114,10 +114,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@jimengio/doc-frame@^0.1.0-a5":
-  version "0.1.0-a5"
-  resolved "https://registry.yarnpkg.com/@jimengio/doc-frame/-/doc-frame-0.1.0-a5.tgz#f0550a719f4236713f2fddf11681b55b90d10222"
-  integrity sha512-4iswlhnii2os0xG0tJdo6gyW6N0OPbc4wMF7SsLdWpGVbb7GIxPXMLhu3KhWhTfTtSPGTeh18rwL65Fs47CRDA==
+"@jimengio/doc-frame@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@jimengio/doc-frame/-/doc-frame-0.1.0.tgz#63d7d3f80b7ce0295c405ff9b7b29f9ee54417fe"
+  integrity sha512-306GpZgLL+8o2x4eXv1migdC02UMiLinjfD0kYglc2AS/jWYSI0fEI2ImJGIzgzXWSD9L4Fa/4AQyMYhbS5YPA==
 
 "@jimengio/jimo-icons@^0.1.19":
   version "0.1.19"
@@ -129,12 +129,12 @@
   resolved "https://registry.yarnpkg.com/@jimengio/router-code-generator/-/router-code-generator-0.1.4.tgz#0a1925627e6b896fcf52ef99d9b6bf2f7e7313a9"
   integrity sha512-kOIjFhcTQWlNEJCVfzTqn7N5bXv0E6fI/QzKa8yyIQRyWto2T0aixMF1WQG5J4XhjrtLpW9GkDuRI5fNVoTfow==
 
-"@jimengio/ruled-router@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@jimengio/ruled-router/-/ruled-router-0.2.10.tgz#b08a7922b0fa8988b5691d9861ce6834e94e6179"
-  integrity sha512-rrJqeoC3LiQp2rZoDFweDEnwMoY8Kubf7TFV6L3tzpPIKYPYmNVxUBpoxvdzCRHrgbJO4JOyoaM9YPyDB57ZTw==
+"@jimengio/ruled-router@^0.2.15":
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/@jimengio/ruled-router/-/ruled-router-0.2.15.tgz#68279a05d40481f79f800d6d2d65081f7c9d687b"
+  integrity sha512-DMGRq/aGStthBRAjPxsXwJr92MJLaf1sloQYOuwU0u2pk6lZ6Rcx0dWxbBPiz+gaTcF7JDOnFcHN5ZV/cSlgiA==
   dependencies:
-    query-string "^6.5.0"
+    query-string "^6.8.1"
 
 "@jimengio/shared-utils@^0.1.3":
   version "0.1.3"
@@ -4374,10 +4374,10 @@ qs@~2.3.3:
   resolved "https://registry.yarnpkg.com/qs/-/qs-2.3.3.tgz#e9e85adbe75da0bbe4c8e0476a086290f863b404"
   integrity sha1-6eha2+ddoLvkyOBHaghikPhjtAQ=
 
-query-string@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.5.0.tgz#2e1a70125af01f6f04573692d02c09302a1d8bfc"
-  integrity sha512-TYC4hDjZSvVxLMEucDMySkuAS9UIzSbAiYGyA9GWCjLKB8fQpviFbjd20fD7uejCDxZS+ftSdBKE6DS+xucJFg==
+query-string@^6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.8.1.tgz#62c54a7ef37d01b538c8fd56f95740c81d438a26"
+  integrity sha512-g6y0Lbq10a5pPQpjlFuojfMfV1Pd2Jw9h75ypiYPPia3Gcq2rgkKiIwbkS6JxH7c5f5u/B/sB+d13PU+g1eu4Q==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
