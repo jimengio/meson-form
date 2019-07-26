@@ -115,7 +115,7 @@ export function renderSelectItem<T>(
       value={currentValue}
       disabled={item.disabled}
       className={styleControlBase}
-      placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+      placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue) => {
         if (item.translateNonStringvalue && newValue != null) {
           let target = item.options.find((x) => `${x.value}` === newValue);
