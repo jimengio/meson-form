@@ -80,7 +80,7 @@ export function MesonInlineForm<T>(props: {
           <Select
             value={currentValue}
             key={`${item.name}+${idx}`}
-            placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+            placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
             className={styleControlBase}
             style={item.style}
             onChange={(newValue) => {
@@ -95,6 +95,7 @@ export function MesonInlineForm<T>(props: {
             onBlur={() => {
               checkItem(item);
             }}
+            {...item.selectProps}
           >
             {item.options.map((option) => {
               let value = option.value;
