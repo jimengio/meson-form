@@ -151,16 +151,16 @@ export function renderSelectItem<T>(
  * @param error in string
  * @param field rendered node
  */
-export function renderItemLayout(key: string | number, item: IMesonFieldItemHasValue, error: string, field: ReactNode) {
+export function renderItemLayout(key: string | number, item: IMesonFieldItemHasValue, error: string, field: ReactNode, className: string) {
   let labelNode = (
-    <div className={styleLabel}>
+    <div className={cx(styleLabel, className)}>
       {item.required ? <RequiredMark /> : null}
       {item.label}:
     </div>
   );
 
   if (item.label == null) {
-    labelNode = <div className={styleLabel} />;
+    labelNode = <div className={cx(styleLabel, className)} />;
   }
   let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
 

@@ -44,6 +44,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.4.5":
+  version "7.5.5"
+  resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
+  integrity sha1-dPulbTXvvspEQJHHhQzNSU/S8TI=
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/types@^7.0.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.4.0.tgz#670724f77d24cce6cc7d8cf64599d511d164894c"
@@ -119,10 +126,22 @@
   resolved "https://registry.yarnpkg.com/@jimengio/doc-frame/-/doc-frame-0.1.0.tgz#63d7d3f80b7ce0295c405ff9b7b29f9ee54417fe"
   integrity sha512-306GpZgLL+8o2x4eXv1migdC02UMiLinjfD0kYglc2AS/jWYSI0fEI2ImJGIzgzXWSD9L4Fa/4AQyMYhbS5YPA==
 
+"@jimengio/fa-icons@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/@jimengio/fa-icons/download/@jimengio/fa-icons-0.2.0.tgz#50cfe599ee4c9ab70e780be4ddc6dc78d8bd33a8"
+  integrity sha1-UM/lme5MmrcOeAvk3cbceNi9M6g=
+
 "@jimengio/jimo-icons@^0.1.19":
   version "0.1.19"
   resolved "https://registry.yarnpkg.com/@jimengio/jimo-icons/-/jimo-icons-0.1.19.tgz#cec2add7ac69e15395a607ba6dbbd9de67f8810f"
   integrity sha512-dbg9qDmXsfM//6fsqQVcrw/oYr5HggeReD4IVbjt63pw23ut3OMp2X7vk7b0hM50M6jn6Xw2z0x/DDvBXHTl1w==
+
+"@jimengio/meson-display@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npm.taobao.org/@jimengio/meson-display/download/@jimengio/meson-display-0.1.4.tgz#671c41b32c8567958cbda806aba11426f8637328"
+  integrity sha1-ZxxBsyyFZ5WMvagGq6EUJvhjcyg=
+  dependencies:
+    react-transition-group "^4.2.1"
 
 "@jimengio/router-code-generator@^0.1.4":
   version "0.1.4"
@@ -135,6 +154,11 @@
   integrity sha512-DMGRq/aGStthBRAjPxsXwJr92MJLaf1sloQYOuwU0u2pk6lZ6Rcx0dWxbBPiz+gaTcF7JDOnFcHN5ZV/cSlgiA==
   dependencies:
     query-string "^6.8.1"
+
+"@jimengio/safe-property@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npm.taobao.org/@jimengio/safe-property/download/@jimengio/safe-property-0.0.2.tgz#62d824660a56a6eb29628c1c795b256b9639743b"
+  integrity sha1-YtgkZgpWpuspYowceVsla5Y5dDs=
 
 "@jimengio/shared-utils@^0.1.3":
   version "0.1.3"
@@ -4937,6 +4961,16 @@ react-transition-group@^4.0.1:
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.0.1.tgz#8cb8d58763e259da465385bb83b3b41b3ecba629"
   integrity sha512-SsLcBYhO4afXJC9esL8XMxi/y0ZvEc7To0TvtrBELqzpjXQHPZOTxvuPh2/4EhYc0uSMfp2SExIxsyJ0pBdNzg==
   dependencies:
+    dom-helpers "^3.4.0"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+
+react-transition-group@^4.2.1:
+  version "4.2.2"
+  resolved "https://registry.npm.taobao.org/react-transition-group/download/react-transition-group-4.2.2.tgz#8b5252410180c27fd7eebf50b185256b41799b16"
+  integrity sha1-i1JSQQGAwn/X7r9QsYUla0F5mxY=
+  dependencies:
+    "@babel/runtime" "^7.4.5"
     dom-helpers "^3.4.0"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"

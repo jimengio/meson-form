@@ -8,6 +8,7 @@ export const routerRules: IRouteRule[] = [
   { path: "modal" },
   { path: "draft" },
   { path: "drawer" },
+  { path: "dropdown" },
   { path: "select" },
   { path: "validation" },
   { path: "custom" },
