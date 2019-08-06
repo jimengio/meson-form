@@ -18,6 +18,11 @@ Define forms in an array with mostly JSON(with functions and enumerables):
 let formItems: IMesonFieldItem[] = [
   {
     type: EMesonFieldType.Input,
+    name: "name",
+    label: "名字",
+  },
+  {
+    type: EMesonFieldType.Input,
     shouldHide: (form) => {
       return form.amount && form.amount > 6;
     },
@@ -31,23 +36,30 @@ let formItems: IMesonFieldItem[] = [
 The pass items to the form:
 
 ```tsx
-import { MesonForm, MesonFormModal } from "@jimengio/meson-form";
+import { MesonForm } from "@jimengio/meson-form";
 
-<MesonForm
-  initialValue={{}}
-  items={formItems}
-  onSubmit={(form) => {
-    console.log("submit data", form);
-  }}
-  onCancel={() => {
-    console.log("cancel");
-  }}
-/>;
+let FormBasic: FC<{}> = (props) => {
+  let [form, setForm] = useState({});
+
+  return (
+    <div className={cx(row, styleContainer)}>
+      <MesonForm
+        initialValue={form}
+        items={formItems}
+        onSubmit={(form) => {
+          setForm(form);
+        }}
+      />
+    </div>
+  );
+};
 ```
 
 Probably it's used in a Modal:
 
 ```tsx
+import { MesonFormModal } from "@jimengio/meson-form";
+
 let [formVisible, setFormVisible] = useState(false);
 
 <MesonFormModal
@@ -69,7 +81,7 @@ let [formVisible, setFormVisible] = useState(false);
 
 Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
 
-### Types(类型)
+### Form fields
 
 `IMesonFieldItem` 的不同类型, 对应的表单上的不同元素或者结构
 
@@ -78,6 +90,7 @@ Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
 - `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
 - `Switch`, 开关类型,
 - `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
+- `CustomMultiple`, 自定义渲染, 但是可以直接拿到 form 对象的, 进行渲染和校验, 相比 `Custom` 对应的多个字段.
 - `Group`, 不嵌套的分组, 用在属性批量控制显示隐藏的情况,
 - `Nested`, 嵌套的分组.
 
