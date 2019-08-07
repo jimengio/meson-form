@@ -279,7 +279,7 @@ let styleForm = css`
 
 let styleItemsContainer = css`
   overflow: auto;
-  padding: 24px 16px 24px;
+  padding: 10px 10px 0 10px;
 `;
 
 let styleFooterButton = css`
@@ -287,5 +287,5 @@ let styleFooterButton = css`
 `;
 
 let styleFooterContainer = css`
-  padding: 0px 12px 12px 12px;
+  padding: 0px 12px 10px 12px;
 `;

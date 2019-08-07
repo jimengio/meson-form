@@ -31,7 +31,6 @@ let DropdownPage: FC<{}> = (props) => {
           items={formItems}
           initialValue={form}
           labelClassName={styleLabel}
-          itemsClassName={styleItems}
           onSubmit={(form) => {
             setForm(form);
           }}
@@ -58,8 +57,4 @@ let styleLabel = css`
 
 let styleArea = css`
   padding: 20px;
-`;
-
-let styleItems = css`
-  padding: 12px 10px 0 10px;
 `;
