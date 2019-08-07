@@ -221,6 +221,8 @@ export function MesonFormDropdown<T>(props: {
   onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  /** TODO, need better algorithm in dropdown area */
+  alignToRight?: boolean;
   /** not implemented yet */
   headerClassName?: string;
   labelClassName?: string;
@@ -245,7 +247,8 @@ export function MesonFormDropdown<T>(props: {
       title={props.title}
       width={props.width}
       hideClose={props.hideClose}
-      renderContent={() => {
+      alignToRight={props.alignToRight}
+      renderContent={(onClose) => {
         return (
           <MesonForm
             initialValue={props.initialValue}
@@ -255,6 +258,7 @@ export function MesonFormDropdown<T>(props: {
             isLoading={props.isLoading}
             onSubmit={(form: T, onServerErrors: (x: IMesonErrors<T>) => void) => {
               props.onSubmit(form, onServerErrors);
+              onClose();
             }}
             className={styleForm}
             renderFooter={footerRenderer}
