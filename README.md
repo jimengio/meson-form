@@ -79,7 +79,7 @@ let [formVisible, setFormVisible] = useState(false);
 />;
 ```
 
-Props for `MesonFormDrawer` is almost same to `MesonFormModal`.
+Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFormModal`.
 
 ### Form fields
 

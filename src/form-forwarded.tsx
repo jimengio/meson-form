@@ -108,7 +108,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck));
+        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -124,10 +124,10 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         let error = showErrorByNames(errors, item.names as string[]);
 
         // notice, item CustomMultiple not handled well in layout
-        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm));
+        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item));
+      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName);
     });
   };
 

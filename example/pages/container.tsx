@@ -22,6 +22,7 @@ import CustomMultiplePage from "forms/custom-multiple";
 import GroupPage from "forms/group";
 import { DocSidebar, ISidebarEntry } from "@jimengio/doc-frame";
 import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
+import DropdownPage from "forms/dropdown";
 
 let items: ISidebarEntry[] = [
   {
@@ -48,6 +49,11 @@ let items: ISidebarEntry[] = [
     title: "Drawer",
     cnTitle: "抽屉",
     path: genRouter.drawer.name,
+  },
+  {
+    title: "Dropdown",
+    cnTitle: "下拉菜单",
+    path: genRouter.dropdown.name,
   },
   {
     title: "Validation",
@@ -148,6 +154,8 @@ let Container: FC<{ router: IRouteParseResult }> = (props) => {
         return <FormBlankLabel />;
       case genRouter.group.name:
         return <GroupPage />;
+      case genRouter.dropdown.name:
+        return <DropdownPage />;
       default:
         return <FormBasic />;
     }

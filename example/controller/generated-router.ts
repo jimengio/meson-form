@@ -43,6 +43,12 @@ export let genRouter = {
     path: () => `/drawer`,
     go: () => switchPath(`/drawer`),
   },
+  dropdown: {
+    name: "dropdown",
+    raw: "dropdown",
+    path: () => `/dropdown`,
+    go: () => switchPath(`/dropdown`),
+  },
   select: {
     name: "select",
     raw: "select",

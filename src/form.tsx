@@ -2,6 +2,7 @@ import React, { ReactNode, CSSProperties } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors, IMesonFormBase } from "./model/types";
+import { DropdownArea } from "@jimengio/meson-display";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import MesonModal from "./component/modal";
@@ -10,6 +11,8 @@ import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
 import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderItemLayout } from "./renderer";
+import { lingual } from "./lingual";
+import Button from "antd/lib/button";
 
 export interface MesonFormProps<T> {
   initialValue: T;
@@ -18,6 +21,8 @@ export interface MesonFormProps<T> {
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
+  itemsClassName?: string /** items 所在区域容器的样式 */;
+  labelClassName?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
@@ -94,7 +99,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck));
+        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -110,16 +115,16 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         let error = showErrorByNames(errors, item.names as string[]);
 
         // notice, item CustomMultiple not handled well in layout
-        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm));
+        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item));
+      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName);
     });
   };
 
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
-      <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
+      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>
       {props.hideFooter ? null : props.renderFooter ? (
         props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, form)
       ) : (
@@ -207,6 +212,65 @@ export function MesonFormDrawer<T>(props: {
   );
 }
 
+/** Dropdown binding for meson form */
+export function MesonFormDropdown<T>(props: {
+  title: string;
+  width?: number;
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  isLoading?: boolean;
+  hideClose?: boolean;
+  /** TODO, need better algorithm in dropdown area */
+  alignToRight?: boolean;
+  /** not implemented yet */
+  headerClassName?: string;
+  labelClassName?: string;
+  itemsClassName?: string;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+  children?: ReactNode;
+}) {
+  let footerRenderer = props.renderFooter;
+  if (footerRenderer == null) {
+    footerRenderer = (isLoading, onSubmit, onCancel, form) => {
+      return (
+        <div className={styleFooterContainer}>
+          <Button className={styleFooterButton} type="primary" onClick={onSubmit}>
+            {lingual.confirm}
+          </Button>
+        </div>
+      );
+    };
+  }
+  return (
+    <DropdownArea
+      title={props.title}
+      width={props.width}
+      hideClose={props.hideClose}
+      alignToRight={props.alignToRight}
+      renderContent={(onClose) => {
+        return (
+          <MesonForm
+            initialValue={props.initialValue}
+            items={props.items as IMesonFieldItem<any>[]}
+            itemsClassName={props.itemsClassName}
+            labelClassName={props.labelClassName}
+            isLoading={props.isLoading}
+            onSubmit={(form: T, onServerErrors: (x: IMesonErrors<T>) => void) => {
+              props.onSubmit(form, onServerErrors);
+              onClose();
+            }}
+            className={styleForm}
+            renderFooter={footerRenderer}
+          />
+        );
+      }}
+    >
+      {props.children}
+    </DropdownArea>
+  );
+}
+
 export { MesonFormForwarded } from "./form-forwarded";
 
 let styleForm = css`
@@ -215,5 +279,13 @@ let styleForm = css`
 
 let styleItemsContainer = css`
   overflow: auto;
-  padding: 24px 16px 24px;
+  padding: 10px 10px 0 10px;
+`;
+
+let styleFooterButton = css`
+  width: 100%;
+`;
+
+let styleFooterContainer = css`
+  padding: 0px 12px 10px 12px;
 `;
