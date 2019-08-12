@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, ReactNode } from "react";
+import React, { FC, useEffect, useState, ReactNode, useRef } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { css, cx } from "emotion";
@@ -8,73 +8,73 @@ import JimoIcon, { EJimoIcon } from "@jimengio/jimo-icons";
 let transitionDuration = 160;
 let containerName = "meson-modal-container";
 
-interface IProps {
+let MesonModal: FC<{
   title: string;
   visible: boolean;
   width?: number | string;
   onClose: () => void;
   renderContent: () => ReactNode;
   hideClose?: boolean;
-}
+}> = (props) => {
+  let el = useRef<HTMLDivElement>();
+  let [noop, forceUpdate] = useState(null);
 
-export default class MesonModal extends React.Component<IProps, any> {
-  el: HTMLDivElement;
-  constructor(props: IProps) {
-    super(props);
+  /** Methods */
 
-    this.el = document.createElement("div");
-  }
-
-  componentDidMount() {
-    let root = document.querySelector(`.${containerName}`);
-
-    if (root == null) {
-      console.error(`Required a container element in body: <div class="${containerName}" />`);
-      return;
-    }
-
-    root.appendChild(this.el);
-  }
-
-  componentWillUnmount() {
-    let root = document.querySelector(`.${containerName}`);
-
-    if (root == null) {
-      console.error(`Required a container element in body: <div class="${containerName}" />`);
-      return;
-    }
-
-    root.removeChild(this.el);
-  }
-
-  render() {
-    return ReactDOM.createPortal(
-      <div onClick={this.onContainerClick} className={styleAnimations}>
-        <CSSTransition in={this.props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
-          <div className={styleBackdrop} onClick={this.props.onClose}>
-            <div
-              className={cx(column, stylePopPage, "modal-card")}
-              style={{ maxHeight: window.innerHeight - 80, width: this.props.width }}
-              onClick={this.onContainerClick}
-            >
-              <div className={cx(rowParted, styleHeader)}>
-                {this.props.title}
-
-                {this.props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={this.props.onClose} />}
-              </div>
-              {this.props.renderContent()}
-            </div>
-          </div>
-        </CSSTransition>
-      </div>,
-      this.el
-    );
-  }
-
-  onContainerClick(event) {
+  let onContainerClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
+  };
+
+  /** Effects */
+
+  useEffect(() => {
+    if (el.current == null) {
+      let div = document.createElement("div");
+      el.current = div;
+      forceUpdate(Math.random());
+    }
+  }, []);
+
+  useEffect(() => {
+    let root = document.querySelector(`.${containerName}`);
+
+    if (root == null) {
+      console.error(`Required a container element in body: <div class="${containerName}" />`);
+      return;
+    }
+
+    root.appendChild(el.current);
+    return () => {
+      root.removeChild(el.current);
+    };
+  }, []);
+
+  /** Renderers */
+
+  if (el.current == null) {
+    return <span />;
   }
-}
+
+  return ReactDOM.createPortal(
+    <div onClick={onContainerClick} className={styleAnimations}>
+      <CSSTransition in={props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
+        <div className={styleBackdrop} onClick={props.onClose}>
+          <div className={cx(column, stylePopPage, "modal-card")} style={{ maxHeight: window.innerHeight - 80, width: props.width }} onClick={onContainerClick}>
+            <div className={cx(rowParted, styleHeader)}>
+              {props.title}
+
+              {props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={props.onClose} />}
+            </div>
+            {props.renderContent()}
+          </div>
+        </div>
+      </CSSTransition>
+    </div>,
+    el.current
+  );
+};
+
+export default MesonModal;
 
 let styleAnimations = css`
   .backdrop-enter {
