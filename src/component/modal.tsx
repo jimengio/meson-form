@@ -5,6 +5,7 @@ import { css, cx } from "emotion";
 import { rowParted, column } from "@jimengio/shared-utils";
 import JimoIcon, { EJimoIcon } from "@jimengio/jimo-icons";
 import { useImmer } from "use-immer";
+import { addEventHandler, removeEventHandler } from "../util/event";
 
 let transitionDuration = 160;
 let containerName = "meson-modal-container";
@@ -62,12 +63,12 @@ let MesonModal: FC<{
     mouseupListener.current = (event) => {
       event.preventDefault();
 
-      backdropElement.current.removeEventListener("mousemove", mousemoveListener.current);
-      backdropElement.current.removeEventListener("mouseup", mouseupListener.current);
+      removeEventHandler(backdropElement.current, "mousemove", mousemoveListener.current);
+      removeEventHandler(backdropElement.current, "mouseup", mouseupListener.current);
     };
 
-    backdropElement.current.addEventListener("mousemove", mousemoveListener.current);
-    backdropElement.current.addEventListener("mouseup", mouseupListener.current);
+    addEventHandler(backdropElement.current, "mousemove", mousemoveListener.current);
+    addEventHandler(backdropElement.current, "mouseup", mouseupListener.current);
   };
 
   let onBackdropClick = () => {
