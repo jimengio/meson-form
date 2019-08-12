@@ -1,4 +1,4 @@
-export function addEventHandler(element: HTMLElement, type: string, func: (event: any) => void) {
+export function addEventHandler(element: HTMLElement | Document, type: string, func: (event: any) => void) {
   if (element.addEventListener) {
     element.addEventListener(type, func, false);
   } else if ((element as any).attachEvent) {
@@ -8,7 +8,7 @@ export function addEventHandler(element: HTMLElement, type: string, func: (event
   }
 }
 
-export function removeEventHandler(element: HTMLElement, type: string, func: (event: any) => void) {
+export function removeEventHandler(element: HTMLElement | Document, type: string, func: (event: any) => void) {
   if (element.removeEventListener) {
     element.removeEventListener(type, func, false);
   } else if ((element as any).detachEvent) {

@@ -64,11 +64,11 @@ let MesonModal: FC<{
       event.preventDefault();
 
       removeEventHandler(backdropElement.current, "mousemove", mousemoveListener.current);
-      removeEventHandler(backdropElement.current, "mouseup", mouseupListener.current);
+      removeEventHandler(document, "mouseup", mouseupListener.current);
     };
 
     addEventHandler(backdropElement.current, "mousemove", mousemoveListener.current);
-    addEventHandler(backdropElement.current, "mouseup", mouseupListener.current);
+    addEventHandler(document, "mouseup", mouseupListener.current);
   };
 
   let onBackdropClick = () => {
@@ -191,6 +191,7 @@ let stylePopPage = css`
   border-radius: 2px;
 
   transform-origin: 50% -50%;
+  will-change: transform;
 
   transition-timing-function: linear;
 `;
