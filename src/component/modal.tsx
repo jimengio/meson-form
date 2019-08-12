@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { css, cx } from "emotion";
 import { rowParted, column } from "@jimengio/shared-utils";
 import JimoIcon, { EJimoIcon } from "@jimengio/jimo-icons";
+import { useImmer } from "use-immer";
 
 let transitionDuration = 160;
 let containerName = "meson-modal-container";
@@ -15,14 +16,62 @@ let MesonModal: FC<{
   onClose: () => void;
   renderContent: () => ReactNode;
   hideClose?: boolean;
+  disableMoving?: boolean;
 }> = (props) => {
   let el = useRef<HTMLDivElement>();
   let [noop, forceUpdate] = useState(null);
+  let backdropElement = useRef<HTMLDivElement>();
+
+  // use CSS translate to move modals
+  let [translation, immerTranslation] = useImmer({
+    x: 0,
+    y: 0,
+  });
+
+  let mousemoveListener = useRef<(event: MouseEvent) => void>();
+  let mouseupListener = useRef<(event: MouseEvent) => void>();
 
   /** Methods */
 
   let onContainerClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
+  };
+
+  let onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (props.disableMoving) {
+      return;
+    }
+
+    let anchorX = event.clientX;
+    let anchorY = event.clientY;
+
+    mousemoveListener.current = (event) => {
+      let dx = event.clientX - anchorX;
+      let dy = event.clientY - anchorY;
+
+      anchorX = event.clientX;
+      anchorY = event.clientY;
+
+      immerTranslation((draft) => {
+        draft.x = draft.x + dx;
+        draft.y = draft.y + dy;
+      });
+    };
+
+    // handle event and remove listeners after mouseup
+    mouseupListener.current = (event) => {
+      event.preventDefault();
+
+      backdropElement.current.removeEventListener("mousemove", mousemoveListener.current);
+      backdropElement.current.removeEventListener("mouseup", mouseupListener.current);
+    };
+
+    backdropElement.current.addEventListener("mousemove", mousemoveListener.current);
+    backdropElement.current.addEventListener("mouseup", mouseupListener.current);
+  };
+
+  let onBackdropClick = () => {
+    props.onClose();
   };
 
   /** Effects */
@@ -33,6 +82,16 @@ let MesonModal: FC<{
       el.current = div;
       forceUpdate(Math.random());
     }
+
+    return () => {
+      // in case events not cleared
+      if (mousemoveListener.current) {
+        document.removeEventListener("mousemove", mousemoveListener.current);
+      }
+      if (mouseupListener.current) {
+        document.removeEventListener("mouseup", mousemoveListener.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -58,12 +117,24 @@ let MesonModal: FC<{
   return ReactDOM.createPortal(
     <div onClick={onContainerClick} className={styleAnimations}>
       <CSSTransition in={props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
-        <div className={styleBackdrop} onClick={props.onClose}>
-          <div className={cx(column, stylePopPage, "modal-card")} style={{ maxHeight: window.innerHeight - 80, width: props.width }} onClick={onContainerClick}>
-            <div className={cx(rowParted, styleHeader)}>
+        <div className={styleBackdrop} onClick={onBackdropClick} ref={backdropElement}>
+          <div
+            className={cx(column, stylePopPage, "modal-card")}
+            style={{ maxHeight: window.innerHeight - 80, width: props.width, transform: `translate(${translation.x}px, ${translation.y}px)` }}
+            onClick={onContainerClick}
+          >
+            <div className={cx(rowParted, styleHeader, props.disableMoving ? null : styleMoving)} onMouseDown={onMouseDown}>
               {props.title}
-
-              {props.hideClose ? null : <JimoIcon name={EJimoIcon.slimCross} className={styleIcon} onClick={props.onClose} />}
+              {props.hideClose ? null : (
+                <JimoIcon
+                  name={EJimoIcon.slimCross}
+                  className={styleIcon}
+                  onClick={props.onClose}
+                  onMouseEnter={(event) => {
+                    event.stopPropagation();
+                  }}
+                />
+              )}
             </div>
             {props.renderContent()}
           </div>
@@ -116,6 +187,7 @@ let stylePopPage = css`
   background-color: white;
   min-width: 520px;
   min-height: 160px;
+  border-radius: 2px;
 
   transform-origin: 50% -50%;
 
@@ -142,6 +214,11 @@ let styleHeader = css`
   font-size: 16px;
   font-weight: bold;
   border-bottom: 1px solid hsl(0, 0%, 91%);
+`;
+
+let styleMoving = css`
+  cursor: move;
+  user-select: none;
 `;
 
 let styleIcon = css`
