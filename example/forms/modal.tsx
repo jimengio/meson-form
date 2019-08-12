@@ -10,6 +10,7 @@ import SourceLink from "kits/source-link";
 
 let ModalPage: FC<{}> = (props) => {
   let [visible, setVisible] = useState(false);
+  let [noMovingVisible, setNoMovingVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 
   let [form, setForm] = useState({});
@@ -35,6 +36,13 @@ let ModalPage: FC<{}> = (props) => {
           </Button>{" "}
           <Button
             onClick={() => {
+              setNoMovingVisible(true);
+            }}
+          >
+            Modal no moving
+          </Button>{" "}
+          <Button
+            onClick={() => {
               setFormVisible(true);
             }}
           >
@@ -52,10 +60,32 @@ let ModalPage: FC<{}> = (props) => {
         renderContent={() => {
           return (
             <div>
-              SOMETHING
+              SOMETHING....
               <span
                 onClick={() => {
                   setVisible(false);
+                }}
+              >
+                Close
+              </span>
+            </div>
+          );
+        }}
+      />
+
+      <MesonModal
+        title={"DEMO modal"}
+        visible={noMovingVisible}
+        onClose={() => {
+          setNoMovingVisible(false);
+        }}
+        disableMoving
+        renderContent={() => {
+          return (
+            <div>
+              <span
+                onClick={() => {
+                  setNoMovingVisible(false);
                 }}
               >
                 Close
