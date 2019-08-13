@@ -119,25 +119,27 @@ let MesonModal: FC<{
     <div onClick={onContainerClick} className={styleAnimations}>
       <CSSTransition in={props.visible} unmountOnExit={true} classNames="backdrop" timeout={transitionDuration}>
         <div className={styleBackdrop} onClick={onBackdropClick} ref={backdropElement}>
-          <div
-            className={cx(column, stylePopPage, "modal-card")}
-            style={{ maxHeight: window.innerHeight - 80, width: props.width, transform: `translate(${translation.x}px, ${translation.y}px)` }}
-            onClick={onContainerClick}
-          >
-            <div className={cx(rowParted, styleHeader, props.disableMoving ? null : styleMoving)} onMouseDown={onMouseDown}>
-              {props.title}
-              {props.hideClose ? null : (
-                <JimoIcon
-                  name={EJimoIcon.slimCross}
-                  className={styleIcon}
-                  onClick={props.onClose}
-                  onMouseEnter={(event) => {
-                    event.stopPropagation();
-                  }}
-                />
-              )}
+          <div className={styleMoveContainer} style={{ transform: `translate(${translation.x}px, ${translation.y}px)` }}>
+            <div
+              className={cx(column, stylePopPage, "modal-card")}
+              style={{ maxHeight: window.innerHeight - 80, width: props.width }}
+              onClick={onContainerClick}
+            >
+              <div className={cx(rowParted, styleHeader, props.disableMoving ? null : styleMoving)} onMouseDown={onMouseDown}>
+                {props.title}
+                {props.hideClose ? null : (
+                  <JimoIcon
+                    name={EJimoIcon.slimCross}
+                    className={styleIcon}
+                    onClick={props.onClose}
+                    onMouseEnter={(event) => {
+                      event.stopPropagation();
+                    }}
+                  />
+                )}
+              </div>
+              {props.renderContent()}
             </div>
-            {props.renderContent()}
           </div>
         </div>
       </CSSTransition>
@@ -183,8 +185,6 @@ let styleAnimations = css`
 `;
 
 let stylePopPage = css`
-  margin: auto;
-
   background-color: white;
   min-width: 520px;
   min-height: 160px;
@@ -227,4 +227,9 @@ let styleIcon = css`
   color: #aaa;
   cursor: pointer;
   font-size: 12px;
+`;
+
+/** an extra layer since both move and transition write to `transform` property, would conflict */
+let styleMoveContainer = css`
+  margin: auto;
 `;
