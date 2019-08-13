@@ -21,6 +21,26 @@ let ModalPage: FC<{}> = (props) => {
       name: "demo",
       label: "DEMO",
     },
+    {
+      type: EMesonFieldType.Input,
+      name: "demo",
+      label: "DEMO",
+    },
+    {
+      type: EMesonFieldType.Input,
+      name: "demo",
+      label: "DEMO",
+    },
+    {
+      type: EMesonFieldType.Input,
+      name: "demo",
+      label: "DEMO",
+    },
+    {
+      type: EMesonFieldType.Input,
+      name: "demo",
+      label: "DEMO",
+    },
   ];
 
   return (
