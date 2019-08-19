@@ -115,6 +115,12 @@ export let genRouter = {
     path: () => `/group`,
     go: () => switchPath(`/group`),
   },
+  decorative: {
+    name: "decorative",
+    raw: "decorative",
+    path: () => `/decorative`,
+    go: () => switchPath(`/decorative`),
+  },
   _: {
     name: "home",
     raw: "",
