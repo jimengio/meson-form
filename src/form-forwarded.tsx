@@ -5,7 +5,7 @@ import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IM
 
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
-import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderItemLayout } from "./renderer";
+import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderDecorativeItem, renderItemLayout } from "./renderer";
 import { MesonFormProps } from "./form";
 import { Draft } from "immer";
 
@@ -127,6 +127,10 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
 
         // notice, item CustomMultiple not handled well in layout
         return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
+      }
+
+      if (item.type === EMesonFieldType.Decorative) {
+        return renderDecorativeItem(form, item);
       }
 
       return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName, hideLabel);
