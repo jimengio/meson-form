@@ -10,7 +10,7 @@ import produce, { Draft } from "immer";
 import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
-import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderItemLayout } from "./renderer";
+import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderDecorativeItem, renderItemLayout } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
 
@@ -116,6 +116,10 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
         // notice, item CustomMultiple not handled well in layout
         return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName);
+      }
+
+      if (item.type === EMesonFieldType.Decorative) {
+        return renderDecorativeItem(form, item);
       }
 
       return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName);

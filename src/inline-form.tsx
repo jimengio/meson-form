@@ -130,6 +130,10 @@ export function MesonInlineForm<T>(props: {
           return `Not supported type: ${item.type}`;
         }
 
+        if (item.type === EMesonFieldType.Decorative) {
+          return `Not supported type: ${item.type}`;
+        }
+
         let name: string = item.name;
         let error = name != null ? errors[name] : null;
         let errorNode = error != null ? <span className={styleError}>{error}</span> : null;
