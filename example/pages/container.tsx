@@ -113,7 +113,7 @@ let items: ISidebarEntry[] = [
   },
   {
     title: "Decorative",
-    cnTitle: "自定义穿插Node",
+    cnTitle: "自定义穿插 Node",
     path: genRouter.decorative.name,
   },
 ];

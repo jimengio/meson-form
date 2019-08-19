@@ -93,6 +93,7 @@ Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFor
 - `CustomMultiple`, 自定义渲染, 但是可以直接拿到 form 对象的, 进行渲染和校验, 相比 `Custom` 对应的多个字段.
 - `Group`, 不嵌套的分组, 用在属性批量控制显示隐藏的情况,
 - `Nested`, 嵌套的分组.
+- `Decorative`, 自定义穿插 Node ，在 formItem 中间渲染不影响 formData 的对象
 
 对于自定义渲染的位置, 配置 `Custom` 类型, 并且需要传入一个 `render` 方法用于渲染值以及操作区域,
 
