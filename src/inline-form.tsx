@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate, FuncMesonModifyForm, IMesonErrors } from "./model/types";
+import { EMesonFieldType, IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -138,7 +138,7 @@ export function MesonInlineForm<T>(props: {
         let error = name != null ? errors[name] : null;
         let errorNode = error != null ? <span className={styleError}>{error}</span> : null;
 
-        let labelNode = (
+        let labelNode = item.hideLabel ? null : (
           <div className={styleLabel}>
             {item.required ? <RequiredMark /> : null}
             {item.label}

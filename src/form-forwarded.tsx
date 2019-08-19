@@ -1,7 +1,7 @@
 import React from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors, IMesonFormBase } from "./model/types";
+import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
@@ -88,6 +88,8 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
 
   let renderItems = (items: IMesonFieldItem<T>[]) => {
     return items.map((item, idx) => {
+      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.hideLabel;
+
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
@@ -108,7 +110,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName);
+        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -124,10 +126,10 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         let error = showErrorByNames(errors, item.names as string[]);
 
         // notice, item CustomMultiple not handled well in layout
-        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName);
+        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName);
+      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName, hideLabel);
     });
   };
 
