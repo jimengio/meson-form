@@ -1,7 +1,15 @@
 import React, { ReactNode } from "react";
 import { formatString, lingual } from "./lingual";
 import TextArea from "antd/lib/input/TextArea";
-import { IMesonFieldItem, IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField } from "./model/types";
+import {
+  IMesonFieldItem,
+  IMesonInputField,
+  IMesonFieldItemHasValue,
+  IMesonNumberField,
+  IMesonSelectField,
+  IMesonSwitchField,
+  IMesonDecorativeField,
+} from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
@@ -142,6 +150,14 @@ export function renderSelectItem<T>(
         );
       })}
     </Select>
+  );
+}
+
+export function renderDecorativeItem<T>(form: T, item: IMesonDecorativeField<T>) {
+  return (
+    <div className={cx(styleItemRow, item.className)} style={item.style}>
+      {item.render(form)}
+    </div>
   );
 }
 

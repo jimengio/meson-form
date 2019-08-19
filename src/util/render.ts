@@ -8,6 +8,7 @@ export let traverseItems = (xs: IMesonFieldItem[], form: ISimpleObject, method: 
 
     switch (x.type) {
       case EMesonFieldType.CustomMultiple:
+      case EMesonFieldType.Decorative:
         return;
       case EMesonFieldType.Nested:
       case EMesonFieldType.Group:

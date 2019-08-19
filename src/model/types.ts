@@ -29,6 +29,7 @@ export enum EMesonFieldType {
   Select = "select",
   Custom = "custom",
   CustomMultiple = "custom-multiple",
+  Decorative = "decorative",
   Nested = "nested",
   Switch = "switch",
   // like React fragment
@@ -42,6 +43,14 @@ export interface IMesonFieldBaseProps<T> {
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
+}
+
+export interface IMesonDecorativeField<T> {
+  type: EMesonFieldType.Decorative;
+  render: (form: T) => ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  shouldHide?: (form: T) => boolean;
 }
 
 export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
@@ -147,6 +156,7 @@ export type IMesonFieldItem<T = any> =
   | IMesonNumberField<T>
   | IMesonSelectField<T>
   | IMesonCustomField<T>
+  | IMesonDecorativeField<T>
   | IMesonSwitchField<T>
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
