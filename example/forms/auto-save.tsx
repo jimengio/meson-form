@@ -11,7 +11,26 @@ let formItems: IMesonFieldItem[] = [
     type: EMesonFieldType.Input,
     name: "name",
     label: "名字",
-    required: true,
+  },
+  {
+    type: EMesonFieldType.Switch,
+    name: "switch",
+    label: "开关",
+  },
+  {
+    type: EMesonFieldType.Select,
+    name: "select",
+    label: "选择",
+    options: [
+      {
+        value: 1,
+        display: "1",
+      },
+      {
+        value: 2,
+        display: "2",
+      },
+    ],
   },
 ];
 
