@@ -26,7 +26,7 @@ export interface MesonFormProps<T> {
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
-  hideLabel?: boolean;
+  noLabel?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
@@ -80,7 +80,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
   let renderItems = (items: IMesonFieldItem<T>[]) => {
     return items.map((item, idx) => {
-      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.hideLabel;
+      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.noLabel;
 
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
@@ -151,7 +151,7 @@ export function MesonFormModal<T>(props: {
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
-  hideLabel?: boolean;
+  noLabel?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
   return (
@@ -171,7 +171,7 @@ export function MesonFormModal<T>(props: {
             }}
             onCancel={props.onClose}
             className={styleForm}
-            hideLabel={props.hideLabel}
+            noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />
         );
@@ -191,7 +191,7 @@ export function MesonFormDrawer<T>(props: {
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
-  hideLabel?: boolean;
+  noLabel?: boolean;
   headerClassName?: string;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
@@ -214,7 +214,7 @@ export function MesonFormDrawer<T>(props: {
             }}
             onCancel={props.onClose}
             className={styleForm}
-            hideLabel={props.hideLabel}
+            noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />
         );

@@ -88,7 +88,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
 
   let renderItems = (items: IMesonFieldItem<T>[]) => {
     return items.map((item, idx) => {
-      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.hideLabel;
+      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.noLabel;
 
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
