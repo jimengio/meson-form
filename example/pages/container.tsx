@@ -21,6 +21,7 @@ import DrawerPage from "forms/drawer";
 import CustomMultiplePage from "forms/custom-multiple";
 import GroupPage from "forms/group";
 import DecorativePage from "forms/decorative";
+import NoLabelPage from "forms/no-label";
 import { DocSidebar, ISidebarEntry } from "@jimengio/doc-frame";
 import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 import DropdownPage from "forms/dropdown";
@@ -116,6 +117,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "自定义穿插 Node",
     path: genRouter.decorative.name,
   },
+  {
+    title: "No label",
+    cnTitle: "无 Label",
+    path: genRouter.noLabel.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -164,6 +170,8 @@ let Container: FC<{ router: IRouteParseResult }> = (props) => {
         return <DropdownPage />;
       case genRouter.decorative.name:
         return <DecorativePage />;
+      case genRouter.noLabel.name:
+        return <NoLabelPage />;
       default:
         return <FormBasic />;
     }

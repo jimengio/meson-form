@@ -1,15 +1,7 @@
 import React, { ReactNode } from "react";
 import { formatString, lingual } from "./lingual";
 import TextArea from "antd/lib/input/TextArea";
-import {
-  IMesonFieldItem,
-  IMesonInputField,
-  IMesonFieldItemHasValue,
-  IMesonNumberField,
-  IMesonSelectField,
-  IMesonSwitchField,
-  IMesonDecorativeField,
-} from "./model/types";
+import { IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField, IMesonDecorativeField } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
@@ -37,7 +29,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, update
           checkItem(item);
         }}
         // should use TextareaProps, but for convenience
-        {...item.inputProps as any}
+        {...(item.inputProps as any)}
       />
     </div>
   );
@@ -166,18 +158,19 @@ export function renderDecorativeItem<T>(form: T, item: IMesonDecorativeField<T>)
  * @param item an item with values or labels
  * @param error in string
  * @param field rendered node
+ * @param className
+ * @param hideLabel
  */
-export function renderItemLayout(key: string | number, item: IMesonFieldItemHasValue, error: string, field: ReactNode, className: string) {
-  let labelNode = (
+export function renderItemLayout(key: string | number, item: IMesonFieldItemHasValue, error: string, field: ReactNode, className: string, hideLabel?: boolean) {
+  let labelNode = hideLabel ? null : item.label == null ? (
+    <div className={cx(styleLabel, className)} />
+  ) : (
     <div className={cx(styleLabel, className)}>
       {item.required ? <RequiredMark /> : null}
       {item.label}:
     </div>
   );
 
-  if (item.label == null) {
-    labelNode = <div className={cx(styleLabel, className)} />;
-  }
   let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
 
   return (

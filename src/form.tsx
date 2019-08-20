@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties } from "react";
 import { row, column, flex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, EMesonFieldType, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonErrors, IMesonFormBase } from "./model/types";
+import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/meson-display";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
@@ -26,6 +26,7 @@ export interface MesonFormProps<T> {
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
+  noLabel?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
@@ -79,6 +80,8 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
   let renderItems = (items: IMesonFieldItem<T>[]) => {
     return items.map((item, idx) => {
+      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.noLabel;
+
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
@@ -99,7 +102,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName);
+        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -115,14 +118,14 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         let error = showErrorByNames(errors, item.names as string[]);
 
         // notice, item CustomMultiple not handled well in layout
-        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName);
+        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.Decorative) {
         return renderDecorativeItem(form, item);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName);
+      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName, hideLabel);
     });
   };
 
@@ -148,6 +151,7 @@ export function MesonFormModal<T>(props: {
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  noLabel?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
   return (
@@ -167,6 +171,7 @@ export function MesonFormModal<T>(props: {
             }}
             onCancel={props.onClose}
             className={styleForm}
+            noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />
         );
@@ -186,6 +191,7 @@ export function MesonFormDrawer<T>(props: {
   onClose: () => void;
   isLoading?: boolean;
   hideClose?: boolean;
+  noLabel?: boolean;
   headerClassName?: string;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
@@ -208,6 +214,7 @@ export function MesonFormDrawer<T>(props: {
             }}
             onCancel={props.onClose}
             className={styleForm}
+            noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />
         );

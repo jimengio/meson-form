@@ -43,6 +43,7 @@ export interface IMesonFieldBaseProps<T> {
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  hideLabel?: boolean;
 }
 
 export interface IMesonDecorativeField<T> {
