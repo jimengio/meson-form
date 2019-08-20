@@ -75,7 +75,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
       case EMesonFieldType.Number:
         return renderNumberItem(form, item, updateItem, checkItem);
       case EMesonFieldType.Switch:
-        return renderSwitchItem(form, item, updateItem, checkItem);
+        return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case EMesonFieldType.Select:
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
       case EMesonFieldType.Nested:

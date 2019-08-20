@@ -84,7 +84,7 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
   );
 }
 
-export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
   return (
     <div>
       <Switch
@@ -93,6 +93,7 @@ export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateI
         disabled={item.disabled}
         onChange={(value) => {
           updateItem(value, item);
+          checkItemWithValue(value, item);
         }}
       />
     </div>
