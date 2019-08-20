@@ -141,9 +141,25 @@ export let MesonForm: FC<{
   onSubmit: (form: { [k: string]: any }, onServerErrors?: (x: IMesonErrors) => void) => void;
   onCancel?: () => void;
   className?: string;
+  /**
+   * items 所在区域容器的样式
+   */
+  itemsClassName?: string;
+  /**
+   * label 所在区域容器的样式
+   */
+  labelClassName?: string;
   style?: CSSProperties;
-  /** Footer 默认提供了几种布局, 但是更可能还是需要直接提供一个渲染方案进行自定义 */
+  /**
+   * Footer 默认提供了几种布局, 但是更可能还是需要直接提供一个渲染方案进行自定义
+   */
   footerLayout?: EMesonFooterLayout;
+  hideFooter?: boolean;
+  /**
+   * 控制 Label 是否不显示
+   * 但优先级低于 `hideLabel` （IMesonFieldItem）
+   */
+  noLabel?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   /** 可能用在记录是否有修改的地方. 另外每个 item 上修改值的时候也有各自的 onChange 钩子 */
