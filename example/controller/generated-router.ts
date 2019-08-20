@@ -121,6 +121,12 @@ export let genRouter = {
     path: () => `/decorative`,
     go: () => switchPath(`/decorative`),
   },
+  noLabel: {
+    name: "no-label",
+    raw: "no-label",
+    path: () => `/no-label`,
+    go: () => switchPath(`/no-label`),
+  },
   _: {
     name: "home",
     raw: "",
