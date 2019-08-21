@@ -144,8 +144,12 @@ export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
 
 export interface IMesonGroupFields<T> {
   type: EMesonFieldType.Group;
-  shouldHide?: (form: T) => boolean;
   children: IMesonFieldItem<T>[];
+  shouldHide?: (form: T) => boolean;
+  /**
+   * Group(flexWrap) 内元素 inline 布局
+   */
+  contentInline?: boolean;
 }
 
 // 默认any过渡

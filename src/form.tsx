@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties } from "react";
-import { row, column, flex } from "@jimengio/shared-utils";
+import { row, column, flex, flexWrap, displayFlex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/meson-display";
@@ -87,6 +87,9 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
       }
 
       if (item.type === EMesonFieldType.Group) {
+        if (item.contentInline) {
+          return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children)}</div>;
+        }
         return <>{renderItems(item.children)}</>;
       }
 
