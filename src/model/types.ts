@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, ReactText } from "react";
 import { InputProps } from "antd/lib/input";
 import { SelectProps } from "antd/lib/select";
 import { Draft } from "immer";
@@ -44,6 +44,7 @@ export interface IMesonFieldBaseProps<T> {
   className?: string;
   style?: React.CSSProperties;
   hideLabel?: boolean;
+  fullWidth?: boolean;
 }
 
 export interface IMesonDecorativeField<T> {
@@ -150,6 +151,10 @@ export interface IMesonGroupFields<T> {
    * Group(flexWrap) 内元素 inline 布局
    */
   contentInline?: boolean;
+  /**
+   * 单个 Item 所占宽度
+   */
+  itemWidth?: ReactText;
 }
 
 // 默认any过渡

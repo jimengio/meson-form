@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from "react";
+import React, { ReactNode, CSSProperties, ReactText } from "react";
 import { row, column, flex, flexWrap, displayFlex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
@@ -10,7 +10,16 @@ import produce, { Draft } from "immer";
 import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
-import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderDecorativeItem, renderItemLayout } from "./renderer";
+import {
+  renderTextAreaItem,
+  renderInputItem,
+  renderNumberItem,
+  renderSelectItem,
+  renderSwitchItem,
+  renderDecorativeItem,
+  renderItemLayout,
+  ItemStyleBox,
+} from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
 
@@ -27,6 +36,7 @@ export interface MesonFormProps<T> {
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
   noLabel?: boolean;
+  fullWidth?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
   onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
@@ -70,27 +80,28 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case EMesonFieldType.Select:
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
-      case EMesonFieldType.Nested:
-        return renderItems(item.children);
       case EMesonFieldType.Custom:
       // already handled outside
     }
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem<T>[]) => {
+  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText) => {
     return items.map((item, idx) => {
-      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.noLabel;
+      const basePropsItem = item as IMesonFieldBaseProps<T>;
+      const hideLabel = basePropsItem.hideLabel === false ? false : basePropsItem.hideLabel || props.noLabel;
+      const fullWidth = basePropsItem.fullWidth === false ? false : basePropsItem.fullWidth || props.fullWidth;
 
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
 
       if (item.type === EMesonFieldType.Group) {
+        const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
         if (item.contentInline) {
-          return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children)}</div>;
+          return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children, nextItemWidth)}</div>;
         }
-        return <>{renderItems(item.children)}</>;
+        return <>{renderItems(item.children, nextItemWidth)}</>;
       }
 
       let name: string = (item as any).name;
@@ -124,11 +135,23 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
       }
 
+      if (item.type === EMesonFieldType.Nested) {
+        return renderItemLayout(idx, item as any, error, renderItems(item.children), props.labelClassName, hideLabel);
+      }
+
       if (item.type === EMesonFieldType.Decorative) {
         return renderDecorativeItem(form, item);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName, hideLabel);
+      return renderItemLayout(
+        idx,
+        item as any,
+        error,
+        <ItemStyleBox fullWidth={fullWidth}>{renderValueItem(item)}</ItemStyleBox>,
+        props.labelClassName,
+        hideLabel,
+        itemWidth
+      );
     });
   };
 
