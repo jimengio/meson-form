@@ -79,7 +79,7 @@ let formItems: IMesonFieldItem[] = [
     },
     validator: (value) => {
       if (!value) {
-        return "这个错误信息是测试错误信息过长时，是否会换行显示";
+        return "这个错误信息是测试错误信息过长时，是否会换行显示；这个错误信息是测试错误信息过长时，是否会换行显示；这个错误信息是测试错误信息过长时，是否会换行显示";
       }
     },
   },
@@ -121,7 +121,9 @@ let ValidationPage: FC<{}> = (props) => {
 
 export default ValidationPage;
 
-let styleContainer = css``;
+let styleContainer = css`
+  width: 700px;
+`;
 
 let styleMediumItem = css`
   width: 240px;
