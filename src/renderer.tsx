@@ -166,7 +166,7 @@ export const ItemStyleBox: FC<{ fullWidth?: boolean; className?: string }> = (pr
  * @param item an item with values or labels
  * @param error in string
  * @param field rendered node
- * @param className
+ * @param labelClassName label className
  * @param hideLabel
  */
 export function renderItemLayout(
@@ -174,14 +174,14 @@ export function renderItemLayout(
   item: IMesonFieldItemHasValue,
   error: string,
   field: ReactNode,
-  className: string,
+  labelClassName: string,
   hideLabel?: boolean,
   width?: ReactText
 ) {
   let labelNode = hideLabel ? null : item.label == null ? (
-    <div className={cx(styleLabel, className)} />
+    <div className={cx(styleLabel, labelClassName)} />
   ) : (
-    <div className={cx(styleLabel, className)}>
+    <div className={cx(styleLabel, labelClassName)}>
       {item.required ? <RequiredMark /> : null}
       {item.label}:
     </div>
