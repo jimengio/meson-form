@@ -60,6 +60,23 @@ let formItems: IMesonFieldItem<IDemo>[] = [
       { type: EMesonFieldType.Input, label: "d", name: "d" },
     ],
   },
+  {
+    type: EMesonFieldType.Group,
+    contentInline: true,
+    children: [
+      {
+        type: EMesonFieldType.Input,
+        label: "e",
+        name: "e",
+      },
+      {
+        type: EMesonFieldType.Input,
+        textarea: true,
+        label: "f",
+        name: "f",
+      },
+    ],
+  },
 ];
 
 let GroupPage: FC<{}> = (props) => {
@@ -101,7 +118,7 @@ let styleWideColor = css`
 `;
 
 let styleFormArea = css`
-  width: 480px;
+  width: 700px;
   height: 660px;
   border: 1px solid #ccc;
 `;
