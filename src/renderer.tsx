@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
 import { formatString, lingual } from "./lingual";
 import TextArea from "antd/lib/input/TextArea";
 import { IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField, IMesonDecorativeField } from "./model/types";
@@ -16,7 +16,7 @@ type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => v
 
 export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
-    <div className={cx(styleControlBase, styleTextareaBase)}>
+    <>
       <TextArea
         value={form[item.name]}
         disabled={item.disabled}
@@ -31,13 +31,13 @@ export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, update
         // should use TextareaProps, but for convenience
         {...(item.inputProps as any)}
       />
-    </div>
+    </>
   );
 }
 
 export function renderInputItem<T>(form: T, item: IMesonInputField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
-    <div className={styleControlBase}>
+    <>
       <Input
         value={form[item.name]}
         disabled={item.disabled}
@@ -60,13 +60,13 @@ export function renderInputItem<T>(form: T, item: IMesonInputField<T>, updateIte
         }}
         {...item.inputProps}
       />
-    </div>
+    </>
   );
 }
 
 export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
-    <div className={styleControlBase}>
+    <>
       <InputNumber
         value={form[item.name]}
         disabled={item.disabled}
@@ -80,7 +80,7 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
         min={item.min}
         max={item.max}
       />
-    </div>
+    </>
   );
 }
 
@@ -115,7 +115,7 @@ export function renderSelectItem<T>(
     <Select
       value={currentValue}
       disabled={item.disabled}
-      className={styleControlBase}
+      className={width100}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue) => {
         if (item.translateNonStringvalue && newValue != null) {
@@ -154,28 +154,44 @@ export function renderDecorativeItem<T>(form: T, item: IMesonDecorativeField<T>)
   );
 }
 
+export const ValueFieldContainer: FC<{ fullWidth?: boolean; className?: string }> = (props) => {
+  const { className, fullWidth, children } = props;
+  const mergeClassName = cx(fullWidth ? width100 : styleControlBase, className);
+
+  return <div className={mergeClassName}>{children}</div>;
+};
+
 /** Common layout for form items,
  * @param key string | number
  * @param item an item with values or labels
  * @param error in string
  * @param field rendered node
- * @param className
+ * @param labelClassName label className
  * @param hideLabel
  */
-export function renderItemLayout(key: string | number, item: IMesonFieldItemHasValue, error: string, field: ReactNode, className: string, hideLabel?: boolean) {
+export function renderItemLayout(
+  key: string | number,
+  item: IMesonFieldItemHasValue,
+  error: string,
+  field: ReactNode,
+  labelClassName: string,
+  hideLabel?: boolean,
+  width?: ReactText
+) {
   let labelNode = hideLabel ? null : item.label == null ? (
-    <div className={cx(styleLabel, className)} />
+    <div className={cx(styleLabel, labelClassName)} />
   ) : (
-    <div className={cx(styleLabel, className)}>
+    <div className={cx(styleLabel, labelClassName)}>
       {item.required ? <RequiredMark /> : null}
       {item.label}:
     </div>
   );
 
   let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
+  let styleObj: CSSProperties = width == null ? undefined : { width };
 
   return (
-    <div key={key} className={cx(row, styleItemRow)}>
+    <div key={key} className={cx(row, styleItemRow)} style={styleObj}>
       {labelNode}
       <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
         {field}
@@ -229,4 +245,8 @@ let styleLabel = css`
   width: max-content;
   text-align: right;
   margin-right: 8px;
+`;
+
+let width100 = css`
+  width: 100%;
 `;

@@ -14,6 +14,8 @@ interface IDemo {
   b: string;
   c: string;
   d: string;
+  e: string;
+  f: string;
 }
 
 let options: IMesonSelectItem[] = [
@@ -49,6 +51,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
         label: "b",
         name: "b",
         required: true,
+        fullWidth: true,
       },
     ],
   },
@@ -60,10 +63,83 @@ let formItems: IMesonFieldItem<IDemo>[] = [
       { type: EMesonFieldType.Input, label: "d", name: "d" },
     ],
   },
+  {
+    type: EMesonFieldType.Group,
+    horizontal: true,
+    children: [
+      {
+        type: EMesonFieldType.Input,
+        label: "e",
+        name: "e",
+      },
+      {
+        type: EMesonFieldType.Input,
+        textarea: true,
+        label: "f",
+        name: "f",
+      },
+    ],
+  },
+];
+
+let formItems2: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Decorative,
+    render: () => <h2>Group 01 (width: 200px)</h2>,
+  },
+  {
+    type: EMesonFieldType.Group,
+    horizontal: true,
+    itemWidth: 200,
+    children: [
+      {
+        type: EMesonFieldType.Input,
+        label: "1-1",
+        name: "1-1",
+      },
+      {
+        type: EMesonFieldType.Input,
+        label: "1-2",
+        name: "1-2",
+      },
+      {
+        type: EMesonFieldType.Input,
+        label: "1-3",
+        name: "1-3",
+      },
+      {
+        type: EMesonFieldType.Input,
+        label: "1-4",
+        name: "1-4",
+      },
+    ],
+  },
+  {
+    type: EMesonFieldType.Decorative,
+    render: () => <h2>Group 02 (width: 50%)</h2>,
+  },
+  {
+    type: EMesonFieldType.Group,
+    horizontal: true,
+    itemWidth: "50%",
+    children: [
+      {
+        type: EMesonFieldType.Input,
+        label: "2-1",
+        name: "2-1",
+      },
+      {
+        type: EMesonFieldType.Input,
+        label: "2-2",
+        name: "2-2",
+      },
+    ],
+  },
 ];
 
 let GroupPage: FC<{}> = (props) => {
   let [form, setForm] = useState({} as IDemo);
+  let [form2, setForm2] = useState({});
 
   return (
     <div className={cx(row, styleContainer)}>
@@ -80,10 +156,21 @@ let GroupPage: FC<{}> = (props) => {
           footerLayout={EMesonFooterLayout.Center}
           submitOnEdit={false}
         />
+        <MesonForm
+          fullWidth
+          initialValue={form2}
+          items={formItems2}
+          onSubmit={(form) => {
+            setForm2(form);
+          }}
+          footerLayout={EMesonFooterLayout.Center}
+          submitOnEdit={false}
+        />
       </div>
       <div>
-        <SourceLink fileName={"draft.tsx"} />
+        <SourceLink fileName={"group.tsx"} />
         <DataPreview data={form} />
+        <DataPreview data={form2} />
       </div>
     </div>
   );
@@ -101,7 +188,6 @@ let styleWideColor = css`
 `;
 
 let styleFormArea = css`
-  width: 480px;
-  height: 660px;
+  width: 700px;
   border: 1px solid #ccc;
 `;
