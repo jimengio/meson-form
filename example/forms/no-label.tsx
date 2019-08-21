@@ -31,8 +31,30 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
+let formItems2: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Decorative,
+    render: () => <p>noLabel and fullWidth</p>,
+  },
+  {
+    type: EMesonFieldType.Input,
+    name: "username",
+    placeholder: "* username",
+    label: "username",
+    required: true,
+  },
+  {
+    type: EMesonFieldType.Input,
+    name: "password",
+    label: "password",
+    placeholder: "* password",
+    required: true,
+  },
+];
+
 let NoLabelPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
+  let [form2, setForm2] = useState({});
   let [showLabel, setShowLabel] = useState<boolean>();
 
   return (
@@ -49,10 +71,20 @@ let NoLabelPage: FC<{}> = (props) => {
             setForm(form);
           }}
         />
+        <MesonForm
+          noLabel
+          fullWidth
+          initialValue={form2}
+          items={formItems2}
+          onSubmit={(form) => {
+            setForm2(form);
+          }}
+        />
       </div>
       <div>
-        <SourceLink fileName={"basic.tsx"} />
+        <SourceLink fileName={"no-label.tsx"} />
         <DataPreview data={form} />
+        <DataPreview data={form2} />
       </div>
     </div>
   );
