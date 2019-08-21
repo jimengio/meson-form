@@ -65,7 +65,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
   },
   {
     type: EMesonFieldType.Group,
-    contentInline: true,
+    horizontal: true,
     children: [
       {
         type: EMesonFieldType.Input,
@@ -89,7 +89,7 @@ let formItems2: IMesonFieldItem[] = [
   },
   {
     type: EMesonFieldType.Group,
-    contentInline: true,
+    horizontal: true,
     itemWidth: 200,
     children: [
       {
@@ -120,7 +120,7 @@ let formItems2: IMesonFieldItem[] = [
   },
   {
     type: EMesonFieldType.Group,
-    contentInline: true,
+    horizontal: true,
     itemWidth: "50%",
     children: [
       {

@@ -18,7 +18,7 @@ import {
   renderSwitchItem,
   renderDecorativeItem,
   renderItemLayout,
-  ItemStyleBox,
+  ValueFieldContainer,
 } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
@@ -99,7 +99,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
       if (item.type === EMesonFieldType.Group) {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
 
-        if (item.contentInline) {
+        if (item.horizontal) {
           return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children, nextItemWidth)}</div>;
         }
 
@@ -149,7 +149,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         idx,
         item as any,
         error,
-        <ItemStyleBox fullWidth={fullWidth}>{renderValueItem(item)}</ItemStyleBox>,
+        <ValueFieldContainer fullWidth={fullWidth}>{renderValueItem(item)}</ValueFieldContainer>,
         props.labelClassName,
         hideLabel,
         itemWidth

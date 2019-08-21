@@ -154,7 +154,7 @@ export function renderDecorativeItem<T>(form: T, item: IMesonDecorativeField<T>)
   );
 }
 
-export const ItemStyleBox: FC<{ fullWidth?: boolean; className?: string }> = (props) => {
+export const ValueFieldContainer: FC<{ fullWidth?: boolean; className?: string }> = (props) => {
   const { className, fullWidth, children } = props;
   const mergeClassName = cx(fullWidth ? width100 : styleControlBase, className);
 

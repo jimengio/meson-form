@@ -148,9 +148,9 @@ export interface IMesonGroupFields<T> {
   children: IMesonFieldItem<T>[];
   shouldHide?: (form: T) => boolean;
   /**
-   * Group(flexWrap) 内元素 inline 布局
+   * Group(flexWrap) 内元素水平布局
    */
-  contentInline?: boolean;
+  horizontal?: boolean;
   /**
    * 单个 Item 所占宽度
    */
