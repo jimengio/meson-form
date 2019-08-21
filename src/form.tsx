@@ -98,9 +98,11 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
       if (item.type === EMesonFieldType.Group) {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
+
         if (item.contentInline) {
           return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children, nextItemWidth)}</div>;
         }
+
         return <>{renderItems(item.children, nextItemWidth)}</>;
       }
 

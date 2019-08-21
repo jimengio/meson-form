@@ -1,11 +1,20 @@
-import React from "react";
-import { row, column, flex } from "@jimengio/shared-utils";
+import React, { ReactText } from "react";
+import { row, column, flex, displayFlex, flexWrap } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
-import { renderTextAreaItem, renderInputItem, renderNumberItem, renderSelectItem, renderSwitchItem, renderDecorativeItem, renderItemLayout } from "./renderer";
+import {
+  renderTextAreaItem,
+  renderInputItem,
+  renderNumberItem,
+  renderSelectItem,
+  renderSwitchItem,
+  renderDecorativeItem,
+  renderItemLayout,
+  ItemStyleBox,
+} from "./renderer";
 import { MesonFormProps } from "./form";
 import { Draft } from "immer";
 
@@ -78,24 +87,30 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case EMesonFieldType.Select:
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
-      case EMesonFieldType.Nested:
-        return renderItems(item.children);
       case EMesonFieldType.Custom:
       // already handled outside
     }
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem<T>[]) => {
+  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText) => {
     return items.map((item, idx) => {
-      const hideLabel = (item as IMesonFieldBaseProps<T>).hideLabel === false ? false : (item as IMesonFieldBaseProps<T>).hideLabel || props.noLabel;
+      const basePropsItem = item as IMesonFieldBaseProps<T>;
+      const hideLabel = basePropsItem.hideLabel === false ? false : basePropsItem.hideLabel || props.noLabel;
+      const fullWidth = basePropsItem.fullWidth === false ? false : basePropsItem.fullWidth || props.fullWidth;
 
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
 
       if (item.type === EMesonFieldType.Group) {
-        return <>{renderItems(item.children)}</>;
+        const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
+
+        if (item.contentInline) {
+          return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children, nextItemWidth)}</div>;
+        }
+
+        return <>{renderItems(item.children, nextItemWidth)}</>;
       }
 
       let name: string = (item as any).name;
@@ -129,11 +144,23 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
       }
 
+      if (item.type === EMesonFieldType.Nested) {
+        return renderItemLayout(idx, item as any, error, renderItems(item.children), props.labelClassName, hideLabel);
+      }
+
       if (item.type === EMesonFieldType.Decorative) {
         return renderDecorativeItem(form, item);
       }
 
-      return renderItemLayout(idx, item as any, error, renderValueItem(item), props.labelClassName, hideLabel);
+      return renderItemLayout(
+        idx,
+        item as any,
+        error,
+        <ItemStyleBox fullWidth={fullWidth}>{renderValueItem(item)}</ItemStyleBox>,
+        props.labelClassName,
+        hideLabel,
+        itemWidth
+      );
     });
   };
 
