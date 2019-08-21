@@ -160,6 +160,10 @@ export let MesonForm: FC<{
    * 但优先级低于 `hideLabel` （IMesonFieldItem）
    */
   noLabel?: boolean;
+  /**
+   * 每个 item 输入框部分填满余下空间
+   */
+  fullWidth?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void) => ReactNode;
   isLoading?: boolean;
   /** 可能用在记录是否有修改的地方. 另外每个 item 上修改值的时候也有各自的 onChange 钩子 */
