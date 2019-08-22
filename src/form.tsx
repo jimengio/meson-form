@@ -32,6 +32,7 @@ export interface MesonFormProps<T> {
   className?: string;
   itemsClassName?: string /** items 所在区域容器的样式 */;
   labelClassName?: string;
+  errorClassName?: string;
   style?: CSSProperties;
   footerLayout?: EMesonFooterLayout;
   hideFooter?: boolean;
@@ -118,7 +119,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, hideLabel);
+        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -134,11 +135,19 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         let error = showErrorByNames(errors, item.names as string[]);
 
         // notice, item CustomMultiple not handled well in layout
-        return renderItemLayout(idx, item as any, error, item.renderMultiple(form, modifidForm, checkForm), props.labelClassName, hideLabel);
+        return renderItemLayout(
+          idx,
+          item as any,
+          error,
+          item.renderMultiple(form, modifidForm, checkForm),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel
+        );
       }
 
       if (item.type === EMesonFieldType.Nested) {
-        return renderItemLayout(idx, item as any, error, renderItems(item.children), props.labelClassName, hideLabel);
+        return renderItemLayout(idx, item as any, error, renderItems(item.children), props.labelClassName, props.errorClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.Decorative) {
@@ -151,6 +160,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         error,
         <ValueFieldContainer fullWidth={fullWidth}>{renderValueItem(item)}</ValueFieldContainer>,
         props.labelClassName,
+        props.errorClassName,
         hideLabel,
         itemWidth
       );
