@@ -98,22 +98,64 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
+let formItems2: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Decorative,
+    render: () => "Custom errorClassName",
+  },
+  {
+    type: EMesonFieldType.Input,
+    label: "username",
+    name: "username",
+    required: true,
+  },
+  {
+    type: EMesonFieldType.Input,
+    label: "password",
+    name: "password",
+    required: true,
+  },
+  {
+    type: EMesonFieldType.Input,
+    label: "lang text",
+    name: "lang-text",
+    required: true,
+    validator: (value) => {
+      if (!value) {
+        return "lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text lang text";
+      }
+    },
+  },
+];
+
 let ValidationPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
+  let [form2, setForm2] = useState({});
 
   return (
-    <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={{}}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
+    <div className={cx(row)}>
+      <div className={styleContainer}>
+        <MesonForm
+          initialValue={{}}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
+        <MesonForm
+          initialValue={form2}
+          items={formItems2}
+          errorClassName={styleError}
+          onSubmit={(form) => {
+            setForm2(form);
+          }}
+        />
+      </div>
 
       <div>
         <SourceLink fileName={"validation.tsx"} />
         <DataPreview data={form} />
+        <DataPreview data={form2} />
       </div>
     </div>
   );
@@ -122,9 +164,16 @@ let ValidationPage: FC<{}> = (props) => {
 export default ValidationPage;
 
 let styleContainer = css`
-  width: 700px;
+  width: 500px;
 `;
 
 let styleMediumItem = css`
   width: 240px;
+`;
+
+const styleError = css`
+  padding: 2px 0;
+  font-size: 12px;
+  line-height: 12px;
+  margin-bottom: 0;
 `;

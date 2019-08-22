@@ -149,6 +149,10 @@ export let MesonForm: FC<{
    * label 所在区域容器的样式
    */
   labelClassName?: string;
+  /**
+   * verification-error-text 所在区域容器的样式
+   */
+  errorClassName?: string;
   style?: CSSProperties;
   /**
    * Footer 默认提供了几种布局, 但是更可能还是需要直接提供一个渲染方案进行自定义
