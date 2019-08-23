@@ -146,9 +146,9 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderDecorativeItem<T>(form: T, item: IMesonDecorativeField<T>) {
+export function renderDecorativeItem<T>(key: ReactText, form: T, item: IMesonDecorativeField<T>) {
   return (
-    <div className={cx(styleItemRow, item.className)} style={item.style}>
+    <div key={key} className={cx(styleItemRow, item.className)} style={item.style}>
       {item.render(form)}
     </div>
   );
