@@ -7,7 +7,7 @@ import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 import Switch from "antd/lib/switch";
-import { flex, column, row } from "@jimengio/shared-utils";
+import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
@@ -167,6 +167,7 @@ export const ValueFieldContainer: FC<{ fullWidth?: boolean; className?: string }
  * @param error in string
  * @param field rendered node
  * @param labelClassName label className
+ * @param errorClassName error className
  * @param hideLabel
  */
 export function renderItemLayout(
@@ -175,6 +176,7 @@ export function renderItemLayout(
   error: string,
   field: ReactNode,
   labelClassName: string,
+  errorClassName: string,
   hideLabel?: boolean,
   width?: ReactText
 ) {
@@ -187,15 +189,17 @@ export function renderItemLayout(
     </div>
   );
 
-  let errorNode = error != null ? <div className={styleError}>{error}</div> : null;
+  let isError = error != null;
+  let mergeItemClassNamae = isError ? cx(row, relative, styleItemRow, styleItemRowWithError) : cx(row, relative, styleItemRow);
+  let mergeErrorClassName = isError ? cx(styleErrorWrapper, styleError, errorClassName) : undefined;
   let styleObj: CSSProperties = width == null ? undefined : { width };
 
   return (
-    <div key={key} className={cx(row, styleItemRow)} style={styleObj}>
+    <div key={key} className={mergeItemClassNamae} style={styleObj}>
       {labelNode}
       <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
         {field}
-        <div className={styleErrorWrapper}>{errorNode}</div>
+        {mergeErrorClassName && <div className={mergeErrorClassName}>{error}</div>}
       </div>
     </div>
   );
@@ -230,9 +234,15 @@ let styleItemRow = css`
   font-size: 14px;
 `;
 
+let styleItemRowWithError = css`
+  margin-bottom: 0;
+`;
+
 /** 添加 wrapper 避免 error text flow 自动撑开到很大 */
 let styleErrorWrapper = css`
   overflow: auto;
+  /* [TODO] 兼容老样式 */
+  margin-bottom: 16px;
 `;
 
 let styleValueArea = css`
