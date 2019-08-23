@@ -26,7 +26,7 @@ import Button from "antd/lib/button";
 export interface MesonFormProps<T> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -169,69 +169,81 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
   );
 }
 
-export interface IMesonFormModalProps<T> extends MesonFormProps<T> {
+/** Modal binding for meson form */
+export function MesonFormModal<T>(props: {
   title: string;
   visible: boolean;
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
   onClose: () => void;
+  isLoading?: boolean;
   hideClose?: boolean;
-}
-
-/** Modal binding for meson form */
-export function MesonFormModal<T>(props: IMesonFormModalProps<T>) {
-  const { title, visible, onClose, hideClose, className, onCancel, ...rest } = props;
-
+  noLabel?: boolean;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+}) {
   return (
     <MesonModal
-      title={title}
-      visible={visible}
-      onClose={onClose}
-      hideClose={hideClose}
+      title={props.title}
+      visible={props.visible}
+      onClose={props.onClose}
+      hideClose={props.hideClose}
       renderContent={() => {
         return (
           <MesonForm
-            className={cx(styleForm, className)}
-            onCancel={() => {
-              onClose();
-              onCancel && onCancel();
+            initialValue={props.initialValue}
+            items={props.items}
+            isLoading={props.isLoading}
+            onSubmit={(form: T, onServerErrors: (x: IMesonErrors<T>) => void) => {
+              props.onSubmit(form, onServerErrors);
             }}
-            {...rest}
+            onCancel={props.onClose}
+            className={styleForm}
+            noLabel={props.noLabel}
+            renderFooter={props.renderFooter}
           />
         );
       }}
     />
   );
-}
-
-export interface IMesonFormDrawerPorps<T> extends MesonFormProps<T> {
-  title: string;
-  visible: boolean;
-  onClose: () => void;
-  width?: number;
-  hideClose?: boolean;
-  headerClassName?: string;
 }
 
 /** Drawer binding for meson form */
-export function MesonFormDrawer<T>(props: IMesonFormDrawerPorps<T>) {
-  const { title, visible, onCancel, onClose, width, hideClose, headerClassName, className, ...rest } = props;
-
+export function MesonFormDrawer<T>(props: {
+  title: string;
+  visible: boolean;
+  width?: number;
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  onClose: () => void;
+  isLoading?: boolean;
+  hideClose?: boolean;
+  noLabel?: boolean;
+  headerClassName?: string;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+}) {
   return (
     <MesonDrawer
-      title={title}
-      visible={visible}
-      width={width}
-      onClose={onClose}
-      hideClose={hideClose}
-      headerClassName={headerClassName}
+      title={props.title}
+      visible={props.visible}
+      width={props.width}
+      onClose={props.onClose}
+      hideClose={props.hideClose}
+      headerClassName={props.headerClassName}
       renderContent={() => {
         return (
           <MesonForm
-            className={cx(styleForm, className)}
-            onCancel={() => {
-              onClose();
-              onCancel && onCancel();
+            initialValue={props.initialValue}
+            items={props.items as IMesonFieldItem<any>[]}
+            isLoading={props.isLoading}
+            onSubmit={(form: T, onServerErrors: (x: IMesonErrors<T>) => void) => {
+              props.onSubmit(form, onServerErrors);
             }}
-            {...rest}
+            onCancel={props.onClose}
+            className={styleForm}
+            noLabel={props.noLabel}
+            renderFooter={props.renderFooter}
           />
         );
       }}
@@ -239,20 +251,25 @@ export function MesonFormDrawer<T>(props: IMesonFormDrawerPorps<T>) {
   );
 }
 
-export interface IMesonFormDropdownProps<T> extends MesonFormProps<T> {
+/** Dropdown binding for meson form */
+export function MesonFormDropdown<T>(props: {
   title: string;
   width?: number;
-  formClassNamae?: string;
+  initialValue: T;
+  items: IMesonFieldItem<T>[];
+  onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
+  isLoading?: boolean;
   hideClose?: boolean;
   /** TODO, need better algorithm in dropdown area */
   alignToRight?: boolean;
+  /** not implemented yet */
+  headerClassName?: string;
+  labelClassName?: string;
+  itemsClassName?: string;
+  renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   children?: ReactNode;
-}
-
-/** Dropdown binding for meson form */
-export function MesonFormDropdown<T>(props: IMesonFormDropdownProps<T>) {
-  const { title, width, hideClose, alignToRight, className, formClassNamae, children, renderFooter, onSubmit, ...rest } = props;
-  let footerRenderer = renderFooter;
+}) {
+  let footerRenderer = props.renderFooter;
   if (footerRenderer == null) {
     footerRenderer = (isLoading, onSubmit, onCancel, form) => {
       return (
@@ -266,26 +283,29 @@ export function MesonFormDropdown<T>(props: IMesonFormDropdownProps<T>) {
   }
   return (
     <DropdownArea
-      title={title}
-      width={width}
-      className={className}
-      hideClose={hideClose}
-      alignToRight={alignToRight}
+      title={props.title}
+      width={props.width}
+      hideClose={props.hideClose}
+      alignToRight={props.alignToRight}
       renderContent={(onClose) => {
         return (
           <MesonForm
+            initialValue={props.initialValue}
+            items={props.items as IMesonFieldItem<any>[]}
+            itemsClassName={props.itemsClassName}
+            labelClassName={props.labelClassName}
+            isLoading={props.isLoading}
             onSubmit={(form: T, onServerErrors: (x: IMesonErrors<T>) => void) => {
-              onSubmit(form, onServerErrors);
+              props.onSubmit(form, onServerErrors);
               onClose();
             }}
-            className={cx(styleForm, formClassNamae)}
+            className={styleForm}
             renderFooter={footerRenderer}
-            {...rest}
           />
         );
       }}
     >
-      {children}
+      {props.children}
     </DropdownArea>
   );
 }
