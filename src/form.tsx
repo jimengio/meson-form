@@ -22,7 +22,7 @@ import {
 } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
-import { createItemKey } from "./util/tool";
+import { createItemKey } from "./util/string";
 
 export interface MesonFormProps<T> {
   initialValue: T;

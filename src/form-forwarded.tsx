@@ -17,7 +17,7 @@ import {
 } from "./renderer";
 import { MesonFormProps } from "./form";
 import { Draft } from "immer";
-import { createItemKey } from "./util/tool";
+import { createItemKey } from "./util/string";
 
 /**
  * 清空draft对象的value值
