@@ -22,6 +22,7 @@ import {
 } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
+import { createItemKey } from "./util/string";
 
 export interface MesonFormProps<T> {
   initialValue: T;
@@ -87,11 +88,13 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText) => {
+  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText, prefixKey?: string) => {
     return items.map((item, idx) => {
       const basePropsItem = item as IMesonFieldBaseProps<T>;
       const hideLabel = basePropsItem.hideLabel === false ? false : basePropsItem.hideLabel || props.noLabel;
       const fullWidth = basePropsItem.fullWidth === false ? false : basePropsItem.fullWidth || props.fullWidth;
+
+      const key = createItemKey(item.type, idx, (item as any).name, prefixKey);
 
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
@@ -99,12 +102,13 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
       if (item.type === EMesonFieldType.Group) {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
+        const mergeClassName = item.horizontal ? cx(displayFlex, flexWrap) : undefined;
 
-        if (item.horizontal) {
-          return <div className={cx(displayFlex, flexWrap)}>{renderItems(item.children, nextItemWidth)}</div>;
-        }
-
-        return <>{renderItems(item.children, nextItemWidth)}</>;
+        return (
+          <div key={key} className={mergeClassName}>
+            {renderItems(item.children, nextItemWidth, key)}
+          </div>
+        );
       }
 
       let name: string = (item as any).name;
@@ -119,7 +123,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(idx, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(key, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
@@ -136,7 +140,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
         // notice, item CustomMultiple not handled well in layout
         return renderItemLayout(
-          idx,
+          key,
           item as any,
           error,
           item.renderMultiple(form, modifidForm, checkForm),
@@ -147,15 +151,15 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
       }
 
       if (item.type === EMesonFieldType.Nested) {
-        return renderItemLayout(idx, item as any, error, renderItems(item.children), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(key, item as any, error, renderItems(item.children, undefined, key), props.labelClassName, props.errorClassName, hideLabel);
       }
 
       if (item.type === EMesonFieldType.Decorative) {
-        return renderDecorativeItem(form, item);
+        return renderDecorativeItem(key, form, item);
       }
 
       return renderItemLayout(
-        idx,
+        key,
         item as any,
         error,
         <ValueFieldContainer fullWidth={fullWidth}>{renderValueItem(item)}</ValueFieldContainer>,
