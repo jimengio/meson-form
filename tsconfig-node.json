@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictNullChecks": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2016",
+    "jsx": "react",
+    "lib": ["es2016"],
+    "types": ["node"],
+    "baseUrl": "./example/",
+    "paths": {
+      "models": ["./example/models"]
+    },
+    "plugins": []
+  }
+}
