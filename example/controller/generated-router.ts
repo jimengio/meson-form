@@ -61,6 +61,12 @@ export let genRouter = {
     path: () => `/validation`,
     go: () => switchPath(`/validation`),
   },
+  loginValidations: {
+    name: "login-validations",
+    raw: "login-validations",
+    path: () => `/login-validations`,
+    go: () => switchPath(`/login-validations`),
+  },
   custom: {
     name: "custom",
     raw: "custom",

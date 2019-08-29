@@ -23,7 +23,7 @@ export let useMesonCore = <T>(props: {
     let hasErrors = false;
 
     traverseItems(props.items, latestForm, (item: IMesonFieldItemHasValue) => {
-      let result = validateItem(latestForm[item.name], item);
+      let result = validateItem(latestForm[item.name], item, form);
       if (result != null) {
         currentErrors[item.name] = result;
         hasErrors = true;
@@ -64,7 +64,7 @@ export let useMesonCore = <T>(props: {
       return;
     }
 
-    let result = validateItem(x, item);
+    let result = validateItem(x, item, form);
     updateErrors((draft) => {
       draft[item.name] = result;
     });

@@ -35,7 +35,13 @@ export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, update
   );
 }
 
-export function renderInputItem<T>(form: T, item: IMesonInputField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderInputItem<T>(
+  form: T,
+  item: IMesonInputField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
   return (
     <>
       <Input
@@ -54,6 +60,10 @@ export function renderInputItem<T>(form: T, item: IMesonInputField<T>, updateIte
           }
 
           updateItem(newValue, item);
+
+          if (item.checkOnChange) {
+            checkItemWithValue(newValue, item);
+          }
         }}
         onBlur={() => {
           checkItem(item);

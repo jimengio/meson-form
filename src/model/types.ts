@@ -16,7 +16,7 @@ export enum EMesonValidate {
   Boolean = "boolean",
 }
 
-export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>) => string;
+export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, formValue?: T) => string;
 
 /** expose a function to modify form values directly, FR-97
  * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.
@@ -69,6 +69,10 @@ export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
   textarea?: boolean;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** validate immediately after content change,
+   * by default validation performs after each blur event
+   */
+  checkOnChange?: boolean;
 }
 
 export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {

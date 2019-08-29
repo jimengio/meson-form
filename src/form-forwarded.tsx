@@ -80,7 +80,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         if (item.textarea) {
           return renderTextAreaItem(form, item, updateItem, checkItem);
         }
-        return renderInputItem(form, item, updateItem, checkItem);
+        return renderInputItem(form, item, updateItem, checkItem, checkItemWithValue);
 
       case EMesonFieldType.Number:
         return renderNumberItem(form, item, updateItem, checkItem);

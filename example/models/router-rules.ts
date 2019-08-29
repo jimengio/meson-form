@@ -11,6 +11,7 @@ export const routerRules: IRouteRule[] = [
   { path: "dropdown" },
   { path: "select" },
   { path: "validation" },
+  { path: "login-validations" },
   { path: "custom" },
   { path: "custom-multiple" },
   { path: "wrap-meson-core" },
