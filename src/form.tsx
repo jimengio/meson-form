@@ -74,7 +74,7 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
         if (item.textarea) {
           return renderTextAreaItem(form, item, updateItem, checkItem);
         }
-        return renderInputItem(form, item, updateItem, checkItem);
+        return renderInputItem(form, item, updateItem, checkItem, checkItemWithValue);
 
       case EMesonFieldType.Number:
         return renderNumberItem(form, item, updateItem, checkItem);

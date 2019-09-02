@@ -25,6 +25,7 @@ import NoLabelPage from "forms/no-label";
 import { DocSidebar, ISidebarEntry } from "@jimengio/doc-frame";
 import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 import DropdownPage from "forms/dropdown";
+import LoginValidations from "forms/login-validations";
 
 let items: ISidebarEntry[] = [
   {
@@ -61,6 +62,11 @@ let items: ISidebarEntry[] = [
     title: "Validation",
     cnTitle: "校验",
     path: genRouter.validation.name,
+  },
+  {
+    title: "Login validations",
+    cnTitle: "登录相关校验",
+    path: genRouter.loginValidations.name,
   },
   {
     title: "Custom",
@@ -146,6 +152,8 @@ let Container: FC<{ router: IRouteParseResult }> = (props) => {
         return <SelectPage />;
       case genRouter.validation.name:
         return <ValidationPage />;
+      case genRouter.loginValidations.name:
+        return <LoginValidations />;
       case genRouter.custom.name:
         return <CustomPage />;
       case genRouter.customMultiple.name:
