@@ -184,8 +184,16 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
   );
 }
 
+export interface MesonFormForwardedProps<T> extends MesonFormProps<T> {
+  formRef: React.Ref<MesonFormHandler>;
+}
+
 /** MesonFormForwarded is implemented based on MesonForm, edit in MesonForm first */
-export let MesonFormForwarded = React.forwardRef(ForwardForm);
+export function MesonFormForwarded<T>(props: MesonFormForwardedProps<T>) {
+  const { formRef, ...otherProps } = props;
+  const ForwardFormComponent = React.forwardRef<MesonFormHandler, MesonFormProps<T>>(ForwardForm);
+  return <ForwardFormComponent {...otherProps} ref={formRef} />;
+}
 
 let styleItemsContainer = css`
   overflow: auto;
