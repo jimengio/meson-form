@@ -7,7 +7,7 @@ import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 import Button from "antd/lib/button";
 
-let formItems: IMesonFieldItem[] = [
+let formItems: IMesonFieldItem<{ name?: string }>[] = [
   {
     type: EMesonFieldType.Input,
     name: "name",
@@ -21,8 +21,8 @@ let FormBasic: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonFormForwarded
-        ref={formRef}
+      <MesonFormForwarded<{ name?: string }>
+        formRef={formRef}
         initialValue={form}
         items={formItems}
         hideFooter
