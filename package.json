@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.2.11",
+  "version": "0.2.12-a1",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -67,9 +67,9 @@
     "webpack-hud": "^0.1.2"
   },
   "peerDependencies": {
+    "@jimengio/dropdown": "*",
     "@jimengio/fa-icons": "*",
     "@jimengio/jimo-icons": "*",
-    "@jimengio/dropdown": "*",
     "@jimengio/safe-property": "*",
     "@jimengio/shared-utils": "*",
     "antd": "^3.18.2",

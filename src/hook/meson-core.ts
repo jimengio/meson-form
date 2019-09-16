@@ -13,13 +13,13 @@ export let useMesonCore = <T>(props: {
   onFieldChange?: (name: string, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
-  let [form, updateForm] = useImmer(props.initialValue as T);
-  let [errors, updateErrors] = useImmer({});
+  let [form, updateForm] = useImmer<T>(props.initialValue);
+  let [errors, updateErrors] = useImmer<IMesonErrors<T>>({});
   let modifiedState = useRef(false);
 
   let onCheckSubmitWithValue = (passedForm?: T) => {
     let latestForm = passedForm;
-    let currentErrors = {} as IMesonErrors<T>;
+    let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
 
     traverseItems(props.items, latestForm, (item: IMesonFieldItemHasValue) => {
@@ -40,14 +40,14 @@ export let useMesonCore = <T>(props: {
       }
     });
 
-    updateErrors((draft: IMesonErrors<T>) => {
+    updateErrors((draft) => {
       return currentErrors;
     });
 
     if (!hasErrors) {
       props.onSubmit(latestForm, (serverErrors) => {
         // errors from server not in use yet
-        updateErrors((draft: IMesonErrors<T>) => {
+        updateErrors((draft) => {
           return serverErrors;
         });
       });
@@ -55,7 +55,7 @@ export let useMesonCore = <T>(props: {
     }
   };
 
-  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue) => {
+  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
@@ -81,7 +81,7 @@ export let useMesonCore = <T>(props: {
     }
 
     let results = item.validateMultiple ? item.validateMultiple(newForm, item) : {};
-    updateErrors((draft: T) => {
+    updateErrors((draft) => {
       // reset errors of related fields first
       item.names.forEach((name) => {
         draft[name as string] = null;
@@ -90,8 +90,8 @@ export let useMesonCore = <T>(props: {
     });
   };
 
-  let updateItem = (x: any, item: IMesonFieldItemHasValue) => {
-    updateForm((draft: Draft<T>) => {
+  let updateItem = (x: any, item: IMesonFieldItemHasValue<T>) => {
+    updateForm((draft) => {
       draft[item.name] = x;
     });
     modifiedState.current = true;
@@ -113,7 +113,7 @@ export let useMesonCore = <T>(props: {
       onCheckSubmitWithValue(form);
     },
     onCheckSubmitWithValue,
-    checkItem: (item: IMesonFieldItemHasValue) => {
+    checkItem: (item: IMesonFieldItemHasValue<T>) => {
       checkItemWithValue(form[item.name], item);
     },
     checkItemCustomMultiple,
