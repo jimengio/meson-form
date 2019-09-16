@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.2.11-a1",
+  "version": "0.2.11-a2",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -24,9 +24,9 @@
   "license": "MIT",
   "devDependencies": {
     "@jimengio/doc-frame": "^0.1.1",
+    "@jimengio/dropdown": "^0.1.11",
     "@jimengio/fa-icons": "^0.2.0",
     "@jimengio/jimo-icons": "^0.1.26",
-    "@jimengio/meson-display": "^0.1.8",
     "@jimengio/router-code-generator": "^0.1.5",
     "@jimengio/ruled-router": "^0.2.15",
     "@jimengio/safe-property": "^0.0.2",
@@ -69,7 +69,7 @@
   "peerDependencies": {
     "@jimengio/fa-icons": "*",
     "@jimengio/jimo-icons": "*",
-    "@jimengio/meson-display": "*",
+    "@jimengio/dropdown": "*",
     "@jimengio/safe-property": "*",
     "@jimengio/shared-utils": "*",
     "antd": "^3.18.2",

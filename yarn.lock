@@ -119,6 +119,13 @@
   resolved "https://registry.npmjs.org/@jimengio/doc-frame/-/doc-frame-0.1.1.tgz#96f3444089be71de7e3f16dd184d2d71d9a2a88f"
   integrity sha512-kdiYkXdpz8x4Zh7/z9ZHRgbZnpd1ooQ3gIPFItqGkAX+ltx0aiZxVwhVmIRzPyoBsj1Z0OKX6nhoFLjpGpcvxA==
 
+"@jimengio/dropdown@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@jimengio/dropdown/-/dropdown-0.1.11.tgz#ed90194d73fbd34f4590f359a85615ceb66dc3cb"
+  integrity sha512-5erufXd776ayzYZ6fI/iM/MfIzKHXEiwdB397n/Oo5wvShoEHHxdoTCbEh5fL/PTY2B448sziTywh1RkUKXpCQ==
+  dependencies:
+    react-transition-group "^4.2.2"
+
 "@jimengio/fa-icons@^0.2.0":
   version "0.2.0"
   resolved "https://registry.npmjs.org/@jimengio/fa-icons/-/fa-icons-0.2.0.tgz#50cfe599ee4c9ab70e780be4ddc6dc78d8bd33a8"
@@ -128,13 +135,6 @@
   version "0.1.26"
   resolved "https://registry.npmjs.org/@jimengio/jimo-icons/-/jimo-icons-0.1.26.tgz#71e7efc72734ede7c35e09cf034fa3df731518d0"
   integrity sha512-7BZtgyqb+I9iOBUfPSsBRQpZ0xiuqYXfDNviioFS5vtvFuS4+aQStww/0Popop+//FV9akTCMTEl9VU9HpJCmw==
-
-"@jimengio/meson-display@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.npmjs.org/@jimengio/meson-display/-/meson-display-0.1.8.tgz#4a7aa2fc1bd252c40fdab47496ea10233fdc9aa4"
-  integrity sha512-8XfQVTguCuz9fMjUQ6f6QbLGVFIgYbzfNjYD0UcV3ehLKfpQfyvXmvVUEmE0Jt9lFocqRhAbkLuzFizqOBVddQ==
-  dependencies:
-    react-transition-group "^4.2.2"
 
 "@jimengio/router-code-generator@^0.1.5":
   version "0.1.5"
@@ -1501,7 +1501,7 @@ date-now@^0.1.4:
   resolved "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
-dayjs@1.8.16:
+dayjs@*:
   version "1.8.16"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.16.tgz#2a3771de537255191b947957af2fd90012e71e64"
   integrity sha512-XPmqzWz/EJiaRHjBqSJ2s6hE/BUoCIHKgdS2QPtTQtKcS9E4/Qn0WomoH1lXanWCzri+g7zPcuNV4aTZ8PMORQ==
