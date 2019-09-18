@@ -194,6 +194,11 @@ export function MesonFormModal<T>(props: {
   isLoading?: boolean;
   hideClose?: boolean;
   noLabel?: boolean;
+  className?: string;
+  itemsClassName?: string /** items 所在区域容器的样式 */;
+  labelClassName?: string;
+  errorClassName?: string;
+  style?: CSSProperties;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
   return (
@@ -212,7 +217,11 @@ export function MesonFormModal<T>(props: {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
-            className={styleForm}
+            className={cx(styleForm, props.className)}
+            itemsClassName={props.itemsClassName}
+            labelClassName={props.labelClassName}
+            errorClassName={props.errorClassName}
+            style={props.style}
             noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />
@@ -235,6 +244,11 @@ export function MesonFormDrawer<T>(props: {
   hideClose?: boolean;
   noLabel?: boolean;
   headerClassName?: string;
+  className?: string;
+  itemsClassName?: string /** items 所在区域容器的样式 */;
+  labelClassName?: string;
+  errorClassName?: string;
+  style?: CSSProperties;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
 }) {
   return (
@@ -255,7 +269,11 @@ export function MesonFormDrawer<T>(props: {
               props.onSubmit(form, onServerErrors);
             }}
             onCancel={props.onClose}
-            className={styleForm}
+            className={cx(styleForm, props.className)}
+            itemsClassName={props.itemsClassName}
+            labelClassName={props.labelClassName}
+            errorClassName={props.errorClassName}
+            style={props.style}
             noLabel={props.noLabel}
             renderFooter={props.renderFooter}
           />

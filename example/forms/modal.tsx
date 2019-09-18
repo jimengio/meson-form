@@ -39,7 +39,15 @@ let ModalPage: FC<{}> = (props) => {
     {
       type: EMesonFieldType.Input,
       name: "demo",
-      label: "DEMO",
+      label: "DEMO----------------------test length",
+    },
+    {
+      type: EMesonFieldType.Number,
+      name: "numberdemo",
+      label: "number DEMO",
+      inputProps: {
+        style: { width: 180 },
+      },
     },
   ];
 
@@ -122,6 +130,7 @@ let ModalPage: FC<{}> = (props) => {
         }}
         items={formItems}
         initialValue={form}
+        labelClassName={styleLabel}
         onSubmit={(form) => {
           setFormVisible(false);
           setForm(form);
@@ -141,4 +150,8 @@ let styleContainer = css``;
 
 let styleBoxArea = css`
   padding: 20px;
+`;
+
+const styleLabel = css`
+  width: 200px;
 `;

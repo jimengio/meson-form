@@ -1,5 +1,6 @@
 import { ReactNode, ReactText } from "react";
 import { InputProps } from "antd/lib/input";
+import { InputNumberProps } from "antd/lib/input-number";
 import { SelectProps } from "antd/lib/select";
 import { Draft } from "immer";
 
@@ -84,6 +85,7 @@ export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
   validator?: FuncMesonValidator<T>;
   min?: number;
   max?: number;
+  inputProps?: InputNumberProps;
 }
 
 export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {

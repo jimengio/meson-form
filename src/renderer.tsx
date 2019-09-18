@@ -89,6 +89,7 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
         }}
         min={item.min}
         max={item.max}
+        {...item.inputProps}
       />
     </>
   );
