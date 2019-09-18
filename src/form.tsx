@@ -185,21 +185,25 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
 /** Modal binding for meson form */
 export function MesonFormModal<T>(props: {
-  title: string;
-  visible: boolean;
   initialValue: T;
   items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: Partial<IMesonErrors<T>>) => void) => void;
-  onClose: () => void;
   isLoading?: boolean;
-  hideClose?: boolean;
   noLabel?: boolean;
-  className?: string;
+  className?: string /** form className */;
   itemsClassName?: string /** items 所在区域容器的样式 */;
   labelClassName?: string;
   errorClassName?: string;
   style?: CSSProperties;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
+
+  // modal props
+  title: string;
+  visible: boolean;
+  onClose: () => void;
+  disableMoving?: boolean;
+  width?: number;
+  hideClose?: boolean;
 }) {
   return (
     <MesonModal
@@ -207,6 +211,8 @@ export function MesonFormModal<T>(props: {
       visible={props.visible}
       onClose={props.onClose}
       hideClose={props.hideClose}
+      disableMoving={props.disableMoving}
+      width={props.width}
       renderContent={() => {
         return (
           <MesonForm
