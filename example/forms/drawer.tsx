@@ -6,11 +6,8 @@ import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
-import MesonDrawer from "../../src/component/drawer";
 
 let DrawerPage: FC<{}> = (props) => {
-  let [visible, setVisible] = useState(false);
-  let [customVisible, setCustomVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 
   let [form, setForm] = useState({});
@@ -29,20 +26,6 @@ let DrawerPage: FC<{}> = (props) => {
         <div>
           <Button
             onClick={() => {
-              setVisible(true);
-            }}
-          >
-            Try Drawer
-          </Button>{" "}
-          <Button
-            onClick={() => {
-              setCustomVisible(true);
-            }}
-          >
-            Drawer with header
-          </Button>{" "}
-          <Button
-            onClick={() => {
               setFormVisible(true);
             }}
           >
@@ -51,41 +34,6 @@ let DrawerPage: FC<{}> = (props) => {
         </div>
       </div>
 
-      <MesonDrawer
-        title={"DEMO drawer"}
-        width={400}
-        visible={visible}
-        onClose={() => {
-          setVisible(false);
-        }}
-        renderContent={() => {
-          return (
-            <div>
-              SOMETHING
-              <span
-                onClick={() => {
-                  setVisible(false);
-                }}
-              >
-                Close
-              </span>
-            </div>
-          );
-        }}
-      />
-
-      <MesonDrawer
-        title={"Custom header"}
-        width={800}
-        visible={customVisible}
-        headerClassName={styleHeader}
-        onClose={() => {
-          setCustomVisible(false);
-        }}
-        renderContent={() => {
-          return <div>NOTHING</div>;
-        }}
-      />
       <MesonFormDrawer
         title={"DEMO form in drawer"}
         visible={formVisible}
