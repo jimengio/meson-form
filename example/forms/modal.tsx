@@ -2,15 +2,12 @@ import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
-import MesonModal from "../../src/component/modal";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 
 let ModalPage: FC<{}> = (props) => {
-  let [visible, setVisible] = useState(false);
-  let [noMovingVisible, setNoMovingVisible] = useState(false);
   let [formVisible, setFormVisible] = useState(false);
 
   let [form, setForm] = useState({});
@@ -57,20 +54,6 @@ let ModalPage: FC<{}> = (props) => {
         <div>
           <Button
             onClick={() => {
-              setVisible(true);
-            }}
-          >
-            Try Modal
-          </Button>{" "}
-          <Button
-            onClick={() => {
-              setNoMovingVisible(true);
-            }}
-          >
-            Modal no moving
-          </Button>{" "}
-          <Button
-            onClick={() => {
               setFormVisible(true);
             }}
           >
@@ -79,49 +62,6 @@ let ModalPage: FC<{}> = (props) => {
         </div>
       </div>
 
-      <MesonModal
-        title={"DEMO modal"}
-        visible={visible}
-        onClose={() => {
-          setVisible(false);
-        }}
-        renderContent={() => {
-          return (
-            <div>
-              SOMETHING....
-              <span
-                onClick={() => {
-                  setVisible(false);
-                }}
-              >
-                Close
-              </span>
-            </div>
-          );
-        }}
-      />
-
-      <MesonModal
-        title={"DEMO modal"}
-        visible={noMovingVisible}
-        onClose={() => {
-          setNoMovingVisible(false);
-        }}
-        disableMoving
-        renderContent={() => {
-          return (
-            <div>
-              <span
-                onClick={() => {
-                  setNoMovingVisible(false);
-                }}
-              >
-                Close
-              </span>
-            </div>
-          );
-        }}
-      />
       <MesonFormModal
         title={"DEMO form in modal"}
         visible={formVisible}

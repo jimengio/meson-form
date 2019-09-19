@@ -5,9 +5,8 @@ import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IM
 import { DropdownArea } from "@jimengio/dropdown";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
-import MesonModal from "./component/modal";
+import { MesonModal, MesonDrawer } from "@jimengio/meson-modal";
 import produce, { Draft } from "immer";
-import MesonDrawer from "./component/drawer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
 import {

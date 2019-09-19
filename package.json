@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.2.12",
+  "version": "0.2.13-a1",
   "description": "",
   "main": "./lib/form.js",
   "types": "./lib/form.d.ts",
@@ -31,6 +31,7 @@
     "@jimengio/ruled-router": "^0.2.15",
     "@jimengio/safe-property": "^0.0.2",
     "@jimengio/shared-utils": "^0.1.5-a1",
+    "@jimengio/meson-modal": "^0.2.13",
     "@types/is": "^0.0.21",
     "@types/lodash": "^4.14.138",
     "@types/node": "^12.7.2",
@@ -72,6 +73,7 @@
     "@jimengio/jimo-icons": "*",
     "@jimengio/safe-property": "*",
     "@jimengio/shared-utils": "*",
+    "@jimengio/meson-modal": "*13",
     "antd": "^3.18.2",
     "immer": "*",
     "react": "*",
