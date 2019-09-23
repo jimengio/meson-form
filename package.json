@@ -1,9 +1,9 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.2.13",
+  "version": "0.2.14-a1",
   "description": "",
-  "main": "./lib/form.js",
-  "types": "./lib/form.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server --hot --config webpack/dev.js",
     "watch": "webpack-dev-server --hot --config webpack/dev.js",
@@ -12,7 +12,7 @@
     "release": "rm -rfv dist/* && yarn dll-release && time webpack --config webpack/release.js",
     "build": "yarn release",
     "serve": "http-server dist/ -s",
-    "compile": "tsc -d --project tsconfig-compile.json --outDir lib/",
+    "compile": "rm -rfv lib/* && tsc -d --project tsconfig-compile.json --outDir lib/",
     "prepare": "yarn compile",
     "upload": "rsync -avr --progress dist/ fe.jimu.io:~/repo/jimengio/meson-form",
     "up": "yarn release && yarn upload",

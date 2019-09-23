@@ -347,8 +347,6 @@ export function MesonFormDropdown<T>(props: {
   );
 }
 
-export { MesonFormForwarded } from "./form-forwarded";
-
 let styleForm = css`
   flex: 1;
 `;
