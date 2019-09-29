@@ -5,7 +5,8 @@ import { MesonFormDrawer } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let DrawerPage: FC<{}> = (props) => {
   let [formVisible, setFormVisible] = useState(false);
@@ -22,18 +23,23 @@ let DrawerPage: FC<{}> = (props) => {
 
   return (
     <div className={styleContainer}>
-      <div className={styleBoxArea}>
-        <div>
-          <Button
-            onClick={() => {
-              setFormVisible(true);
-            }}
-          >
-            Open Form Drawer
-          </Button>
+      <DocDemo title="Demo for drawer" link={getLink("drawer.tsx")}>
+        <div className={styleBoxArea}>
+          <div>
+            <Button
+              onClick={() => {
+                setFormVisible(true);
+              }}
+            >
+              Open Form Drawer
+            </Button>
+          </div>
         </div>
-      </div>
 
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
       <MesonFormDrawer
         title={"DEMO form in drawer"}
         visible={formVisible}
@@ -48,10 +54,6 @@ let DrawerPage: FC<{}> = (props) => {
           setForm(form);
         }}
       />
-      <div>
-        <SourceLink fileName={"drawer.tsx"} />
-        <DataPreview data={form} />
-      </div>
     </div>
   );
 };

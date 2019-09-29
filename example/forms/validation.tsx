@@ -4,10 +4,11 @@ import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { row } from "@jimengio/shared-utils";
-import SourceLink from "kits/source-link";
 import Select from "antd/lib/select";
 import TextArea from "antd/lib/input/TextArea";
 import { lingual, formatString } from "../../src/lingual";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -135,27 +136,28 @@ let ValidationPage: FC<{}> = (props) => {
   return (
     <div className={cx(row)}>
       <div className={styleContainer}>
-        <MesonForm
-          initialValue={{}}
-          items={formItems}
-          onSubmit={(form) => {
-            setForm(form);
-          }}
-        />
-        <MesonForm
-          initialValue={form2}
-          items={formItems2}
-          errorClassName={styleError}
-          onSubmit={(form) => {
-            setForm2(form);
-          }}
-        />
-      </div>
+        <DocDemo title="Demo form validations" link={getLink("validation.tsx")}>
+          <MesonForm
+            initialValue={{}}
+            items={formItems}
+            onSubmit={(form) => {
+              setForm(form);
+            }}
+          />
+          <DataPreview data={form} />
+        </DocDemo>
 
-      <div>
-        <SourceLink fileName={"validation.tsx"} />
-        <DataPreview data={form} />
-        <DataPreview data={form2} />
+        <DocDemo title="Demo custom error styles" link={getLink("validation.tsx")}>
+          <MesonForm
+            initialValue={form2}
+            items={formItems2}
+            errorClassName={styleError}
+            onSubmit={(form) => {
+              setForm2(form);
+            }}
+          />
+          <DataPreview data={form2} />
+        </DocDemo>
       </div>
     </div>
   );

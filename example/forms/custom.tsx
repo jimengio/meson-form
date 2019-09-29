@@ -4,8 +4,9 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
 import Input from "antd/lib/input";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -38,17 +39,18 @@ let CustomPage: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-      <div>
-        <SourceLink fileName={"custom.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title={"Custom rendering"} link={getLink("custom.tsx")}>
+        <MesonForm
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

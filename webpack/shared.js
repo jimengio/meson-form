@@ -62,3 +62,8 @@ exports.matchTsReleaseRule = {
     },
   ],
 };
+
+exports.matchMdRule = {
+  test: /\.md$/,
+  use: [{ loader: "raw-loader" }],
+};

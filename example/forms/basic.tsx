@@ -4,7 +4,8 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo, DocBlock } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -24,18 +25,18 @@ let FormBasic: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (
-    <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-      <div>
-        <SourceLink fileName={"basic.tsx"} />
+    <div className={cx(styleContainer)}>
+      <DocBlock content={require("docs/basic.md").default}></DocBlock>
+      <DocDemo title={"A basic form"} link={getLink("basic.tsx")} className={styleDemo}>
+        <MesonForm
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
         <DataPreview data={form} />
-      </div>
+      </DocDemo>
     </div>
   );
 };
@@ -43,3 +44,7 @@ let FormBasic: FC<{}> = (props) => {
 export default FormBasic;
 
 let styleContainer = css``;
+
+let styleDemo = css`
+  min-width: 400px;
+`;

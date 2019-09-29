@@ -4,7 +4,8 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -25,17 +26,18 @@ let SwitchPage: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-      <div>
-        <SourceLink fileName={"switch.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title="Demo of switch type" link={getLink("switch.tsx")}>
+        <MesonForm
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

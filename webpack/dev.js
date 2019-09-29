@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 let HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
 let ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-let { matchCssRule, matchFontsRule, matchTsRule } = require("./shared");
+let { matchCssRule, matchFontsRule, matchTsRule, matchMdRule } = require("./shared");
 let splitChunks = require("./split-chunks");
 let dllManifest = require("./dll/manifest.json");
 
@@ -17,7 +17,7 @@ module.exports = {
   },
   devtool: "cheap-source-map",
   module: {
-    rules: [matchCssRule, matchFontsRule, matchTsRule],
+    rules: [matchCssRule, matchFontsRule, matchTsRule, matchMdRule],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

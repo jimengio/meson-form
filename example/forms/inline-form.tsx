@@ -3,8 +3,9 @@ import { css, cx } from "emotion";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
 import MesonInlineForm from "../../src/inline-form";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -49,18 +50,19 @@ let InlineFormPage: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonInlineForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-        submitOnEdit={true}
-      />
-      <div>
-        <SourceLink fileName={"inline-form.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title="Inline form component, and submits by default" link={getLink("inline-form.tsx")}>
+        <MesonInlineForm
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+          submitOnEdit={true}
+        />
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

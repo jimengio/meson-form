@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { css, cx } from "emotion";
-import { column, row, fullscreen } from "@jimengio/shared-utils";
+import { column, row, fullscreen, expand } from "@jimengio/shared-utils";
 import { IRouteParseResult } from "@jimengio/ruled-router";
 import { HashLink } from "@jimengio/ruled-router/lib/dom";
 import { genRouter } from "controller/generated-router";
@@ -188,6 +188,7 @@ let Container: FC<{ router: IRouteParseResult }> = (props) => {
   return (
     <div className={cx(fullscreen, row, styleContainer)}>
       <DocSidebar
+        title="Meson Form"
         currentPath={props.router.name}
         onSwitch={(item) => {
           onSwitchPage(item.path);
@@ -195,33 +196,15 @@ let Container: FC<{ router: IRouteParseResult }> = (props) => {
         items={items}
       />
 
-      <div>{renderChild(props.router)}</div>
+      <div className={cx(expand, stylePage)}>{renderChild(props.router)}</div>
     </div>
   );
 };
 
 export default Container;
 
-const styleContainer = css`
-  font-family: "Helvetica";
-`;
+const styleContainer = css``;
 
-let styleSidebar = css`
-  margin-right: 16px;
-  width: 200px;
-  border-right: 1px solid #ddd;
-`;
-
-let styleEntry = css`
-  line-height: 40px;
-  padding: 0 16px;
-`;
-
-let styleActiveEntry = css`
-  background-color: #aaf;
-  color: white;
-
-  &:hover {
-    color: white;
-  }
+let stylePage = css`
+  padding: 40px;
 `;
