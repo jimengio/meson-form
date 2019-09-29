@@ -4,7 +4,7 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
 
 interface IGuest {
   phone: string;
@@ -62,19 +62,20 @@ let LoginValidations: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm<IGuest>
-        noLabel
-        className={styleForm}
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-      <div>
-        <SourceLink fileName={"login-validations.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title="Login UI" link={"login-validations.tsx"}>
+        <MesonForm<IGuest>
+          noLabel
+          className={styleForm}
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

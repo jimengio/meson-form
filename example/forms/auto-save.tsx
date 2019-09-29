@@ -4,7 +4,8 @@ import { row } from "@jimengio/shared-utils";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -39,20 +40,21 @@ let AutoSavePage: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm
-        items={formItems}
-        initialValue={form}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-        submitOnEdit
-        renderFooter={() => null}
-      />
+      <DocDemo title="Auto save" link={getLink("auto-save.tsx")}>
+        <MesonForm
+          items={formItems}
+          initialValue={form}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+          submitOnEdit
+          renderFooter={() => null}
+        />
 
-      <div>
-        <SourceLink fileName={"auto-save.tsx"} />
-        <DataPreview data={form} />
-      </div>
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

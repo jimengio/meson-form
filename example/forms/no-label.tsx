@@ -4,7 +4,8 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -33,10 +34,6 @@ let formItems: IMesonFieldItem[] = [
 
 let formItems2: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Decorative,
-    render: () => <p>noLabel and fullWidth</p>,
-  },
-  {
     type: EMesonFieldType.Input,
     name: "username",
     placeholder: "* username",
@@ -58,8 +55,8 @@ let NoLabelPage: FC<{}> = (props) => {
   let [showLabel, setShowLabel] = useState<boolean>();
 
   return (
-    <div className={cx(row, styleContainer)}>
-      <div>
+    <div className={cx(styleContainer)}>
+      <DocDemo title="Form layout with no table" link={getLink("no-label.tsx")}>
         <label>
           noLabel: <input type="checkbox" checked={showLabel} onChange={(e) => setShowLabel(e.target.checked)} />
         </label>
@@ -71,6 +68,10 @@ let NoLabelPage: FC<{}> = (props) => {
             setForm(form);
           }}
         />
+        <DataPreview data={form} />
+      </DocDemo>
+
+      <DocDemo title="No label and full width" link={getLink("no-label.tsx")}>
         <MesonForm
           noLabel
           fullWidth
@@ -80,12 +81,10 @@ let NoLabelPage: FC<{}> = (props) => {
             setForm2(form);
           }}
         />
-      </div>
-      <div>
-        <SourceLink fileName={"no-label.tsx"} />
-        <DataPreview data={form} />
-        <DataPreview data={form2} />
-      </div>
+        <div>
+          <DataPreview data={form2} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

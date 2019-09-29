@@ -6,7 +6,8 @@ import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } fr
 import Input from "antd/lib/input";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 interface IDemo {
   material: string;
@@ -139,24 +140,25 @@ let DraftForm: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <div className={styleFormArea}>
-        <MesonForm
-          initialValue={form}
-          items={formItems}
-          onSubmit={(form) => {
-            setForm(form);
-          }}
-          onCancel={() => {
-            setForm({} as IDemo);
-          }}
-          footerLayout={EMesonFooterLayout.Center}
-          submitOnEdit={false}
-        />
-      </div>
-      <div>
-        <SourceLink fileName={"draft.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title={"Demo containing multiple features"} link={getLink("draft.tsx")}>
+        <div className={styleFormArea}>
+          <MesonForm
+            initialValue={form}
+            items={formItems}
+            onSubmit={(form) => {
+              setForm(form);
+            }}
+            onCancel={() => {
+              setForm({} as IDemo);
+            }}
+            footerLayout={EMesonFooterLayout.Center}
+            submitOnEdit={false}
+          />
+        </div>
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };
@@ -174,6 +176,5 @@ let styleWideColor = css`
 
 let styleFormArea = css`
   width: 480px;
-  height: 660px;
-  border: 1px solid #ccc;
+  /* height: 660px; */
 `;

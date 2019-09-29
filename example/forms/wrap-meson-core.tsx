@@ -3,6 +3,8 @@ import { css } from "emotion";
 import { useMesonCore } from "../../src/hook/meson-core";
 import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import { column } from "@jimengio/shared-utils";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 interface ILoginForm {
   username: string;
@@ -45,55 +47,53 @@ let WrapMesonCore: FC<{}> = (props) => {
 
   return (
     <div className={styleContainer}>
-      <div>
-        This page demonstrates a form using hooks and renders by user.{" "}
-        <a href="https://github.com/jimengio/meson-form/tree/master/example/forms/wrap-meson-core.tsx">Source code</a>
-      </div>
-      <div>
-        Data:
-        <code>{JSON.stringify(submittedForm)}</code>
-        <button
-          onClick={() => {
-            setSubmittedForm({});
-            updateForm((draft) => {
-              return {};
-            });
-            updateErrors((draft) => {
-              return {};
-            });
-          }}
-        >
-          Reset
-        </button>
-      </div>
-
-      <div className={styleFormArea}>
-        {formItems.map((item) => {
-          switch (item.type) {
-            case EMesonFieldType.Input:
-              return (
-                <div className={column} key={item.name}>
-                  <input
-                    value={form[item.name] || ""}
-                    type={item.inputType}
-                    placeholder={item.placeholder}
-                    onChange={(event) => {
-                      let text = event.target.value;
-                      updateItem(text, item);
-                    }}
-                    onBlur={() => {
-                      checkItem(item);
-                    }}
-                  />
-                  {errors[item.name] != null ? <div className={styleError}>{errors[item.name]}</div> : null}
-                </div>
-              );
-          }
-        })}
+      <DocDemo title="create form directly with core hooks API" link={getLink("wrap-meson-core.tsx")}>
         <div>
-          <button onClick={onCheckSubmit}>Submit</button>
+          Data:
+          <code>{JSON.stringify(submittedForm)}</code>
+          <button
+            onClick={() => {
+              setSubmittedForm({});
+              updateForm((draft) => {
+                return {};
+              });
+              updateErrors((draft) => {
+                return {};
+              });
+            }}
+          >
+            Reset
+          </button>
         </div>
-      </div>
+
+        <div className={styleFormArea}>
+          {formItems.map((item) => {
+            switch (item.type) {
+              case EMesonFieldType.Input:
+                return (
+                  <div className={column} key={item.name}>
+                    <input
+                      value={form[item.name] || ""}
+                      type={item.inputType}
+                      placeholder={item.placeholder}
+                      onChange={(event) => {
+                        let text = event.target.value;
+                        updateItem(text, item);
+                      }}
+                      onBlur={() => {
+                        checkItem(item);
+                      }}
+                    />
+                    {errors[item.name] != null ? <div className={styleError}>{errors[item.name]}</div> : null}
+                  </div>
+                );
+            }
+          })}
+          <div>
+            <button onClick={onCheckSubmit}>Submit</button>
+          </div>
+        </div>
+      </DocDemo>
     </div>
   );
 };

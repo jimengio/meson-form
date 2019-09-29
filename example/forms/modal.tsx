@@ -5,7 +5,8 @@ import { MesonFormModal } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let ModalPage: FC<{}> = (props) => {
   let [formVisible, setFormVisible] = useState(false);
@@ -50,17 +51,23 @@ let ModalPage: FC<{}> = (props) => {
 
   return (
     <div className={styleContainer}>
-      <div className={styleBoxArea}>
-        <div>
-          <Button
-            onClick={() => {
-              setFormVisible(true);
-            }}
-          >
-            Open Form Modal
-          </Button>
+      <DocDemo title="Modal" link={getLink("modal.tsx")}>
+        <div className={styleBoxArea}>
+          <div>
+            <Button
+              onClick={() => {
+                setFormVisible(true);
+              }}
+            >
+              Open Form Modal
+            </Button>
+          </div>
         </div>
-      </div>
+
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
 
       <MesonFormModal
         title={"DEMO form in modal"}
@@ -76,10 +83,6 @@ let ModalPage: FC<{}> = (props) => {
           setForm(form);
         }}
       />
-      <div>
-        <SourceLink fileName={"modal.tsx"} />
-        <DataPreview data={form} />
-      </div>
     </div>
   );
 };

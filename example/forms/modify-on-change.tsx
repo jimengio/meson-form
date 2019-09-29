@@ -4,7 +4,8 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem, FuncMesonModifyForm } from "../../src/model/types";
 import { row, xHiddenYAuto } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 let candidates: IMesonSelectItem[] = [{ value: "local", display: "本市" }, { value: "strange", display: "外地" }];
 
@@ -57,17 +58,18 @@ let ModifyOnChange: FC<{}> = (props) => {
 
   return (
     <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-      <div>
-        <SourceLink fileName={"modify-on-change.tsx"} />
-        <DataPreview data={form} />
-      </div>
+      <DocDemo title={"Demo of on change hooks and extra modify API"} link={getLink("modify-on-change.tsx")}>
+        <MesonForm
+          initialValue={form}
+          items={formItems}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
+        <div>
+          <DataPreview data={form} />
+        </div>
+      </DocDemo>
     </div>
   );
 };

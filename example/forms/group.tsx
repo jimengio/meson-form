@@ -4,9 +4,11 @@ import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
 import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } from "../../src/model/types";
 import Input from "antd/lib/input";
-import { row } from "@jimengio/shared-utils";
+import { row, expand } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
+import { DocDemo } from "@jimengio/doc-frame";
+import { getLink } from "util/link";
 
 interface IDemo {
   visibility: boolean;
@@ -142,8 +144,8 @@ let GroupPage: FC<{}> = (props) => {
   let [form2, setForm2] = useState({});
 
   return (
-    <div className={cx(row, styleContainer)}>
-      <div className={styleFormArea}>
+    <div className={expand}>
+      <DocDemo title="Control show/hide by group" link={getLink("group.tsx")}>
         <MesonForm<IDemo>
           initialValue={form}
           items={formItems}
@@ -156,6 +158,10 @@ let GroupPage: FC<{}> = (props) => {
           footerLayout={EMesonFooterLayout.Center}
           submitOnEdit={false}
         />
+        <DataPreview data={form} />
+      </DocDemo>
+
+      <DocDemo title="Horizontal group" link={getLink("group.tsx")}>
         <MesonForm
           fullWidth
           initialValue={form2}
@@ -166,12 +172,11 @@ let GroupPage: FC<{}> = (props) => {
           footerLayout={EMesonFooterLayout.Center}
           submitOnEdit={false}
         />
-      </div>
-      <div>
-        <SourceLink fileName={"group.tsx"} />
-        <DataPreview data={form} />
-        <DataPreview data={form2} />
-      </div>
+        <div>
+          <SourceLink fileName={"group.tsx"} />
+          <DataPreview data={form2} />
+        </div>
+      </DocDemo>
     </div>
   );
 };
@@ -185,9 +190,4 @@ let styleWideColor = css`
   height: 40px;
   width: 600px;
   max-width: 100%;
-`;
-
-let styleFormArea = css`
-  width: 700px;
-  border: 1px solid #ccc;
 `;

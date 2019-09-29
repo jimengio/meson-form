@@ -6,7 +6,7 @@ let HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
 let DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 let ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-let { matchCssRule, matchFontsRule, matchTsReleaseRule } = require("./shared");
+let { matchCssRule, matchFontsRule, matchTsReleaseRule, matchMdRule } = require("./shared");
 let splitChunks = require("./split-chunks");
 let dllManifest = require("./dll/manifest-release.json");
 
@@ -27,7 +27,7 @@ module.exports = {
     splitChunks: splitChunks,
   },
   module: {
-    rules: [matchCssRule, matchFontsRule, matchTsReleaseRule],
+    rules: [matchCssRule, matchFontsRule, matchTsReleaseRule, matchMdRule],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
