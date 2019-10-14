@@ -133,7 +133,7 @@ export let genRouter = {
     path: () => `/no-label`,
     go: () => switchPath(`/no-label`),
   },
-  _: {
+  $: {
     name: "home",
     raw: "",
     path: () => `/`,

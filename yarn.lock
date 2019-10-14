@@ -191,10 +191,10 @@
     react-transition-group "^4.3.0"
     use-immer "^0.3.3"
 
-"@jimengio/router-code-generator@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.npmjs.org/@jimengio/router-code-generator/-/router-code-generator-0.1.5.tgz#9a8e26dd069c42f71a39c23adb9163f35b87dc00"
-  integrity sha512-JpRTBcQ28vQa6FhrNnCGeqwA5ryvR/1Mv9IoWg/PoJrTmAO6N6BpknAqz0aAcqtk4bIh7qEiStvwK9JPeof3ZQ==
+"@jimengio/router-code-generator@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@jimengio/router-code-generator/-/router-code-generator-0.2.0.tgz#183961dd2235e28c1e08c9f8a2709128844d088a"
+  integrity sha512-eVD2gl4QDJMikxZtoChtzc+EiiwxC4otISiY+VmYGI4InvoNOQJG/bkIbxrhyslU9XZHoXbrCqjy/WFYeK1Kgw==
 
 "@jimengio/ruled-router@^0.2.15":
   version "0.2.15"
