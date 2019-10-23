@@ -1,9 +1,8 @@
 import React, { useState, FC } from "react";
 import { css, cx } from "emotion";
 import { column, row, fullscreen, expand } from "@jimengio/shared-utils";
-import { IRouteParseResult } from "@jimengio/ruled-router";
 import { HashLink } from "@jimengio/ruled-router/lib/dom";
-import { genRouter } from "controller/generated-router";
+import { genRouter, GenRouterTypeMain } from "controller/generated-router";
 import FormBasic from "forms/basic";
 import DraftForm from "forms/draft";
 import ModalPage from "forms/modal";
@@ -137,48 +136,48 @@ let onSwitchPage = (path: string) => {
   }
 };
 
-let Container: FC<{ router: IRouteParseResult }> = (props) => {
+let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
   let renderChild = (x) => {
     switch (props.router.name) {
-      case genRouter.home.name:
+      case "home":
         return <FormBasic />;
-      case genRouter.draft.name:
+      case "draft":
         return <DraftForm />;
-      case genRouter.modal.name:
+      case "modal":
         return <ModalPage />;
-      case genRouter.drawer.name:
+      case "drawer":
         return <DrawerPage />;
-      case genRouter.select.name:
+      case "select":
         return <SelectPage />;
-      case genRouter.validation.name:
+      case "validation":
         return <ValidationPage />;
-      case genRouter.loginValidations.name:
+      case "login-validations":
         return <LoginValidations />;
-      case genRouter.custom.name:
+      case "custom":
         return <CustomPage />;
-      case genRouter.customMultiple.name:
+      case "custom-multiple":
         return <CustomMultiplePage />;
-      case genRouter.autoSave.name:
+      case "auto-save":
         return <AutoSavePage />;
-      case genRouter.wrapMesonCore.name:
+      case "wrap-meson-core":
         return <WrapMesonCore />;
-      case genRouter.forwardForm.name:
+      case "forward-form":
         return <ForwardForm />;
-      case genRouter.modifyOnChange.name:
+      case "modify-on-change":
         return <ModifyOnChange />;
-      case genRouter.switch.name:
+      case "switch":
         return <SwitchPage />;
-      case genRouter.inlineForm.name:
+      case "inline-form":
         return <InlineFormPage />;
-      case genRouter.blankLabel.name:
+      case "blank-label":
         return <FormBlankLabel />;
-      case genRouter.group.name:
+      case "group":
         return <GroupPage />;
-      case genRouter.dropdown.name:
+      case "dropdown":
         return <DropdownPage />;
-      case genRouter.decorative.name:
+      case "decorative":
         return <DecorativePage />;
-      case genRouter.noLabel.name:
+      case "no-label":
         return <NoLabelPage />;
       default:
         return <FormBasic />;

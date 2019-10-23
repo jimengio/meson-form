@@ -1,7 +1,7 @@
-import ReactDOM, { unstable_renderSubtreeIntoContainer } from "react-dom";
+import ReactDOM from "react-dom";
 import React from "react";
 
-import { parseRoutePath, IRouteParseResult } from "@jimengio/ruled-router";
+import { parseRoutePath } from "@jimengio/ruled-router";
 
 import { routerRules } from "./models/router-rules";
 
@@ -10,9 +10,10 @@ import Container from "./pages/container";
 import "antd/dist/antd.css";
 import "./main.css";
 import { mesonUseEn } from "../src/lingual";
+import { GenRouterTypeMain } from "controller/generated-router";
 
 const renderApp = () => {
-  let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules);
+  let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules) as GenRouterTypeMain;
 
   ReactDOM.render(<Container router={routerTree} />, document.querySelector(".app"));
 };

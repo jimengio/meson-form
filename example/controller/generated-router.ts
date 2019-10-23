@@ -12,6 +12,8 @@ function qsStringify(queries: { [k: string]: string }) {
 
 // generated
 
+// Generated with router-code-generator@0.2.4-a4
+
 export let genRouter = {
   home: {
     name: "home",
@@ -140,3 +142,155 @@ export let genRouter = {
     go: () => switchPath(`/`),
   },
 };
+
+export type GenRouterTypeMain =
+  | GenRouterTypeTree["home"]
+  | GenRouterTypeTree["autoSave"]
+  | GenRouterTypeTree["modal"]
+  | GenRouterTypeTree["draft"]
+  | GenRouterTypeTree["drawer"]
+  | GenRouterTypeTree["dropdown"]
+  | GenRouterTypeTree["select"]
+  | GenRouterTypeTree["validation"]
+  | GenRouterTypeTree["loginValidations"]
+  | GenRouterTypeTree["custom"]
+  | GenRouterTypeTree["customMultiple"]
+  | GenRouterTypeTree["wrapMesonCore"]
+  | GenRouterTypeTree["forwardForm"]
+  | GenRouterTypeTree["modifyOnChange"]
+  | GenRouterTypeTree["switch"]
+  | GenRouterTypeTree["inlineForm"]
+  | GenRouterTypeTree["blankLabel"]
+  | GenRouterTypeTree["group"]
+  | GenRouterTypeTree["decorative"]
+  | GenRouterTypeTree["noLabel"]
+  | GenRouterTypeTree["$"];
+
+export interface GenRouterTypeTree {
+  home: {
+    name: "home";
+    params: {};
+    query: {};
+    next: null;
+  };
+  autoSave: {
+    name: "auto-save";
+    params: {};
+    query: {};
+    next: null;
+  };
+  modal: {
+    name: "modal";
+    params: {};
+    query: {};
+    next: null;
+  };
+  draft: {
+    name: "draft";
+    params: {};
+    query: {};
+    next: null;
+  };
+  drawer: {
+    name: "drawer";
+    params: {};
+    query: {};
+    next: null;
+  };
+  dropdown: {
+    name: "dropdown";
+    params: {};
+    query: {};
+    next: null;
+  };
+  select: {
+    name: "select";
+    params: {};
+    query: {};
+    next: null;
+  };
+  validation: {
+    name: "validation";
+    params: {};
+    query: {};
+    next: null;
+  };
+  loginValidations: {
+    name: "login-validations";
+    params: {};
+    query: {};
+    next: null;
+  };
+  custom: {
+    name: "custom";
+    params: {};
+    query: {};
+    next: null;
+  };
+  customMultiple: {
+    name: "custom-multiple";
+    params: {};
+    query: {};
+    next: null;
+  };
+  wrapMesonCore: {
+    name: "wrap-meson-core";
+    params: {};
+    query: {};
+    next: null;
+  };
+  forwardForm: {
+    name: "forward-form";
+    params: {};
+    query: {};
+    next: null;
+  };
+  modifyOnChange: {
+    name: "modify-on-change";
+    params: {};
+    query: {};
+    next: null;
+  };
+  switch: {
+    name: "switch";
+    params: {};
+    query: {};
+    next: null;
+  };
+  inlineForm: {
+    name: "inline-form";
+    params: {};
+    query: {};
+    next: null;
+  };
+  blankLabel: {
+    name: "blank-label";
+    params: {};
+    query: {};
+    next: null;
+  };
+  group: {
+    name: "group";
+    params: {};
+    query: {};
+    next: null;
+  };
+  decorative: {
+    name: "decorative";
+    params: {};
+    query: {};
+    next: null;
+  };
+  noLabel: {
+    name: "no-label";
+    params: {};
+    query: {};
+    next: null;
+  };
+  $: {
+    name: "home";
+    params: {};
+    query: {};
+    next: null;
+  };
+}
