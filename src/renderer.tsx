@@ -208,7 +208,7 @@ export function renderItemLayout(
   return (
     <div key={key} className={mergeItemClassNamae} style={styleObj}>
       {labelNode}
-      <div className={cx(flex, column, styleValueArea, item.className)} style={item.style}>
+      <div className={cx(flex, column, styleValueArea, item.className)} style={item.style} data-field={item.name}>
         {field}
         {mergeErrorClassName && <div className={mergeErrorClassName}>{error}</div>}
       </div>
