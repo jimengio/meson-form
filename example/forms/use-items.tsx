@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm, useMesonItems } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
-import { row } from "@jimengio/shared-utils";
+import { row, Space } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -21,6 +21,25 @@ let formItems: IMesonFieldItem[] = [
   },
 ];
 
+let intro = `
+使用 \`useMesonItems\` 可以自由渲染提交按钮:
+
+\`\`\`ts
+let [formElements, onCheckSubmit, formInternals] = useMesonItems({
+  initialValue: form,
+  items: formItems,
+  onSubmit: (form) => {
+    setForm(form);
+  },
+});
+
+return <div>
+  {formElements}
+  <button onClick={onCheckSubmit}>提交</button>
+</div>
+\`\`\`
+`;
+
 let FormUseItems: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
@@ -34,18 +53,19 @@ let FormUseItems: FC<{}> = (props) => {
 
   return (
     <div className={cx(styleContainer)}>
-      <DocBlock content={require("docs/basic.md").default}></DocBlock>
-      <DocDemo title={"A basic form"} link={getLink("basic.tsx")} className={styleDemo}>
+      <DocBlock content={intro}></DocBlock>
+      <DocDemo title={"Hooks API for items"} link={getLink("use-items.tsx")} className={styleDemo}>
         <div>{formElements}</div>
 
-        <div>
+        <div className={styleData}>
           Form data:
-          <pre>{JSON.stringify(formInternals.formData, null, 2)}</pre>
+          <pre className={styleCode}>{JSON.stringify(formInternals.formData, null, 2)}</pre>
         </div>
 
-        <div>
+        <div style={{ padding: 16 }}>
           Custom UI
-          <button onClick={onCheckSubmit}>SUBMIT</button>
+          <Space width={16} />
+          <button onClick={onCheckSubmit}>onSubmit</button>
         </div>
         <DataPreview data={form} />
       </DocDemo>
@@ -59,4 +79,13 @@ let styleContainer = css``;
 
 let styleDemo = css`
   min-width: 400px;
+`;
+
+let styleData = css`
+  padding: 16px;
+`;
+
+let styleCode = css`
+  padding: 16px;
+  background-color: hsl(0, 0%, 97%);
 `;
