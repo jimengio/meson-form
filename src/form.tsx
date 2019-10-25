@@ -44,10 +44,8 @@ export interface MesonFormProps<T> {
   submitOnEdit?: boolean;
 }
 
-/** Main form component for Meson
- * Pick changes to MesonFormForwarded after changes in this component
- */
-export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
+/** Hooks API for customizing UIs */
+export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [ReactNode, () => void, { formData: T }] {
   let {
     formAny: form,
     updateForm,
@@ -170,11 +168,20 @@ export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
     });
   };
 
+  return [<div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>, onCheckSubmit, { formData: form }];
+}
+
+/** Main form component for Meson
+ * Pick changes to MesonFormForwarded after changes in this component
+ */
+export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
+  let [formItems, onCheckSubmit, formInternals] = useMesonItems(props);
+
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
-      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>
+      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{formItems}</div>
       {props.hideFooter ? null : props.renderFooter ? (
-        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, form)
+        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, formInternals.formData)
       ) : (
         <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
       )}
