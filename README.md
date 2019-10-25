@@ -178,6 +178,22 @@ export let MesonForm: FC<{
 };
 ```
 
+### Hooks API for items
+
+`useMesonItems` API is like `<MesonForm>` but instead returns elements and a `onCheckSubmit` function. Thus any kind of footer can be rendered by user:
+
+```tsx
+let [formElements, onCheckSubmit, formInternals] = useMesonItems({
+  initialValue: form,
+  items: formItems,
+  onSubmit: (form) => {
+    setForm(form);
+  },
+});
+```
+
+> This API is in early stage. Return values can be extended in the future.
+
 ### Low level Hooks API
 
 `useMesonCore` is a low level API for maintaining form states. The UI part need extra code.

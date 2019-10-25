@@ -25,12 +25,18 @@ import { DocSidebar, ISidebarEntry } from "@jimengio/doc-frame";
 import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 import DropdownPage from "forms/dropdown";
 import LoginValidations from "forms/login-validations";
+import FormUseItems from "forms/use-items";
 
 let items: ISidebarEntry[] = [
   {
     title: "Basic",
     cnTitle: "基础",
     path: genRouter.home.name,
+  },
+  {
+    title: "Use Items from Hooks API",
+    cnTitle: "Hooks API 用法",
+    path: genRouter.useItems.name,
   },
   {
     title: "Modal",
@@ -179,6 +185,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <DecorativePage />;
       case "no-label":
         return <NoLabelPage />;
+      case "use-items":
+        return <FormUseItems />;
       default:
         return <FormBasic />;
     }

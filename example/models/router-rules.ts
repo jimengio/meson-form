@@ -23,5 +23,6 @@ export const routerRules: IRouteRule[] = [
   { path: "group" },
   { path: "decorative" },
   { path: "no-label" },
+  { path: "use-items" },
   { path: "", name: "home" },
 ];

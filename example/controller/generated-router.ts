@@ -12,7 +12,7 @@ function qsStringify(queries: { [k: string]: string }) {
 
 // generated
 
-// Generated with router-code-generator@0.2.4-a4
+// Generated with router-code-generator@0.2.4
 
 export let genRouter = {
   home: {
@@ -135,6 +135,12 @@ export let genRouter = {
     path: () => `/no-label`,
     go: () => switchPath(`/no-label`),
   },
+  useItems: {
+    name: "use-items",
+    raw: "use-items",
+    path: () => `/use-items`,
+    go: () => switchPath(`/use-items`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -164,6 +170,7 @@ export type GenRouterTypeMain =
   | GenRouterTypeTree["group"]
   | GenRouterTypeTree["decorative"]
   | GenRouterTypeTree["noLabel"]
+  | GenRouterTypeTree["useItems"]
   | GenRouterTypeTree["$"];
 
 export interface GenRouterTypeTree {
@@ -283,6 +290,12 @@ export interface GenRouterTypeTree {
   };
   noLabel: {
     name: "no-label";
+    params: {};
+    query: {};
+    next: null;
+  };
+  useItems: {
+    name: "use-items";
     params: {};
     query: {};
     next: null;
