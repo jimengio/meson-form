@@ -2,10 +2,10 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonFormHandler, MesonFormForwarded } from "../../src/form-forwarded";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
-import { row } from "@jimengio/shared-utils";
+import { row, column } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import Button from "antd/lib/button";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem<{ name?: string }>[] = [
@@ -21,7 +21,8 @@ let FormBasic: FC<{}> = (props) => {
   const formRef = React.useRef<MesonFormHandler>(null);
 
   return (
-    <div className={cx(row, styleContainer)}>
+    <div className={cx(column, styleContainer)}>
+      <DocBlock>{`Ref forwarding 的写法是为了解决自定义 Footer 的问题. 但是传递 Ref 的代码结构不那么清晰, 现在推荐用 [useMesonItems API](#/use-items) 来实现.`}</DocBlock>
       <DocDemo title="Pass control to forward to another component" link={getLink("forward-form.tsx")}>
         <MesonFormForwarded<{ name?: string }>
           formRef={formRef}
