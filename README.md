@@ -55,6 +55,31 @@ let FormBasic: FC<{}> = (props) => {
 };
 ```
 
+### Hooks API for items
+
+`useMesonItems` API is like `<MesonForm>` but instead returns elements and a `onCheckSubmit` function. Thus any kind of footer can be rendered by user:
+
+```tsx
+let [formElements, onCheckSubmit, formInternals] = useMesonItems({
+  initialValue: form,
+  items: formItems,
+  onSubmit: (form) => {
+    setForm(form);
+  },
+});
+
+return (
+  <div>
+    {formElements}
+    <button onClick={onCheckSubmit}>Submit</button>
+  </div>
+);
+```
+
+> This API is in early stage. Return values can be extended in the future.
+
+### Modal API
+
 Probably it's used in a Modal:
 
 ```tsx
@@ -177,22 +202,6 @@ export let MesonForm: FC<{
   // Form
 };
 ```
-
-### Hooks API for items
-
-`useMesonItems` API is like `<MesonForm>` but instead returns elements and a `onCheckSubmit` function. Thus any kind of footer can be rendered by user:
-
-```tsx
-let [formElements, onCheckSubmit, formInternals] = useMesonItems({
-  initialValue: form,
-  items: formItems,
-  onSubmit: (form) => {
-    setForm(form);
-  },
-});
-```
-
-> This API is in early stage. Return values can be extended in the future.
 
 ### Low level Hooks API
 
