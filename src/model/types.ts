@@ -74,6 +74,8 @@ export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
    * by default validation performs after each blur event
    */
   checkOnChange?: boolean;
+  /** add styles to container of value, which is inside each field and around the value */
+  valueContainerClassName?: string;
 }
 
 export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
@@ -86,6 +88,7 @@ export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
   min?: number;
   max?: number;
   inputProps?: InputNumberProps;
+  valueContainerClassName?: string;
 }
 
 export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
@@ -94,6 +97,7 @@ export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  valueContainerClassName?: string;
 }
 
 export interface IMesonSelectItem {
@@ -113,6 +117,7 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
   selectProps?: SelectProps;
+  valueContainerClassName?: string;
 }
 
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {

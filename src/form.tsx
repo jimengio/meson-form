@@ -159,7 +159,9 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [Re
         key,
         item as any,
         error,
-        <ValueFieldContainer fullWidth={fullWidth}>{renderValueItem(item)}</ValueFieldContainer>,
+        <ValueFieldContainer fullWidth={fullWidth} className={item.valueContainerClassName}>
+          {renderValueItem(item)}
+        </ValueFieldContainer>,
         props.labelClassName,
         props.errorClassName,
         hideLabel,
