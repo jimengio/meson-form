@@ -178,18 +178,16 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioFields<T>, updateIt
     });
   };
   return (
-    <div>
-      <Radio.Group
-        value={form[item.name]}
-        onChange={(e) => {
-          const newValue = e.target.value;
-          updateItem(newValue, item);
-          checkItemWithValue(newValue, item);
-        }}
-      >
-        {renderRadios(item)}
-      </Radio.Group>
-    </div>
+    <Radio.Group
+      value={form[item.name]}
+      onChange={(e) => {
+        const newValue = e.target.value;
+        updateItem(newValue, item);
+        checkItemWithValue(newValue, item);
+      }}
+    >
+      {renderRadios(item)}
+    </Radio.Group>
   );
 }
 
