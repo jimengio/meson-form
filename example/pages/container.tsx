@@ -26,6 +26,7 @@ import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 import DropdownPage from "forms/dropdown";
 import LoginValidations from "forms/login-validations";
 import FormUseItems from "forms/use-items";
+import Radio from "forms/radio"
 
 let items: ISidebarEntry[] = [
   {
@@ -133,6 +134,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "无 Label",
     path: genRouter.noLabel.name,
   },
+  {
+    title: "Radio",
+    cnTitle: "单选",
+    path: genRouter.radio.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -187,6 +193,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <NoLabelPage />;
       case "use-items":
         return <FormUseItems />;
+      case "radio":
+        return <Radio />
       default:
         return <FormBasic />;
     }

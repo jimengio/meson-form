@@ -113,6 +113,7 @@ Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFor
 - `Input`, 文本框类型, 设置 `textarea: true` 之后样式显示为多行输入, 逻辑保持一致. 默认属性用 `inputProps` 传入.
 - `Number`, 数字类型,
 - `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
+- `Radio`, 单选, 需要传入 JSON 结构的 `options` 参数,
 - `Switch`, 开关类型,
 - `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
 - `CustomMultiple`, 自定义渲染, 但是可以直接拿到 form 对象的, 进行渲染和校验, 相比 `Custom` 对应的多个字段.

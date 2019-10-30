@@ -147,6 +147,12 @@ export let genRouter = {
     path: () => `/`,
     go: () => switchPath(`/`),
   },
+  radio: {
+    name: "radio",
+    raw: "radio",
+    path: () => `/radio`,
+    go: () => switchPath(`/radio`)
+  }
 };
 
 export type GenRouterTypeMain =
@@ -171,7 +177,8 @@ export type GenRouterTypeMain =
   | GenRouterTypeTree["decorative"]
   | GenRouterTypeTree["noLabel"]
   | GenRouterTypeTree["useItems"]
-  | GenRouterTypeTree["$"];
+  | GenRouterTypeTree["$"]
+  | GenRouterTypeTree["radio"]
 
 export interface GenRouterTypeTree {
   home: {
@@ -296,6 +303,12 @@ export interface GenRouterTypeTree {
   };
   useItems: {
     name: "use-items";
+    params: {};
+    query: {};
+    next: null;
+  };
+  radio: {
+    name: "radio";
     params: {};
     query: {};
     next: null;
