@@ -6,18 +6,25 @@ import DataPreview from "kits/data-preview";
 import { DocDemo } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
-const options: IMesonRadioItem[] = [{ value: "a", display: "A" }, { value: "b", display: "B" }]
+const options: IMesonRadioItem[] = [{ value: "a", display: "A" }, { value: "b", display: "B" }];
 
 let formItems: IMesonFieldItem[] = [
   {
     type: EMesonFieldType.Radio,
     name: "name",
-    label: "你的名字",
-    options: options
+    label: "name",
+    options: options,
+  },
+  {
+    type: EMesonFieldType.Radio,
+    name: "secondName",
+    label: "name 2",
+    options: options,
+    required: true,
   },
 ];
 
-let FormBasic: FC<{}> = (props) => {
+let FormRadio: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (
@@ -36,7 +43,7 @@ let FormBasic: FC<{}> = (props) => {
   );
 };
 
-export default FormBasic;
+export default FormRadio;
 
 let styleContainer = css``;
 

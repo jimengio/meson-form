@@ -235,12 +235,12 @@ export function renderItemLayout(
   );
 
   let isError = error != null;
-  let mergeItemClassNamae = isError ? cx(row, relative, styleItemRow, styleItemRowWithError) : cx(row, relative, styleItemRow);
+  let mergeItemClassName = isError ? cx(row, relative, styleItemRow, styleItemRowWithError) : cx(row, relative, styleItemRow);
   let mergeErrorClassName = isError ? cx(styleErrorWrapper, styleError, errorClassName) : undefined;
   let styleObj: CSSProperties = width == null ? undefined : { width };
 
   return (
-    <div key={key} className={mergeItemClassNamae} style={styleObj}>
+    <div key={key} className={mergeItemClassName} style={styleObj}>
       {labelNode}
       <div className={cx(flex, column, styleValueArea, item.className)} style={item.style} data-field={item.name}>
         {field}

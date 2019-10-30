@@ -26,7 +26,7 @@ import { findRouteTarget } from "@jimengio/ruled-router/lib/dom";
 import DropdownPage from "forms/dropdown";
 import LoginValidations from "forms/login-validations";
 import FormUseItems from "forms/use-items";
-import Radio from "forms/radio"
+import FormRadio from "forms/radio";
 
 let items: ISidebarEntry[] = [
   {
@@ -194,7 +194,7 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
       case "use-items":
         return <FormUseItems />;
       case "radio":
-        return <Radio />
+        return <FormRadio />;
       default:
         return <FormBasic />;
     }
