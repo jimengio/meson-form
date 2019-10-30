@@ -18,6 +18,7 @@ import {
   renderDecorativeItem,
   renderItemLayout,
   ValueFieldContainer,
+  renderRadioGroup,
 } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
@@ -79,6 +80,8 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [Re
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case EMesonFieldType.Select:
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
+      case EMesonFieldType.RadioGroup:
+        return renderRadioGroup(form, item);
       case EMesonFieldType.Custom:
       // already handled outside
     }

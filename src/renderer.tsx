@@ -1,7 +1,7 @@
 import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
 import { formatString, lingual } from "./lingual";
 import TextArea from "antd/lib/input/TextArea";
-import { IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField, IMesonDecorativeField } from "./model/types";
+import { IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField, IMesonDecorativeField, IMesonRadioGroupFields } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
@@ -155,6 +155,10 @@ export function renderSelectItem<T>(
       })}
     </Select>
   );
+}
+
+export function renderRadioGroup<T>(form: T, item: IMesonRadioGroupFields<T>) {
+  return "To be implementation"
 }
 
 export function renderDecorativeItem<T>(key: ReactText, form: T, item: IMesonDecorativeField<T>) {

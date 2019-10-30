@@ -9,25 +9,30 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: EMesonFieldType.RadioGroup,
     name: "name",
-    label: "名字",
-  },
-  {
-    type: EMesonFieldType.Input,
-    name: "name",
-    label: "名字禁用",
-    disabled: true,
+    label: "选择你的名字",
+    children: [
+      {
+        type: EMesonFieldType.Radio,
+        value: "a",
+        label: "A"
+      },
+      {
+        type: EMesonFieldType.Radio,
+        value: "b",
+        label: "B"
+      },
+    ],
   },
 ];
 
 let FormBasic: FC<{}> = (props) => {
-  let [form, setForm] = useState({});
+  let [form, setForm] = useState({ name: "a" });
 
   return (
     <div className={cx(styleContainer)}>
-      <DocBlock content={require("docs/basic.md").default}></DocBlock>
-      <DocDemo title={"A basic form"} link={getLink("basic.tsx")} className={styleDemo}>
+      <DocDemo title={"Radio button group"} link={getLink("radio.tsx")} className={styleDemo}>
         <MesonForm
           initialValue={form}
           items={formItems}

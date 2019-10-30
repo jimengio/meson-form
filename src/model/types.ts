@@ -33,8 +33,10 @@ export enum EMesonFieldType {
   Decorative = "decorative",
   Nested = "nested",
   Switch = "switch",
+  Radio = "radio",
   // like React fragment
   Group = "group",
+  RadioGroup = "radio-group",
 }
 
 export interface IMesonFieldBaseProps<T> {
@@ -46,6 +48,7 @@ export interface IMesonFieldBaseProps<T> {
   style?: React.CSSProperties;
   hideLabel?: boolean;
   fullWidth?: boolean;
+  valueContainerClassName?: string
 }
 
 export interface IMesonDecorativeField<T> {
@@ -120,6 +123,12 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
+export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
+  type: EMesonFieldType.Radio;
+  value: string;
+  label: string;
+}
+
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: EMesonFieldType.Custom;
@@ -168,6 +177,13 @@ export interface IMesonGroupFields<T> {
   itemWidth?: ReactText;
 }
 
+export interface IMesonRadioGroupFields<T> extends IMesonFieldBaseProps<T> {
+  type: EMesonFieldType.RadioGroup;
+  name: string;
+  label: string;
+  children: IMesonRadioField<T>[];
+}
+
 // 默认any过渡
 export type IMesonFieldItemHasValue<T = any> = IMesonInputField<T> | IMesonNumberField<T> | IMesonSelectField<T> | IMesonCustomField<T> | IMesonSwitchField<T>;
 
@@ -181,4 +197,5 @@ export type IMesonFieldItem<T = any> =
   | IMesonSwitchField<T>
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
+  | IMesonRadioGroupFields<T>
   | IMesonCustomMultipleField<T>;
