@@ -47,7 +47,6 @@ export interface IMesonFieldBaseProps<T> {
   style?: React.CSSProperties;
   hideLabel?: boolean;
   fullWidth?: boolean;
-  valueContainerClassName?: string
 }
 
 export interface IMesonDecorativeField<T> {
@@ -191,6 +190,7 @@ export interface IMesonRadioFields<T> extends IMesonFieldBaseProps<T> {
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  valueContainerClassName?: string;
 }
 
 // 默认any过渡
