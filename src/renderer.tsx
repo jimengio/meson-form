@@ -1,12 +1,21 @@
 import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
 import { formatString, lingual } from "./lingual";
 import TextArea from "antd/lib/input/TextArea";
-import { IMesonInputField, IMesonFieldItemHasValue, IMesonNumberField, IMesonSelectField, IMesonSwitchField, IMesonDecorativeField, IMesonRadioGroupFields } from "./model/types";
+import {
+  IMesonInputField,
+  IMesonFieldItemHasValue,
+  IMesonNumberField,
+  IMesonSelectField,
+  IMesonSwitchField,
+  IMesonDecorativeField,
+  IMesonRadioGroupFields,
+} from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 import Switch from "antd/lib/switch";
+import Radio from "antd/lib/radio";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
 
@@ -157,8 +166,31 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderRadioGroup<T>(form: T, item: IMesonRadioGroupFields<T>) {
-  return "To be implementation"
+export function renderRadioGroup<T>(form: T, item: IMesonRadioGroupFields<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+  const renderRadios = (item: IMesonRadioGroupFields<T>) => {
+    const radios = item.children;
+    return radios.map((radio) => {
+      return (
+        <Radio value={radio.value} disabled={radio.disabled} key={radio.value}>
+          {radio.label}
+        </Radio>
+      );
+    });
+  };
+  return (
+    <div>
+      <Radio.Group
+        value={form[item.name]}
+        onChange={(e) => {
+          const newValue = e.target.value
+          updateItem(newValue, item);
+          checkItemWithValue(newValue, item);
+        }}
+      >
+        {renderRadios(item)}
+      </Radio.Group>
+    </div>
+  );
 }
 
 export function renderDecorativeItem<T>(key: ReactText, form: T, item: IMesonDecorativeField<T>) {

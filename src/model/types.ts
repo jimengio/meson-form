@@ -182,10 +182,19 @@ export interface IMesonRadioGroupFields<T> extends IMesonFieldBaseProps<T> {
   name: string;
   label: string;
   children: IMesonRadioField<T>[];
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
 }
 
 // 默认any过渡
-export type IMesonFieldItemHasValue<T = any> = IMesonInputField<T> | IMesonNumberField<T> | IMesonSelectField<T> | IMesonCustomField<T> | IMesonSwitchField<T>;
+export type IMesonFieldItemHasValue<T = any> = 
+  IMesonInputField<T> | 
+  IMesonNumberField<T> | 
+  IMesonSelectField<T> | 
+  IMesonCustomField<T> | 
+  IMesonRadioGroupFields<T> |
+  IMesonSwitchField<T>;
 
 // 默认any过渡
 export type IMesonFieldItem<T = any> =

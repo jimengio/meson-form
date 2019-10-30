@@ -81,7 +81,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [Re
       case EMesonFieldType.Select:
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
       case EMesonFieldType.RadioGroup:
-        return renderRadioGroup(form, item);
+        return renderRadioGroup(form, item, updateItem, checkItemWithValue);
       case EMesonFieldType.Custom:
       // already handled outside
     }
