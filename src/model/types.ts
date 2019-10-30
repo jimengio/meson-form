@@ -128,12 +128,6 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
-  type: EMesonFieldType.Radio;
-  value: string;
-  label: string;
-}
-
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: EMesonFieldType.Custom;
