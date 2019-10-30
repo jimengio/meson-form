@@ -70,6 +70,7 @@ let ModalPage: FC<{}> = (props) => {
       </DocDemo>
 
       <MesonFormModal
+        centerTitle
         title={"DEMO form in modal"}
         visible={formVisible}
         onClose={() => {
