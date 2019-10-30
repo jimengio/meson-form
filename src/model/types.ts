@@ -176,7 +176,7 @@ export interface IMesonGroupFields<T> {
   itemWidth?: ReactText;
 }
 
-export interface IMesonRadioFields<T> extends IMesonFieldBaseProps<T> {
+export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
   type: EMesonFieldType.Radio;
   name: string;
   label: string;
@@ -193,7 +193,7 @@ export type IMesonFieldItemHasValue<T = any> =
   IMesonNumberField<T> | 
   IMesonSelectField<T> | 
   IMesonCustomField<T> | 
-  IMesonRadioFields<T> |
+  IMesonRadioField<T> |
   IMesonSwitchField<T>;
 
 // 默认any过渡
@@ -206,5 +206,5 @@ export type IMesonFieldItem<T = any> =
   | IMesonSwitchField<T>
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
-  | IMesonRadioFields<T>
+  | IMesonRadioField<T>
   | IMesonCustomMultipleField<T>;

@@ -8,7 +8,7 @@ import {
   IMesonSelectField,
   IMesonSwitchField,
   IMesonDecorativeField,
-  IMesonRadioFields,
+  IMesonRadioField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -166,8 +166,8 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderRadioItem<T>(form: T, item: IMesonRadioFields<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
-  const renderRadios = (item: IMesonRadioFields<T>) => {
+export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+  const renderRadios = (item: IMesonRadioField<T>) => {
     const radios = item.options;
     return radios.map((radio) => {
       return (
