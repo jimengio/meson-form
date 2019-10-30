@@ -8,7 +8,7 @@ import {
   IMesonSelectField,
   IMesonSwitchField,
   IMesonDecorativeField,
-  IMesonRadioGroupFields,
+  IMesonRadioFields,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -166,13 +166,13 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderRadioGroup<T>(form: T, item: IMesonRadioGroupFields<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
-  const renderRadios = (item: IMesonRadioGroupFields<T>) => {
-    const radios = item.children;
+export function renderRadioItem<T>(form: T, item: IMesonRadioFields<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+  const renderRadios = (item: IMesonRadioFields<T>) => {
+    const radios = item.options;
     return radios.map((radio) => {
       return (
-        <Radio value={radio.value} disabled={radio.disabled} key={radio.value}>
-          {radio.label}
+        <Radio value={radio.value} disabled={radio.disabled} key={radio.key || radio.value}>
+          {radio.display}
         </Radio>
       );
     });
@@ -182,7 +182,7 @@ export function renderRadioGroup<T>(form: T, item: IMesonRadioGroupFields<T>, up
       <Radio.Group
         value={form[item.name]}
         onChange={(e) => {
-          const newValue = e.target.value
+          const newValue = e.target.value;
           updateItem(newValue, item);
           checkItemWithValue(newValue, item);
         }}

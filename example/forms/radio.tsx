@@ -1,28 +1,19 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonRadioItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { DocDemo } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
+const options: IMesonRadioItem[] = [{ value: "a", display: "A" }, { value: "b", display: "B" }]
+
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.RadioGroup,
+    type: EMesonFieldType.Radio,
     name: "name",
     label: "你的名字",
-    children: [
-      {
-        type: EMesonFieldType.Radio,
-        value: "a",
-        label: "A",
-      },
-      {
-        type: EMesonFieldType.Radio,
-        value: "b",
-        label: "B",
-      },
-    ],
+    options: options
   },
 ];
 

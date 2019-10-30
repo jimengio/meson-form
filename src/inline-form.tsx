@@ -122,10 +122,6 @@ export function MesonInlineForm<T>(props: {
           return <>{item.children.map(renderItem)}</>;
         }
 
-        if (item.type === EMesonFieldType.RadioGroup) {
-          return `Not supported type: ${item.type}`;
-        }
-
         if (item.type === EMesonFieldType.Nested) {
           return `Not supported type: ${item.type}`;
         }

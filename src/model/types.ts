@@ -36,7 +36,6 @@ export enum EMesonFieldType {
   Radio = "radio",
   // like React fragment
   Group = "group",
-  RadioGroup = "radio-group",
 }
 
 export interface IMesonFieldBaseProps<T> {
@@ -109,6 +108,13 @@ export interface IMesonSelectItem {
   display?: string;
 }
 
+export interface IMesonRadioItem {
+  value: any;
+  key?: string;
+  display?: string;
+  disabled?: boolean;
+}
+
 export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: EMesonFieldType.Select;
@@ -177,11 +183,11 @@ export interface IMesonGroupFields<T> {
   itemWidth?: ReactText;
 }
 
-export interface IMesonRadioGroupFields<T> extends IMesonFieldBaseProps<T> {
-  type: EMesonFieldType.RadioGroup;
+export interface IMesonRadioFields<T> extends IMesonFieldBaseProps<T> {
+  type: EMesonFieldType.Radio;
   name: string;
   label: string;
-  children: IMesonRadioField<T>[];
+  options: IMesonRadioItem[];
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
@@ -193,7 +199,7 @@ export type IMesonFieldItemHasValue<T = any> =
   IMesonNumberField<T> | 
   IMesonSelectField<T> | 
   IMesonCustomField<T> | 
-  IMesonRadioGroupFields<T> |
+  IMesonRadioFields<T> |
   IMesonSwitchField<T>;
 
 // 默认any过渡
@@ -206,5 +212,5 @@ export type IMesonFieldItem<T = any> =
   | IMesonSwitchField<T>
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
-  | IMesonRadioGroupFields<T>
+  | IMesonRadioFields<T>
   | IMesonCustomMultipleField<T>;
