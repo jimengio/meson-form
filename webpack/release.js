@@ -1,4 +1,5 @@
 var path = require("path");
+let fs = require("fs");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 let HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
@@ -9,6 +10,8 @@ let ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 let { matchCssRule, matchFontsRule, matchTsReleaseRule, matchMdRule } = require("./shared");
 let splitChunks = require("./split-chunks");
 let dllManifest = require("./dll/manifest-release.json");
+
+let trackingCode = fs.readFileSync(path.join(__dirname, "ga.html"), "utf8");
 
 module.exports = {
   mode: "production",
@@ -60,6 +63,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "template.ejs",
+      trackingCode,
     }),
     new HtmlWebpackTagsPlugin({
       tags: [`${dllManifest.name}.js`],
