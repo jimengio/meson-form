@@ -1,30 +1,63 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm, useMesonItems } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "../../src/model/types";
 import { row, Space } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo, DocBlock } from "@jimengio/doc-frame";
+import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+
+let selectItems: IMesonSelectItem[] = [
+  {
+    value: "shanghai",
+    display: "上海",
+  },
+  {
+    value: "hangzhou",
+    display: "杭州",
+  },
+];
 
 let formItems: IMesonFieldItem[] = [
   {
     type: EMesonFieldType.Input,
     name: "name",
     label: "名字",
+    required: true,
   },
   {
-    type: EMesonFieldType.Input,
-    name: "name",
-    label: "名字禁用",
-    disabled: true,
+    type: EMesonFieldType.Select,
+    name: "city",
+    options: selectItems,
+    label: "城市",
   },
 ];
 
 let intro = `
-使用 \`useMesonItems\` 可以自由渲染提交按钮:
+使用 \`useMesonItems\` 可以得到 items 的 UI 再自由进行组合, 没有内置组件 Footer 的局限.
+`;
 
-\`\`\`ts
+let code = `
+import { useMesonItems } from "@jimengio/meson-form";
+
+let [form, setForm] = useState({});
+
+let formItems: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Input,
+    name: "name",
+    label: "名字",
+    required: true,
+  },
+  {
+    type: EMesonFieldType.Select,
+    name: "city",
+    options: selectItems,
+    label: "城市",
+    disabled: true,
+  },
+];
+
 let [formElements, onCheckSubmit, formInternals] = useMesonItems({
   initialValue: form,
   items: formItems,
@@ -33,11 +66,14 @@ let [formElements, onCheckSubmit, formInternals] = useMesonItems({
   },
 });
 
-return <div>
-  {formElements}
-  <button onClick={onCheckSubmit}>提交</button>
+<div>
+  <div>{formElements}</div>
+  <div style={{ padding: 16 }}>
+    Custom UI
+    <Space width={16} />
+    <button onClick={onCheckSubmit}>onSubmit</button>
+  </div>
 </div>
-\`\`\`
 `;
 
 let FormUseItems: FC<{}> = (props) => {
@@ -56,18 +92,20 @@ let FormUseItems: FC<{}> = (props) => {
       <DocBlock content={intro}></DocBlock>
       <DocDemo title={"Hooks API for items"} link={getLink("use-items.tsx")} className={styleDemo}>
         <div>{formElements}</div>
+        <div style={{ padding: 16 }}>
+          Custom UI
+          <Space width={16} />
+          <button onClick={onCheckSubmit}>onSubmit</button>
+        </div>
 
         <div className={styleData}>
           Form data:
           <pre className={styleCode}>{JSON.stringify(formInternals.formData, null, 2)}</pre>
         </div>
 
-        <div style={{ padding: 16 }}>
-          Custom UI
-          <Space width={16} />
-          <button onClick={onCheckSubmit}>onSubmit</button>
-        </div>
         <DataPreview data={form} />
+
+        <DocSnippet code={code} />
       </DocDemo>
     </div>
   );
