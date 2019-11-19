@@ -123,7 +123,16 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [Re
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(key, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(
+          key,
+          item,
+          error,
+          item.render(form[item.name], onChange, form, onCheck),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel,
+          itemWidth
+        );
       }
 
       if (item.type === EMesonFieldType.CustomMultiple) {
