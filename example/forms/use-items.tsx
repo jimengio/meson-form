@@ -6,6 +6,7 @@ import { row, Space } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+import { JimoButton } from "@jimengio/jimo-basics";
 
 let selectItems: IMesonSelectItem[] = [
   {
@@ -87,6 +88,8 @@ let FormUseItems: FC<{}> = (props) => {
     },
   });
 
+  let { updateForm } = formInternals;
+
   return (
     <div className={cx(styleContainer)}>
       <DocBlock content={intro}></DocBlock>
@@ -95,7 +98,16 @@ let FormUseItems: FC<{}> = (props) => {
         <div style={{ padding: 16 }}>
           Custom UI
           <Space width={16} />
-          <button onClick={onCheckSubmit}>onSubmit</button>
+          <JimoButton
+            onClick={() => {
+              updateForm((draft) => {
+                draft.name = "JIMENGIO";
+              });
+            }}
+            text="Reset name"
+          />
+          <Space width={16} />
+          <JimoButton fillColor onClick={onCheckSubmit} text="onSubmit" />
         </div>
 
         <div className={styleData}>

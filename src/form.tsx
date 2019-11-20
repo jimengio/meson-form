@@ -46,7 +46,9 @@ export interface MesonFormProps<T> {
 }
 
 /** Hooks API for customizing UIs */
-export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [ReactNode, () => void, { formData: T }] {
+export function useMesonItems<T = IMesonFormBase>(
+  props: MesonFormProps<T>
+): [ReactNode, () => void, { formData: T; updateForm: (f: (draft: Draft<T>) => void | T) => void }] {
   let {
     formAny: form,
     updateForm,
@@ -182,7 +184,11 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>): [Re
     });
   };
 
-  return [<div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>, onCheckSubmit, { formData: form }];
+  return [
+    <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>,
+    onCheckSubmit,
+    { formData: form, updateForm: updateForm },
+  ];
 }
 
 /** Main form component for Meson
