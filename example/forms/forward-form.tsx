@@ -22,7 +22,7 @@ let FormBasic: FC<{}> = (props) => {
 
   return (
     <div className={cx(column, styleContainer)}>
-      <DocBlock>{`Ref forwarding 的写法是为了解决自定义 Footer 的问题. 但是传递 Ref 的代码结构不那么清晰, 现在推荐用 [useMesonItems API](#/use-items) 来实现.`}</DocBlock>
+      <DocBlock content={contentSuggest}></DocBlock>
       <DocDemo title="Pass control to forward to another component" link={getLink("forward-form.tsx")}>
         <MesonFormForwarded<{ name?: string }>
           formRef={formRef}
@@ -72,4 +72,8 @@ const styleActions = css`
   .ant-btn:not(:last-child) {
     margin-right: 16px;
   }
+`;
+
+let contentSuggest = `
+Ref forwarding 的写法是为了解决自定义 Footer 的问题. 但是传递 Ref 的代码结构不那么清晰, 现在推荐用 [useMesonItems API](#/use-items) 来实现.
 `;
