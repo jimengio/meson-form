@@ -66,6 +66,25 @@ let codeUse = `
 </div>
 `;
 
+let codeCallback = `
+let [formElements, onCheckSubmit, formInternals] = useMesonItems({
+  initialValue: {},
+  items: formItems,
+  onSubmit: null,
+});
+
+onCheckSubmit({
+  onSubmit: (form) => {
+    console.log("submit when valid", form);
+  },
+});
+`;
+
+let contentCallback = `
+\`onCheckSubmit\` 有一个比较特殊的用法, 可以在参数当中传入 \`onSubmit\`, 校验通过时会调用这个 \`onSubmit\`.
+这样也就可以替代 props 当中的 \`onSubmit\` 使用, 而 props 当中就需要强行把 \`onSubmit\` 设置为 null 了.
+`;
+
 let FormUseItems: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
@@ -94,7 +113,17 @@ let FormUseItems: FC<{}> = (props) => {
             text="Reset name"
           />
           <Space width={16} />
-          <JimoButton fillColor onClick={onCheckSubmit} text="onSubmit" />
+          <JimoButton
+            fillColor
+            onClick={() => {
+              onCheckSubmit({
+                onSubmit: (form) => {
+                  console.log("when valid", form);
+                },
+              });
+            }}
+            text="onSubmit"
+          />
         </div>
 
         <div className={styleData}>
@@ -108,6 +137,11 @@ let FormUseItems: FC<{}> = (props) => {
         <DocBlock content={contentInternals} />
 
         <DocSnippet code={codeUse} />
+      </DocDemo>
+
+      <DocDemo title="Callback syntax">
+        <DocBlock content={contentCallback} />
+        <DocSnippet code={codeCallback} />
       </DocDemo>
     </div>
   );
