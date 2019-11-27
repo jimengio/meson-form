@@ -27,6 +27,7 @@ import { createItemKey } from "./util/string";
 export interface MesonFormProps<T> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
+  /** when set onSubmit:null on useFormItems, make sure {onSubmit: f} is passed to onCheckSubmit */
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
