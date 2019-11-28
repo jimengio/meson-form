@@ -5,6 +5,10 @@ import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce, { Draft } from "immer";
 
+export interface ICheckSubmitOptions<T> {
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
+}
+
 /** low level hook for creating forms with very specific UIs */
 export let useMesonCore = <T>(props: {
   initialValue: T;
@@ -17,7 +21,7 @@ export let useMesonCore = <T>(props: {
   let [errors, updateErrors] = useImmer<IMesonErrors<T>>({});
   let modifiedState = useRef(false);
 
-  let onCheckSubmitWithValue = (passedForm?: T) => {
+  let onCheckSubmitWithValue = (passedForm?: T, options?: ICheckSubmitOptions<T>) => {
     let latestForm = passedForm;
     let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
@@ -45,12 +49,25 @@ export let useMesonCore = <T>(props: {
     });
 
     if (!hasErrors) {
-      props.onSubmit(latestForm, (serverErrors) => {
+      let handleServerErrors = (serverErrors) => {
         // errors from server not in use yet
         updateErrors((draft) => {
           return serverErrors;
         });
-      });
+      };
+
+      if (props.onSubmit != null) {
+        props.onSubmit(latestForm, handleServerErrors);
+      }
+
+      if (options?.onSubmit != null) {
+        options.onSubmit(latestForm, handleServerErrors);
+      }
+
+      if (props.onSubmit == null && options?.onSubmit == null) {
+        console.warn("onSubmit method not found! Either props.onSubmit or options.onSubmit should be provided");
+      }
+
       modifiedState.current = false;
     }
   };
@@ -60,7 +77,7 @@ export let useMesonCore = <T>(props: {
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
       });
-      onCheckSubmitWithValue(newForm);
+      onCheckSubmitWithValue(newForm, null);
       return;
     }
 
@@ -76,7 +93,7 @@ export let useMesonCore = <T>(props: {
     });
 
     if (props.submitOnEdit) {
-      onCheckSubmitWithValue(newForm);
+      onCheckSubmitWithValue(newForm, null);
       return;
     }
 
@@ -109,8 +126,8 @@ export let useMesonCore = <T>(props: {
     errors,
     updateErrors,
     isModified: modifiedState.current,
-    onCheckSubmit: () => {
-      onCheckSubmitWithValue(form);
+    onCheckSubmit: (options?: ICheckSubmitOptions<T>) => {
+      onCheckSubmitWithValue(form, options);
     },
     onCheckSubmitWithValue,
     checkItem: (item: IMesonFieldItemHasValue<T>) => {

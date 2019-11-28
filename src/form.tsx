@@ -27,6 +27,7 @@ import { createItemKey } from "./util/string";
 export interface MesonFormProps<T> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
+  /** when set onSubmit:null on useFormItems, make sure {onSubmit: f} is passed to onCheckSubmit */
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
   onReset?: () => void;
   onCancel?: () => void;
@@ -46,9 +47,7 @@ export interface MesonFormProps<T> {
 }
 
 /** Hooks API for customizing UIs */
-export function useMesonItems<T = IMesonFormBase>(
-  props: MesonFormProps<T>
-): [ReactNode, () => void, { formData: T; updateForm: (f: (draft: Draft<T>) => void | T) => void }] {
+export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
   let {
     formAny: form,
     updateForm,
@@ -184,11 +183,11 @@ export function useMesonItems<T = IMesonFormBase>(
     });
   };
 
-  return [
-    <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>,
-    onCheckSubmit,
-    { formData: form, updateForm: updateForm },
-  ];
+  let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
+
+  let formInternals = { formData: form, updateForm: updateForm };
+
+  return [ui, onCheckSubmit, formInternals] as [ReactNode, typeof onCheckSubmit, typeof formInternals];
 }
 
 /** Main form component for Meson

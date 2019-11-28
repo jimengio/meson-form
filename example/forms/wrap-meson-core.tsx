@@ -90,7 +90,13 @@ let WrapMesonCore: FC<{}> = (props) => {
             }
           })}
           <div>
-            <button onClick={onCheckSubmit}>Submit</button>
+            <button
+              onClick={() => {
+                onCheckSubmit();
+              }}
+            >
+              Submit
+            </button>
           </div>
         </div>
       </DocDemo>
