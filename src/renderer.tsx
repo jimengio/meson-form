@@ -295,7 +295,7 @@ let styleValueArea = css`
 `;
 
 let styleLabel = css`
-  color: hsla(0, 0%, 20%, 1);
+  color: hsla(0, 0%, 44%, 1);
   min-width: 80px;
   width: max-content;
   text-align: right;
