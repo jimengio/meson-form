@@ -54,6 +54,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
     items: props.items,
     submitOnEdit: props.submitOnEdit,
     onSubmit: props.onSubmit,
+    onFieldChange: props.onFieldChange,
   });
 
   /**

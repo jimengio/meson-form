@@ -29,6 +29,7 @@ export function MesonInlineForm<T>(props: {
     items: props.items,
     onSubmit: onSubmit,
     submitOnEdit: props.submitOnEdit,
+    onFieldChange: props.onFieldChange,
   });
 
   let renderItem = (item: IMesonFieldItem<T>, idx: number) => {
