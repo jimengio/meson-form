@@ -65,6 +65,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
     items: props.items,
     submitOnEdit: props.submitOnEdit,
     onSubmit: props.onSubmit,
+    onFieldChange: props.onFieldChange,
   });
 
   let renderValueItem = (item: IMesonFieldItem<T>) => {
