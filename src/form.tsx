@@ -228,6 +228,7 @@ export function MesonFormModal<T>(props: {
   visible: boolean;
   onClose: () => void;
   disableMoving?: boolean;
+  disableBackdropClose?: boolean;
   width?: number;
   hideClose?: boolean;
   centerTitle?: boolean;
@@ -241,6 +242,7 @@ export function MesonFormModal<T>(props: {
       disableMoving={props.disableMoving}
       width={props.width}
       centerTitle={props.centerTitle}
+      disableBackdropClose={props.disableBackdropClose}
       renderContent={() => {
         return (
           <MesonForm
