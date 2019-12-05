@@ -4,10 +4,58 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem, FuncMesonModifyForm } from "../../src/model/types";
 import { row, xHiddenYAuto } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
-let candidates: IMesonSelectItem[] = [{ value: "local", display: "本市" }, { value: "strange", display: "外地" }];
+let code = `
+let candidates: IMesonSelectItem[] = [
+  { value: "local", display: "本市" },
+  { value: "strange", display: "外地" },
+];
+
+let formItems: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Select,
+    name: "kind",
+    label: "种类",
+    options: candidates,
+    required: true,
+    onChange: (v: string, modifyForm: FuncMesonModifyForm<IHome>) => {
+      if (v === "local") {
+        modifyForm((form) => {
+          form.place = "上海市";
+        });
+      } else {
+        modifyForm((form) => {
+          form.place = "";
+        });
+      }
+    },
+  },
+  {
+    type: EMesonFieldType.Input,
+    name: "place",
+    label: "籍贯",
+    required: true,
+  },
+  {
+    type: EMesonFieldType.Input,
+    name: "note",
+    label: "备注",
+    required: false,
+  },
+];
+`;
+
+let content = `
+如果要监听具体某个表单项的修改, 可以使用 \`onChange\` 属性, 使用监听器函数或者修改之后的新的值.
+发生修改时, 可以访问到 \`modifyForm\` 函数, 强行对表单项的其他字段进行修改. 一般用在字段之间相互有关联的情况当中.
+`;
+
+let candidates: IMesonSelectItem[] = [
+  { value: "local", display: "本市" },
+  { value: "strange", display: "外地" },
+];
 
 enum EHomeKind {
   Local = "local",
@@ -69,6 +117,10 @@ let ModifyOnChange: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
         </div>
+
+        <DocBlock content={content} />
+
+        <DocSnippet code={code} />
       </DocDemo>
     </div>
   );
