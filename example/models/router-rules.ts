@@ -25,5 +25,6 @@ export const routerRules: IRouteRule[] = [
   { path: "no-label" },
   { path: "use-items" },
   { path: "radio" },
+  { path: "footer-buttons" },
   { path: "", name: "home" },
 ];

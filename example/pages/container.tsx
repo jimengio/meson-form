@@ -27,6 +27,7 @@ import DropdownPage from "forms/dropdown";
 import LoginValidations from "forms/login-validations";
 import FormUseItems from "forms/use-items";
 import FormRadio from "forms/radio";
+import PageFooterButtons from "./footer-buttons";
 
 let items: ISidebarEntry[] = [
   {
@@ -139,6 +140,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "单选",
     path: genRouter.radio.name,
   },
+  {
+    title: "Footer buttons",
+    cnTitle: "提交按钮",
+    path: genRouter.footerButtons.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -195,6 +201,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <FormUseItems />;
       case "radio":
         return <FormRadio />;
+      case "footer-buttons":
+        return <PageFooterButtons />;
       default:
         return <FormBasic />;
     }
