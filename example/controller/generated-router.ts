@@ -12,7 +12,7 @@ function qsStringify(queries: { [k: string]: string }) {
 
 // generated
 
-// Generated with router-code-generator@0.2.4
+// Generated with router-code-generator@0.2.5
 
 export let genRouter = {
   home: {
@@ -141,18 +141,24 @@ export let genRouter = {
     path: () => `/use-items`,
     go: () => switchPath(`/use-items`),
   },
+  radio: {
+    name: "radio",
+    raw: "radio",
+    path: () => `/radio`,
+    go: () => switchPath(`/radio`),
+  },
+  footerButtons: {
+    name: "footer-buttons",
+    raw: "footer-buttons",
+    path: () => `/footer-buttons`,
+    go: () => switchPath(`/footer-buttons`),
+  },
   $: {
     name: "home",
     raw: "",
     path: () => `/`,
     go: () => switchPath(`/`),
   },
-  radio: {
-    name: "radio",
-    raw: "radio",
-    path: () => `/radio`,
-    go: () => switchPath(`/radio`)
-  }
 };
 
 export type GenRouterTypeMain =
@@ -177,8 +183,9 @@ export type GenRouterTypeMain =
   | GenRouterTypeTree["decorative"]
   | GenRouterTypeTree["noLabel"]
   | GenRouterTypeTree["useItems"]
-  | GenRouterTypeTree["$"]
   | GenRouterTypeTree["radio"]
+  | GenRouterTypeTree["footerButtons"]
+  | GenRouterTypeTree["$"];
 
 export interface GenRouterTypeTree {
   home: {
@@ -309,6 +316,12 @@ export interface GenRouterTypeTree {
   };
   radio: {
     name: "radio";
+    params: {};
+    query: {};
+    next: null;
+  };
+  footerButtons: {
+    name: "footer-buttons";
     params: {};
     query: {};
     next: null;
