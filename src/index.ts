@@ -3,4 +3,4 @@ export { MesonFormProps, MesonForm, MesonFormModal, MesonFormDrawer, MesonFormDr
 export { MesonFormForwarded } from "./form-forwarded";
 export { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "./model/types";
 
-export { default as Footerbuttons } from "./component/footer-buttons";
+export { default as FooterButtons, IFooterButtonOptions } from "./component/footer-buttons";
