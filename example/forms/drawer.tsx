@@ -5,7 +5,7 @@ import { MesonFormDrawer } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let DrawerPage: FC<{}> = (props) => {
@@ -24,6 +24,8 @@ let DrawerPage: FC<{}> = (props) => {
   return (
     <div className={styleContainer}>
       <DocDemo title="Demo for drawer" link={getLink("drawer.tsx")}>
+        <DocSnippet code={codeDrawer} />
+
         <div className={styleBoxArea}>
           <div>
             <Button
@@ -70,4 +72,23 @@ let styleHeader = css`
   background-color: rgb(28, 63, 118);
   color: white;
   height: 120px;
+`;
+
+let codeDrawer = `
+// let formItems = ...
+
+<MesonFormDrawer
+  title={"DEMO form in drawer"}
+  visible={formVisible}
+  width={480}
+  onClose={() => {
+    setFormVisible(false);
+  }}
+  items={formItems}
+  initialValue={form}
+  onSubmit={(form) => {
+    setFormVisible(false);
+    setForm(form);
+  }}
+/>
 `;

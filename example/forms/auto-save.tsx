@@ -4,7 +4,7 @@ import { row } from "@jimengio/shared-utils";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
@@ -41,6 +41,8 @@ let AutoSavePage: FC<{}> = (props) => {
   return (
     <div className={cx(row, styleContainer)}>
       <DocDemo title="Auto save" link={getLink("auto-save.tsx")}>
+        <DocBlock content={contentAutoSave} />
+
         <MesonForm
           items={formItems}
           initialValue={form}
@@ -54,6 +56,8 @@ let AutoSavePage: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
         </div>
+
+        <DocSnippet code={codeAutoSave} />
       </DocDemo>
     </div>
   );
@@ -62,3 +66,20 @@ let AutoSavePage: FC<{}> = (props) => {
 export default AutoSavePage;
 
 let styleContainer = css``;
+
+let codeAutoSave = `
+<MesonForm
+  items={formItems}
+  initialValue={form}
+  onSubmit={(form) => {
+    setForm(form);
+  }}
+  submitOnEdit
+  renderFooter={() => null}
+/>
+`;
+
+let contentAutoSave = `
+通过 \`submitOnEdit\` 开启自动触发保存, 失焦的时候出发 submit 行为.
+注意 Custom 模式也需要妥善处理 onBlur 行为避免遗漏 submit 行为.
+`;

@@ -4,7 +4,7 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
@@ -57,6 +57,8 @@ let NoLabelPage: FC<{}> = (props) => {
   return (
     <div className={cx(styleContainer)}>
       <DocDemo title="Form layout with no table" link={getLink("no-label.tsx")}>
+        <DocBlock content={contentHideLabel} />
+        <DocSnippet code={codeHideLabel} />
         <label>
           noLabel: <input type="checkbox" checked={showLabel} onChange={(e) => setShowLabel(e.target.checked)} />
         </label>
@@ -72,6 +74,8 @@ let NoLabelPage: FC<{}> = (props) => {
       </DocDemo>
 
       <DocDemo title="No label and full width" link={getLink("no-label.tsx")}>
+        <DocBlock content={contentFullWidth} />
+        <DocSnippet code={codeFullWidth} />
         <MesonForm
           noLabel
           fullWidth
@@ -92,3 +96,32 @@ let NoLabelPage: FC<{}> = (props) => {
 export default NoLabelPage;
 
 let styleContainer = css``;
+
+let codeHideLabel = `
+{
+  type: EMesonFieldType.Input,
+  name: "hideLabel1",
+  label: "hideLabel(false)",
+  hideLabel: false,
+},
+`;
+
+let contentHideLabel = `
+控制 \`hideLabel\` 可以隐藏 Label 所占用的区域.
+`;
+
+let codeFullWidth = `
+<MesonForm
+  noLabel
+  fullWidth
+  initialValue={form2}
+  items={formItems2}
+  onSubmit={(form) => {
+    setForm2(form);
+  }}
+/>
+`;
+let contentFullWidth = `
+默认情况下 field 当中的输入框不会沾满整行.
+需要时通过 \`fullWidth\` 配合 \`hideLabel\` 可以实现整行占满的效果.
+`;

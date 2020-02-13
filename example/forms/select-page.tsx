@@ -4,10 +4,13 @@ import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem, EMesonFieldType }
 import { MesonForm } from "../../src/form";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
-let booleanOptions: IMesonSelectItem[] = [{ value: true, display: "True" }, { value: false, display: "False" }];
+let booleanOptions: IMesonSelectItem[] = [
+  { value: true, display: "True" },
+  { value: false, display: "False" },
+];
 
 let items: IMesonFieldItem[] = [
   {
@@ -18,6 +21,9 @@ let items: IMesonFieldItem[] = [
     translateNonStringvalue: true,
     allowClear: true,
   },
+];
+
+let itemsOfDisabled: IMesonFieldItem[] = [
   {
     type: EMesonFieldType.Select,
     label: "BOOLEAN Disabled",
@@ -33,8 +39,8 @@ let SelectPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
 
   return (
-    <div className={cx(row, styleContainer)}>
-      <DocDemo title="Demo for select" link={getLink("select-page.tsx")}>
+    <div className={cx(styleContainer)}>
+      <DocDemo title="Demo for select" link={getLink("select-page.tsx")} className={styleNarrow}>
         <MesonForm
           initialValue={form}
           items={items}
@@ -45,6 +51,21 @@ let SelectPage: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
         </div>
+
+        <DocSnippet code={codeSelect} />
+      </DocDemo>
+
+      <DocDemo title="Demo for select" link={getLink("select-page.tsx")} className={styleNarrow}>
+        <DocBlock content={contentDisabled} />
+        <DocSnippet code={codeDisabled} />
+
+        <MesonForm
+          initialValue={{}}
+          items={itemsOfDisabled}
+          onSubmit={(form) => {
+            setForm(form);
+          }}
+        />
       </DocDemo>
     </div>
   );
@@ -53,3 +74,50 @@ let SelectPage: FC<{}> = (props) => {
 export default SelectPage;
 
 let styleContainer = css``;
+
+let codeSelect = `
+let booleanOptions: IMesonSelectItem[] = [
+  { value: true, display: "True" },
+  { value: false, display: "False" }
+];
+
+let items: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Select,
+    label: "BOOLEAN",
+    name: "status",
+    options: booleanOptions,
+    translateNonStringvalue: true,
+    allowClear: true,
+  },
+];
+
+<MesonForm
+  initialValue={{}}
+  items={items}
+  onSubmit={(form) => {
+    setForm(form);
+  }}
+/>
+`;
+
+let codeDisabled = `
+let items: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Select,
+    label: "BOOLEAN",
+    name: "status",
+    options: booleanOptions,
+    translateNonStringvalue: true,
+    allowClear: true,
+
+    disabled: true,
+  },
+];
+`;
+
+let styleNarrow = css`
+  width: 480px;
+`;
+
+let contentDisabled = "Select 支持 `disabled` 支持 `allowClear` 属性.";

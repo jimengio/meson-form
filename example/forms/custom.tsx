@@ -5,7 +5,7 @@ import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import Input from "antd/lib/input";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
@@ -50,6 +50,8 @@ let CustomPage: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
         </div>
+
+        <DocSnippet code={codeCustom} />
       </DocDemo>
     </div>
   );
@@ -58,3 +60,31 @@ let CustomPage: FC<{}> = (props) => {
 export default CustomPage;
 
 let styleContainer = css``;
+
+let codeCustom = `
+let formItems: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Custom,
+    name: "x",
+    label: "自定义",
+    render: (value, onChange, form, onCheck) => {
+      return (
+        <div className={row}>
+          <div>
+            Custome input
+            <Input
+              onChange={(event) => {
+                onChange(event.target.value);
+              }}
+              placeholder={"Custom field"}
+              onBlur={() => {
+                onCheck(value);
+              }}
+            />
+          </div>
+        </div>
+      );
+    },
+  },
+];
+`;

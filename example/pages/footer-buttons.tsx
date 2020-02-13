@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { css } from "emotion";
 import FooterButtons, { IFooterButtonOptions } from "../../src/component/footer-buttons";
-import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 
 let PageFooterButtons: FC<{}> = React.memo((props) => {
   let items: IFooterButtonOptions[] = [
@@ -30,6 +30,7 @@ let PageFooterButtons: FC<{}> = React.memo((props) => {
   return (
     <div>
       <DocDemo title="Footer buttons">
+        <DocBlock content={contentFooter} />
         <FooterButtons items={items} />
         <DocSnippet code={code} />
       </DocDemo>
@@ -60,4 +61,9 @@ let items: IFooterButtonOptions[] = [
 ];
 
 <FooterButtons items={items} />
+`;
+
+let contentFooter = `
+MesonForm 提供了一个简单的 FooterButtons 组件,
+不过实际使用当中需要定制时, 建议用 Hooks 接口自己组合使用.
 `;

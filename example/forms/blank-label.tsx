@@ -4,7 +4,7 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
@@ -34,6 +34,7 @@ let FormBlankLabel: FC<{}> = (props) => {
   return (
     <div className={cx(row, styleContainer)}>
       <DocDemo title="fields with blank label" link={getLink("blank-label.tsx")}>
+        <DocBlock content={contentBlankLabel} />
         <MesonForm
           initialValue={form}
           items={formItems}
@@ -52,3 +53,5 @@ let FormBlankLabel: FC<{}> = (props) => {
 export default FormBlankLabel;
 
 let styleContainer = css``;
+
+let contentBlankLabel = `如果需要空的 label 文案, 目前需要设置成 null`;
