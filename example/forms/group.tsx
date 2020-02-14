@@ -48,8 +48,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
         required: true,
       },
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: EMesonFieldType.Textarea,
         label: "b",
         name: "b",
         required: true,
@@ -75,8 +74,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
         name: "e",
       },
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: EMesonFieldType.Textarea,
         label: "f",
         name: "f",
       },

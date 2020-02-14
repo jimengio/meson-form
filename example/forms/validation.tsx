@@ -85,8 +85,7 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Input,
-    textarea: true,
+    type: EMesonFieldType.Textarea,
     label: "描述",
     name: "description",
     required: true,

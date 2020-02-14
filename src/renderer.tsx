@@ -9,6 +9,7 @@ import {
   IMesonSwitchField,
   IMesonDecorativeField,
   IMesonRadioField,
+  IMesonTexareaField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -23,7 +24,7 @@ type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
-export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
     <>
       <TextArea
@@ -37,8 +38,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonInputField<T>, update
         onBlur={(event: any) => {
           checkItem(item);
         }}
-        // should use TextareaProps, but for convenience
-        {...(item.inputProps as any)}
+        {...item.textareaProps}
       />
     </>
   );

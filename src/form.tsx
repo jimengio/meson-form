@@ -71,11 +71,9 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
   let renderValueItem = (item: IMesonFieldItem<T>) => {
     switch (item.type) {
       case EMesonFieldType.Input:
-        if (item.textarea) {
-          return renderTextAreaItem(form, item, updateItem, checkItem);
-        }
         return renderInputItem(form, item, updateItem, checkItem, checkItemWithValue);
-
+      case EMesonFieldType.Textarea:
+        return renderTextAreaItem(form, item, updateItem, checkItem);
       case EMesonFieldType.Number:
         return renderNumberItem(form, item, updateItem, checkItem);
       case EMesonFieldType.Switch:

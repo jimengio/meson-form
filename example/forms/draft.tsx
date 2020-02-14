@@ -78,8 +78,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
-    textarea: true,
+    type: EMesonFieldType.Textarea,
     label: "描述",
     name: "description",
     required: true,
@@ -89,8 +88,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     shouldHide: () => true,
     children: [
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: EMesonFieldType.Textarea,
         label: "描述",
         name: "description",
         required: true,
