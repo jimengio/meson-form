@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormDrawer } from "meson-form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
@@ -15,7 +15,7 @@ let DrawerPage: FC<{}> = (props) => {
 
   let formItems: IMesonFieldItem[] = [
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },

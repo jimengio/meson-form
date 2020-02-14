@@ -1,4 +1,4 @@
-import { IMesonFieldItem, EMesonFieldType, ISimpleObject } from "../model/types";
+import { IMesonFieldItem, ISimpleObject } from "../model/types";
 
 export let traverseItems = (xs: IMesonFieldItem[], form: ISimpleObject, method: (x: IMesonFieldItem) => void) => {
   xs.forEach((x) => {
@@ -7,11 +7,11 @@ export let traverseItems = (xs: IMesonFieldItem[], form: ISimpleObject, method: 
     }
 
     switch (x.type) {
-      case EMesonFieldType.CustomMultiple:
-      case EMesonFieldType.Decorative:
+      case "custom-multiple":
+      case "decorative":
         return;
-      case EMesonFieldType.Nested:
-      case EMesonFieldType.Group:
+      case "nested":
+      case "group":
         traverseItems(x.children, form, method);
       default:
         method(x);
@@ -25,11 +25,11 @@ export let traverseItemsReachCustomMultiple = (xs: IMesonFieldItem[], form: ISim
       return null;
     }
     switch (x.type) {
-      case EMesonFieldType.CustomMultiple:
+      case "custom-multiple":
         method(x);
         return;
-      case EMesonFieldType.Nested:
-      case EMesonFieldType.Group:
+      case "nested":
+      case "group":
         traverseItemsReachCustomMultiple(x.children, form, method);
       default:
         return;

@@ -1,7 +1,7 @@
 import React, { ReactText } from "react";
 import { row, column, flex, displayFlex, flexWrap } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
@@ -77,17 +77,17 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
 
   let renderValueItem = (item: IMesonFieldItem<T>) => {
     switch (item.type) {
-      case EMesonFieldType.Input:
+      case "input":
         return renderInputItem(form, item, updateItem, checkItem, checkItemWithValue);
-      case EMesonFieldType.Textarea:
+      case "textarea":
         return renderTextAreaItem(form, item, updateItem, checkItem);
-      case EMesonFieldType.Number:
+      case "number":
         return renderNumberItem(form, item, updateItem, checkItem);
-      case EMesonFieldType.Switch:
+      case "switch":
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
-      case EMesonFieldType.Select:
+      case "select":
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
-      case EMesonFieldType.Custom:
+      case "custom":
       // already handled outside
     }
     return <div>Unknown type: {(item as any).type}</div>;
@@ -105,7 +105,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         return null;
       }
 
-      if (item.type === EMesonFieldType.Group) {
+      if (item.type === "group") {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
         const mergeClassName = item.horizontal ? cx(displayFlex, flexWrap) : undefined;
 
@@ -119,7 +119,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
       let name: string = (item as any).name;
       let error = name != null ? errors[name] : null;
 
-      if (item.type === EMesonFieldType.Custom) {
+      if (item.type === "custom") {
         let onChange = (value: any) => {
           updateItem(value, item);
         };
@@ -131,7 +131,7 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         return renderItemLayout(key, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
       }
 
-      if (item.type === EMesonFieldType.CustomMultiple) {
+      if (item.type === "custom-multiple") {
         let modifidForm: FuncMesonModifyForm = (f) => {
           updateForm(f);
         };
@@ -155,11 +155,11 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         );
       }
 
-      if (item.type === EMesonFieldType.Nested) {
+      if (item.type === "nested") {
         return renderItemLayout(key, item as any, error, renderItems(item.children, undefined, key), props.labelClassName, props.errorClassName, hideLabel);
       }
 
-      if (item.type === EMesonFieldType.Decorative) {
+      if (item.type === "decorative") {
         return renderDecorativeItem(key, form, item);
       }
 

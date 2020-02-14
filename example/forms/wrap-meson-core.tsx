@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { useMesonCore } from "../../src/hook/meson-core";
-import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
+import { IMesonCustomField, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import { column } from "@jimengio/shared-utils";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -13,14 +13,14 @@ interface ILoginForm {
 
 let formItems: IMesonFieldItem<ILoginForm>[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "username",
     label: null,
     placeholder: "Username",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "password",
     inputType: "password",
     placeholder: "Password",
@@ -71,7 +71,7 @@ let WrapMesonCore: FC<{}> = (props) => {
         <div className={styleFormArea}>
           {formItems.map((item) => {
             switch (item.type) {
-              case EMesonFieldType.Input:
+              case "input":
                 return (
                   <div className={column} key={item.name}>
                     <input

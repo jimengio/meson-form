@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
@@ -14,7 +14,7 @@ interface IGuest {
 
 let formItems: IMesonFieldItem<IGuest>[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "phone",
     label: "手机号",
     fullWidth: true,
@@ -31,7 +31,7 @@ let formItems: IMesonFieldItem<IGuest>[] = [
     },
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "password",
     label: "密码",
     fullWidth: true,
@@ -40,7 +40,7 @@ let formItems: IMesonFieldItem<IGuest>[] = [
     },
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "confirm",
     label: "重复密码",
     fullWidth: true,
@@ -93,7 +93,7 @@ let styleForm = css`
 
 let codeCheckChange = `
 {
-  type: EMesonFieldType.Input,
+  type: 'input',
   name: "phone",
   label: "手机号",
   fullWidth: true,

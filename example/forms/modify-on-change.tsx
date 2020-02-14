@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem, FuncMesonModifyForm } from "../../src/model/types";
+import { IMesonFieldItem, IMesonSelectItem, FuncMesonModifyForm } from "../../src/model/types";
 import { row, xHiddenYAuto } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
@@ -15,7 +15,7 @@ let candidates: IMesonSelectItem[] = [
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: 'select',
     name: "kind",
     label: "种类",
     options: candidates,
@@ -33,13 +33,13 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Input,
+    type: 'input',
     name: "place",
     label: "籍贯",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: 'input',
     name: "note",
     label: "备注",
     required: false,
@@ -70,7 +70,7 @@ interface IHome {
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     name: "kind",
     label: "种类",
     options: candidates,
@@ -88,13 +88,13 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "place",
     label: "籍贯",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "note",
     label: "备注",
     required: false,

@@ -1,6 +1,6 @@
 import { css, cx } from "emotion";
 import React, { FC, useState } from "react";
-import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem } from "../../src/model/types";
 import { MesonForm } from "../../src/form";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
@@ -14,7 +14,7 @@ let booleanOptions: IMesonSelectItem[] = [
 
 let items: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     label: "BOOLEAN",
     name: "status",
     options: booleanOptions,
@@ -25,7 +25,7 @@ let items: IMesonFieldItem[] = [
 
 let itemsOfDisabled: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     label: "BOOLEAN Disabled",
     disabled: true,
     name: "status",
@@ -83,7 +83,7 @@ let booleanOptions: IMesonSelectItem[] = [
 
 let items: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: 'select',
     label: "BOOLEAN",
     name: "status",
     options: booleanOptions,
@@ -104,7 +104,7 @@ let items: IMesonFieldItem[] = [
 let codeDisabled = `
 let items: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Select,
+    type: 'select',
     label: "BOOLEAN",
     name: "status",
     options: booleanOptions,

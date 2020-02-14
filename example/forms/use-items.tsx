@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm, useMesonItems } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "../../src/model/types";
+import { IMesonFieldItem, IMesonSelectItem } from "../../src/model/types";
 import { row, Space } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
@@ -14,8 +14,8 @@ let selectItems: IMesonSelectItem[] = [
 ];
 
 let formItems: IMesonFieldItem[] = [
-  { type: EMesonFieldType.Input, name: "name", label: "名字", required: true },
-  { type: EMesonFieldType.Select, name: "city", options: selectItems, label: "城市", allowClear: true },
+  { type: "input", name: "name", label: "名字", required: true },
+  { type: "select", name: "city", options: selectItems, label: "城市", allowClear: true },
 ];
 
 let intro = `
@@ -32,8 +32,8 @@ let code = `
 import { useMesonItems } from "@jimengio/meson-form";
 
 let formItems: IMesonFieldItem[] = [
-  { type: EMesonFieldType.Input, name: "name", label: "名字", required: true },
-  { type: EMesonFieldType.Select, name: "city", options: selectItems, label: "城市" },
+  { type: 'input', name: "name", label: "名字", required: true },
+  { type: 'select', name: "city", options: selectItems, label: "城市" },
 ];
 
 let [formElements, onCheckSubmit, formInternals] = useMesonItems({

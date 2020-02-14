@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { row } from "@jimengio/shared-utils";
 import Select from "antd/lib/select";
@@ -12,14 +12,14 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     required: true,
     label: "名称",
     name: "name",
   },
 
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     required: true,
     label: "名称",
     name: "longName",
@@ -30,7 +30,7 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     label: "性别",
     name: "sex",
     /** 测试自定义layout样式 */
@@ -58,7 +58,7 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     label: "自定义描述",
     name: "customDescription",
     required: true,
@@ -85,7 +85,7 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
-    type: EMesonFieldType.Textarea,
+    type: "textarea",
     label: "描述",
     name: "description",
     required: true,
@@ -100,23 +100,23 @@ let formItems: IMesonFieldItem[] = [
 
 let formItems2: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: () => "Custom errorClassName",
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     label: "username",
     name: "username",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     label: "password",
     name: "password",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     label: "lang text",
     name: "lang-text",
     required: true,

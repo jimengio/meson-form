@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import MesonInlineForm from "../../src/inline-form";
@@ -9,24 +9,24 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "Name",
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "address",
     label: "Address",
   },
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     name: "area",
     label: "Area",
     options: [],
   },
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     name: "description",
     label: "Description",
     render: (x, onChange) => {
