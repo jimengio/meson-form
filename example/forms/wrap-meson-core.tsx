@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { useMesonCore } from "../../src/hook/meson-core";
 import { IMesonCustomField, EMesonFieldType, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import { column } from "@jimengio/shared-utils";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 interface ILoginForm {
@@ -48,6 +48,8 @@ let WrapMesonCore: FC<{}> = (props) => {
   return (
     <div className={styleContainer}>
       <DocDemo title="create form directly with core hooks API" link={getLink("wrap-meson-core.tsx")}>
+        <DocBlock content={contentCore} />
+        <DocSnippet code={codeCore} />
         <div>
           Data:
           <code>{JSON.stringify(submittedForm)}</code>
@@ -115,4 +117,23 @@ let styleError = css`
 let styleFormArea = css`
   width: 200px;
   padding: 16px;
+`;
+
+let codeCore = `
+// let formItems = ...
+
+let { formAny, errors, onCheckSubmit, checkItem, updateItem, updateForm, updateErrors } = useMesonCore({
+  initialValue: {},
+  items: formItems,
+  onSubmit: (form) => {
+    // console.log(form)
+  },
+});
+`;
+
+let contentCore = `
+\`useMesonCore\` 提供一个最基础的 表单状态管理的功能. 得到 \`formAny\` 和 \`errors\`.
+可以用来深度定制 UI(一般不建议使用).
+
+通常情况用 \`useMesonItems\` 做一些定制应该是足够使用的.
 `;

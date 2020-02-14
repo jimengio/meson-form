@@ -4,7 +4,7 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
 
 interface IGuest {
   phone: string;
@@ -61,7 +61,10 @@ let LoginValidations: FC<{}> = (props) => {
   let [form, setForm] = useState({} as IGuest);
 
   return (
-    <div className={cx(row, styleContainer)}>
+    <div className={cx(styleContainer)}>
+      <DocBlock content={contentCheckChange} />
+      <DocSnippet code={codeCheckChange} />
+
       <DocDemo title="Login UI" link={"login-validations.tsx"}>
         <MesonForm<IGuest>
           noLabel
@@ -86,4 +89,28 @@ let styleContainer = css``;
 
 let styleForm = css`
   width: 300px;
+`;
+
+let codeCheckChange = `
+{
+  type: EMesonFieldType.Input,
+  name: "phone",
+  label: "手机号",
+  fullWidth: true,
+  checkOnChange: true,
+  validator: (x: string, item, form) => {
+    if (x == null) {
+      return "empty";
+    }
+    if (x.length < 5) {
+      return "Phone number too short, at least 5";
+    }
+
+    return null;
+  },
+}
+`;
+
+let contentCheckChange = `
+\`checkOnChange\` 属性可以用来快速触发校验, 用在输入框失焦时立即校验的情况.
 `;

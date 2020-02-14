@@ -4,7 +4,7 @@ import { MesonForm } from "../../src/form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
@@ -27,6 +27,8 @@ let SwitchPage: FC<{}> = (props) => {
   return (
     <div className={cx(row, styleContainer)}>
       <DocDemo title="Demo of switch type" link={getLink("switch.tsx")}>
+        <DocBlock content={contentSwitch} />
+        <DocSnippet code={codeSwitch} />
         <MesonForm
           initialValue={form}
           items={formItems}
@@ -45,3 +47,23 @@ let SwitchPage: FC<{}> = (props) => {
 export default SwitchPage;
 
 let styleContainer = css``;
+
+let codeSwitch = `
+let formItems: IMesonFieldItem[] = [
+  {
+    type: EMesonFieldType.Switch,
+    name: "checked",
+    label: "Checked",
+  },
+  {
+    type: EMesonFieldType.Switch,
+    name: "checked",
+    label: "Check disabled",
+    disabled: true,
+  },
+];
+`;
+
+let contentSwitch = `
+支持简单的 Switch 组件.
+`;

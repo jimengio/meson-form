@@ -4,8 +4,9 @@ import { lingual } from "../../src/lingual";
 import { MesonFormDropdown } from "meson-form";
 import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
-import { DocDemo } from "@jimengio/doc-frame";
+import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+import { Space } from "@jimengio/shared-utils";
 
 let DropdownPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});
@@ -26,6 +27,8 @@ let DropdownPage: FC<{}> = (props) => {
   return (
     <div className={styleContainer}>
       <DocDemo title="Demo of form in dropdown area" link={getLink("modal.tsx")}>
+        <DocSnippet code={codeDropdown} />
+
         <div className={styleArea}>
           <MesonFormDropdown
             title={"Settings"}
@@ -38,12 +41,13 @@ let DropdownPage: FC<{}> = (props) => {
             }}
             width={200}
           >
-            Dropdown area
+            Click to see dropdown
           </MesonFormDropdown>
         </div>
         <div>
           <DataPreview data={form} />
         </div>
+        <Space height={40} />
       </DocDemo>
     </div>
   );
@@ -59,4 +63,22 @@ let styleLabel = css`
 
 let styleArea = css`
   padding: 20px;
+`;
+
+let codeDropdown = `
+// let formItems = ...
+
+<MesonFormDropdown
+  title={"Settings"}
+  hideClose
+  items={formItems}
+  initialValue={form}
+  labelClassName={styleLabel}
+  onSubmit={(form) => {
+    setForm(form);
+  }}
+  width={200}
+>
+  Click to see dropdown
+</MesonFormDropdown>
 `;
