@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "../../src/model/types";
+import { IMesonFieldItem, IMesonSelectItem } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
@@ -14,7 +14,7 @@ Meson Form 基本的用法是用 JSON 结构的数据定义规则, 然后交给 
 `;
 
 let code = `
-import { MesonForm, IMesonFieldItem, EMesonFieldType } from "@jimengio/meson-form";
+import { MesonForm, IMesonFieldItem } from "@jimengio/meson-form";
 
 let selectItems: IMesonSelectItem[] = [
   {
@@ -29,13 +29,13 @@ let selectItems: IMesonSelectItem[] = [
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: 'input',
     name: "name",
     label: "名字",
     required: true,
   },
   {
-    type: EMesonFieldType.Select,
+    type: 'select',
     name: "city",
     options: selectItems,
     label: "城市",
@@ -67,13 +67,13 @@ let selectItems: IMesonSelectItem[] = [
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "名字",
     required: true,
   },
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     name: "city",
     options: selectItems,
     label: "城市",

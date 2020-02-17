@@ -2,24 +2,24 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { row } from "@jimengio/shared-utils";
 import { MesonForm } from "meson-form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "名字",
   },
   {
-    type: EMesonFieldType.Switch,
+    type: "switch",
     name: "switch",
     label: "开关",
   },
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     name: "select",
     label: "选择",
     options: [

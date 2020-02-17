@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { JimoButton } from "@jimengio/jimo-basics";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
@@ -46,32 +46,32 @@ let ModalPage: FC<{}> = (props) => {
 
   let formItems: IMesonFieldItem[] = [
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO----------------------test length",
     },
     {
-      type: EMesonFieldType.Number,
+      type: "number",
       name: "numberdemo",
       label: "number DEMO",
       inputProps: {

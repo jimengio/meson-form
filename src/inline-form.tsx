@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { EMesonFieldType, IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
 import { column, row } from "@jimengio/shared-utils";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -34,7 +34,7 @@ export function MesonInlineForm<T>(props: {
 
   let renderItem = (item: IMesonFieldItem<T>, idx: number) => {
     switch (item.type) {
-      case EMesonFieldType.Custom:
+      case "custom":
         let onChange = (value: any) => {
           updateItem(value, item);
         };
@@ -43,7 +43,7 @@ export function MesonInlineForm<T>(props: {
           checkItemWithValue(value, item);
         };
         return item.render(formAny[item.name], onChange, formAny, onCheck);
-      case EMesonFieldType.Input:
+      case "input":
         return (
           <Input
             value={formAny[item.name]}
@@ -72,7 +72,7 @@ export function MesonInlineForm<T>(props: {
           />
         );
 
-      case EMesonFieldType.Select:
+      case "select":
         let currentValue = formAny[item.name];
         if (item.translateNonStringvalue && currentValue != null) {
           currentValue = `${currentValue}`;
@@ -119,19 +119,19 @@ export function MesonInlineForm<T>(props: {
   return (
     <div className={cx(row, styleContainer)}>
       {props.items.map((item, idx) => {
-        if (item.type === EMesonFieldType.Group) {
+        if (item.type === "group") {
           return <>{item.children.map(renderItem)}</>;
         }
 
-        if (item.type === EMesonFieldType.Nested) {
+        if (item.type === "nested") {
           return `Not supported type: ${item.type}`;
         }
 
-        if (item.type === EMesonFieldType.CustomMultiple) {
+        if (item.type === "custom-multiple") {
           return `Not supported type: ${item.type}`;
         }
 
-        if (item.type === EMesonFieldType.Decorative) {
+        if (item.type === "decorative") {
           return `Not supported type: ${item.type}`;
         }
 

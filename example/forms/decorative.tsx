@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
@@ -9,30 +9,30 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: () => <h1>From</h1>,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "名字",
   },
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: (form) => <span>hello {form.name}</span>,
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "address",
     label: "地址",
   },
   {
-    type: EMesonFieldType.Switch,
+    type: "switch",
     name: "switch",
     label: "switch",
   },
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: (form) => <span>shouldHide</span>,
     shouldHide: (form) => form.switch,
   },
@@ -68,12 +68,12 @@ let styleContainer = css``;
 
 let codeDecorative = `
 {
-  type: EMesonFieldType.Decorative,
+  type: 'decorative',
   render: (form) => <span>hello {form.name}</span>,
 },
 
 {
-  type: EMesonFieldType.Decorative,
+  type: 'decorative',
   render: (form) => <span>shouldHide</span>,
   shouldHide: (form) => form.switch,
 },

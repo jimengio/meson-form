@@ -17,12 +17,12 @@ Define forms in an array with mostly JSON(with functions and enumerables):
 ```tsx
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "名字",
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     shouldHide: (form) => {
       return form.amount && form.amount > 6;
     },
@@ -125,7 +125,7 @@ Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFor
 
 ```ts
 {
-  type: EMesonFieldType.Custom,
+  type: 'custom',
   name: "size",
   label: "自定义",
   render: (value, onChange, form, onCheck) => {

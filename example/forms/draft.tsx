@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
-import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } from "../../src/model/types";
+import { IMesonSelectItem, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import Input from "antd/lib/input";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
@@ -33,7 +33,7 @@ let options: IMesonSelectItem[] = [
 
 let formItems: IMesonFieldItem<IDemo>[] = [
   {
-    type: EMesonFieldType.Select,
+    type: "select",
     label: "物料",
     name: "material",
     required: true,
@@ -48,7 +48,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     },
   },
   {
-    type: EMesonFieldType.Number,
+    type: "number",
     label: "数量",
     name: "amount",
     required: true,
@@ -62,14 +62,14 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     },
   },
   {
-    type: EMesonFieldType.Number,
+    type: "number",
     label: "计数",
     name: "count",
     required: true,
     validateMethods: [EMesonValidate.Number],
   },
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     shouldHide: (form) => {
       return form.amount && form.amount > 6;
     },
@@ -78,19 +78,17 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     required: true,
   },
   {
-    type: EMesonFieldType.Input,
-    textarea: true,
+    type: "textarea",
     label: "描述",
     name: "description",
     required: true,
   },
   {
-    type: EMesonFieldType.Group,
+    type: "group",
     shouldHide: () => true,
     children: [
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: "textarea",
         label: "描述",
         name: "description",
         required: true,
@@ -98,7 +96,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     ],
   },
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     name: null,
     label: "Width test",
     render: (value) => {
@@ -106,12 +104,12 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     },
   },
   {
-    type: EMesonFieldType.Nested,
+    type: "nested",
     label: "Nested",
-    children: [{ type: EMesonFieldType.Select, label: "物料", name: "materialInside", required: true, options: options }],
+    children: [{ type: "select", label: "物料", name: "materialInside", required: true, options: options }],
   },
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     name: "size",
     label: "自定义",
     render: (value, onChange, form, onCheck) => {

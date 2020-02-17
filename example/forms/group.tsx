@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
-import { IMesonSelectItem, IMesonFieldItem, EMesonFieldType, EMesonValidate } from "../../src/model/types";
+import { IMesonSelectItem, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import Input from "antd/lib/input";
 import { row, expand } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
@@ -33,23 +33,22 @@ let options: IMesonSelectItem[] = [
 
 let formItems: IMesonFieldItem<IDemo>[] = [
   {
-    type: EMesonFieldType.Switch,
+    type: "switch",
     label: "Show/hide",
     name: "visibility",
   },
   {
-    type: EMesonFieldType.Group,
+    type: "group",
     shouldHide: (form) => form.visibility,
     children: [
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "a",
         name: "a",
         required: true,
       },
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: "textarea",
         label: "b",
         name: "b",
         required: true,
@@ -58,25 +57,24 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     ],
   },
   {
-    type: EMesonFieldType.Nested,
+    type: "nested",
     label: "Nested",
     children: [
-      { type: EMesonFieldType.Select, label: "物料", name: "c", required: true, options: options },
-      { type: EMesonFieldType.Input, label: "d", name: "d" },
+      { type: "select", label: "物料", name: "c", required: true, options: options },
+      { type: "input", label: "d", name: "d" },
     ],
   },
   {
-    type: EMesonFieldType.Group,
+    type: "group",
     horizontal: true,
     children: [
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "e",
         name: "e",
       },
       {
-        type: EMesonFieldType.Input,
-        textarea: true,
+        type: "textarea",
         label: "f",
         name: "f",
       },
@@ -86,52 +84,52 @@ let formItems: IMesonFieldItem<IDemo>[] = [
 
 let formItems2: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: () => <h2>Group 01 (width: 200px)</h2>,
   },
   {
-    type: EMesonFieldType.Group,
+    type: "group",
     horizontal: true,
     itemWidth: 200,
     children: [
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "1-1",
         name: "1-1",
       },
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "1-2",
         name: "1-2",
       },
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "1-3",
         name: "1-3",
       },
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "1-4",
         name: "1-4",
       },
     ],
   },
   {
-    type: EMesonFieldType.Decorative,
+    type: "decorative",
     render: () => <h2>Group 02 (width: 50%)</h2>,
   },
   {
-    type: EMesonFieldType.Group,
+    type: "group",
     horizontal: true,
     itemWidth: "50%",
     children: [
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "2-1",
         name: "2-1",
       },
       {
-        type: EMesonFieldType.Input,
+        type: "input",
         label: "2-2",
         name: "2-2",
       },

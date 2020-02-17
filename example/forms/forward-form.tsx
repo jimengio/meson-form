@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonFormHandler, MesonFormForwarded } from "../../src/form-forwarded";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { row, column } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import Button from "antd/lib/button";
@@ -10,7 +10,7 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem<{ name?: string }>[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     name: "name",
     label: "名字",
   },

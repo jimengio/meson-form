@@ -1,4 +1,4 @@
-import { EMesonFieldType, IMesonFieldItem, IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
+import { IMesonFieldItem, IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
 import { formatString, lingual } from "../lingual";
 import is from "is";
 

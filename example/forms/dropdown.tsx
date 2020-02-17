@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormDropdown } from "meson-form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -13,12 +13,12 @@ let DropdownPage: FC<{}> = (props) => {
 
   let formItems: IMesonFieldItem[] = [
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },
     {
-      type: EMesonFieldType.Input,
+      type: "input",
       name: "demo",
       label: "DEMO",
     },

@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType } from "../../src/model/types";
+import { IMesonFieldItem } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import Input from "antd/lib/input";
@@ -10,7 +10,7 @@ import { getLink } from "util/link";
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Custom,
+    type: "custom",
     name: "x",
     label: "自定义",
     render: (value, onChange, form, onCheck) => {
@@ -64,7 +64,7 @@ let styleContainer = css``;
 let codeCustom = `
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Custom,
+    type: 'custom',
     name: "x",
     label: "自定义",
     render: (value, onChange, form, onCheck) => {

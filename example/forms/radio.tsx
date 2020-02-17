@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, IMesonRadioItem } from "../../src/model/types";
+import { IMesonFieldItem, IMesonRadioItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -13,13 +13,13 @@ const options: IMesonRadioItem[] = [
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Radio,
+    type: "radio",
     name: "name",
     label: "name",
     options: options,
   },
   {
-    type: EMesonFieldType.Radio,
+    type: "radio",
     name: "secondName",
     label: "name 2",
     options: options,
@@ -64,13 +64,13 @@ const options: IMesonRadioItem[] = [
 
 let formItems: IMesonFieldItem[] = [
   {
-    type: EMesonFieldType.Radio,
+    type: 'radio',
     name: "name",
     label: "name",
     options: options,
   },
   {
-    type: EMesonFieldType.Radio,
+    type: 'radio',
     name: "secondName",
     label: "name 2",
     options: options,

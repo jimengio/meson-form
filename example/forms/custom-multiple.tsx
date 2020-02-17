@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "../../src/form";
-import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors } from "../../src/model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "../../src/model/types";
 import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import Input from "antd/lib/input";
@@ -16,13 +16,13 @@ interface IDemo {
 
 let formItems: IMesonFieldItem<IDemo>[] = [
   {
-    type: EMesonFieldType.Input,
+    type: "input",
     label: "simple",
     name: "a0",
     required: true,
   },
   {
-    type: EMesonFieldType.CustomMultiple,
+    type: "custom-multiple",
     names: ["a", "b"],
     label: "自定义",
     required: true,
@@ -108,13 +108,13 @@ let codeCustomMultiple = `
 
 let formItems: IMesonFieldItem<IDemo>[] = [
   {
-    type: EMesonFieldType.Input,
+    type: 'input',
     label: "simple",
     name: "a0",
     required: true,
   },
   {
-    type: EMesonFieldType.CustomMultiple,
+    type: 'custom-multiple',
     names: ["a", "b"],
     label: "自定义",
     required: true,

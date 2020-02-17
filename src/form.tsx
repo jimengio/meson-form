@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties, ReactText } from "react";
 import { row, column, flex, flexWrap, displayFlex } from "@jimengio/shared-utils";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, EMesonFieldType, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/dropdown";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
@@ -70,21 +70,19 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
   let renderValueItem = (item: IMesonFieldItem<T>) => {
     switch (item.type) {
-      case EMesonFieldType.Input:
-        if (item.textarea) {
-          return renderTextAreaItem(form, item, updateItem, checkItem);
-        }
+      case "input":
         return renderInputItem(form, item, updateItem, checkItem, checkItemWithValue);
-
-      case EMesonFieldType.Number:
+      case "textarea":
+        return renderTextAreaItem(form, item, updateItem, checkItem);
+      case "number":
         return renderNumberItem(form, item, updateItem, checkItem);
-      case EMesonFieldType.Switch:
+      case "switch":
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
-      case EMesonFieldType.Select:
+      case "select":
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
-      case EMesonFieldType.Radio:
+      case "radio":
         return renderRadioItem(form, item, updateItem, checkItemWithValue);
-      case EMesonFieldType.Custom:
+      case "custom":
       // already handled outside
     }
     return <div>Unknown type: {(item as any).type}</div>;
@@ -102,7 +100,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
         return null;
       }
 
-      if (item.type === EMesonFieldType.Group) {
+      if (item.type === "group") {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
         const mergeClassName = item.horizontal ? cx(displayFlex, flexWrap) : undefined;
 
@@ -116,7 +114,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
       let name: string = (item as any).name;
       let error = name != null ? errors[name] : null;
 
-      if (item.type === EMesonFieldType.Custom) {
+      if (item.type === "custom") {
         let onChange = (value: any) => {
           updateItem(value, item);
         };
@@ -137,7 +135,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
         );
       }
 
-      if (item.type === EMesonFieldType.CustomMultiple) {
+      if (item.type === "custom-multiple") {
         let modifidForm: FuncMesonModifyForm = (f) => {
           updateForm(f);
         };
@@ -161,11 +159,11 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
         );
       }
 
-      if (item.type === EMesonFieldType.Nested) {
+      if (item.type === "nested") {
         return renderItemLayout(key, item as any, error, renderItems(item.children, undefined, key), props.labelClassName, props.errorClassName, hideLabel);
       }
 
-      if (item.type === EMesonFieldType.Decorative) {
+      if (item.type === "decorative") {
         return renderDecorativeItem(key, form, item);
       }
 

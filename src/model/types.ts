@@ -1,5 +1,5 @@
 import { ReactNode, ReactText } from "react";
-import { InputProps } from "antd/lib/input";
+import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
 import { SelectProps } from "antd/lib/select";
 import { Draft } from "immer";
@@ -26,6 +26,7 @@ export type FuncMesonModifyForm<T = any> = (modifter: (form: Draft<T>) => void) 
 
 export enum EMesonFieldType {
   Input = "input",
+  Textarea = "textarea",
   Number = "number",
   Select = "select",
   Custom = "custom",
@@ -50,7 +51,7 @@ export interface IMesonFieldBaseProps<T> {
 }
 
 export interface IMesonDecorativeField<T> {
-  type: EMesonFieldType.Decorative;
+  type: "decorative";
   render: (form: T) => ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -59,16 +60,32 @@ export interface IMesonDecorativeField<T> {
 
 export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
   name: string;
-  type: EMesonFieldType.Input;
+  type: "input";
   /** real type property on <input/> */
   inputType?: string;
-  /** other props for input and textarea, actially need TextareaProps */
   inputProps?: InputProps;
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
-  textarea?: boolean;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  /** validate immediately after content change,
+   * by default validation performs after each blur event
+   */
+  checkOnChange?: boolean;
+  /** add styles to container of value, which is inside each field and around the value */
+  valueContainerClassName?: string;
+}
+
+export interface IMesonTexareaField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "textarea";
+  textareaProps?: TextAreaProps;
+  placeholder?: string;
+  /** false by default, "" and " " will emit value `undefined` */
+  useBlank?: boolean;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
@@ -81,7 +98,7 @@ export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
 
 export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
   name: string;
-  type: EMesonFieldType.Number;
+  type: "number";
   placeholder?: string;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
@@ -94,7 +111,7 @@ export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
 
 export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
   name: string;
-  type: EMesonFieldType.Switch;
+  type: "switch";
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
@@ -116,7 +133,7 @@ export interface IMesonRadioItem {
 
 export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   name: string;
-  type: EMesonFieldType.Select;
+  type: "select";
   placeholder?: string;
   options: IMesonSelectItem[];
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
@@ -130,7 +147,7 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
 
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   name: string;
-  type: EMesonFieldType.Custom;
+  type: "custom";
   /** parent container is using column,
    * for antd inputs with default with 100%, you need to take care of that by yourself
    * @param current value in this field
@@ -145,7 +162,7 @@ export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
 }
 
 export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
-  type: EMesonFieldType.CustomMultiple;
+  type: "custom-multiple";
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
    * @param checkForm accepts an object of new values
@@ -158,12 +175,12 @@ export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
-  type: EMesonFieldType.Nested;
+  type: "nested";
   children: IMesonFieldItem<T>[];
 }
 
 export interface IMesonGroupFields<T> {
-  type: EMesonFieldType.Group;
+  type: "group";
   children: IMesonFieldItem<T>[];
   shouldHide?: (form: T) => boolean;
   /**
@@ -177,7 +194,7 @@ export interface IMesonGroupFields<T> {
 }
 
 export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
-  type: EMesonFieldType.Radio;
+  type: "radio";
   name: string;
   label: string;
   options: IMesonRadioItem[];
@@ -188,17 +205,19 @@ export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
 }
 
 // 默认any过渡
-export type IMesonFieldItemHasValue<T = any> = 
-  IMesonInputField<T> | 
-  IMesonNumberField<T> | 
-  IMesonSelectField<T> | 
-  IMesonCustomField<T> | 
-  IMesonRadioField<T> |
-  IMesonSwitchField<T>;
+export type IMesonFieldItemHasValue<T = any> =
+  | IMesonInputField<T>
+  | IMesonTexareaField<T>
+  | IMesonNumberField<T>
+  | IMesonSelectField<T>
+  | IMesonCustomField<T>
+  | IMesonRadioField<T>
+  | IMesonSwitchField<T>;
 
 // 默认any过渡
 export type IMesonFieldItem<T = any> =
   | IMesonInputField<T>
+  | IMesonTexareaField<T>
   | IMesonNumberField<T>
   | IMesonSelectField<T>
   | IMesonCustomField<T>
