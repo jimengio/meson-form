@@ -1,7 +1,10 @@
 name: Upload Assets
 
 on:
-  push: {}
+  pull_request: {}
+  push:
+    branches:
+      - master
 
 jobs:
   upload-assets:
@@ -23,7 +26,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn && yarn release
+      - run: yarn
+
+      - run: yarn compile
+
+      - run: yarn release
         name: Build web assets
 
       - name: Deploy to server
