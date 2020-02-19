@@ -12,7 +12,7 @@ function qsStringify(queries: { [k: string]: string }) {
 
 // generated
 
-// Generated with router-code-generator@0.2.5
+// Generated with router-code-generator@0.2.6-a1
 
 export let genRouter = {
   home: {
@@ -153,6 +153,12 @@ export let genRouter = {
     path: () => `/footer-buttons`,
     go: () => switchPath(`/footer-buttons`),
   },
+  datePicker: {
+    name: "date-picker",
+    raw: "date-picker",
+    path: () => `/date-picker`,
+    go: () => switchPath(`/date-picker`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -185,6 +191,7 @@ export type GenRouterTypeMain =
   | GenRouterTypeTree["useItems"]
   | GenRouterTypeTree["radio"]
   | GenRouterTypeTree["footerButtons"]
+  | GenRouterTypeTree["datePicker"]
   | GenRouterTypeTree["$"];
 
 export interface GenRouterTypeTree {
@@ -322,6 +329,12 @@ export interface GenRouterTypeTree {
   };
   footerButtons: {
     name: "footer-buttons";
+    params: {};
+    query: {};
+    next: null;
+  };
+  datePicker: {
+    name: "date-picker";
     params: {};
     query: {};
     next: null;

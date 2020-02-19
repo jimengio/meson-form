@@ -1,6 +1,10 @@
 import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
 import { formatString, lingual } from "./lingual";
+import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
+import DatePicker from "antd/lib/date-picker";
+import dataPickerLocale from "antd/es/date-picker/locale/zh_CN";
+
 import {
   IMesonInputField,
   IMesonFieldItemHasValue,
@@ -10,6 +14,7 @@ import {
   IMesonDecorativeField,
   IMesonRadioField,
   IMesonTexareaField,
+  IMesonDatePickerField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -188,6 +193,39 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateIte
     >
       {renderRadios(item)}
     </Radio.Group>
+  );
+}
+
+export function renderDatePickerItem<T>(
+  form: T,
+  item: IMesonDatePickerField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  return (
+    <DatePicker
+      locale={dataPickerLocale}
+      value={form[item.name] && moment(form[item.name])}
+      allowClear={item.allowClear}
+      disabled={item.disabled}
+      placeholder={item.placeholder || lingual.pleaseSelect}
+      className={item.className}
+      style={item.style}
+      onChange={(dateObj, dateString) => {
+        if (dateString == null || dateString === "") {
+          updateItem(undefined, item);
+        } else {
+          if (item.transformSelectedValue != null) {
+            // TODO, 可能存在场景需要处理 utcOffset(480)
+            dateString = item.transformSelectedValue(dateObj.clone(), dateString);
+          }
+          checkItemWithValue(dateString, item);
+          updateItem(dateString, item);
+        }
+      }}
+      {...item.datePickerProps}
+    />
   );
 }
 

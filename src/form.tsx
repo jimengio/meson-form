@@ -19,6 +19,7 @@ import {
   renderItemLayout,
   ValueFieldContainer,
   renderRadioItem,
+  renderDatePickerItem,
 } from "./renderer";
 import { lingual } from "./lingual";
 import Button from "antd/lib/button";
@@ -82,6 +83,8 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "radio":
         return renderRadioItem(form, item, updateItem, checkItemWithValue);
+      case "date-picker":
+        return renderDatePickerItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "custom":
       // already handled outside
     }

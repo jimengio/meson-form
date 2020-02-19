@@ -14,6 +14,7 @@ import {
   renderDecorativeItem,
   renderItemLayout,
   ValueFieldContainer,
+  renderDatePickerItem,
 } from "./renderer";
 import { MesonFormProps } from "./form";
 import { Draft } from "immer";
@@ -87,6 +88,8 @@ export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: R
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case "select":
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
+      case "date-picker":
+        return renderDatePickerItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "custom":
       // already handled outside
     }

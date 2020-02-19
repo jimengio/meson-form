@@ -28,6 +28,7 @@ import LoginValidations from "forms/login-validations";
 import FormUseItems from "forms/use-items";
 import FormRadio from "forms/radio";
 import PageFooterButtons from "./footer-buttons";
+import ExampleDatePicker from "forms/date-picker";
 
 let items: ISidebarEntry[] = [
   {
@@ -140,6 +141,12 @@ let items: ISidebarEntry[] = [
     cnTitle: "单选",
     path: genRouter.radio.name,
   },
+
+  {
+    title: "Date Picker",
+    cnTitle: "日期",
+    path: genRouter.datePicker.name,
+  },
   {
     title: "Footer buttons",
     cnTitle: "提交按钮",
@@ -203,6 +210,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <FormRadio />;
       case "footer-buttons":
         return <PageFooterButtons />;
+      case "date-picker":
+        return <ExampleDatePicker />;
       default:
         return <FormBasic />;
     }
