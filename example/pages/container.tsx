@@ -29,6 +29,7 @@ import FormUseItems from "forms/use-items";
 import FormRadio from "forms/radio";
 import PageFooterButtons from "./footer-buttons";
 import ExampleDatePicker from "forms/date-picker";
+import ExampleTreeSelect from "forms/tree-select";
 
 let items: ISidebarEntry[] = [
   {
@@ -141,11 +142,15 @@ let items: ISidebarEntry[] = [
     cnTitle: "单选",
     path: genRouter.radio.name,
   },
-
   {
     title: "Date Picker",
     cnTitle: "日期",
     path: genRouter.datePicker.name,
+  },
+  {
+    title: "Tree Select",
+    cnTitle: "树形选择",
+    path: genRouter.treeSelect.name,
   },
   {
     title: "Footer buttons",
@@ -212,6 +217,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <PageFooterButtons />;
       case "date-picker":
         return <ExampleDatePicker />;
+      case "tree-select":
+        return <ExampleTreeSelect />;
       default:
         return <FormBasic />;
     }

@@ -159,6 +159,12 @@ export let genRouter = {
     path: () => `/date-picker`,
     go: () => switchPath(`/date-picker`),
   },
+  treeSelect: {
+    name: "tree-select",
+    raw: "tree-select",
+    path: () => `/tree-select`,
+    go: () => switchPath(`/tree-select`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -192,6 +198,7 @@ export type GenRouterTypeMain =
   | GenRouterTypeTree["radio"]
   | GenRouterTypeTree["footerButtons"]
   | GenRouterTypeTree["datePicker"]
+  | GenRouterTypeTree["treeSelect"]
   | GenRouterTypeTree["$"];
 
 export interface GenRouterTypeTree {
@@ -335,6 +342,12 @@ export interface GenRouterTypeTree {
   };
   datePicker: {
     name: "date-picker";
+    params: {};
+    query: {};
+    next: null;
+  };
+  treeSelect: {
+    name: "tree-select";
     params: {};
     query: {};
     next: null;

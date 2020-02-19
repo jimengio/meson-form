@@ -27,5 +27,6 @@ export const routerRules: IRouteRule[] = [
   { path: "radio" },
   { path: "footer-buttons" },
   { path: "date-picker" },
+  { path: "tree-select" },
   { path: "", name: "home" },
 ];

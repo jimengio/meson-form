@@ -15,15 +15,18 @@ import {
   IMesonRadioField,
   IMesonTexareaField,
   IMesonDatePickerField,
+  IMesonTreeSelectField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
+import TreeSelect from "antd/lib/tree-select";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
+import { isArray, isString, isNumber } from "lodash-es";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
@@ -168,6 +171,43 @@ export function renderSelectItem<T>(
         );
       })}
     </Select>
+  );
+}
+
+export function renderTreeSelectItem<T>(
+  form: T,
+  item: IMesonTreeSelectField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  let currentValue = form[item.name];
+
+  return (
+    <TreeSelect
+      value={currentValue}
+      multiple={item.multiple}
+      disabled={item.disabled}
+      className={width100}
+      allowClear={item.allowClear}
+      placeholder={item.placeholder || lingual.pleaseSelect}
+      onChange={(newValue) => {
+        let multiple = item.multiple || item.treeSelectProps.multiple;
+
+        if (multiple) {
+          if (isString(newValue) || isNumber(newValue)) {
+            console.warn("tree-select: got literal value in multiple mode", newValue, item);
+          }
+        } else {
+          if (isArray(newValue)) {
+            console.warn("tree-select: got array value in single mode", newValue, item);
+          }
+        }
+        checkItemWithValue(newValue, item);
+        updateItem(newValue, item);
+      }}
+      {...item.treeSelectProps}
+    ></TreeSelect>
   );
 }
 

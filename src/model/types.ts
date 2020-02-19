@@ -3,6 +3,7 @@ import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
 import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
+import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
 import { Draft } from "immer";
 import { Moment } from "moment";
 
@@ -128,6 +129,20 @@ export interface IMesonDatePickerField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
+export interface IMesonTreeSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "tree-select";
+  placeholder?: string;
+  allowClear?: boolean;
+  disabled?: boolean;
+  multiple?: boolean;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  treeSelectProps?: TreeSelectProps<TreeNodeValue>;
+  valueContainerClassName?: string;
+}
+
 export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: "switch";
@@ -232,6 +247,7 @@ export type IMesonFieldItemHasValue<T = any> =
   | IMesonCustomField<T>
   | IMesonRadioField<T>
   | IMesonDatePickerField<T>
+  | IMesonTreeSelectField<T>
   | IMesonSwitchField<T>;
 
 // 默认any过渡
@@ -247,4 +263,5 @@ export type IMesonFieldItem<T = any> =
   | IMesonGroupFields<T>
   | IMesonRadioField<T>
   | IMesonDatePickerField<T>
+  | IMesonTreeSelectField<T>
   | IMesonCustomMultipleField<T>;
