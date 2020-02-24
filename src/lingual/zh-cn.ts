@@ -7,6 +7,7 @@ export const zhCN: ILang = {
   labelShouldBeNumber: "{label} 应该为数字",
   labelShouldBeString: "{label} 应该为字符串",
   pleaseInputLabel: "请输入{label}",
+  pleaseSelect: "请选择",
   pleaseSelectLabel: "请选择{label}",
   submit: "提交",
 };

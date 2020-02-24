@@ -7,6 +7,7 @@ export const enUS: ILang = {
   labelShouldBeNumber: "{label} should be a number",
   labelShouldBeString: "{label} should be a string",
   pleaseInputLabel: "Please input {label}",
+  pleaseSelect: "Please select",
   pleaseSelectLabel: "Please select {label}",
   submit: "Submit",
 };

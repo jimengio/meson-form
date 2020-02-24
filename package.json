@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.4.0",
+  "version": "0.4.1-a1",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -49,6 +49,7 @@
     "html-webpack-tags-plugin": "^2.0.17",
     "http-server": "^0.12.1",
     "immer": "^5.3.6",
+    "moment": "^2.24.0",
     "prettier": "^1.19.1",
     "raw-loader": "^4.0.0",
     "react": "16.12.0",
@@ -75,6 +76,7 @@
     "@jimengio/meson-modal": ">=0.2.16",
     "@jimengio/safe-property": "*",
     "@jimengio/shared-utils": "*",
+    "moment": "^2.24.0",
     "antd": "^3.18.2",
     "immer": "*",
     "react": "*",

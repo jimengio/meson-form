@@ -1,6 +1,10 @@
 import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
 import { formatString, lingual } from "./lingual";
+import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
+import DatePicker from "antd/lib/date-picker";
+import dataPickerLocale from "antd/es/date-picker/locale/zh_CN";
+
 import {
   IMesonInputField,
   IMesonFieldItemHasValue,
@@ -10,15 +14,19 @@ import {
   IMesonDecorativeField,
   IMesonRadioField,
   IMesonTexareaField,
+  IMesonDatePickerField,
+  IMesonTreeSelectField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
+import TreeSelect from "antd/lib/tree-select";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
+import { isArray, isString, isNumber } from "lodash-es";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
@@ -166,6 +174,43 @@ export function renderSelectItem<T>(
   );
 }
 
+export function renderTreeSelectItem<T>(
+  form: T,
+  item: IMesonTreeSelectField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  let currentValue = form[item.name];
+
+  return (
+    <TreeSelect
+      value={currentValue}
+      multiple={item.multiple}
+      disabled={item.disabled}
+      className={width100}
+      allowClear={item.allowClear}
+      placeholder={item.placeholder || lingual.pleaseSelect}
+      onChange={(newValue) => {
+        let multiple = item.multiple || item.treeSelectProps.multiple;
+
+        if (multiple) {
+          if (isString(newValue) || isNumber(newValue)) {
+            console.warn("tree-select: got literal value in multiple mode", newValue, item);
+          }
+        } else {
+          if (isArray(newValue)) {
+            console.warn("tree-select: got array value in single mode", newValue, item);
+          }
+        }
+        checkItemWithValue(newValue, item);
+        updateItem(newValue, item);
+      }}
+      {...item.treeSelectProps}
+    ></TreeSelect>
+  );
+}
+
 export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
   const renderRadios = (item: IMesonRadioField<T>) => {
     const radios = item.options;
@@ -188,6 +233,39 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateIte
     >
       {renderRadios(item)}
     </Radio.Group>
+  );
+}
+
+export function renderDatePickerItem<T>(
+  form: T,
+  item: IMesonDatePickerField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  return (
+    <DatePicker
+      locale={dataPickerLocale}
+      value={form[item.name] && moment(form[item.name])}
+      allowClear={item.allowClear}
+      disabled={item.disabled}
+      placeholder={item.placeholder || lingual.pleaseSelect}
+      className={item.className}
+      style={item.style}
+      onChange={(dateObj, dateString) => {
+        if (dateString == null || dateString === "") {
+          updateItem(undefined, item);
+        } else {
+          if (item.transformSelectedValue != null) {
+            // TODO, 可能存在场景需要处理 utcOffset(480)
+            dateString = item.transformSelectedValue(dateObj.clone(), dateString);
+          }
+          checkItemWithValue(dateString, item);
+          updateItem(dateString, item);
+        }
+      }}
+      {...item.datePickerProps}
+    />
   );
 }
 

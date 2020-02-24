@@ -6,6 +6,7 @@ export interface ILang {
   labelShouldBeNumber: string;
   labelShouldBeString: string;
   pleaseInputLabel: string;
+  pleaseSelect: string;
   pleaseSelectLabel: string;
   submit: string;
 }

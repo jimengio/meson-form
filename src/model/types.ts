@@ -1,8 +1,11 @@
 import { ReactNode, ReactText } from "react";
 import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
+import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
+import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
 import { Draft } from "immer";
+import { Moment } from "moment";
 
 export interface ISimpleObject<T = any> {
   [k: string]: T;
@@ -35,6 +38,8 @@ export enum EMesonFieldType {
   Nested = "nested",
   Switch = "switch",
   Radio = "radio",
+  DatePicker = "date-picker",
+  TreeSelect = "tree-select",
   // like React fragment
   Group = "group",
 }
@@ -106,6 +111,35 @@ export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
   min?: number;
   max?: number;
   inputProps?: InputNumberProps;
+  valueContainerClassName?: string;
+}
+
+export interface IMesonDatePickerField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "date-picker";
+  placeholder?: string;
+  allowClear?: boolean;
+  disabled?: boolean;
+  /** 组件选中的值, 设置到 form object 之前如果需要进行转换 */
+  transformSelectedValue?: (clonedDateObj: Moment, dateString: string) => string;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  datePickerProps?: DatePickerProps;
+  valueContainerClassName?: string;
+}
+
+export interface IMesonTreeSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "tree-select";
+  placeholder?: string;
+  allowClear?: boolean;
+  disabled?: boolean;
+  multiple?: boolean;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  treeSelectProps?: TreeSelectProps<TreeNodeValue>;
   valueContainerClassName?: string;
 }
 
@@ -212,6 +246,8 @@ export type IMesonFieldItemHasValue<T = any> =
   | IMesonSelectField<T>
   | IMesonCustomField<T>
   | IMesonRadioField<T>
+  | IMesonDatePickerField<T>
+  | IMesonTreeSelectField<T>
   | IMesonSwitchField<T>;
 
 // 默认any过渡
@@ -226,4 +262,6 @@ export type IMesonFieldItem<T = any> =
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
   | IMesonRadioField<T>
+  | IMesonDatePickerField<T>
+  | IMesonTreeSelectField<T>
   | IMesonCustomMultipleField<T>;
