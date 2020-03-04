@@ -4,7 +4,7 @@
   :locales {
     "cancel" {"zhCN" "取消", "enUS" "Cancel"}
     "confirm" {"zhCN" "确认", "enUS" "Confirm"}
-    "labelIsRequired" {"zhCN" "{label} 必填", "enUS" "{label} is required"}
+    "labelIsRequired" {"zhCN" "{label} 不可以为空", "enUS" "{label} is required"}
     "labelShouldBeBoolean" {"zhCN" "{label} 应该为布尔值", "enUS" "{label} should be a boolean"}
     "labelShouldBeNumber" {"zhCN" "{label} 应该为数字", "enUS" "{label} should be a number"}
     "labelShouldBeString" {"zhCN" "{label} 应该为字符串", "enUS" "{label} should be a string"}
