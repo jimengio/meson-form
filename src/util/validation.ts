@@ -36,11 +36,22 @@ export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonV
 
 export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>, formValue: T): string => {
   if (item.validator != null) {
-    return item.validator(x, item, formValue);
-  } else if (is.array(item.validateMethods)) {
-    return validateByMethods(x, item.validateMethods, item);
-  } else if (item.required) {
-    return validateValueRequired(x, item);
+    let ret = item.validator(x, item, formValue);
+    if (ret != null) {
+      return ret;
+    }
+  }
+  if (is.array(item.validateMethods)) {
+    let ret = validateByMethods(x, item.validateMethods, item);
+    if (ret != null) {
+      return ret;
+    }
+  }
+  if (item.required) {
+    let ret = validateValueRequired(x, item);
+    if (ret != null) {
+      return ret;
+    }
   }
   return undefined;
 };

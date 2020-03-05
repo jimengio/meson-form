@@ -16,8 +16,10 @@ let formItems: IMesonFieldItem[] = [
     required: true,
     label: "名称",
     name: "name",
+    validator: () => {
+      return undefined;
+    },
   },
-
   {
     type: "input",
     required: true,
