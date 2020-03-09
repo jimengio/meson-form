@@ -2,7 +2,7 @@ import { ILang } from "./interface";
 export const zhCN: ILang = {
   cancel: "取消",
   confirm: "确认",
-  labelIsRequired: "{label} 不可以为空",
+  labelIsRequired: "请输入必填项{label}",
   labelShouldBeBoolean: "{label} 应该为布尔值",
   labelShouldBeNumber: "{label} 应该为数字",
   labelShouldBeString: "{label} 应该为字符串",

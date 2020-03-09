@@ -39,11 +39,10 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     required: true,
     options: options,
     validator: (x) => {
-      if (x == null) {
-        return "material is required";
-      }
-      if (x.length > 10) {
-        return "string too long";
+      if (x != null) {
+        if (x.length > 10) {
+          return "string too long";
+        }
       }
     },
   },
@@ -53,11 +52,10 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     name: "amount",
     required: true,
     validator: (x) => {
-      if (x == null) {
-        return "amount is required";
-      }
-      if (x > 10) {
-        return "too large";
+      if (x != null) {
+        if (x > 10) {
+          return "too large";
+        }
       }
     },
   },
