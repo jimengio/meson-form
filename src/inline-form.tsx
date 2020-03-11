@@ -8,6 +8,7 @@ import Input from "antd/lib/input";
 import { formatString, lingual } from "./lingual";
 import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
+import { styleInput, styleSelect } from "./style";
 
 export function MesonInlineForm<T>(props: {
   initialValue: T;
@@ -52,7 +53,7 @@ export function MesonInlineForm<T>(props: {
             type={item.inputType || "text"}
             style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={styleControlBase}
+            className={cx(styleInput, styleControlBase)}
             onChange={(event) => {
               let newValue = event.target.value;
 
@@ -82,7 +83,7 @@ export function MesonInlineForm<T>(props: {
             value={currentValue}
             key={`${item.name}+${idx}`}
             placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-            className={styleControlBase}
+            className={cx(styleSelect, styleControlBase)}
             style={item.style}
             onChange={(newValue) => {
               if (item.translateNonStringvalue && newValue != null) {

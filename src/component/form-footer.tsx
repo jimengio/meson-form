@@ -1,8 +1,9 @@
 import { css, cx } from "emotion";
 import React, { FC } from "react";
-import Button from "antd/lib/button";
+import { JimoButton } from "@jimengio/jimo-basics";
 import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/shared-utils";
 import { lingual } from "../lingual";
+import Icon from "antd/lib/icon";
 
 export enum EMesonFooterLayout {
   Center = "center",
@@ -20,11 +21,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
-          {lingual.confirm}
-        </Button>
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
         <div style={{ width: 12 }} />
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
       </div>
     );
   }
@@ -32,11 +31,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Center) {
     return (
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
         <div style={{ width: 12 }} />
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
-          {lingual.confirm}
-        </Button>
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
       </div>
     );
   }
@@ -46,11 +43,9 @@ export let FormFooter: FC<{
     <div className={cx(rowParted, styleFooter, props.hideSeparator ? null : styleBorder)}>
       <span />
       <div className={cx(rowMiddle)}>
-        <Button onClick={props.onCancel}>{lingual.cancel}</Button>
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
         <div style={{ width: 12 }} />
-        <Button type={"primary"} loading={props.isLoading} onClick={props.onSubmit}>
-          {lingual.confirm}
-        </Button>
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
       </div>
     </div>
   );

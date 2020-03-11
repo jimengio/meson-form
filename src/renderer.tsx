@@ -27,6 +27,7 @@ import Radio from "antd/lib/radio";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
+import { styleInput, styleSelect, styleTextArea, styleInputNumber, styleSwitch, styleRadio, styleDatePicker, styleTree } from "./style";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
@@ -36,6 +37,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
   return (
     <>
       <TextArea
+        className={styleTextArea}
         value={form[item.name]}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -62,6 +64,7 @@ export function renderInputItem<T>(
   return (
     <>
       <Input
+        className={styleInput}
         value={form[item.name]}
         disabled={item.disabled}
         type={item.inputType || "text"}
@@ -95,6 +98,7 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
   return (
     <>
       <InputNumber
+        className={styleInputNumber}
         value={form[item.name]}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -114,10 +118,9 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
 
 export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
   return (
-    <div>
+    <div className={styleSwitch}>
       <Switch
         checked={form[item.name]}
-        className={styleSwitch}
         disabled={item.disabled}
         onChange={(value) => {
           updateItem(value, item);
@@ -143,7 +146,7 @@ export function renderSelectItem<T>(
     <Select
       value={currentValue}
       disabled={item.disabled}
-      className={width100}
+      className={cx(styleSelect, width100)}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue) => {
         if (item.translateNonStringvalue && newValue != null) {
@@ -188,7 +191,7 @@ export function renderTreeSelectItem<T>(
       value={currentValue}
       multiple={item.multiple}
       disabled={item.disabled}
-      className={width100}
+      className={cx(styleTree, width100)}
       allowClear={item.allowClear}
       placeholder={item.placeholder || lingual.pleaseSelect}
       onChange={(newValue) => {
@@ -216,7 +219,7 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateIte
     const radios = item.options;
     return radios.map((radio) => {
       return (
-        <Radio value={radio.value} disabled={radio.disabled} key={radio.key || radio.value}>
+        <Radio className={styleRadio} value={radio.value} disabled={radio.disabled} key={radio.key || radio.value}>
           {radio.display}
         </Radio>
       );
@@ -250,7 +253,7 @@ export function renderDatePickerItem<T>(
       allowClear={item.allowClear}
       disabled={item.disabled}
       placeholder={item.placeholder || lingual.pleaseSelect}
-      className={item.className}
+      className={cx(styleDatePicker, item.className)}
       style={item.style}
       onChange={(dateObj, dateString) => {
         if (dateString == null || dateString === "") {
@@ -336,12 +339,6 @@ let styleControlBase = css`
 let styleTextareaBase = css`
   width: 240px;
   min-width: 240px;
-`;
-
-let styleSwitch = css`
-  &.ant-switch {
-    margin: 4px 0;
-  }
 `;
 
 let styleError = css`
