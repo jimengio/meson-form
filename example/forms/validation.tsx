@@ -9,6 +9,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { lingual, formatString } from "../../src/lingual";
 import { DocDemo } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+import { styleTextArea, styleSelect } from "../../src/style";
 
 let formItems: IMesonFieldItem[] = [
   {
@@ -44,7 +45,7 @@ let formItems: IMesonFieldItem[] = [
       return (
         <Select
           allowClear
-          className={styleMediumItem}
+          className={cx(styleSelect, styleMediumItem)}
           value={value}
           placeholder={formatString(lingual.pleaseSelectLabel, { label: "性别" })}
           onChange={onChange}
@@ -68,6 +69,7 @@ let formItems: IMesonFieldItem[] = [
       return (
         <div className={styleMediumItem}>
           <TextArea
+            className={cx(styleTextArea, styleMediumItem)}
             value={value}
             placeholder={formatString(lingual.pleaseInputLabel, { label: "自定义描述" })}
             onChange={(e) => {

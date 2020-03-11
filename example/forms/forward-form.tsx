@@ -4,9 +4,9 @@ import { MesonFormHandler, MesonFormForwarded } from "../../src/form-forwarded";
 import { IMesonFieldItem } from "../../src/model/types";
 import { row, column } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
-import Button from "antd/lib/button";
 import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+import { JimoButton } from "@jimengio/jimo-basics";
 
 let formItems: IMesonFieldItem<{ name?: string }>[] = [
   {
@@ -39,22 +39,9 @@ let FormBasic: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
           <div className={styleActions}>
-            <Button
-              type="primary"
-              onClick={() => {
-                formRef.current.onSubmit();
-              }}
-            >
-              提交
-            </Button>
-            <Button
-              type="ghost"
-              onClick={() => {
-                formRef.current.onReset();
-              }}
-            >
-              重置
-            </Button>
+            <JimoButton text="提交" fillColor onClick={() => formRef.current.onSubmit()} />
+            <div style={{ width: "12px" }} />
+            <JimoButton text="重置" canceling onClick={() => formRef.current.onReset()} />
           </div>
         </div>
       </DocDemo>
@@ -68,6 +55,7 @@ let styleContainer = css``;
 
 const styleActions = css`
   margin-top: 16px;
+  display: flex;
 
   .ant-btn:not(:last-child) {
     margin-right: 16px;

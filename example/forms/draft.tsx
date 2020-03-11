@@ -8,6 +8,7 @@ import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
+import { styleInput } from "../../src/style";
 
 interface IDemo {
   material: string;
@@ -115,6 +116,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
         <div className={row}>
           <div>
             <Input
+              className={styleInput}
               value={value}
               onChange={(event) => {
                 let newValue = event.target.value;

@@ -23,7 +23,7 @@ import {
   renderTreeSelectItem,
 } from "./renderer";
 import { lingual } from "./lingual";
-import Button from "antd/lib/button";
+import { JimoButton } from "@jimengio/jimo-basics";
 import { createItemKey } from "./util/string";
 
 export interface MesonFormProps<T> {
@@ -346,9 +346,7 @@ export function MesonFormDropdown<T>(props: {
     footerRenderer = (isLoading, onSubmit, onCancel, form) => {
       return (
         <div className={styleFooterContainer}>
-          <Button className={styleFooterButton} type="primary" onClick={onSubmit}>
-            {lingual.confirm}
-          </Button>
+          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor />
         </div>
       );
     };
