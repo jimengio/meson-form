@@ -341,12 +341,6 @@ let styleTextareaBase = css`
   min-width: 240px;
 `;
 
-// let styleSwitch = css`
-//   &.ant-switch {
-//     margin: 4px 0;
-//   }
-// `;
-
 let styleError = css`
   word-break: break-all;
   line-height: 1.5;
