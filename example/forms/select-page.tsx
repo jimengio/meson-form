@@ -40,6 +40,7 @@ let items: IMesonFieldItem[] = [
     options: addressOptions,
     allowClear: true,
     placeholder: "请选择",
+    selectProps:{}
   },
 ];
 

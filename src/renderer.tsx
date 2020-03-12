@@ -215,16 +215,16 @@ export function renderDropdownSelectItem<T>(
           min-width: 220px;
         `
       )}
-      menuClassName={item.menuClassName}
-      itemClassName={item.itemClassName}
+      menuClassName={item.selectProps.menuClassName}
+      itemClassName={item.selectProps.itemClassName}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-      emptyLocale={item.emptyLocale}
-      placeholderClassName={item.placeholderClassName}
-      menuWidth={item.menuWidth}
+      emptyLocale={item.selectProps.emptyLocale}
+      placeholderClassName={item.selectProps.placeholderClassName}
+      menuWidth={item.selectProps.menuWidth}
       disabled={item.disabled}
       allowClear={item.allowClear}
-      renderValue={item.renderValue}
-      followWheel={item.followWheel}
+      renderValue={item.selectProps.renderValue}
+      followWheel={item.selectProps.followWheel}
     />
   );
 }

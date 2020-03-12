@@ -179,27 +179,31 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
-  type: "dropdown-select";
+export interface IDropdownSelectProps {
   value?: string | number;
-  options: IMesonSelectItem[];
   className?: string;
   menuClassName?: string;
   itemClassName?: string;
-  placeholder?: string;
   emptyLocale?: string;
   placeholderClassName?: string;
   menuWidth?: number;
   disabled?: boolean;
-  allowClear?: boolean;
   renderValue?: (x: any) => ReactNode;
   followWheel?: boolean;
-  validator?: FuncMesonValidator<T>;
-  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
-  valueContainerClassName?: string;
-  translateNonStringvalue?: boolean;
+}
+
+export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "dropdown-select";
+  options: IMesonSelectItem[];
+  placeholder?: string;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  translateNonStringvalue?: boolean;
+  allowClear?: boolean;
+  selectProps?: IDropdownSelectProps;
+  valueContainerClassName?: string;
 }
 
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
