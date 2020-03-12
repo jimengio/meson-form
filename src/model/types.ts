@@ -179,6 +179,29 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
+export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "dropdown-select";
+  value?: string | number;
+  options: IMesonSelectItem[];
+  className?: string;
+  menuClassName?: string;
+  itemClassName?: string;
+  placeholder?: string;
+  emptyLocale?: string;
+  placeholderClassName?: string;
+  menuWidth?: number;
+  disabled?: boolean;
+  allowClear?: boolean;
+  renderValue?: (x: any) => ReactNode;
+  followWheel?: boolean;
+  validator?: FuncMesonValidator<T>;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  valueContainerClassName?: string;
+  translateNonStringvalue?: boolean;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+}
+
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: "custom";
@@ -244,6 +267,7 @@ export type IMesonFieldItemHasValue<T = any> =
   | IMesonTexareaField<T>
   | IMesonNumberField<T>
   | IMesonSelectField<T>
+  | IMesonDropdownSelectField<T>
   | IMesonCustomField<T>
   | IMesonRadioField<T>
   | IMesonDatePickerField<T>
@@ -256,6 +280,7 @@ export type IMesonFieldItem<T = any> =
   | IMesonTexareaField<T>
   | IMesonNumberField<T>
   | IMesonSelectField<T>
+  | IMesonDropdownSelectField<T>
   | IMesonCustomField<T>
   | IMesonDecorativeField<T>
   | IMesonSwitchField<T>

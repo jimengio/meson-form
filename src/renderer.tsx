@@ -10,6 +10,7 @@ import {
   IMesonFieldItemHasValue,
   IMesonNumberField,
   IMesonSelectField,
+  IMesonDropdownSelectField,
   IMesonSwitchField,
   IMesonDecorativeField,
   IMesonRadioField,
@@ -24,6 +25,7 @@ import Select from "antd/lib/select";
 import TreeSelect from "antd/lib/tree-select";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
+import { DropdownMenu } from "@jimengio/dropdown";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
@@ -174,6 +176,56 @@ export function renderSelectItem<T>(
         );
       })}
     </Select>
+  );
+}
+
+export function renderDropdownSelectItem<T>(
+  form: T,
+  item: IMesonDropdownSelectField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  let currentValue = form[item.name];
+  if (item.translateNonStringvalue && currentValue != null) {
+    currentValue = `${currentValue}`;
+  }
+  return (
+    <DropdownMenu
+      value={currentValue}
+      items={item.options.map((option) => {
+        let value = option.value;
+        if (item.translateNonStringvalue) {
+          value = `${value}`;
+        }
+        return { title: option.display, value: option.value };
+      })}
+      onSelect={(newValue) => {
+        if (item.translateNonStringvalue && newValue != null) {
+          let target = item.options.find((x) => `${x.value}` === newValue);
+          newValue = target.value;
+        }
+        updateItem(newValue, item);
+        checkItemWithValue(newValue, item);
+      }}
+      className={cx(
+        item.className,
+        width100,
+        css`
+          min-width: 220px;
+        `
+      )}
+      menuClassName={item.menuClassName}
+      itemClassName={item.itemClassName}
+      placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
+      emptyLocale={item.emptyLocale}
+      placeholderClassName={item.placeholderClassName}
+      menuWidth={item.menuWidth}
+      disabled={item.disabled}
+      allowClear={item.allowClear}
+      renderValue={item.renderValue}
+      followWheel={item.followWheel}
+    />
   );
 }
 

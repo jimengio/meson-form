@@ -8,6 +8,7 @@ import { routerRules } from "./models/router-rules";
 import Container from "./pages/container";
 
 import "antd/dist/antd.css";
+import "font-awesome/css/font-awesome.min.css";
 import "./main.css";
 import { mesonUseEn } from "../src/lingual";
 import { GenRouterTypeMain } from "controller/generated-router";

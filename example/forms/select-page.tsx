@@ -12,14 +12,34 @@ let booleanOptions: IMesonSelectItem[] = [
   { value: false, display: "False" },
 ];
 
+const addressOptions: IMesonSelectItem[] = [
+  {
+    display: "上海",
+    value: "shanghai",
+  },
+  {
+    display: "北京",
+    value: "beijing",
+  },
+];
+
 let items: IMesonFieldItem[] = [
   {
     type: "select",
-    label: "BOOLEAN",
+    label: "antd 风格",
     name: "status",
     options: booleanOptions,
     translateNonStringvalue: true,
     allowClear: true,
+    placeholder: "请选择",
+  },
+  {
+    type: "dropdown-select",
+    label: "平台 风格",
+    name: "address",
+    options: addressOptions,
+    allowClear: true,
+    placeholder: "请选择",
   },
 ];
 
@@ -84,10 +104,17 @@ let booleanOptions: IMesonSelectItem[] = [
 let items: IMesonFieldItem[] = [
   {
     type: 'select',
-    label: "BOOLEAN",
+    label: "antd 风格",
     name: "status",
     options: booleanOptions,
     translateNonStringvalue: true,
+    allowClear: true,
+  },
+  {
+    type: "dropdown-select",
+    label: "平台 风格",
+    name: "address",
+    options: addressOptions,
     allowClear: true,
   },
 ];

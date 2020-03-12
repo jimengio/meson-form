@@ -23,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@jimengio/doc-frame": "^0.1.11",
-    "@jimengio/dropdown": "^0.1.24",
+    "@jimengio/dropdown": "^0.1.27",
     "@jimengio/fa-icons": "^0.2.0",
     "@jimengio/jimo-basics": "^0.0.13-a1",
     "@jimengio/jimo-icons": "^0.3.4",
