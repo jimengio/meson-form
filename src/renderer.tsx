@@ -332,8 +332,8 @@ export function renderItemLayout(
 }
 
 let styleControlBase = css`
-  min-width: 180px;
-  width: 180px;
+  min-width: 220px;
+  width: 220px;
 `;
 
 let styleTextareaBase = css`
@@ -370,7 +370,8 @@ let styleValueArea = css`
 `;
 
 let styleLabel = css`
-  color: hsla(0, 0%, 44%, 1);
+  color: #6f6f6f;
+  font-weight: 400;
   min-width: 80px;
   width: max-content;
   text-align: right;
