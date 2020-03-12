@@ -14,6 +14,14 @@ export const styleInput = css`
   ::-webkit-input-placeholder {
     color: #979797 !important;
   }
+
+  ::-moz-placeholder {
+    color: #979797 !important;
+  }
+
+  :-ms-input-placeholder {
+    color: #979797 !important;
+  }
 `;
 
 export const styleSelect = css`
@@ -51,6 +59,14 @@ export const styleTextArea = css`
   ::-webkit-input-placeholder {
     color: #979797 !important;
   }
+
+  ::-moz-placeholder {
+    color: #979797 !important;
+  }
+
+  :-ms-input-placeholder {
+    color: #979797 !important;
+  }
 `;
 
 export const styleInputNumber = css`
@@ -63,6 +79,14 @@ export const styleInputNumber = css`
     color: #323232 !important;
 
     ::-webkit-input-placeholder {
+      color: #979797 !important;
+    }
+
+    ::-moz-placeholder {
+      color: #979797 !important;
+    }
+
+    :-ms-input-placeholder {
       color: #979797 !important;
     }
   }
@@ -126,6 +150,14 @@ export const styleDatePicker = css`
     }
 
     ::-webkit-input-placeholder {
+      color: #979797 !important;
+    }
+
+    ::-moz-placeholder {
+      color: #979797 !important;
+    }
+
+    :-ms-input-placeholder {
       color: #979797 !important;
     }
   }
