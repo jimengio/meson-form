@@ -81,7 +81,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     label: "描述",
     textareaProps: { maxLength: 200, rows: 5 },
     name: "description",
-    countEnable: true,
+    enableCounter: true,
     required: true,
   },
   {

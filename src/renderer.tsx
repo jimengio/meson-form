@@ -47,7 +47,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
       onChange={(event) => {
         let newValue = event.target.value;
         updateItem(newValue, item);
-        if (item.countEnable) {
+        if (item.enableCounter) {
           setCount(newValue.length);
         }
       }}
@@ -58,7 +58,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
     ></TextArea>
   );
 
-  if (item.countEnable) {
+  if (item.enableCounter) {
     return (
       <div className={relative}>
         {textAreaElement}
