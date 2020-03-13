@@ -1,4 +1,4 @@
-import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
+import React, { ReactNode, FC, ReactText, CSSProperties, useState } from "react";
 import { formatString, lingual } from "./lingual";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
@@ -36,24 +36,40 @@ type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
 export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
-  return (
-    <>
-      <TextArea
-        className={styleTextArea}
-        value={form[item.name]}
-        disabled={item.disabled}
-        placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-        onChange={(event) => {
-          let newValue = event.target.value;
-          updateItem(newValue, item);
-        }}
-        onBlur={(event: any) => {
-          checkItem(item);
-        }}
-        {...item.textareaProps}
-      />
-    </>
+  const [count, setCount] = useState(0);
+
+  const textAreaElement = (
+    <TextArea
+      className={styleTextArea}
+      value={form[item.name]}
+      disabled={item.disabled}
+      placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+      onChange={(event) => {
+        let newValue = event.target.value;
+        updateItem(newValue, item);
+        if (item.countEnable) {
+          setCount(newValue.length);
+        }
+      }}
+      onBlur={(event: any) => {
+        checkItem(item);
+      }}
+      {...item.textareaProps}
+    ></TextArea>
   );
+
+  if (item.countEnable) {
+    return (
+      <div className={relative}>
+        {textAreaElement}
+        <div className={styleTextareaCount}>
+          {count}/{item.textareaProps?.maxLength}
+        </div>
+      </div>
+    );
+  } else {
+    return textAreaElement;
+  }
 }
 
 export function renderInputItem<T>(
@@ -432,4 +448,17 @@ let styleLabel = css`
 
 let width100 = css`
   width: 100%;
+`;
+
+let styleTextareaCount = css`
+  position: absolute;
+  right: 15px;
+  bottom: 1px;
+  font-size: 12px;
+  width: calc(100% - 20px);
+  height: 18px;
+  line-height: 18px;
+  text-align: right;
+  background: #fff;
+  z-index: 1;
 `;

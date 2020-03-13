@@ -49,6 +49,7 @@ export const styleTextArea = css`
   border-color: #e8e8e8 !important;
   border-radius: 2px !important;
   color: #323232 !important;
+  padding: 10px 10px 15px 10px !important;
 
   &:focus,
   &:hover {

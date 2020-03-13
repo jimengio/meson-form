@@ -96,6 +96,7 @@ export interface IMesonTexareaField<T> extends IMesonFieldBaseProps<T> {
   /** validate immediately after content change,
    * by default validation performs after each blur event
    */
+  countEnable?: boolean;
   checkOnChange?: boolean;
   /** add styles to container of value, which is inside each field and around the value */
   valueContainerClassName?: string;
