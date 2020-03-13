@@ -141,10 +141,10 @@
     react-copy-to-clipboard "^5.0.2"
     remarkable "^2.0.0"
 
-"@jimengio/dropdown@^0.1.24":
-  version "0.1.24"
-  resolved "https://registry.npm.taobao.org/@jimengio/dropdown/download/@jimengio/dropdown-0.1.24.tgz#971042ab71de6c2c7990c812d5d2d88a34e4f30e"
-  integrity sha1-lxBCq3HebCx5kMgS1dLYijTk8w4=
+"@jimengio/dropdown@^0.1.27":
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/@jimengio/dropdown/-/dropdown-0.1.27.tgz#7a427e04a7bd6d482bf719bfd721aa9707bd8627"
+  integrity sha512-ydARdV03ACOQH5FS9FclU+71pC3MXF4Rdi9h8oP454G1XkzGQhejc+psM3mYs8ew4BL/TGwP+KZDPl9Z2Ugkkg==
   dependencies:
     "@jimengio/flex-styles" "^0.1.5"
     react-transition-group "^4.2.2"

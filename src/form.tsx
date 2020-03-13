@@ -21,6 +21,7 @@ import {
   renderRadioItem,
   renderDatePickerItem,
   renderTreeSelectItem,
+  renderDropdownSelectItem,
 } from "./renderer";
 import { lingual } from "./lingual";
 import { JimoButton } from "@jimengio/jimo-basics";
@@ -82,6 +83,8 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
         return renderSwitchItem(form, item, updateItem, checkItemWithValue);
       case "select":
         return renderSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
+      case "dropdown-select":
+        return renderDropdownSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "radio":
         return renderRadioItem(form, item, updateItem, checkItemWithValue);
       case "date-picker":

@@ -96,6 +96,7 @@ export interface IMesonTexareaField<T> extends IMesonFieldBaseProps<T> {
   /** validate immediately after content change,
    * by default validation performs after each blur event
    */
+  enableCounter?: boolean;
   checkOnChange?: boolean;
   /** add styles to container of value, which is inside each field and around the value */
   valueContainerClassName?: string;
@@ -179,6 +180,33 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
+export interface IDropdownSelectProps {
+  value?: string | number;
+  className?: string;
+  menuClassName?: string;
+  itemClassName?: string;
+  emptyLocale?: string;
+  placeholderClassName?: string;
+  menuWidth?: number;
+  disabled?: boolean;
+  renderValue?: (x: any) => ReactNode;
+  followWheel?: boolean;
+}
+
+export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
+  name: string;
+  type: "dropdown-select";
+  options: IMesonSelectItem[];
+  placeholder?: string;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  translateNonStringvalue?: boolean;
+  allowClear?: boolean;
+  selectProps?: IDropdownSelectProps;
+  valueContainerClassName?: string;
+}
+
 export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
   name: string;
   type: "custom";
@@ -244,6 +272,7 @@ export type IMesonFieldItemHasValue<T = any> =
   | IMesonTexareaField<T>
   | IMesonNumberField<T>
   | IMesonSelectField<T>
+  | IMesonDropdownSelectField<T>
   | IMesonCustomField<T>
   | IMesonRadioField<T>
   | IMesonDatePickerField<T>
@@ -256,6 +285,7 @@ export type IMesonFieldItem<T = any> =
   | IMesonTexareaField<T>
   | IMesonNumberField<T>
   | IMesonSelectField<T>
+  | IMesonDropdownSelectField<T>
   | IMesonCustomField<T>
   | IMesonDecorativeField<T>
   | IMesonSwitchField<T>

@@ -1,4 +1,4 @@
-import React, { ReactNode, FC, ReactText, CSSProperties } from "react";
+import React, { ReactNode, FC, ReactText, CSSProperties, useState } from "react";
 import { formatString, lingual } from "./lingual";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
@@ -10,6 +10,7 @@ import {
   IMesonFieldItemHasValue,
   IMesonNumberField,
   IMesonSelectField,
+  IMesonDropdownSelectField,
   IMesonSwitchField,
   IMesonDecorativeField,
   IMesonRadioField,
@@ -24,6 +25,7 @@ import Select from "antd/lib/select";
 import TreeSelect from "antd/lib/tree-select";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
+import { DropdownMenu } from "@jimengio/dropdown";
 import { flex, column, row, relative } from "@jimengio/shared-utils";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
@@ -34,24 +36,40 @@ type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
 export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
-  return (
-    <>
-      <TextArea
-        className={styleTextArea}
-        value={form[item.name]}
-        disabled={item.disabled}
-        placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-        onChange={(event) => {
-          let newValue = event.target.value;
-          updateItem(newValue, item);
-        }}
-        onBlur={(event: any) => {
-          checkItem(item);
-        }}
-        {...item.textareaProps}
-      />
-    </>
+  const [count, setCount] = useState(0);
+
+  const textAreaElement = (
+    <TextArea
+      className={styleTextArea}
+      value={form[item.name]}
+      disabled={item.disabled}
+      placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
+      onChange={(event) => {
+        let newValue = event.target.value;
+        updateItem(newValue, item);
+        if (item.enableCounter) {
+          setCount(newValue.length);
+        }
+      }}
+      onBlur={(event: any) => {
+        checkItem(item);
+      }}
+      {...item.textareaProps}
+    ></TextArea>
   );
+
+  if (item.enableCounter) {
+    return (
+      <div className={relative}>
+        {textAreaElement}
+        <div className={styleTextareaCount}>
+          {count}/{item.textareaProps?.maxLength}
+        </div>
+      </div>
+    );
+  } else {
+    return textAreaElement;
+  }
 }
 
 export function renderInputItem<T>(
@@ -174,6 +192,56 @@ export function renderSelectItem<T>(
         );
       })}
     </Select>
+  );
+}
+
+export function renderDropdownSelectItem<T>(
+  form: T,
+  item: IMesonDropdownSelectField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  let currentValue = form[item.name];
+  if (item.translateNonStringvalue && currentValue != null) {
+    currentValue = `${currentValue}`;
+  }
+  return (
+    <DropdownMenu
+      value={currentValue}
+      items={item.options.map((option) => {
+        let value = option.value;
+        if (item.translateNonStringvalue) {
+          value = `${value}`;
+        }
+        return { title: option.display, value: option.value };
+      })}
+      onSelect={(newValue) => {
+        if (item.translateNonStringvalue && newValue != null) {
+          let target = item.options.find((x) => `${x.value}` === newValue);
+          newValue = target.value;
+        }
+        updateItem(newValue, item);
+        checkItemWithValue(newValue, item);
+      }}
+      className={cx(
+        item.className,
+        width100,
+        css`
+          min-width: 220px;
+        `
+      )}
+      menuClassName={item.selectProps.menuClassName}
+      itemClassName={item.selectProps.itemClassName}
+      placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
+      emptyLocale={item.selectProps.emptyLocale}
+      placeholderClassName={item.selectProps.placeholderClassName}
+      menuWidth={item.selectProps.menuWidth}
+      disabled={item.disabled}
+      allowClear={item.allowClear}
+      renderValue={item.selectProps.renderValue}
+      followWheel={item.selectProps.followWheel}
+    />
   );
 }
 
@@ -380,4 +448,17 @@ let styleLabel = css`
 
 let width100 = css`
   width: 100%;
+`;
+
+let styleTextareaCount = css`
+  position: absolute;
+  right: 15px;
+  bottom: 1px;
+  font-size: 12px;
+  width: calc(100% - 20px);
+  height: 18px;
+  line-height: 18px;
+  text-align: right;
+  background: #fff;
+  z-index: 1;
 `;
