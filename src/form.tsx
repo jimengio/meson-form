@@ -193,7 +193,21 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
 
   let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
 
-  let formInternals = { formData: form, updateForm, updateErrors };
+  let formInternals = {
+    formData: form,
+    updateForm,
+    updateErrors,
+
+    /** start new form lifecycle with given data. a business API */
+    resetForm: (newForm: T) => {
+      updateForm((d) => {
+        return newForm;
+      });
+      updateErrors(() => {
+        return {};
+      });
+    },
+  };
 
   return [ui, onCheckSubmit, formInternals] as [ReactNode, typeof onCheckSubmit, typeof formInternals];
 }
