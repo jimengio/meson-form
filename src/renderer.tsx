@@ -231,16 +231,16 @@ export function renderDropdownSelectItem<T>(
           min-width: 220px;
         `
       )}
-      menuClassName={item.selectProps.menuClassName}
-      itemClassName={item.selectProps.itemClassName}
+      menuClassName={item.selectProps?.menuClassName}
+      itemClassName={item.selectProps?.itemClassName}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-      emptyLocale={item.selectProps.emptyLocale}
-      placeholderClassName={item.selectProps.placeholderClassName}
-      menuWidth={item.selectProps.menuWidth}
+      emptyLocale={item.selectProps?.emptyLocale}
+      placeholderClassName={item.selectProps?.placeholderClassName}
+      menuWidth={item.selectProps?.menuWidth}
       disabled={item.disabled}
       allowClear={item.allowClear}
-      renderValue={item.selectProps.renderValue}
-      followWheel={item.selectProps.followWheel}
+      renderValue={item.selectProps?.renderValue}
+      followWheel={item.selectProps?.followWheel}
     />
   );
 }
