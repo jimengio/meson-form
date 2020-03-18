@@ -26,7 +26,10 @@ let contentInternals = `
 \`formElements\` 是渲染完成的 Virtual DOM, 需要加入到父组件的 DOM 树当中. \`onCheckSubmit\` 是触发表单进行校验和提交的方法, 需要绑定到外部的按钮上.
 
 \`initialValue\` 传入以后就是组件维护的内部状态, 通过 \`formInternals.formData\` 来获取实时的数据, 通过 \`formInternals.updateForm\` 可以通过 immer 更新.
+类似还有 \`formInternals.updateErrors\` 用于修改报错信息.
 `;
+
+let contentResetForm = `业务当中开始编辑表单使用 \`formInternals.resetForm(data)\` API, 除了重置数据, 同时清空的报错信息. 对应 updateForm updateErrors 的功能.`;
 
 let code = `
 import { useMesonItems } from "@jimengio/meson-form";
@@ -137,6 +140,8 @@ let FormUseItems: FC<{}> = (props) => {
         <DocBlock content={contentInternals} />
 
         <DocSnippet code={codeUse} />
+
+        <DocBlock content={contentResetForm} />
       </DocDemo>
 
       <DocDemo title="Callback syntax">
