@@ -41,7 +41,7 @@ let formItems: IMesonFieldItem<IGuest>[] = [
   },
   {
     type: "input",
-    name: "confirm",
+    name: "confirmPassword",
     label: "重复密码",
     fullWidth: true,
     checkOnChange: true,
