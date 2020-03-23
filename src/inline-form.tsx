@@ -18,7 +18,7 @@ export function MesonInlineForm<T>(props: {
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: keyof T, v: T[keyof T], prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) {
   let onSubmit = (form: T) => {
@@ -47,7 +47,7 @@ export function MesonInlineForm<T>(props: {
       case "input":
         return (
           <Input
-            value={formAny[item.name]}
+            value={formAny[item.name] as any}
             key={`${item.name}+${idx}`}
             disabled={item.disabled}
             type={item.inputType || "text"}
@@ -74,7 +74,7 @@ export function MesonInlineForm<T>(props: {
         );
 
       case "select":
-        let currentValue = formAny[item.name];
+        let currentValue: any = formAny[item.name];
         if (item.translateNonStringvalue && currentValue != null) {
           currentValue = `${currentValue}`;
         }
@@ -136,7 +136,7 @@ export function MesonInlineForm<T>(props: {
           return `Not supported type: ${item.type}`;
         }
 
-        let name: string = item.name;
+        let name = item.name;
         let error = name != null ? errors[name] : null;
         let errorNode = error != null ? <span className={styleError}>{error}</span> : null;
 

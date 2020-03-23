@@ -41,7 +41,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
   const textAreaElement = (
     <TextArea
       className={styleTextArea}
-      value={form[item.name]}
+      value={form[item.name] as any}
       disabled={item.disabled}
       placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
       onChange={(event) => {
@@ -83,7 +83,7 @@ export function renderInputItem<T>(
     <>
       <Input
         className={styleInput}
-        value={form[item.name]}
+        value={form[item.name] as any}
         disabled={item.disabled}
         type={item.inputType || "text"}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -117,7 +117,7 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
     <>
       <InputNumber
         className={styleInputNumber}
-        value={form[item.name]}
+        value={form[item.name] as any}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
         onChange={(newValue) => {
@@ -135,10 +135,12 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
 }
 
 export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+  const checked = form[item.name] ? true : false;
+
   return (
     <div className={styleSwitch}>
       <Switch
-        checked={form[item.name]}
+        checked={checked}
         disabled={item.disabled}
         onChange={(value) => {
           updateItem(value, item);
@@ -156,7 +158,7 @@ export function renderSelectItem<T>(
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
-  let currentValue = form[item.name];
+  let currentValue: any = form[item.name];
   if (item.translateNonStringvalue && currentValue != null) {
     currentValue = `${currentValue}`;
   }
@@ -202,7 +204,7 @@ export function renderDropdownSelectItem<T>(
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
-  let currentValue = form[item.name];
+  let currentValue: any = form[item.name];
   if (item.translateNonStringvalue && currentValue != null) {
     currentValue = `${currentValue}`;
   }
@@ -256,7 +258,7 @@ export function renderTreeSelectItem<T>(
 
   return (
     <TreeSelect
-      value={currentValue}
+      value={currentValue as any}
       multiple={item.multiple}
       disabled={item.disabled}
       className={cx(styleTree, width100)}
@@ -364,9 +366,9 @@ export const ValueFieldContainer: FC<{ fullWidth?: boolean; className?: string }
  * @param errorClassName error className
  * @param hideLabel
  */
-export function renderItemLayout(
+export function renderItemLayout<T>(
   key: string | number,
-  item: IMesonFieldItemHasValue,
+  item: IMesonFieldItemHasValue<T>,
   error: string,
   field: ReactNode,
   labelClassName: string,

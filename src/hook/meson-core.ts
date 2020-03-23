@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors } from "../model/types";
+import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors, IMesonFormBase } from "../model/types";
 import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce, { Draft } from "immer";
@@ -12,9 +12,9 @@ export interface ICheckSubmitOptions<T> {
 /** low level hook for creating forms with very specific UIs */
 export let useMesonCore = <T>(props: {
   initialValue: T;
-  items: IMesonFieldItem[];
+  items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
-  onFieldChange?: (name: string, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: keyof T, v: T[keyof T], prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
   let [form, updateForm] = useImmer<T>(props.initialValue);
@@ -26,7 +26,8 @@ export let useMesonCore = <T>(props: {
     let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
 
-    traverseItems(props.items, latestForm, (item: IMesonFieldItemHasValue) => {
+    traverseItems(props.items, latestForm, (i) => {
+      const item = i as IMesonFieldItemHasValue<T>;
       let result = validateItem(latestForm[item.name], item, form);
       if (result != null) {
         currentErrors[item.name] = result;
@@ -34,8 +35,9 @@ export let useMesonCore = <T>(props: {
       }
     });
 
-    traverseItemsReachCustomMultiple(props.items, latestForm, (item: IMesonCustomMultipleField<T>) => {
-      if (item.validateMultiple) {
+    traverseItemsReachCustomMultiple(props.items, latestForm, (i) => {
+      const item = i as IMesonCustomMultipleField<T>;
+      if ((item as IMesonCustomMultipleField<T>).validateMultiple) {
         let results = item.validateMultiple(latestForm, item);
         if (hasErrorInObject(results)) {
           Object.assign(currentErrors, results);
@@ -72,10 +74,10 @@ export let useMesonCore = <T>(props: {
     }
   };
 
-  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
+  let checkItemWithValue = (x: T[keyof T], item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
-        draft[item.name] = x;
+        draft[`${item.name}`] = x;
       });
       onCheckSubmitWithValue(newForm, null);
       return;
@@ -83,7 +85,7 @@ export let useMesonCore = <T>(props: {
 
     let result = validateItem(x, item, form);
     updateErrors((draft) => {
-      draft[item.name] = result;
+      draft[`${item.name}`] = result;
     });
   };
 
@@ -101,7 +103,7 @@ export let useMesonCore = <T>(props: {
     updateErrors((draft) => {
       // reset errors of related fields first
       item.names.forEach((name) => {
-        draft[name as string] = null;
+        draft[`${name}`] = null;
       });
       Object.assign(draft, results);
     });
@@ -109,7 +111,7 @@ export let useMesonCore = <T>(props: {
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue<T>) => {
     updateForm((draft) => {
-      draft[item.name] = x;
+      draft[`${item.name}`] = x;
     });
     modifiedState.current = true;
     if (item.onChange != null) {

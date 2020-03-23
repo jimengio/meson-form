@@ -63,8 +63,8 @@ export interface IMesonDecorativeField<T> {
   shouldHide?: (form: T) => boolean;
 }
 
-export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonInputField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "input";
   /** real type property on <input/> */
   inputType?: string;
@@ -72,7 +72,7 @@ export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
@@ -83,14 +83,14 @@ export interface IMesonInputField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonTexareaField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonTexareaField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "textarea";
   textareaProps?: TextAreaProps;
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
@@ -102,11 +102,11 @@ export interface IMesonTexareaField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonNumberField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "number";
   placeholder?: string;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   min?: number;
@@ -115,39 +115,39 @@ export interface IMesonNumberField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonDatePickerField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonDatePickerField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "date-picker";
   placeholder?: string;
   allowClear?: boolean;
   disabled?: boolean;
   /** 组件选中的值, 设置到 form object 之前如果需要进行转换 */
   transformSelectedValue?: (clonedDateObj: Moment, dateString: string) => string;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   datePickerProps?: DatePickerProps;
   valueContainerClassName?: string;
 }
 
-export interface IMesonTreeSelectField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonTreeSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "tree-select";
   placeholder?: string;
   allowClear?: boolean;
   disabled?: boolean;
   multiple?: boolean;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   treeSelectProps?: TreeSelectProps<TreeNodeValue>;
   valueContainerClassName?: string;
 }
 
-export interface IMesonSwitchField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonSwitchField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "switch";
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   valueContainerClassName?: string;
@@ -166,12 +166,12 @@ export interface IMesonRadioItem {
   disabled?: boolean;
 }
 
-export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "select";
   placeholder?: string;
   options: IMesonSelectItem[];
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
@@ -193,12 +193,12 @@ export interface IDropdownSelectProps {
   followWheel?: boolean;
 }
 
-export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonDropdownSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "dropdown-select";
   options: IMesonSelectItem[];
   placeholder?: string;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
@@ -207,8 +207,8 @@ export interface IMesonDropdownSelectField<T> extends IMesonFieldBaseProps<T> {
   valueContainerClassName?: string;
 }
 
-export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
-  name: string;
+export interface IMesonCustomField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+  name: K;
   type: "custom";
   /** parent container is using column,
    * for antd inputs with default with 100%, you need to take care of that by yourself
@@ -217,23 +217,23 @@ export interface IMesonCustomField<T> extends IMesonFieldBaseProps<T> {
    * @param form the form
    * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
-  render: (value: any, onChange: (x: any) => void, form: T, onCheck: (x: any) => void) => ReactNode;
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  render: (value: T[K], onChange: (x: T[K]) => void, form: T, onCheck: (x: T[K]) => void) => ReactNode;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonCustomMultipleField<T> extends IMesonFieldBaseProps<T> {
+export interface IMesonCustomMultipleField<T, K1 extends keyof T = keyof T, K2 extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
   type: "custom-multiple";
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
    * @param checkForm accepts an object of new values
    */
-  names: (keyof T)[];
+  names: [K1, K2];
   /** get form and render into form item */
   renderMultiple: (form: T, modifyForm: FuncMesonModifyForm<T>, checkForm: (changedValues: Partial<T>) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T>) => IMesonErrors<T>;
+  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T, K1, K2>) => IMesonErrors<T>;
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
@@ -255,43 +255,43 @@ export interface IMesonGroupFields<T> {
   itemWidth?: ReactText;
 }
 
-export interface IMesonRadioField<T> extends IMesonFieldBaseProps<T> {
+export interface IMesonRadioField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
   type: "radio";
-  name: string;
+  name: K;
   label: string;
   options: IMesonRadioItem[];
-  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   valueContainerClassName?: string;
 }
 
 // 默认any过渡
-export type IMesonFieldItemHasValue<T = any> =
-  | IMesonInputField<T>
-  | IMesonTexareaField<T>
-  | IMesonNumberField<T>
-  | IMesonSelectField<T>
-  | IMesonDropdownSelectField<T>
-  | IMesonCustomField<T>
-  | IMesonRadioField<T>
-  | IMesonDatePickerField<T>
-  | IMesonTreeSelectField<T>
-  | IMesonSwitchField<T>;
+export type IMesonFieldItemHasValue<T = IMesonFormBase, K extends keyof T = keyof T> =
+  | IMesonInputField<T, K>
+  | IMesonTexareaField<T, K>
+  | IMesonNumberField<T, K>
+  | IMesonSelectField<T, K>
+  | IMesonDropdownSelectField<T, K>
+  | IMesonCustomField<T, K>
+  | IMesonRadioField<T, K>
+  | IMesonDatePickerField<T, K>
+  | IMesonTreeSelectField<T, K>
+  | IMesonSwitchField<T, K>;
 
 // 默认any过渡
-export type IMesonFieldItem<T = any> =
-  | IMesonInputField<T>
-  | IMesonTexareaField<T>
-  | IMesonNumberField<T>
-  | IMesonSelectField<T>
-  | IMesonDropdownSelectField<T>
-  | IMesonCustomField<T>
+export type IMesonFieldItem<T = IMesonFormBase, K extends keyof T = keyof T, K2 extends keyof T = keyof T> =
+  | IMesonInputField<T, K>
+  | IMesonTexareaField<T, K>
+  | IMesonNumberField<T, K>
+  | IMesonSelectField<T, K>
+  | IMesonDropdownSelectField<T, K>
+  | IMesonCustomField<T, K>
   | IMesonDecorativeField<T>
   | IMesonSwitchField<T>
   | IMesonNestedFields<T>
   | IMesonGroupFields<T>
-  | IMesonRadioField<T>
-  | IMesonDatePickerField<T>
-  | IMesonTreeSelectField<T>
-  | IMesonCustomMultipleField<T>;
+  | IMesonRadioField<T, K>
+  | IMesonDatePickerField<T, K>
+  | IMesonTreeSelectField<T, K>
+  | IMesonCustomMultipleField<T, K, K2>;
