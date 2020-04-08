@@ -1,7 +1,7 @@
 import { ReactNode, ReactText } from "react";
 
 import { Moment } from "moment";
-import { DatePickerProps } from "antd/lib/date-picker/interface";
+import { DatePickerProps } from "antd/lib/date-picker";
 
 export interface IFilterFieldBaseProps<T> {
   label?: string;
