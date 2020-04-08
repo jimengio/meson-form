@@ -1,7 +1,7 @@
 import { css, cx } from "emotion";
 import React, { FC } from "react";
 import { JimoButton } from "@jimengio/jimo-basics";
-import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/shared-utils";
+import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/flex-styles";
 import { lingual } from "../lingual";
 import Icon from "antd/lib/icon";
 

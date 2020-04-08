@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
-import { row } from "@jimengio/shared-utils";
+import { row } from "@jimengio/flex-styles";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";

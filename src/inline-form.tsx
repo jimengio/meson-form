@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
-import { column, row } from "@jimengio/shared-utils";
+import { column, row } from "@jimengio/flex-styles";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
 import { formatString, lingual } from "./lingual";

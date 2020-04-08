@@ -3,7 +3,7 @@ import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
-import { row } from "@jimengio/shared-utils";
+import { row } from "@jimengio/flex-styles";
 import Select from "antd/lib/select";
 import TextArea from "antd/lib/input/TextArea";
 import { lingual, formatString } from "../../src/lingual";

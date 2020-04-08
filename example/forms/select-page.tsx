@@ -2,7 +2,6 @@ import { css, cx } from "emotion";
 import React, { FC, useState } from "react";
 import { IMesonCustomField, IMesonFieldItem, IMesonSelectItem } from "../../src/model/types";
 import { MesonForm } from "../../src/form";
-import { row } from "@jimengio/shared-utils";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -40,7 +39,7 @@ let items: IMesonFieldItem[] = [
     options: addressOptions,
     allowClear: true,
     placeholder: "请选择",
-    selectProps:{}
+    selectProps: {},
   },
 ];
 
