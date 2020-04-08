@@ -4,9 +4,9 @@ import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { MesonForm } from "../../src/form";
 import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
-import { TreeNode } from "antd/lib/tree-select";
+import { DataNode } from "rc-tree-select/lib/interface";
 
-let treeData: TreeNode[] = [
+let treeData: DataNode[] = [
   { id: "a", title: "data A", value: "a" },
   { id: "b", title: "data B", value: "b", children: [{ id: "ba", title: "data B A", value: "b-a" }] },
   { id: "c", title: "data C", value: "c" },

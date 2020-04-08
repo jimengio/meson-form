@@ -1,11 +1,12 @@
 import { ReactNode, ReactText } from "react";
 import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
-import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
-import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
 import { Draft } from "immer";
 import { Moment } from "moment";
+import { DatePickerProps } from "antd/lib/date-picker";
+import { TreeSelectProps } from "antd/lib/tree-select";
+import { DefaultValueType } from "rc-tree-select/lib/interface";
 
 export interface ISimpleObject<T = any> {
   [k: string]: T;
@@ -140,7 +141,7 @@ export interface IMesonTreeSelectField<T> extends IMesonFieldBaseProps<T> {
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
-  treeSelectProps?: TreeSelectProps<TreeNodeValue>;
+  treeSelectProps?: TreeSelectProps<DefaultValueType>;
   valueContainerClassName?: string;
 }
 
@@ -176,7 +177,7 @@ export interface IMesonSelectField<T> extends IMesonFieldBaseProps<T> {
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
-  selectProps?: SelectProps;
+  selectProps?: SelectProps<DefaultValueType>;
   valueContainerClassName?: string;
 }
 

@@ -4,6 +4,7 @@ import { JimoButton } from "@jimengio/jimo-basics";
 import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/flex-styles";
 import { lingual } from "../lingual";
 import Icon from "antd/lib/icon";
+import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
 
 export enum EMesonFooterLayout {
   Center = "center",
@@ -21,7 +22,7 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor />
         <div style={{ width: 12 }} />
         <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
       </div>
@@ -33,7 +34,7 @@ export let FormFooter: FC<{
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
         <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor />
       </div>
     );
   }
@@ -45,7 +46,7 @@ export let FormFooter: FC<{
       <div className={cx(rowMiddle)}>
         <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor />
       </div>
     </div>
   );
