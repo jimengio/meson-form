@@ -45,7 +45,7 @@ export interface MesonFormProps<T> {
   fullWidth?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: keyof T, v: T[keyof T], prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }
 

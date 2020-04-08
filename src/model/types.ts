@@ -72,7 +72,7 @@ export interface IMesonInputField<T, K extends keyof T = keyof T> extends IMeson
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
@@ -90,7 +90,7 @@ export interface IMesonTexareaField<T, K extends keyof T = keyof T> extends IMes
   placeholder?: string;
   /** false by default, "" and " " will emit value `undefined` */
   useBlank?: boolean;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
@@ -106,7 +106,7 @@ export interface IMesonNumberField<T, K extends keyof T = keyof T> extends IMeso
   name: K;
   type: "number";
   placeholder?: string;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   min?: number;
@@ -123,7 +123,7 @@ export interface IMesonDatePickerField<T, K extends keyof T = keyof T> extends I
   disabled?: boolean;
   /** 组件选中的值, 设置到 form object 之前如果需要进行转换 */
   transformSelectedValue?: (clonedDateObj: Moment, dateString: string) => string;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   datePickerProps?: DatePickerProps;
@@ -137,7 +137,7 @@ export interface IMesonTreeSelectField<T, K extends keyof T = keyof T> extends I
   allowClear?: boolean;
   disabled?: boolean;
   multiple?: boolean;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   treeSelectProps?: TreeSelectProps<TreeNodeValue>;
@@ -147,7 +147,7 @@ export interface IMesonTreeSelectField<T, K extends keyof T = keyof T> extends I
 export interface IMesonSwitchField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "switch";
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   valueContainerClassName?: string;
@@ -171,7 +171,7 @@ export interface IMesonSelectField<T, K extends keyof T = keyof T> extends IMeso
   type: "select";
   placeholder?: string;
   options: IMesonSelectItem[];
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
@@ -198,7 +198,7 @@ export interface IMesonDropdownSelectField<T, K extends keyof T = keyof T> exten
   type: "dropdown-select";
   options: IMesonSelectItem[];
   placeholder?: string;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
@@ -217,8 +217,8 @@ export interface IMesonCustomField<T, K extends keyof T = keyof T> extends IMeso
    * @param form the form
    * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
    */
-  render: (value: T[K], onChange: (x: T[K]) => void, form: T, onCheck: (x: T[K]) => void) => ReactNode;
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  render: (value: any, onChange: (x: any) => void, form: T, onCheck: (x: any) => void) => ReactNode;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
 }
@@ -260,7 +260,7 @@ export interface IMesonRadioField<T, K extends keyof T = keyof T> extends IMeson
   name: K;
   label: string;
   options: IMesonRadioItem[];
-  onChange?: (x: T[K], modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
   valueContainerClassName?: string;

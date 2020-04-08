@@ -18,7 +18,7 @@ export function MesonInlineForm<T>(props: {
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: keyof T, v: T[keyof T], prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) {
   let onSubmit = (form: T) => {

@@ -14,7 +14,7 @@ export let useMesonCore = <T>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
-  onFieldChange?: (name: keyof T, v: T[keyof T], prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
   let [form, updateForm] = useImmer<T>(props.initialValue);
@@ -74,7 +74,7 @@ export let useMesonCore = <T>(props: {
     }
   };
 
-  let checkItemWithValue = (x: T[keyof T], item: IMesonFieldItemHasValue<T>) => {
+  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
         draft[`${item.name}`] = x;
