@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { css, cx } from "emotion";
-import { column, row, fullscreen, expand } from "@jimengio/shared-utils";
+import { column, row, fullscreen, expand } from "@jimengio/flex-styles";
 import { HashLink } from "@jimengio/ruled-router/lib/dom";
 import { genRouter, GenRouterTypeMain } from "controller/generated-router";
 import FormBasic from "forms/basic";

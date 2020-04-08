@@ -130,10 +130,10 @@
   resolved "https://registry.npm.taobao.org/@emotion/weak-memoize/download/@emotion/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha1-ju2YLi7m9/TkTCU+EpYpgHke/UY=
 
-"@jimengio/doc-frame@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.npm.taobao.org/@jimengio/doc-frame/download/@jimengio/doc-frame-0.1.11.tgz#289eac94af16c2a331ca002fe86d828008a811ee"
-  integrity sha1-KJ6slK8WwqMxygAv6G2CgAioEe4=
+"@jimengio/doc-frame@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.npmjs.org/@jimengio/doc-frame/-/doc-frame-0.1.12.tgz#c0114929bf4c49c9e8c34968a26baf7b79f936d3"
+  integrity sha512-E5svoYU6SZwz2oLb3iRipT6bMzb8OYzCvNuAvApGeatFfjMzq/Sci5ID1uR2jpv9ORKkg6k+2+iuYBx7YD40uA==
   dependencies:
     "@types/highlight.js" "^9.12.3"
     highlight.js "^9.17.1"
@@ -141,12 +141,13 @@
     react-copy-to-clipboard "^5.0.2"
     remarkable "^2.0.0"
 
-"@jimengio/dropdown@^0.1.27":
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/@jimengio/dropdown/-/dropdown-0.1.27.tgz#7a427e04a7bd6d482bf719bfd721aa9707bd8627"
-  integrity sha512-ydARdV03ACOQH5FS9FclU+71pC3MXF4Rdi9h8oP454G1XkzGQhejc+psM3mYs8ew4BL/TGwP+KZDPl9Z2Ugkkg==
+"@jimengio/dropdown@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.npmjs.org/@jimengio/dropdown/-/dropdown-0.1.28.tgz#fe702c971d74f3472abb821e2fdd6a0b20d4ac4c"
+  integrity sha512-yWRoXah48JskejNi5IZzfBRkC55RN4kYh3+maVOcqWO2/5Gmi2fTW1V9uE84vNG1AJBn7ctZ1UdB3QDmUzeikQ==
   dependencies:
     "@jimengio/flex-styles" "^0.1.5"
+    "@jimengio/jimo-basics" "^0.0.16-a1"
     react-transition-group "^4.2.2"
 
 "@jimengio/fa-icons@^0.2.0":
@@ -159,28 +160,36 @@
   resolved "https://registry.npm.taobao.org/@jimengio/flex-styles/download/@jimengio/flex-styles-0.1.6.tgz#d37e37aa4a85c72feff386c27b920a5f8c5f6335"
   integrity sha1-0343qkqFxy/v84bCe5IKX4xfYzU=
 
-"@jimengio/jimo-basics@^0.0.13-a1":
-  version "0.0.13-a1"
-  resolved "https://registry.npm.taobao.org/@jimengio/jimo-basics/download/@jimengio/jimo-basics-0.0.13-a1.tgz#18f97654755892dacd4f3d7e3f52bbaca138c092"
-  integrity sha1-GPl2VHVYktrNTz1+P1K7rKE4wJI=
+"@jimengio/jimo-basics@^0.0.16-a1":
+  version "0.0.16"
+  resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.0.16.tgz#270eac348536251d866ae7aaca4eddbbfbbb560e"
+  integrity sha512-T6t1b9UKzJU2lGCcLGx0eiqKGEKuzV0oW5Rb/AgLbjr2KCsr/duAQgiqCN7otZ6gbmRd5bXyhQwIswQ5ZUb7pg==
   dependencies:
     emotion "^10.0.27"
     react-transition-group "^4.3.0"
 
-"@jimengio/jimo-icons@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.npm.taobao.org/@jimengio/jimo-icons/download/@jimengio/jimo-icons-0.3.4.tgz#250ff30f7ce865380db959b2c32bd315e92da1fb"
-  integrity sha1-JQ/zD3zoZTgNuVmywyvTFektofs=
-
-"@jimengio/meson-modal@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.npm.taobao.org/@jimengio/meson-modal/download/@jimengio/meson-modal-0.3.3.tgz#a24a590a6fe97122e006444bc3c2458634c99e59"
-  integrity sha1-okpZCm/pcSLgBkRLw8JFhjTJnlk=
+"@jimengio/jimo-basics@^0.0.17":
+  version "0.0.17"
+  resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.0.17.tgz#56ec90f0256dcbc90e39533838517fc051c9c5fd"
+  integrity sha512-b5kwzkcsYZDh0+l6sM4TApX2NUd/QS3sthYSim1m9X70dCK+e5Gq702s9Dj1u95PjxFTH/EFEtWBWeOZwUoPRA==
   dependencies:
-    dayjs "^1.8.19"
     emotion "^10.0.27"
-    immer "^5.3.2"
-    query-string "^6.9.0"
+    react-transition-group "^4.3.0"
+
+"@jimengio/jimo-icons@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.npmjs.org/@jimengio/jimo-icons/-/jimo-icons-0.3.9.tgz#3b4b32652edade119a1eb6307d9e6e8df200ff40"
+  integrity sha512-WHtc1z4sQHfo5TfnIDOe8JCJxn6FXIJeEpI4H4nS3AXtRAJbkspvG9rCdpUqyvBlDRf1N7+bkbLkOqhhTCdS2A==
+
+"@jimengio/meson-modal@^0.3.6-a1":
+  version "0.3.6-a1"
+  resolved "https://registry.npmjs.org/@jimengio/meson-modal/-/meson-modal-0.3.6-a1.tgz#69e32d5a1bb29eb69521ae638d00c73627966871"
+  integrity sha512-3wk181fIS9Fi5XUi9Q8AaOUm7vWYX+OPPRue34ANurN2AqAt2qNMEWmk2n74wB91i1TZ4u8qrgi5Qld37tUQWQ==
+  dependencies:
+    dayjs "^1.8.23"
+    emotion "^10.0.27"
+    immer "^6.0.2"
+    query-string "^6.11.0"
     react-transition-group "^4.3.0"
     use-immer "^0.3.5"
 
@@ -201,13 +210,6 @@
   version "0.0.2"
   resolved "https://registry.npm.taobao.org/@jimengio/safe-property/download/@jimengio/safe-property-0.0.2.tgz#62d824660a56a6eb29628c1c795b256b9639743b"
   integrity sha1-YtgkZgpWpuspYowceVsla5Y5dDs=
-
-"@jimengio/shared-utils@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.npm.taobao.org/@jimengio/shared-utils/download/@jimengio/shared-utils-0.1.5.tgz#c6435e34674ef389abdb23a97f713ea14fc3b8e1"
-  integrity sha1-xkNeNGdO84mr2yOpf3E+oU/DuOE=
-  dependencies:
-    fuzzysearch "^1.0.3"
 
 "@types/events@*":
   version "3.0.0"
@@ -1552,10 +1554,15 @@ cyclist@^1.0.1:
   resolved "https://registry.npm.taobao.org/cyclist/download/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-dayjs@1.8.20, dayjs@^1.8.19:
+dayjs@1.8.20:
   version "1.8.20"
   resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.20.tgz#724a5cb6ad1f6fc066b0bd9a800dedcc7886f19e"
   integrity sha1-ckpctq0fb8BmsL2agA3tzHiG8Z4=
+
+dayjs@^1.8.23:
+  version "1.8.23"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
+  integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -2402,11 +2409,6 @@ function-bind@^1.1.1:
   resolved "https://registry.npm.taobao.org/function-bind/download/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha1-pWiZ0+o8m6uHS7l3O3xe3pL0iV0=
 
-fuzzysearch@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npm.taobao.org/fuzzysearch/download/fuzzysearch-1.0.3.tgz#dffc80f6d6b04223f2226aa79dd194231096d008"
-  integrity sha1-3/yA9tawQiPyImqnndGUIxCW0Ag=
-
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/get-caller-file/download/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -2819,10 +2821,15 @@ iferr@^0.1.5:
   resolved "https://registry.npm.taobao.org/iferr/download/iferr-0.1.5.tgz#c60eed69e6d8fdb6b3104a1fcbca1c192dc5b501"
   integrity sha1-xg7taebY/bazEEofy8ocGS3FtQE=
 
-immer@^5.3.2, immer@^5.3.6:
+immer@^5.3.6:
   version "5.3.6"
   resolved "https://registry.npm.taobao.org/immer/download/immer-5.3.6.tgz#51eab8cbbeb13075fe2244250f221598818cac04"
   integrity sha1-Ueq4y76xMHX+IkQlDyIVmIGMrAQ=
+
+immer@^6.0.2:
+  version "6.0.3"
+  resolved "https://registry.npmjs.org/immer/-/immer-6.0.3.tgz#94d5051cd724668160a900d66d85ec02816f29bd"
+  integrity sha512-12VvNrfSrXZdm/BJgi/KDW2soq5freVSf3I1+4CLunUM8mAGx2/0Njy0xBVzi5zewQZiwM7z1/1T+8VaI7NkmQ==
 
 immutable@^3.7.4:
   version "3.8.2"
@@ -4305,6 +4312,15 @@ qs@^6.4.0:
   version "6.9.1"
   resolved "https://registry.npm.taobao.org/qs/download/qs-6.9.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fqs%2Fdownload%2Fqs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
   integrity sha1-IAgsZct4IjY1qxqerKiHWim/jsk=
+
+query-string@^6.11.0:
+  version "6.12.0"
+  resolved "https://registry.npmjs.org/query-string/-/query-string-6.12.0.tgz#fa0fe5b3ddf4d040d1236b80672949ab33d5cf80"
+  integrity sha512-aoiFW9ZU7jP8Itjqfpw80Qe7RoyCIhFrW522sdsp9LG92pat6CCG3d8qNZBaUi71FsEjIfLjx9Ky347FtVoqXA==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
 
 query-string@^6.9.0:
   version "6.10.1"

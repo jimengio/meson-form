@@ -4,7 +4,7 @@ import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
 import { IMesonSelectItem, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
 import Input from "antd/lib/input";
-import { row, expand } from "@jimengio/shared-utils";
+import { row, expand } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
 import SourceLink from "kits/source-link";
 import { DocDemo } from "@jimengio/doc-frame";

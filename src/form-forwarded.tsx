@@ -1,5 +1,5 @@
 import React, { ReactText } from "react";
-import { row, column, flex, displayFlex, flexWrap } from "@jimengio/shared-utils";
+import { row, column, flex, displayFlex, flexWrap } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
 

@@ -6,7 +6,7 @@ import { IMesonFieldItem } from "../../src/model/types";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
-import { Space } from "@jimengio/shared-utils";
+import { Space } from "@jimengio/flex-styles";
 
 let DropdownPage: FC<{}> = (props) => {
   let [form, setForm] = useState({});

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { css, cx } from "emotion";
-import { row } from "@jimengio/shared-utils";
+import { row } from "@jimengio/flex-styles";
 
 let DataPreview: FC<{
   data: any;

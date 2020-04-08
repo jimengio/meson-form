@@ -26,7 +26,7 @@ import TreeSelect from "antd/lib/tree-select";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
 import { DropdownMenu } from "@jimengio/dropdown";
-import { flex, column, row, relative } from "@jimengio/shared-utils";
+import { flex, column, row, relative } from "@jimengio/flex-styles";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
 import { styleInput, styleSelect, styleTextArea, styleInputNumber, styleSwitch, styleRadio, styleDatePicker, styleTree } from "./style";
