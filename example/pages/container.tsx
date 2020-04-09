@@ -30,6 +30,7 @@ import FormRadio from "forms/radio";
 import PageFooterButtons from "./footer-buttons";
 import ExampleDatePicker from "forms/date-picker";
 import ExampleTreeSelect from "forms/tree-select";
+import ExampleFilterForm from "forms/filter-form";
 
 let items: ISidebarEntry[] = [
   {
@@ -116,6 +117,11 @@ let items: ISidebarEntry[] = [
     title: "Inline form",
     cnTitle: "行内模式",
     path: genRouter.inlineForm.name,
+  },
+  {
+    title: "Filter form",
+    cnTitle: "选择功能",
+    path: genRouter.filterForm.name,
   },
   {
     title: "Blank label",
@@ -219,6 +225,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <ExampleDatePicker />;
       case "tree-select":
         return <ExampleTreeSelect />;
+      case "filter-form":
+        return <ExampleFilterForm />;
       default:
         return <FormBasic />;
     }
