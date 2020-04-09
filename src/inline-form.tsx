@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, FieldName } from "./model/types";
 import { column, row } from "@jimengio/flex-styles";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -10,7 +10,7 @@ import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 import { styleInput, styleSelect } from "./style";
 
-export function MesonInlineForm<T>(props: {
+export function MesonInlineForm<T extends FieldValues>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
@@ -18,7 +18,7 @@ export function MesonInlineForm<T>(props: {
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: FieldName<T>, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) {
   let onSubmit = (form: T) => {

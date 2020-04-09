@@ -17,6 +17,7 @@ import {
   IMesonTexareaField,
   IMesonDatePickerField,
   IMesonTreeSelectField,
+  FieldValues,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -35,7 +36,7 @@ type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
-export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   const [count, setCount] = useState(0);
 
   const textAreaElement = (
@@ -72,7 +73,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
   }
 }
 
-export function renderInputItem<T>(
+export function renderInputItem<T extends FieldValues>(
   form: T,
   item: IMesonInputField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -112,7 +113,7 @@ export function renderInputItem<T>(
   );
 }
 
-export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
     <>
       <InputNumber
@@ -134,7 +135,12 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
   );
 }
 
-export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+export function renderSwitchItem<T extends FieldValues>(
+  form: T,
+  item: IMesonSwitchField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
   const checked = form[item.name] ? true : false;
 
   return (
@@ -151,7 +157,7 @@ export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateI
   );
 }
 
-export function renderSelectItem<T>(
+export function renderSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonSelectField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -197,7 +203,7 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderDropdownSelectItem<T>(
+export function renderDropdownSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonDropdownSelectField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -247,7 +253,7 @@ export function renderDropdownSelectItem<T>(
   );
 }
 
-export function renderTreeSelectItem<T>(
+export function renderTreeSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonTreeSelectField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -284,7 +290,12 @@ export function renderTreeSelectItem<T>(
   );
 }
 
-export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+export function renderRadioItem<T extends FieldValues>(
+  form: T,
+  item: IMesonRadioField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
   const renderRadios = (item: IMesonRadioField<T>) => {
     const radios = item.options;
     return radios.map((radio) => {
@@ -309,7 +320,7 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateIte
   );
 }
 
-export function renderDatePickerItem<T>(
+export function renderDatePickerItem<T extends FieldValues>(
   form: T,
   item: IMesonDatePickerField<T>,
   updateItem: FuncUpdateItem<T>,

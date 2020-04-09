@@ -1,6 +1,6 @@
-import { IMesonFieldItem } from "../model/types";
+import { IMesonFieldItem, FieldValues } from "../model/types";
 
-export function traverseItems<T>(xs: IMesonFieldItem<T>[], form: T, method: (x: IMesonFieldItem<T>) => void) {
+export function traverseItems<T extends FieldValues>(xs: IMesonFieldItem<T>[], form: T, method: (x: IMesonFieldItem<T>) => void) {
   xs.forEach((x) => {
     if (x.shouldHide != null && x.shouldHide(form)) {
       return null;
@@ -19,7 +19,7 @@ export function traverseItems<T>(xs: IMesonFieldItem<T>[], form: T, method: (x: 
   });
 }
 
-export function traverseItemsReachCustomMultiple<T>(xs: IMesonFieldItem<T>[], form: T, method: (x: IMesonFieldItem<T>) => void) {
+export function traverseItemsReachCustomMultiple<T extends FieldValues>(xs: IMesonFieldItem<T>[], form: T, method: (x: IMesonFieldItem<T>) => void) {
   xs.forEach((x) => {
     if (x.shouldHide != null && x.shouldHide(form)) {
       return null;

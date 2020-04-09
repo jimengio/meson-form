@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties, ReactText } from "react";
 import { row, column, flex, flexWrap, displayFlex } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, FieldName, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/dropdown";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
@@ -27,7 +27,7 @@ import { lingual } from "./lingual";
 import { JimoButton } from "@jimengio/jimo-basics";
 import { createItemKey } from "./util/string";
 
-export interface MesonFormProps<T> {
+export interface MesonFormProps<T extends FieldValues> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   /** when set onSubmit:null on useFormItems, make sure {onSubmit: f} is passed to onCheckSubmit */
@@ -45,12 +45,12 @@ export interface MesonFormProps<T> {
   fullWidth?: boolean;
   renderFooter?: (isLoading: boolean, onSubmit: () => void, onCancel: () => void, form?: T) => ReactNode;
   isLoading?: boolean;
-  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
+  onFieldChange?: (name: FieldName<T>, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm) => void;
   submitOnEdit?: boolean;
 }
 
 /** Hooks API for customizing UIs */
-export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
+export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
   let {
     formAny: form,
     updateForm,
@@ -215,7 +215,7 @@ export function useMesonItems<T = IMesonFormBase>(props: MesonFormProps<T>) {
 /** Main form component for Meson
  * Pick changes to MesonFormForwarded after changes in this component
  */
-export function MesonForm<T = IMesonFormBase>(props: MesonFormProps<T>) {
+export function MesonForm<T = FieldValues>(props: MesonFormProps<T>) {
   let [formItems, onCheckSubmit, formInternals] = useMesonItems(props);
 
   return (

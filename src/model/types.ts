@@ -11,8 +11,10 @@ export interface ISimpleObject<T = any> {
   [k: string]: T;
 }
 
-export type IMesonErrors<T> = { [K in keyof T]?: string };
-export type IMesonFormBase = { [k: string]: any };
+export type FieldValues = Record<string, any>;
+export type IMesonFormBase = FieldValues;
+export type FieldName<F extends FieldValues> = (keyof F & string) | string;
+export type IMesonErrors<T> = Partial<Record<FieldName<T>, string>>;
 
 export enum EMesonValidate {
   Number = "number",
@@ -55,7 +57,7 @@ export interface IMesonFieldBaseProps<T> {
   fullWidth?: boolean;
 }
 
-export interface IMesonDecorativeField<T> {
+export interface IMesonDecorativeField<T extends FieldValues> {
   type: "decorative";
   render: (form: T) => ReactNode;
   className?: string;
@@ -63,7 +65,7 @@ export interface IMesonDecorativeField<T> {
   shouldHide?: (form: T) => boolean;
 }
 
-export interface IMesonInputField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonInputField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "input";
   /** real type property on <input/> */
@@ -83,7 +85,7 @@ export interface IMesonInputField<T, K extends keyof T = keyof T> extends IMeson
   valueContainerClassName?: string;
 }
 
-export interface IMesonTexareaField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonTexareaField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "textarea";
   textareaProps?: TextAreaProps;
@@ -102,7 +104,7 @@ export interface IMesonTexareaField<T, K extends keyof T = keyof T> extends IMes
   valueContainerClassName?: string;
 }
 
-export interface IMesonNumberField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonNumberField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "number";
   placeholder?: string;
@@ -115,7 +117,7 @@ export interface IMesonNumberField<T, K extends keyof T = keyof T> extends IMeso
   valueContainerClassName?: string;
 }
 
-export interface IMesonDatePickerField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonDatePickerField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "date-picker";
   placeholder?: string;
@@ -130,7 +132,7 @@ export interface IMesonDatePickerField<T, K extends keyof T = keyof T> extends I
   valueContainerClassName?: string;
 }
 
-export interface IMesonTreeSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "tree-select";
   placeholder?: string;
@@ -144,7 +146,7 @@ export interface IMesonTreeSelectField<T, K extends keyof T = keyof T> extends I
   valueContainerClassName?: string;
 }
 
-export interface IMesonSwitchField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonSwitchField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "switch";
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>) => void;
@@ -166,7 +168,7 @@ export interface IMesonRadioItem {
   disabled?: boolean;
 }
 
-export interface IMesonSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonSelectField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "select";
   placeholder?: string;
@@ -193,7 +195,7 @@ export interface IDropdownSelectProps {
   followWheel?: boolean;
 }
 
-export interface IMesonDropdownSelectField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonDropdownSelectField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "dropdown-select";
   options: IMesonSelectItem[];
@@ -207,7 +209,7 @@ export interface IMesonDropdownSelectField<T, K extends keyof T = keyof T> exten
   valueContainerClassName?: string;
 }
 
-export interface IMesonCustomField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonCustomField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "custom";
   /** parent container is using column,
@@ -223,7 +225,8 @@ export interface IMesonCustomField<T, K extends keyof T = keyof T> extends IMeso
   validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonCustomMultipleField<T, K1 extends keyof T = keyof T, K2 extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends FieldName<T> = FieldName<T>, K2 extends FieldName<T> = FieldName<T>>
+  extends IMesonFieldBaseProps<T> {
   type: "custom-multiple";
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
@@ -255,7 +258,7 @@ export interface IMesonGroupFields<T> {
   itemWidth?: ReactText;
 }
 
-export interface IMesonRadioField<T, K extends keyof T = keyof T> extends IMesonFieldBaseProps<T> {
+export interface IMesonRadioField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   type: "radio";
   name: K;
   label: string;
@@ -267,7 +270,7 @@ export interface IMesonRadioField<T, K extends keyof T = keyof T> extends IMeson
 }
 
 // 默认any过渡
-export type IMesonFieldItemHasValue<T = IMesonFormBase, K extends keyof T = keyof T> =
+export type IMesonFieldItemHasValue<T = FieldValues, K extends FieldName<T> = FieldName<T>> =
   | IMesonInputField<T, K>
   | IMesonTexareaField<T, K>
   | IMesonNumberField<T, K>
@@ -280,7 +283,7 @@ export type IMesonFieldItemHasValue<T = IMesonFormBase, K extends keyof T = keyo
   | IMesonSwitchField<T, K>;
 
 // 默认any过渡
-export type IMesonFieldItem<T = IMesonFormBase, K extends keyof T = keyof T, K2 extends keyof T = keyof T> =
+export type IMesonFieldItem<T = FieldValues, K extends FieldName<T> = FieldName<T>, K2 extends FieldName<T> = FieldName<T>> =
   | IMesonInputField<T, K>
   | IMesonTexareaField<T, K>
   | IMesonNumberField<T, K>

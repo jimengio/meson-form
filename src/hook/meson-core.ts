@@ -1,20 +1,20 @@
 import { useState, useRef } from "react";
 import { useImmer } from "use-immer";
-import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors, IMesonFormBase } from "../model/types";
+import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors, FieldValues, FieldName } from "../model/types";
 import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce, { Draft } from "immer";
 
-export interface ICheckSubmitOptions<T> {
+export interface ICheckSubmitOptions<T extends FieldValues> {
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
 }
 
 /** low level hook for creating forms with very specific UIs */
-export let useMesonCore = <T>(props: {
+export let useMesonCore = <T extends FieldValues>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
-  onFieldChange?: (name: keyof T, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: FieldName<T>, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
   let [form, updateForm] = useImmer<T>(props.initialValue);
@@ -77,7 +77,7 @@ export let useMesonCore = <T>(props: {
   let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
-        draft[`${item.name}`] = x;
+        draft[item.name] = x;
       });
       onCheckSubmitWithValue(newForm, null);
       return;
@@ -111,7 +111,7 @@ export let useMesonCore = <T>(props: {
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue<T>) => {
     updateForm((draft) => {
-      draft[`${item.name}`] = x;
+      draft[item.name] = x;
     });
     modifiedState.current = true;
     if (item.onChange != null) {

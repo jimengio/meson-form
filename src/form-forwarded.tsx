@@ -1,7 +1,7 @@
 import React, { ReactText } from "react";
 import { row, column, flex, displayFlex, flexWrap } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
-import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, IMesonFormBase, IMesonFieldBaseProps } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, IMesonFieldBaseProps } from "./model/types";
 
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
@@ -38,7 +38,7 @@ export interface MesonFormHandler {
   onReset(): void;
 }
 
-export function ForwardForm<T = IMesonFormBase>(props: MesonFormProps<T>, ref: React.Ref<MesonFormHandler>) {
+export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFormProps<T>, ref: React.Ref<MesonFormHandler>) {
   let {
     formAny: form,
     updateForm,
