@@ -13,7 +13,7 @@ export interface ISimpleObject<T = any> {
 
 export type FieldValues = Record<string, any>;
 export type IMesonFormBase = FieldValues;
-export type FieldName<F extends FieldValues> = (keyof F & string) | string;
+export type FieldName<F extends FieldValues> = keyof F & string;
 export type IMesonErrors<T> = Partial<Record<FieldName<T>, string>>;
 
 export enum EMesonValidate {
@@ -270,7 +270,7 @@ export interface IMesonRadioField<T extends FieldValues, K extends FieldName<T> 
 }
 
 // 默认any过渡
-export type IMesonFieldItemHasValue<T = FieldValues, K extends FieldName<T> = FieldName<T>> =
+export type IMesonFieldItemHasValue<T extends FieldValues = FieldValues, K extends FieldName<T> = FieldName<T>> =
   | IMesonInputField<T, K>
   | IMesonTexareaField<T, K>
   | IMesonNumberField<T, K>
@@ -283,7 +283,7 @@ export type IMesonFieldItemHasValue<T = FieldValues, K extends FieldName<T> = Fi
   | IMesonSwitchField<T, K>;
 
 // 默认any过渡
-export type IMesonFieldItem<T = FieldValues, K extends FieldName<T> = FieldName<T>, K2 extends FieldName<T> = FieldName<T>> =
+export type IMesonFieldItem<T extends FieldValues = FieldValues, K extends FieldName<T> = FieldName<T>, K2 extends FieldName<T> = FieldName<T>> =
   | IMesonInputField<T, K>
   | IMesonTexareaField<T, K>
   | IMesonNumberField<T, K>
