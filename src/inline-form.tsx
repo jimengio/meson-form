@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { useMesonCore } from "./hook/meson-core";
-import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors } from "./model/types";
+import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, FieldName } from "./model/types";
 import { column, row } from "@jimengio/flex-styles";
 import { CSSProperties } from "@emotion/serialize";
 import Input from "antd/lib/input";
@@ -10,7 +10,7 @@ import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
 import { styleInput, styleSelect } from "./style";
 
-export function MesonInlineForm<T>(props: {
+export function MesonInlineForm<T extends FieldValues>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
@@ -18,7 +18,7 @@ export function MesonInlineForm<T>(props: {
   onCancel?: () => void;
   className?: string;
   style?: CSSProperties;
-  onFieldChange?: (name: string, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
+  onFieldChange?: (name: FieldName<T>, v: any, prevForm?: T, modifyFormObject?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) {
   let onSubmit = (form: T) => {
@@ -47,7 +47,7 @@ export function MesonInlineForm<T>(props: {
       case "input":
         return (
           <Input
-            value={formAny[item.name]}
+            value={formAny[item.name] as any}
             key={`${item.name}+${idx}`}
             disabled={item.disabled}
             type={item.inputType || "text"}
@@ -74,7 +74,7 @@ export function MesonInlineForm<T>(props: {
         );
 
       case "select":
-        let currentValue = formAny[item.name];
+        let currentValue: any = formAny[item.name];
         if (item.translateNonStringvalue && currentValue != null) {
           currentValue = `${currentValue}`;
         }
@@ -136,7 +136,7 @@ export function MesonInlineForm<T>(props: {
           return `Not supported type: ${item.type}`;
         }
 
-        let name: string = item.name;
+        let name = item.name;
         let error = name != null ? errors[name] : null;
         let errorNode = error != null ? <span className={styleError}>{error}</span> : null;
 

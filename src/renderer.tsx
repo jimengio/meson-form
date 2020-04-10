@@ -17,6 +17,7 @@ import {
   IMesonTexareaField,
   IMesonDatePickerField,
   IMesonTreeSelectField,
+  FieldValues,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
@@ -35,13 +36,13 @@ type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
-export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   const [count, setCount] = useState(0);
 
   const textAreaElement = (
     <TextArea
       className={styleTextArea}
-      value={form[item.name]}
+      value={form[item.name] as any}
       disabled={item.disabled}
       placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
       onChange={(event) => {
@@ -72,7 +73,7 @@ export function renderTextAreaItem<T>(form: T, item: IMesonTexareaField<T>, upda
   }
 }
 
-export function renderInputItem<T>(
+export function renderInputItem<T extends FieldValues>(
   form: T,
   item: IMesonInputField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -83,7 +84,7 @@ export function renderInputItem<T>(
     <>
       <Input
         className={styleInput}
-        value={form[item.name]}
+        value={form[item.name] as any}
         disabled={item.disabled}
         type={item.inputType || "text"}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -112,12 +113,12 @@ export function renderInputItem<T>(
   );
 }
 
-export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
   return (
     <>
       <InputNumber
         className={styleInputNumber}
-        value={form[item.name]}
+        value={form[item.name] as any}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
         onChange={(newValue) => {
@@ -134,11 +135,18 @@ export function renderNumberItem<T>(form: T, item: IMesonNumberField<T>, updateI
   );
 }
 
-export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+export function renderSwitchItem<T extends FieldValues>(
+  form: T,
+  item: IMesonSwitchField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  const checked = form[item.name] ? true : false;
+
   return (
     <div className={styleSwitch}>
       <Switch
-        checked={form[item.name]}
+        checked={checked}
         disabled={item.disabled}
         onChange={(value) => {
           updateItem(value, item);
@@ -149,14 +157,14 @@ export function renderSwitchItem<T>(form: T, item: IMesonSwitchField<T>, updateI
   );
 }
 
-export function renderSelectItem<T>(
+export function renderSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonSelectField<T>,
   updateItem: FuncUpdateItem<T>,
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
-  let currentValue = form[item.name];
+  let currentValue: any = form[item.name];
   if (item.translateNonStringvalue && currentValue != null) {
     currentValue = `${currentValue}`;
   }
@@ -195,14 +203,14 @@ export function renderSelectItem<T>(
   );
 }
 
-export function renderDropdownSelectItem<T>(
+export function renderDropdownSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonDropdownSelectField<T>,
   updateItem: FuncUpdateItem<T>,
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
-  let currentValue = form[item.name];
+  let currentValue: any = form[item.name];
   if (item.translateNonStringvalue && currentValue != null) {
     currentValue = `${currentValue}`;
   }
@@ -245,7 +253,7 @@ export function renderDropdownSelectItem<T>(
   );
 }
 
-export function renderTreeSelectItem<T>(
+export function renderTreeSelectItem<T extends FieldValues>(
   form: T,
   item: IMesonTreeSelectField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -256,7 +264,7 @@ export function renderTreeSelectItem<T>(
 
   return (
     <TreeSelect
-      value={currentValue}
+      value={currentValue as any}
       multiple={item.multiple}
       disabled={item.disabled}
       className={cx(styleTree, width100)}
@@ -282,7 +290,12 @@ export function renderTreeSelectItem<T>(
   );
 }
 
-export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateItem: FuncUpdateItem<T>, checkItemWithValue: FuncCheckItemWithValue<T>) {
+export function renderRadioItem<T extends FieldValues>(
+  form: T,
+  item: IMesonRadioField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
   const renderRadios = (item: IMesonRadioField<T>) => {
     const radios = item.options;
     return radios.map((radio) => {
@@ -307,7 +320,7 @@ export function renderRadioItem<T>(form: T, item: IMesonRadioField<T>, updateIte
   );
 }
 
-export function renderDatePickerItem<T>(
+export function renderDatePickerItem<T extends FieldValues>(
   form: T,
   item: IMesonDatePickerField<T>,
   updateItem: FuncUpdateItem<T>,
@@ -364,9 +377,9 @@ export const ValueFieldContainer: FC<{ fullWidth?: boolean; className?: string }
  * @param errorClassName error className
  * @param hideLabel
  */
-export function renderItemLayout(
+export function renderItemLayout<T>(
   key: string | number,
-  item: IMesonFieldItemHasValue,
+  item: IMesonFieldItemHasValue<T>,
   error: string,
   field: ReactNode,
   labelClassName: string,
