@@ -74,9 +74,7 @@ function useFilterForm<T = { [k: string]: any }>(props: IProps<T>) {
 
   let ui = <div className={cx(row, flexWrap, styleItemsContainer, props.className)}>{renderItems(props.items)}</div>;
 
-  let formInternals = { formData: form, updateForm };
-
-  return { ui, internals: formInternals };
+  return { ui, formData: form, updateForm };
 }
 
 export { useFilterForm, IFilterFieldItem };

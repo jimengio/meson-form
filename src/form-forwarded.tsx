@@ -16,6 +16,7 @@ import {
   ValueFieldContainer,
   renderDatePickerItem,
   renderTreeSelectItem,
+  renderDropdownTreeItem,
 } from "./renderer";
 import { MesonFormProps } from "./form";
 import { Draft } from "immer";
@@ -93,6 +94,8 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
         return renderDatePickerItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "tree-select":
         return renderTreeSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
+      case "dropdown-tree":
+        return renderDropdownTreeItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "custom":
       // already handled outside
     }
