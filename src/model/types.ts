@@ -4,6 +4,8 @@ import { InputNumberProps } from "antd/lib/input-number";
 import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
 import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
+
+import { IDropdownTreeProps } from "@jimengio/dropdown";
 import { Draft } from "immer";
 import { Moment } from "moment";
 
@@ -34,6 +36,7 @@ export enum EMesonFieldType {
   Textarea = "textarea",
   Number = "number",
   Select = "select",
+  DropdownSelect = "string",
   Custom = "custom",
   CustomMultiple = "custom-multiple",
   Decorative = "decorative",
@@ -42,6 +45,7 @@ export enum EMesonFieldType {
   Radio = "radio",
   DatePicker = "date-picker",
   TreeSelect = "tree-select",
+  DropdownTree = "dropdown-tree",
   // like React fragment
   Group = "group",
 }
@@ -146,6 +150,20 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   valueContainerClassName?: string;
 }
 
+export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
+  name: K;
+  type: "dropdown-tree";
+  placeholder?: string;
+  allowClear?: boolean;
+  disabled?: boolean;
+  options?: IDropdownTreeProps["items"];
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  treeSelectProps?: IDropdownTreeProps;
+  valueContainerClassName?: string;
+}
+
 export interface IMesonSwitchField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "switch";
@@ -182,6 +200,7 @@ export interface IMesonSelectField<T extends FieldValues, K extends FieldName<T>
   valueContainerClassName?: string;
 }
 
+// TODO, reuse props from dropdown package
 export interface IDropdownSelectProps {
   value?: string | number;
   className?: string;
@@ -285,6 +304,7 @@ export type IMesonFieldItemHasValue<T extends FieldValues = FieldValues, K exten
   | IMesonRadioField<T, K>
   | IMesonDatePickerField<T, K>
   | IMesonTreeSelectField<T, K>
+  | IMesonDropdownTreeField<T, K>
   | IMesonSwitchField<T, K>;
 
 // 默认any过渡
@@ -302,4 +322,5 @@ export type IMesonFieldItem<T extends FieldValues = FieldValues, K extends Field
   | IMesonRadioField<T, K>
   | IMesonDatePickerField<T, K>
   | IMesonTreeSelectField<T, K>
+  | IMesonDropdownTreeField<T, K>
   | IMesonCustomMultipleField<T, K, K2>;

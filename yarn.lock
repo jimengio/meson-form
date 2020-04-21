@@ -141,10 +141,10 @@
     react-copy-to-clipboard "^5.0.2"
     remarkable "^2.0.0"
 
-"@jimengio/dropdown@^0.1.32":
-  version "0.1.32"
-  resolved "https://registry.npmjs.org/@jimengio/dropdown/-/dropdown-0.1.32.tgz#ba62f73734752aa29dc94cdd594096331aeb7969"
-  integrity sha512-VDGGMdNa9GF63Z1A9aLG0eOl70NZaHvepjJup/IAgg38xhgOeJTvQrWYnQsO94DgNVvbIYg8lIcJvkQxlNymMA==
+"@jimengio/dropdown@^0.1.33":
+  version "0.1.33"
+  resolved "https://registry.npmjs.org/@jimengio/dropdown/-/dropdown-0.1.33.tgz#c818af165a3d69af64cda6c9825479513d08127e"
+  integrity sha512-89d24WsqxAxzZFfnOqrYpYDz2R/Z4HmJxeA3frfXv8r7CCT1NNaKYIkwLRHIptk6hipQW5VRy2QXo7rC4tdAkA==
   dependencies:
     "@jimengio/flex-styles" "^0.1.5"
     "@jimengio/jimo-basics" "^0.1.0"

@@ -22,6 +22,7 @@ import {
   renderDatePickerItem,
   renderTreeSelectItem,
   renderDropdownSelectItem,
+  renderDropdownTreeItem,
 } from "./renderer";
 import { lingual } from "./lingual";
 import { JimoButton } from "@jimengio/jimo-basics";
@@ -91,6 +92,8 @@ export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
         return renderDatePickerItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "tree-select":
         return renderTreeSelectItem(form, item, updateItem, checkItem, checkItemWithValue);
+      case "dropdown-tree":
+        return renderDropdownTreeItem(form, item, updateItem, checkItem, checkItemWithValue);
       case "custom":
       // already handled outside
     }

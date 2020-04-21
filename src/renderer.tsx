@@ -18,12 +18,14 @@ import {
   IMesonDatePickerField,
   IMesonTreeSelectField,
   FieldValues,
+  IMesonDropdownTreeField,
 } from "./model/types";
 import { css, cx } from "emotion";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 import TreeSelect from "antd/lib/tree-select";
+import { DropdownTree } from "@jimengio/dropdown";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
 import { DropdownMenu } from "@jimengio/dropdown";
@@ -232,13 +234,7 @@ export function renderDropdownSelectItem<T extends FieldValues>(
         updateItem(newValue, item);
         checkItemWithValue(newValue, item);
       }}
-      className={cx(
-        item.className,
-        width100,
-        css`
-          min-width: 220px;
-        `
-      )}
+      className={cx(item.className, width100, styleSelectSize)}
       menuClassName={item.selectProps?.menuClassName}
       itemClassName={item.selectProps?.itemClassName}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
@@ -287,6 +283,32 @@ export function renderTreeSelectItem<T extends FieldValues>(
       }}
       {...item.treeSelectProps}
     ></TreeSelect>
+  );
+}
+
+export function renderDropdownTreeItem<T extends FieldValues>(
+  form: T,
+  item: IMesonDropdownTreeField<T>,
+  updateItem: FuncUpdateItem<T>,
+  checkItem: FuncCheckItem<T>,
+  checkItemWithValue: FuncCheckItemWithValue<T>
+) {
+  let currentValue = form[item.name];
+
+  return (
+    <DropdownTree
+      value={currentValue}
+      disabled={item.disabled}
+      className={cx(width100, styleSelectSize)}
+      allowClear={item.allowClear}
+      placeholder={item.placeholder || lingual.pleaseSelect}
+      items={item.options}
+      onSelect={(newValue) => {
+        checkItemWithValue(newValue, item);
+        updateItem(newValue, item);
+      }}
+      {...item.treeSelectProps}
+    ></DropdownTree>
   );
 }
 
@@ -474,4 +496,8 @@ let styleTextareaCount = css`
   text-align: right;
   background: #fff;
   z-index: 1;
+`;
+
+let styleSelectSize = css`
+  min-width: 220px;
 `;
