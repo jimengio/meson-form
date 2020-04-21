@@ -20,13 +20,15 @@ let formItems: IMesonFieldItem[] = [
     label: "种类",
     options: candidates,
     required: true,
-    onChange: (v: string, modifyForm: FuncMesonModifyForm<IHome>) => {
+    onChange: (v: string, modifyForm: FuncMesonModifyForm<IHome>, formInternals) => {
+      console.log("frozen form", formInternals.formData);
+
       if (v === "local") {
-        modifyForm((form) => {
+        formInternals.updateForm((form) => {
           form.place = "上海市";
         });
       } else {
-        modifyForm((form) => {
+        formInternals.updateForm((form) => {
           form.place = "";
         });
       }
@@ -62,26 +64,28 @@ enum EHomeKind {
   Strange = "strange",
 }
 
-interface IHome {
+interface IData {
   kind: EHomeKind;
   place: string;
   note?: string;
 }
 
-let formItems: IMesonFieldItem[] = [
+let formItems: IMesonFieldItem<IData>[] = [
   {
     type: "select",
     name: "kind",
     label: "种类",
     options: candidates,
     required: true,
-    onChange: (v: string, modifyForm: FuncMesonModifyForm<IHome>) => {
+    onChange: (v: string, modifyForm: FuncMesonModifyForm<IData>, formInternals) => {
+      console.log("frozen form", formInternals.formData);
+
       if (v === "local") {
-        modifyForm((form) => {
+        formInternals.updateForm((form) => {
           form.place = "上海市";
         });
       } else {
-        modifyForm((form) => {
+        formInternals.updateForm((form) => {
           form.place = "";
         });
       }
@@ -102,7 +106,7 @@ let formItems: IMesonFieldItem[] = [
 ];
 
 let ModifyOnChange: FC<{}> = (props) => {
-  let [form, setForm] = useState({});
+  let [form, setForm] = useState({} as IData);
 
   return (
     <div className={cx(row, styleContainer)}>

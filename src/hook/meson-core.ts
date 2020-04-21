@@ -115,7 +115,10 @@ export let useMesonCore = <T extends FieldValues>(props: {
     });
     modifiedState.current = true;
     if (item.onChange != null) {
-      item.onChange(x, updateForm);
+      item.onChange(x, updateForm, {
+        formData: form,
+        updateForm: updateForm,
+      });
     }
     if (props.onFieldChange != null) {
       props.onFieldChange(item.name, x, form, updateForm);
