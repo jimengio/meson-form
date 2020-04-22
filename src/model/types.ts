@@ -244,18 +244,17 @@ export interface IMesonCustomField<T extends FieldValues, K extends FieldName<T>
   validator?: FuncMesonValidator<T>;
 }
 
-export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends FieldName<T> = FieldName<T>, K2 extends FieldName<T> = FieldName<T>>
-  extends IMesonFieldBaseProps<T> {
+export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   type: "custom-multiple";
   /** multiple fields to edit and to check
    * @param modifyForm accepts a function to modify the form
    * @param checkForm accepts an object of new values
    */
-  names: [K1, K2];
+  names: K1[];
   /** get form and render into form item */
   renderMultiple: (form: T, modifyForm: FuncMesonModifyForm<T>, checkForm: (changedValues: Partial<T>) => void) => ReactNode;
   /** get form and return errors of related fields in object */
-  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T, K1, K2>) => IMesonErrors<T>;
+  validateMultiple?: (form: T, item: IMesonCustomMultipleField<T, K1>) => IMesonErrors<T>;
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
@@ -323,4 +322,4 @@ export type IMesonFieldItem<T extends FieldValues = FieldValues, K extends Field
   | IMesonDatePickerField<T, K>
   | IMesonTreeSelectField<T, K>
   | IMesonDropdownTreeField<T, K>
-  | IMesonCustomMultipleField<T, K, K2>;
+  | IMesonCustomMultipleField<T, K>;
