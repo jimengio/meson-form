@@ -2,7 +2,7 @@ import React, { useState, FC } from "react";
 import { css, cx } from "emotion";
 import { column, row, fullscreen, expand } from "@jimengio/flex-styles";
 import { HashLink } from "@jimengio/ruled-router/lib/dom";
-import { genRouter, GenRouterTypeMain } from "controller/generated-router";
+import { genRouter, GenRouterTypeTree } from "controller/generated-router";
 import FormBasic from "forms/basic";
 import DraftForm from "forms/draft";
 import ModalPage from "forms/modal";
@@ -31,6 +31,7 @@ import PageFooterButtons from "./footer-buttons";
 import ExampleDatePicker from "forms/date-picker";
 import ExampleTreeSelect from "forms/tree-select";
 import ExampleFilterForm from "forms/filter-form";
+import FormInputSuffix from "forms/input-suffix";
 
 let items: ISidebarEntry[] = [
   {
@@ -163,6 +164,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "提交按钮",
     path: genRouter.footerButtons.name,
   },
+  {
+    title: "Input suffix",
+    cnTitle: "输入框后缀",
+    path: genRouter.inputSuffix.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -172,7 +178,7 @@ let onSwitchPage = (path: string) => {
   }
 };
 
-let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
+let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
   let renderChild = (x) => {
     switch (props.router.name) {
       case "home":
@@ -227,6 +233,8 @@ let Container: FC<{ router: GenRouterTypeMain }> = (props) => {
         return <ExampleTreeSelect />;
       case "filter-form":
         return <ExampleFilterForm />;
+      case "input-suffix":
+        return <FormInputSuffix />;
       default:
         return <FormBasic />;
     }

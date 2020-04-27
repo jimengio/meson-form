@@ -29,5 +29,6 @@ export const routerRules: IRouteRule[] = [
   { path: "date-picker" },
   { path: "tree-select" },
   { path: "filter-form" },
+  { path: "input-suffix" },
   { path: "", name: "home" },
 ];

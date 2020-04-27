@@ -87,6 +87,10 @@ export interface IMesonInputField<T extends FieldValues, K extends FieldName<T> 
   checkOnChange?: boolean;
   /** add styles to container of value, which is inside each field and around the value */
   valueContainerClassName?: string;
+  /** append icon/text after input box as suffix,
+   * since antd input use width:100%, a suffix node is actually placed out of base box
+   */
+  suffixNode?: ReactNode;
 }
 
 export interface IMesonTexareaField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
@@ -118,7 +122,11 @@ export interface IMesonNumberField<T extends FieldValues, K extends FieldName<T>
   min?: number;
   max?: number;
   inputProps?: InputNumberProps;
-  valueContainerClassName?: string;
+  valueContainerClassName?: string
+  /** append icon/text after input box as suffix,
+   * since antd input use width:100%, a suffix node is actually placed out of base box
+   */;
+  suffixNode?: ReactNode;
 }
 
 export interface IMesonDatePickerField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
