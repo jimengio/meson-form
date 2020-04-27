@@ -12,7 +12,7 @@ function qsStringify(queries: { [k: string]: string }) {
 
 // generated
 
-// Generated with router-code-generator@0.2.6
+// Generated with router-code-generator@0.2.7
 
 export let genRouter = {
   home: {
@@ -171,6 +171,12 @@ export let genRouter = {
     path: () => `/filter-form`,
     go: () => switchPath(`/filter-form`),
   },
+  inputSuffix: {
+    name: "input-suffix",
+    raw: "input-suffix",
+    path: () => `/input-suffix`,
+    go: () => switchPath(`/input-suffix`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -179,36 +185,39 @@ export let genRouter = {
   },
 };
 
-export type GenRouterTypeMain =
-  | GenRouterTypeTree["home"]
-  | GenRouterTypeTree["autoSave"]
-  | GenRouterTypeTree["modal"]
-  | GenRouterTypeTree["draft"]
-  | GenRouterTypeTree["drawer"]
-  | GenRouterTypeTree["dropdown"]
-  | GenRouterTypeTree["select"]
-  | GenRouterTypeTree["validation"]
-  | GenRouterTypeTree["loginValidations"]
-  | GenRouterTypeTree["custom"]
-  | GenRouterTypeTree["customMultiple"]
-  | GenRouterTypeTree["wrapMesonCore"]
-  | GenRouterTypeTree["forwardForm"]
-  | GenRouterTypeTree["modifyOnChange"]
-  | GenRouterTypeTree["switch"]
-  | GenRouterTypeTree["inlineForm"]
-  | GenRouterTypeTree["blankLabel"]
-  | GenRouterTypeTree["group"]
-  | GenRouterTypeTree["decorative"]
-  | GenRouterTypeTree["noLabel"]
-  | GenRouterTypeTree["useItems"]
-  | GenRouterTypeTree["radio"]
-  | GenRouterTypeTree["footerButtons"]
-  | GenRouterTypeTree["datePicker"]
-  | GenRouterTypeTree["treeSelect"]
-  | GenRouterTypeTree["filterForm"]
-  | GenRouterTypeTree["$"];
+/** Deprecating, use GenRouterTypeTree["next"] instead */
+export type GenRouterTypeMain = GenRouterTypeTree["next"];
 
 export interface GenRouterTypeTree {
+  next:
+    | GenRouterTypeTree["home"]
+    | GenRouterTypeTree["autoSave"]
+    | GenRouterTypeTree["modal"]
+    | GenRouterTypeTree["draft"]
+    | GenRouterTypeTree["drawer"]
+    | GenRouterTypeTree["dropdown"]
+    | GenRouterTypeTree["select"]
+    | GenRouterTypeTree["validation"]
+    | GenRouterTypeTree["loginValidations"]
+    | GenRouterTypeTree["custom"]
+    | GenRouterTypeTree["customMultiple"]
+    | GenRouterTypeTree["wrapMesonCore"]
+    | GenRouterTypeTree["forwardForm"]
+    | GenRouterTypeTree["modifyOnChange"]
+    | GenRouterTypeTree["switch"]
+    | GenRouterTypeTree["inlineForm"]
+    | GenRouterTypeTree["blankLabel"]
+    | GenRouterTypeTree["group"]
+    | GenRouterTypeTree["decorative"]
+    | GenRouterTypeTree["noLabel"]
+    | GenRouterTypeTree["useItems"]
+    | GenRouterTypeTree["radio"]
+    | GenRouterTypeTree["footerButtons"]
+    | GenRouterTypeTree["datePicker"]
+    | GenRouterTypeTree["treeSelect"]
+    | GenRouterTypeTree["filterForm"]
+    | GenRouterTypeTree["inputSuffix"]
+    | GenRouterTypeTree["$"];
   home: {
     name: "home";
     params: {};
@@ -361,6 +370,12 @@ export interface GenRouterTypeTree {
   };
   filterForm: {
     name: "filter-form";
+    params: {};
+    query: {};
+    next: null;
+  };
+  inputSuffix: {
+    name: "input-suffix";
     params: {};
     query: {};
     next: null;

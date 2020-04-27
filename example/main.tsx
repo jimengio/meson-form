@@ -11,10 +11,10 @@ import "antd/dist/antd.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./main.css";
 import { mesonUseEn } from "../src/lingual";
-import { GenRouterTypeMain } from "controller/generated-router";
+import { GenRouterTypeTree } from "controller/generated-router";
 
 const renderApp = () => {
-  let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules) as GenRouterTypeMain;
+  let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules) as GenRouterTypeTree["next"];
 
   ReactDOM.render(<Container router={routerTree} />, document.querySelector(".app"));
 };

@@ -4,6 +4,7 @@ import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
 import DatePicker from "antd/lib/date-picker";
 import dataPickerLocale from "antd/es/date-picker/locale/zh_CN";
+import { rowMiddle, Space } from "@jimengio/flex-styles";
 
 import {
   IMesonInputField,
@@ -83,7 +84,7 @@ export function renderInputItem<T extends FieldValues>(
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
   return (
-    <>
+    <div className={rowMiddle}>
       <Input
         className={styleInput}
         value={form[item.name] as any}
@@ -111,7 +112,13 @@ export function renderInputItem<T extends FieldValues>(
         }}
         {...item.inputProps}
       />
-    </>
+      {item.suffixNode != null ? (
+        <>
+          <Space width={8} />
+          {item.suffixNode}
+        </>
+      ) : null}
+    </div>
   );
 }
 
@@ -133,6 +140,12 @@ export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNum
         max={item.max}
         {...item.inputProps}
       />
+      {item.suffixNode != null ? (
+        <>
+          <Space width={8} />
+          {item.suffixNode}
+        </>
+      ) : null}
     </>
   );
 }
