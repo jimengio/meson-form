@@ -57,7 +57,7 @@ export function renderDatePickerItem<T>(form: T, item: IFilterDatePickerField<T>
       value={form[item.name] && moment(form[item.name])}
       allowClear={item.allowClear}
       disabled={item.disabled}
-      placeholder={item.placeholder || lingual.pleaseSelect}
+      placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       className={cx(styleDatePicker, item.className)}
       style={item.style}
       onChange={(dateObj, dateString) => {
