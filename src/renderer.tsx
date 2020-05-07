@@ -258,6 +258,8 @@ export function renderDropdownSelectItem<T extends FieldValues>(
       allowClear={item.allowClear}
       renderValue={item.selectProps?.renderValue}
       followWheel={item.selectProps?.followWheel}
+      showSearch={item.selectProps?.showSearch}
+      searchPlaceholder={item.selectProps?.searchPlaceholder}
     />
   );
 }
