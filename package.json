@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.4.11-a1",
+  "version": "0.4.11",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@jimengio/doc-frame": "^0.1.12",
-    "@jimengio/dropdown": "^0.1.33",
+    "@jimengio/dropdown": "^0.1.35",
     "@jimengio/fa-icons": "^0.2.0",
     "@jimengio/jimo-basics": "^0.1.2",
     "@jimengio/jimo-icons": "^0.3.9",
