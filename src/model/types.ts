@@ -1,4 +1,4 @@
-import { ReactNode, ReactText } from "react";
+import { ReactNode, ReactText, CSSProperties } from "react";
 import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
 import { DatePickerProps } from "antd/lib/date-picker/interface";
@@ -122,10 +122,10 @@ export interface IMesonNumberField<T extends FieldValues, K extends FieldName<T>
   min?: number;
   max?: number;
   inputProps?: InputNumberProps;
-  valueContainerClassName?: string
+  valueContainerClassName?: string;
   /** append icon/text after input box as suffix,
    * since antd input use width:100%, a suffix node is actually placed out of base box
-   */;
+   */
   suffixNode?: ReactNode;
 }
 
@@ -158,6 +158,22 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   valueContainerClassName?: string;
 }
 
+export interface IFormDropdownTreeProps {
+  className?: string;
+  menuClassName?: string;
+  cardClassName?: string;
+  itemClassName?: string;
+  placeholder?: string;
+  emptyLocale?: string;
+  placeholderClassName?: string;
+  menuWidth?: number;
+  style?: CSSProperties;
+  disabled?: boolean;
+  allowClear?: boolean;
+  renderValue?: (x: any) => ReactNode;
+  followWheel?: boolean;
+}
+
 export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   name: K;
   type: "dropdown-tree";
@@ -168,7 +184,7 @@ export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldN
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
-  treeSelectProps?: IDropdownTreeProps;
+  treeSelectProps?: IFormDropdownTreeProps;
   valueContainerClassName?: string;
 }
 
@@ -209,8 +225,7 @@ export interface IMesonSelectField<T extends FieldValues, K extends FieldName<T>
 }
 
 // TODO, reuse props from dropdown package
-export interface IDropdownSelectProps {
-  value?: string | number;
+export interface IFormDropdownSelectProps {
   className?: string;
   menuClassName?: string;
   itemClassName?: string;
@@ -220,6 +235,8 @@ export interface IDropdownSelectProps {
   disabled?: boolean;
   renderValue?: (x: any) => ReactNode;
   followWheel?: boolean;
+  showSearch?: boolean;
+  searchPlaceholder?: string;
 }
 
 export interface IMesonDropdownSelectField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
@@ -232,7 +249,7 @@ export interface IMesonDropdownSelectField<T extends FieldValues, K extends Fiel
   validator?: FuncMesonValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
-  selectProps?: IDropdownSelectProps;
+  selectProps?: IFormDropdownSelectProps;
   valueContainerClassName?: string;
 }
 
