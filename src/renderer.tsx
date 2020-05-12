@@ -217,7 +217,7 @@ export function renderSelectItem<T extends FieldValues>(
       onBlur={(newValue) => {
         checkItem(item);
         if (multiple) {
-          updateItem(newValue.length > 0 ? newValue : undefined, item);
+          checkItemWithValue(newValue.length > 0 ? newValue : undefined, item);
         }
       }}
       {...item.selectProps}
