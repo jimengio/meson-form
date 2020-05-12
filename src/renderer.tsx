@@ -180,9 +180,16 @@ export function renderSelectItem<T extends FieldValues>(
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
   let currentValue: any = form[item.name];
+  let multiple: boolean = item.selectProps?.mode && item.selectProps?.mode === "multiple";
+
   if (item.translateNonStringvalue && currentValue != null) {
-    currentValue = `${currentValue}`;
+    if (multiple && currentValue.length) {
+      currentValue = currentValue.map((c) => `${c}`);
+    } else {
+      currentValue = `${currentValue}`;
+    }
   }
+
   return (
     <Select
       value={currentValue}
@@ -191,15 +198,28 @@ export function renderSelectItem<T extends FieldValues>(
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue) => {
         if (item.translateNonStringvalue && newValue != null) {
-          let target = item.options.find((x) => `${x.value}` === newValue);
-          newValue = target.value;
+          let target = null;
+          if (multiple) {
+            let process = newValue.map((n) => {
+              return item.options.find((x) => `${x.value}` === n).value;
+            });
+            newValue = process.length > 0 ? process : undefined;
+          } else {
+            target = item.options.find((x) => `${x.value}` === newValue);
+            newValue = target.value;
+          }
         }
+
         updateItem(newValue, item);
         checkItemWithValue(newValue, item);
       }}
       allowClear={item.allowClear}
-      onBlur={() => {
-        checkItem(item);
+      onBlur={(newValue) => {
+        if (multiple) {
+          checkItemWithValue(newValue.length > 0 ? newValue : undefined, item);
+        } else {
+          checkItem(item);
+        }
       }}
       {...item.selectProps}
     >
