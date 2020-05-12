@@ -1,4 +1,4 @@
-export { MesonFormProps, MesonForm, MesonFormModal, MesonFormDrawer, MesonFormDropdown, useMesonItems } from "./form";
+export { MesonFormProps, MesonForm, MesonFormModal, MesonFormDrawer, MesonFormDropdown, useMesonFields, useMesonItems } from "./form";
 export { useFilterForm, IFilterFieldItem } from "./filter-form/core";
 
 export { MesonFormForwarded } from "./form-forwarded";

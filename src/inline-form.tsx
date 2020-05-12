@@ -25,7 +25,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
     props.onSubmit(form);
   };
 
-  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore<T>({
+  let { formAny, errors, onCheckSubmit, checkItem, updateItem, checkItemWithValue } = useMesonCore<T, any>({
     initialValue: props.initialValue,
     items: props.items,
     onSubmit: onSubmit,

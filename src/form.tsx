@@ -28,11 +28,11 @@ import { lingual } from "./lingual";
 import { JimoButton } from "@jimengio/jimo-basics";
 import { createItemKey } from "./util/string";
 
-export interface MesonFormProps<T extends FieldValues> {
+export interface MesonFormProps<T extends FieldValues, TD = any> {
   initialValue: T;
   items: IMesonFieldItem<T>[];
   /** when set onSubmit:null on useFormItems, make sure {onSubmit: f} is passed to onCheckSubmit */
-  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void, transferData?: TD) => void;
   onReset?: () => void;
   onCancel?: () => void;
   className?: string;
@@ -51,7 +51,7 @@ export interface MesonFormProps<T extends FieldValues> {
 }
 
 /** Hooks API for customizing UIs */
-export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
+export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<T, TD>) {
   let {
     formAny: form,
     updateForm,
@@ -64,7 +64,7 @@ export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
     checkItemWithValue,
     checkItemCustomMultiple,
     resetModified,
-  } = useMesonCore({
+  } = useMesonCore<T, TD>({
     initialValue: props.initialValue,
     items: props.items,
     submitOnEdit: props.submitOnEdit,
@@ -196,12 +196,11 @@ export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
 
   let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
 
-  let formInternals = {
+  return {
+    ui,
+    checkAndSubmit: onCheckSubmit,
     formData: form,
-    updateForm,
-    updateErrors,
-
-    /** start new form lifecycle with given data. a business API */
+    /** Reset all form state */
     resetForm: (newForm: T) => {
       updateForm((d) => {
         return newForm;
@@ -210,24 +209,40 @@ export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
         return {};
       });
     },
+    updateInternalForm: updateForm,
+    updateInternalErrors: updateErrors,
+  };
+}
+
+/** Deprecating, better use `useMesonFields` */
+export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
+  let fieldsPlugin = useMesonFields(props);
+
+  let formInternals = {
+    formData: fieldsPlugin.formData,
+    updateForm: fieldsPlugin.updateInternalForm,
+    updateErrors: fieldsPlugin.updateInternalErrors,
+
+    /** start new form lifecycle with given data. a business API */
+    resetForm: fieldsPlugin.resetForm,
   };
 
-  return [ui, onCheckSubmit, formInternals] as [ReactNode, typeof onCheckSubmit, typeof formInternals];
+  return [fieldsPlugin.ui, fieldsPlugin.checkAndSubmit, formInternals] as [ReactNode, typeof fieldsPlugin.checkAndSubmit, typeof formInternals];
 }
 
 /** Main form component for Meson
  * Pick changes to MesonFormForwarded after changes in this component
  */
 export function MesonForm<T = FieldValues>(props: MesonFormProps<T>) {
-  let [formItems, onCheckSubmit, formInternals] = useMesonItems(props);
+  let fieldsPlugin = useMesonFields(props);
 
   return (
     <div className={cx(column, flex, props.className)} style={props.style}>
-      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{formItems}</div>
+      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{fieldsPlugin.ui}</div>
       {props.hideFooter ? null : props.renderFooter ? (
-        props.renderFooter(props.isLoading, onCheckSubmit, props.onCancel, formInternals.formData)
+        props.renderFooter(props.isLoading, fieldsPlugin.checkAndSubmit, props.onCancel, fieldsPlugin.formData)
       ) : (
-        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={onCheckSubmit} onCancel={props.onCancel} />
+        <FormFooter isLoading={props.isLoading} layout={props.footerLayout} onSubmit={fieldsPlugin.checkAndSubmit} onCancel={props.onCancel} />
       )}
     </div>
   );

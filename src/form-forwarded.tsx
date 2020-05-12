@@ -52,7 +52,7 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
     checkItemWithValue,
     checkItemCustomMultiple,
     resetModified,
-  } = useMesonCore<T>({
+  } = useMesonCore<T, any>({
     initialValue: props.initialValue,
     items: props.items,
     submitOnEdit: props.submitOnEdit,
