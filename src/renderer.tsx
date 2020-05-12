@@ -215,9 +215,10 @@ export function renderSelectItem<T extends FieldValues>(
       }}
       allowClear={item.allowClear}
       onBlur={(newValue) => {
-        checkItem(item);
         if (multiple) {
           checkItemWithValue(newValue.length > 0 ? newValue : undefined, item);
+        } else {
+          checkItem(item);
         }
       }}
       {...item.selectProps}
