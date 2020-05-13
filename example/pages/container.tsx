@@ -40,7 +40,7 @@ let items: ISidebarEntry[] = [
     path: genRouter.home.name,
   },
   {
-    title: "Use Items from Hooks API",
+    title: "Use Fields from Hooks API",
     cnTitle: "Hooks API 用法",
     path: genRouter.useItems.name,
   },

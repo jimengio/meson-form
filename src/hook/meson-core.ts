@@ -5,15 +5,17 @@ import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce, { Draft } from "immer";
 
-export interface ICheckSubmitOptions<T extends FieldValues> {
-  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
+export interface ICheckSubmitOptions<T extends FieldValues, TD> {
+  onSubmit?: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void, transferData?: any) => void;
+  // pass from `checkAndSubmit` to `onSubmit`
+  transferData?: TD;
 }
 
 /** low level hook for creating forms with very specific UIs */
-export let useMesonCore = <T extends FieldValues>(props: {
+export let useMesonCore = <T extends FieldValues, TransferData>(props: {
   initialValue: T;
   items: IMesonFieldItem<T>[];
-  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void) => void;
+  onSubmit: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void, transferData?: any) => void;
   onFieldChange?: (name: FieldName<T>, v: any, prevForm?: T, modifyForm?: FuncMesonModifyForm<T>) => void;
   submitOnEdit?: boolean;
 }) => {
@@ -21,7 +23,7 @@ export let useMesonCore = <T extends FieldValues>(props: {
   let [errors, updateErrors] = useImmer<IMesonErrors<T>>({});
   let modifiedState = useRef(false);
 
-  let onCheckSubmitWithValue = (passedForm?: T, options?: ICheckSubmitOptions<T>) => {
+  let onCheckSubmitWithValue = (passedForm?: T, options?: ICheckSubmitOptions<T, TransferData>) => {
     let latestForm = passedForm;
     let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
@@ -59,11 +61,11 @@ export let useMesonCore = <T extends FieldValues>(props: {
       };
 
       if (props.onSubmit != null) {
-        props.onSubmit(latestForm, handleServerErrors);
+        props.onSubmit(latestForm, handleServerErrors, options.transferData);
       }
 
       if (options?.onSubmit != null) {
-        options.onSubmit(latestForm, handleServerErrors);
+        options.onSubmit(latestForm, handleServerErrors, options.transferData);
       }
 
       if (props.onSubmit == null && options?.onSubmit == null) {
@@ -131,7 +133,7 @@ export let useMesonCore = <T extends FieldValues>(props: {
     errors,
     updateErrors,
     isModified: modifiedState.current,
-    onCheckSubmit: (options?: ICheckSubmitOptions<T>) => {
+    onCheckSubmit: (options?: ICheckSubmitOptions<T, TransferData>) => {
       onCheckSubmitWithValue(form, options);
     },
     onCheckSubmitWithValue,
