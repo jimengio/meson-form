@@ -61,11 +61,11 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
       };
 
       if (props.onSubmit != null) {
-        props.onSubmit(latestForm, handleServerErrors, options.transferData);
+        props.onSubmit(latestForm, handleServerErrors, options?.transferData);
       }
 
       if (options?.onSubmit != null) {
-        options.onSubmit(latestForm, handleServerErrors, options.transferData);
+        options.onSubmit(latestForm, handleServerErrors, options?.transferData);
       }
 
       if (props.onSubmit == null && options?.onSubmit == null) {
