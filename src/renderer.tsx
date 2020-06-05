@@ -500,9 +500,7 @@ let styleErrorWrapper = css`
   margin-bottom: 16px;
 `;
 
-let styleValueArea = css`
-  overflow: auto;
-`;
+let styleValueArea = css``;
 
 let styleLabel = css`
   color: #6f6f6f;
