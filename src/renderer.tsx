@@ -40,7 +40,7 @@ type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
 export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
-  const [count, setCount] = useState(0);
+  let textLength = isString(form[item.name]) ? form[item.name].length : 0;
 
   const textAreaElement = (
     <TextArea
@@ -51,9 +51,6 @@ export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonT
       onChange={(event) => {
         let newValue = event.target.value;
         updateItem(newValue, item);
-        if (item.enableCounter) {
-          setCount(newValue.length);
-        }
       }}
       onBlur={(event: any) => {
         checkItem(item);
@@ -67,7 +64,7 @@ export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonT
       <div className={relative}>
         {textAreaElement}
         <div className={styleTextareaCount}>
-          {count}/{item.textareaProps?.maxLength}
+          {textLength}/{item.textareaProps?.maxLength}
         </div>
       </div>
     );
