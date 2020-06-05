@@ -93,7 +93,7 @@ let styleItemsContainer = css`
 let styleValueArea = css`
   min-width: 220px;
   width: 220px;
-  overflow: auto;
+  overflow: unset;
 `;
 
 let styleLabel = css`

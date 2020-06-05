@@ -501,7 +501,7 @@ let styleErrorWrapper = css`
 `;
 
 let styleValueArea = css`
-  overflow: auto;
+  overflow: unset;
 `;
 
 let styleLabel = css`
