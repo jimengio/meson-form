@@ -185,7 +185,7 @@ export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldN
   disabled?: boolean;
   // options?: IDropdownTreeProps["items"];
   /** TODO: Temporary processing, compatible with target project dependent version */
-  options?: { key?: string; display?: string; value: any }[];
+  options?: any[];
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
