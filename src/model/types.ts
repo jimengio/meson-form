@@ -3,9 +3,10 @@ import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
 import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
-import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
+// import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
+import { TreeSelectProps } from "antd/lib/tree-select/interface";
 
-import { IDropdownTreeProps } from "@jimengio/dropdown";
+// import { IDropdownTreeProps } from "@jimengio/dropdown";
 import { Draft } from "immer";
 import { Moment } from "moment";
 
@@ -154,7 +155,9 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
-  treeSelectProps?: TreeSelectProps<TreeNodeValue>;
+  // treeSelectProps?: TreeSelectProps<TreeNodeValue>;
+  /** TODO: Temporary processing, compatible with target project dependent version */
+  treeSelectProps?: TreeSelectProps<any>;
   valueContainerClassName?: string;
 }
 
@@ -180,7 +183,9 @@ export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldN
   placeholder?: string;
   allowClear?: boolean;
   disabled?: boolean;
-  options?: IDropdownTreeProps["items"];
+  // options?: IDropdownTreeProps["items"];
+  /** TODO: Temporary processing, compatible with target project dependent version */
+  options?: { key?: string; display?: string; value: any }[];
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
