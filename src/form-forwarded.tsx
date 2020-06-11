@@ -137,7 +137,16 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(key, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(
+          key,
+          item,
+          error,
+          item.render(form[item.name], onChange, form, onCheck),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel,
+          itemWidth
+        );
       }
 
       if (item.type === "custom-multiple") {
