@@ -175,7 +175,16 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
       }
 
       if (item.type === "nested") {
-        return renderItemLayout(key, item as any, error, renderItems(item.children, undefined, key), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(
+          key,
+          item as any,
+          error,
+          renderItems(item.children, undefined, key),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel,
+          itemWidth
+        );
       }
 
       if (item.type === "decorative") {
