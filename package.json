@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/meson-form",
-  "version": "0.4.16-a1",
+  "version": "0.4.16-legacy1",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

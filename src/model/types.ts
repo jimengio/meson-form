@@ -157,7 +157,7 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   validator?: FuncMesonValidator<T>;
   // treeSelectProps?: TreeSelectProps<TreeNodeValue>;
   /** TODO: Temporary processing, compatible with target project dependent version */
-  treeSelectProps?: TreeSelectProps<any>;
+  treeSelectProps?: any;
   valueContainerClassName?: string;
 }
 
