@@ -169,7 +169,8 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
           item.renderMultiple(form, modifidForm, checkForm),
           props.labelClassName,
           props.errorClassName,
-          hideLabel
+          hideLabel,
+          itemWidth
         );
       }
 
