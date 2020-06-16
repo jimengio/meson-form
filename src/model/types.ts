@@ -36,7 +36,7 @@ export enum EMesonFieldType {
   Textarea = "textarea",
   Number = "number",
   Select = "select",
-  DropdownSelect = "string",
+  DropdownSelect = "dropdown-select",
   Custom = "custom",
   CustomMultiple = "custom-multiple",
   Decorative = "decorative",

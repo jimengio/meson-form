@@ -137,7 +137,16 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
           checkItemWithValue(value, item);
         };
 
-        return renderItemLayout(key, item, error, item.render(form[item.name], onChange, form, onCheck), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(
+          key,
+          item,
+          error,
+          item.render(form[item.name], onChange, form, onCheck),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel,
+          itemWidth
+        );
       }
 
       if (item.type === "custom-multiple") {
@@ -160,12 +169,22 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
           item.renderMultiple(form, modifidForm, checkForm),
           props.labelClassName,
           props.errorClassName,
-          hideLabel
+          hideLabel,
+          itemWidth
         );
       }
 
       if (item.type === "nested") {
-        return renderItemLayout(key, item as any, error, renderItems(item.children, undefined, key), props.labelClassName, props.errorClassName, hideLabel);
+        return renderItemLayout(
+          key,
+          item as any,
+          error,
+          renderItems(item.children, undefined, key),
+          props.labelClassName,
+          props.errorClassName,
+          hideLabel,
+          itemWidth
+        );
       }
 
       if (item.type === "decorative") {
