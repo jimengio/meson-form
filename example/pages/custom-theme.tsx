@@ -37,6 +37,8 @@ export default CustomThemePage;
 
 let content = `
 目前支持基础元素的样式定义, 注意要使用 Emotion 定义样式.
+
+参考 https://github.com/jimengio/meson-form/blob/master/src/style.ts .
 `;
 
 let styleInput = css`
