@@ -177,6 +177,12 @@ export let genRouter = {
     path: () => `/input-suffix`,
     go: () => switchPath(`/input-suffix`),
   },
+  customTheme: {
+    name: "custom-theme",
+    raw: "custom-theme",
+    path: () => `/custom-theme`,
+    go: () => switchPath(`/custom-theme`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -217,6 +223,7 @@ export interface GenRouterTypeTree {
     | GenRouterTypeTree["treeSelect"]
     | GenRouterTypeTree["filterForm"]
     | GenRouterTypeTree["inputSuffix"]
+    | GenRouterTypeTree["customTheme"]
     | GenRouterTypeTree["$"];
   home: {
     name: "home";
@@ -376,6 +383,12 @@ export interface GenRouterTypeTree {
   };
   inputSuffix: {
     name: "input-suffix";
+    params: {};
+    query: {};
+    next: null;
+  };
+  customTheme: {
+    name: "custom-theme";
     params: {};
     query: {};
     next: null;

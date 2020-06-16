@@ -32,6 +32,7 @@ import ExampleDatePicker from "forms/date-picker";
 import ExampleTreeSelect from "forms/tree-select";
 import ExampleFilterForm from "forms/filter-form";
 import FormInputSuffix from "forms/input-suffix";
+import CustomThemePage from "./custom-theme";
 
 let items: ISidebarEntry[] = [
   {
@@ -169,6 +170,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "输入框后缀",
     path: genRouter.inputSuffix.name,
   },
+  {
+    title: "Custom theme",
+    cnTitle: "定制主题",
+    path: genRouter.customTheme.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -235,6 +241,8 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         return <ExampleFilterForm />;
       case "input-suffix":
         return <FormInputSuffix />;
+      case "custom-theme":
+        return <CustomThemePage />;
       default:
         return <FormBasic />;
     }

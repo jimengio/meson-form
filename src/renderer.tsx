@@ -34,6 +34,7 @@ import { flex, column, row, relative } from "@jimengio/flex-styles";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
 import { styleInput, styleSelect, styleTextArea, styleInputNumber, styleSwitch, styleRadio, styleDatePicker, styleTree } from "./style";
+import { GlobalThemeVariables } from "./theme";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
@@ -44,7 +45,7 @@ export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonT
 
   const textAreaElement = (
     <TextArea
-      className={styleTextArea}
+      className={cx(styleTextArea, GlobalThemeVariables.textarea)}
       value={form[item.name] as any}
       disabled={item.disabled}
       placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -83,7 +84,7 @@ export function renderInputItem<T extends FieldValues>(
   return (
     <div className={rowMiddle}>
       <Input
-        className={styleInput}
+        className={cx(styleInput, GlobalThemeVariables.input)}
         value={form[item.name] as any}
         disabled={item.disabled}
         type={item.inputType || "text"}
@@ -123,7 +124,7 @@ export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNum
   return (
     <>
       <InputNumber
-        className={styleInputNumber}
+        className={cx(styleInputNumber, GlobalThemeVariables.number)}
         value={form[item.name] as any}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -191,7 +192,7 @@ export function renderSelectItem<T extends FieldValues>(
     <Select
       value={currentValue}
       disabled={item.disabled}
-      className={cx(styleSelect, width100)}
+      className={cx(styleSelect, GlobalThemeVariables.select, width100)}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue) => {
         if (item.translateNonStringvalue && newValue != null) {
@@ -264,7 +265,7 @@ export function renderDropdownSelectItem<T extends FieldValues>(
         updateItem(newValue, item);
         checkItemWithValue(newValue, item);
       }}
-      className={cx(item.className, width100, styleSelectSize)}
+      className={cx(GlobalThemeVariables.dropdownSelect, item.className, width100, styleSelectSize)}
       menuClassName={item.selectProps?.menuClassName}
       itemClassName={item.selectProps?.itemClassName}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
@@ -295,7 +296,7 @@ export function renderTreeSelectItem<T extends FieldValues>(
       value={currentValue as any}
       multiple={item.multiple}
       disabled={item.disabled}
-      className={cx(styleTree, width100)}
+      className={cx(styleTree, GlobalThemeVariables.treeSelect, width100)}
       allowClear={item.allowClear}
       placeholder={item.placeholder || lingual.pleaseSelect}
       onChange={(newValue) => {
@@ -331,7 +332,7 @@ export function renderDropdownTreeItem<T extends FieldValues>(
     <DropdownTree
       value={currentValue}
       disabled={item.disabled}
-      className={cx(width100, styleSelectSize)}
+      className={cx(GlobalThemeVariables.dropdownTree, width100, styleSelectSize)}
       allowClear={item.allowClear}
       placeholder={item.placeholder || lingual.pleaseSelect}
       items={item.options}
@@ -388,7 +389,7 @@ export function renderDatePickerItem<T extends FieldValues>(
       allowClear={item.allowClear}
       disabled={item.disabled}
       placeholder={item.placeholder || lingual.pleaseSelect}
-      className={cx(styleDatePicker, item.className)}
+      className={cx(styleDatePicker, GlobalThemeVariables.datePicker, item.className)}
       style={item.style}
       onChange={(dateObj, dateString) => {
         if (dateString == null || dateString === "") {

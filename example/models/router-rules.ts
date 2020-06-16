@@ -30,5 +30,6 @@ export const routerRules: IRouteRule[] = [
   { path: "tree-select" },
   { path: "filter-form" },
   { path: "input-suffix" },
+  { path: "custom-theme" },
   { path: "", name: "home" },
 ];
