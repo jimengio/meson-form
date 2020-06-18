@@ -31,6 +31,8 @@ export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, 
  */
 export type FuncMesonModifyForm<T = any> = (modifter: (form: Draft<T>) => void) => void;
 
+export type FuncMesonModifyErrors<T = any> = (modifter: (messages: Draft<IMesonErrors<T>>) => void) => void;
+
 export enum EMesonFieldType {
   Input = "input",
   Textarea = "textarea",
@@ -304,6 +306,7 @@ export interface IMesonGroupFields<T> {
 type IChangeInternals<T> = {
   formData: T;
   updateForm: FuncMesonModifyForm<T>;
+  updateErrors: FuncMesonModifyErrors<T>;
 };
 
 export interface IMesonRadioField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
