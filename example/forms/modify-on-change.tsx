@@ -27,6 +27,9 @@ let formItems: IMesonFieldItem[] = [
         formInternals.updateForm((form) => {
           form.place = "上海市";
         });
+        formInternals.updateErrors((errors) => {
+          errors.place = null;
+        });
       } else {
         formInternals.updateForm((form) => {
           form.place = "";
@@ -83,6 +86,9 @@ let formItems: IMesonFieldItem<IData>[] = [
       if (v === "local") {
         formInternals.updateForm((form) => {
           form.place = "上海市";
+        });
+        formInternals.updateErrors((errors) => {
+          errors.place = null;
         });
       } else {
         formInternals.updateForm((form) => {

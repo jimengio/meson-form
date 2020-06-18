@@ -120,6 +120,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
       item.onChange(x, updateForm, {
         formData: form,
         updateForm: updateForm,
+        updateErrors: updateErrors,
       });
     }
     if (props.onFieldChange != null) {
