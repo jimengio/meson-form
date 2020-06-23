@@ -503,6 +503,7 @@ let styleErrorWrapper = css`
 
 let styleValueArea = css`
   overflow: unset;
+  min-width: 0;
 `;
 
 let styleLabel = css`
