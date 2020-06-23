@@ -183,6 +183,12 @@ export let genRouter = {
     path: () => `/custom-theme`,
     go: () => switchPath(`/custom-theme`),
   },
+  previewMode: {
+    name: "preview-mode",
+    raw: "preview-mode",
+    path: () => `/preview-mode`,
+    go: () => switchPath(`/preview-mode`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -224,6 +230,7 @@ export interface GenRouterTypeTree {
     | GenRouterTypeTree["filterForm"]
     | GenRouterTypeTree["inputSuffix"]
     | GenRouterTypeTree["customTheme"]
+    | GenRouterTypeTree["previewMode"]
     | GenRouterTypeTree["$"];
   home: {
     name: "home";
@@ -389,6 +396,12 @@ export interface GenRouterTypeTree {
   };
   customTheme: {
     name: "custom-theme";
+    params: {};
+    query: {};
+    next: null;
+  };
+  previewMode: {
+    name: "preview-mode";
     params: {};
     query: {};
     next: null;

@@ -33,6 +33,7 @@ import ExampleTreeSelect from "forms/tree-select";
 import ExampleFilterForm from "forms/filter-form";
 import FormInputSuffix from "forms/input-suffix";
 import CustomThemePage from "./custom-theme";
+import PreviewMode from "./preview-mode";
 
 let items: ISidebarEntry[] = [
   {
@@ -247,6 +248,10 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         return <FormBasic />;
     }
   };
+
+  if (props.router.name === "preview-mode") {
+    return <PreviewMode />;
+  }
 
   return (
     <div className={cx(fullscreen, row, styleContainer)}>
