@@ -9,6 +9,7 @@ import { formatString, lingual } from "../lingual";
 import moment from "moment";
 
 import { IFilterDropdownSelectField, IFilterDatePickerField, FuncUpdateItem } from "./types";
+import { GlobalThemeVariables } from "../theme";
 
 export function renderDropdownSelectItem<T>(form: T, item: IFilterDropdownSelectField<T>, updateItem: FuncUpdateItem<T>) {
   let currentValue: ReactNode = form[item.name] as any;
@@ -35,7 +36,7 @@ export function renderDropdownSelectItem<T>(form: T, item: IFilterDropdownSelect
         }
         updateItem(newValue, item);
       }}
-      className={cx(styleDropdown, item.className)}
+      className={cx(styleDropdown, GlobalThemeVariables.dropdownSelect, item.className)}
       menuClassName={selectProps?.menuClassName}
       itemClassName={selectProps?.itemClassName}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
@@ -58,7 +59,7 @@ export function renderDatePickerItem<T>(form: T, item: IFilterDatePickerField<T>
       allowClear={item.allowClear}
       disabled={item.disabled}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-      className={cx(styleDatePicker, item.className)}
+      className={cx(styleDatePicker, GlobalThemeVariables.datePicker, item.className)}
       style={item.style}
       onChange={(dateObj, dateString) => {
         if (dateString == null || dateString === "") {
