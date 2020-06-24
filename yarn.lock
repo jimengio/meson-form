@@ -205,6 +205,13 @@
     query-string "^6.12.1"
     react-transition-group "^4.4.1"
 
+"@jimengio/rex@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/@jimengio/rex/-/rex-0.1.8.tgz#fc322d44a0c24c9d04db3bb3ef1274eecd4951f4"
+  integrity sha512-Fb4x75mV/0pUeOGpSf/lJ211oVRizL5Qn51ETgbsLdFMSnhgudUhdhIYM0ZD9dJJle5SWXMBP2qn5E8wbT6EKw==
+  dependencies:
+    shallowequal "*"
+
 "@jimengio/router-code-generator@^0.2.7":
   version "0.2.7"
   resolved "https://registry.npmjs.org/@jimengio/router-code-generator/-/router-code-generator-0.2.7.tgz#636052b78f8f39eeee35a149f816483ed8f6c348"
@@ -5240,7 +5247,7 @@ shallow-equal@^1.0.0:
   resolved "https://registry.npm.taobao.org/shallow-equal/download/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
   integrity sha1-TBar+lYEOqINBQMk76aJQLDaedo=
 
-shallowequal@^1.0.2, shallowequal@^1.1.0:
+shallowequal@*, shallowequal@^1.0.2, shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/shallowequal/download/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha1-GI1SHelbkIdAT9TctosT3wrk5/g=
