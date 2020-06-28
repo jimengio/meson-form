@@ -18,6 +18,8 @@ let CustomThemePage: FC<{ className?: string }> = React.memo((props) => {
             attachMesonFormThemeVariables({
               input: styleInput,
               select: styleSelect,
+              dropdownSelect: styleDropdownSelect,
+              datePicker: styleDatePicker,
             });
 
             alert("切换到其他页面查看");
@@ -39,12 +41,14 @@ let content = `
 目前支持基础元素的样式定义, 注意要使用 Emotion 定义样式.
 
 参考 https://github.com/jimengio/meson-form/blob/master/src/style.ts .
+
+对于 antd 的组件, 由于本身已经包含了 \`!important\` 设定的样式, 需要再增加样式把 input 重置掉.
 `;
 
 let styleInput = css`
   border-radius: 2px !important;
-  border-color: pink !important;
-  color: pink !important;
+  border-color: hsl(0, 0%, 50%) !important;
+  color: hsl(0, 0%, 50%) !important;
 
   &:not(.ant-input-disabled) {
     &:focus,
@@ -58,14 +62,14 @@ let styleInput = css`
 export const styleSelect = css`
   .ant-select-selection {
     border-radius: 2px;
-    border-color: pink !important;
+    border-color: hsl(0, 0%, 50%) !important;
 
     .ant-select-selection__placeholder {
-      color: pink !important;
+      color: hsl(0, 0%, 50%) !important;
     }
 
     .ant-select-selection-selected-value {
-      color: pink !important;
+      color: hsl(0, 0%, 50%) !important;
     }
   }
 
@@ -80,9 +84,14 @@ export const styleSelect = css`
 
 let code = `
 attachMesonFormThemeVariables({
-  input: styleInput,
-  select: styleSelect,
-  // 其他属性...
+  input: styleInput, // 输入框样式
+  select: styleSelect, // antd 选择菜单样式
+  number: null, // 数字输入框样式
+  textArea: null, // 多行文本框样式
+  treeSelect: null, // 属性选择器样式
+  datePicker: styleDatePicker, // 日期选择器样式
+  dropdownSelect: styleDropdownSelect, // 自己开发的选择器样式
+  dropdownTree: null, // 自己开发的树形选择器样式
 });
 `;
 
@@ -90,8 +99,8 @@ let codeStyles = `
 let styleInput = css\`
 
 border-radius: 2px !important;
-border-color: pink !important;
-color: pink !important;
+border-color: hsl(0,0%,50%) !important;
+color: hsl(0,0%,50%) !important;
 
 &:not(.ant-input-disabled) {
   &:focus,
@@ -105,14 +114,14 @@ color: pink !important;
 let styleSelect = css\`
 .ant-select-selection {
   border-radius: 2px;
-  border-color: pink !important;
+  border-color: hsl(0,0%,50%) !important;
 
   .ant-select-selection__placeholder {
-    color: pink !important;
+    color: hsl(0,0%,50%) !important;
   }
 
   .ant-select-selection-selected-value {
-    color: pink !important;
+    color: hsl(0,0%,50%) !important;
   }
 }
 
@@ -124,4 +133,22 @@ let styleSelect = css\`
   }
 }
 \`;
+`;
+
+let styleDropdownSelect = css`
+  border-color: hsl(0, 0%, 60%);
+
+  &:hover {
+    border-color: hsl(0, 0%, 65%);
+  }
+`;
+
+let styleDatePicker = css`
+  .ant-input {
+    border-color: hsl(0, 0%, 60%) !important;
+
+    &:hover {
+      border-color: hsl(0, 0%, 65%) !important;
+    }
+  }
 `;
