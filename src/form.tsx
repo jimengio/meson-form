@@ -194,7 +194,11 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
     });
   };
 
-  let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
+  let ui = (
+    <div className={cx(flex, styleItemsContainer, props.itemsClassName)} data-area="meson-form">
+      {renderItems(props.items)}
+    </div>
+  );
 
   return {
     ui,

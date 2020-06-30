@@ -461,7 +461,11 @@ export function renderItemLayout<T>(
       {labelNode}
       <div className={cx(flex, column, styleValueArea, item.className)} style={item.style} data-field={item.name}>
         {field}
-        {mergeErrorClassName && <div className={mergeErrorClassName}>{error}</div>}
+        {mergeErrorClassName && (
+          <div className={mergeErrorClassName} data-error-field={item.name}>
+            {error}
+          </div>
+        )}
       </div>
     </div>
   );
