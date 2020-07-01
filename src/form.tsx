@@ -194,7 +194,11 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
     });
   };
 
-  let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
+  let ui = (
+    <div className={cx(flex, styleItemsContainer, props.itemsClassName)} data-area="meson-form">
+      {renderItems(props.items)}
+    </div>
+  );
 
   return {
     ui,
@@ -381,7 +385,7 @@ export function MesonFormDropdown<T>(props: {
     footerRenderer = (isLoading, onSubmit, onCancel, form) => {
       return (
         <div className={styleFooterContainer}>
-          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor />
+          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor data-action="submit" />
         </div>
       );
     };

@@ -30,6 +30,7 @@ let FooterButtons: FC<{
             onClick={item.onClick}
             fillColor={item.filled}
             canceling={item.canceling}
+            data-action={item.canceling ? "cancel" : "submit"}
             className={cx(styleButton, item.className)}
           />
         );
