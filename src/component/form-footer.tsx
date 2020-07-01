@@ -21,9 +21,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
       </div>
     );
   }
@@ -31,9 +31,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Center) {
     return (
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
       </div>
     );
   }
@@ -43,9 +43,9 @@ export let FormFooter: FC<{
     <div className={cx(rowParted, styleFooter, props.hideSeparator ? null : styleBorder)}>
       <span />
       <div className={cx(rowMiddle)}>
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling />
+        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor />
+        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <Icon type="loading" /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
       </div>
     </div>
   );

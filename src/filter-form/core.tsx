@@ -64,7 +64,7 @@ function useFilterForm<T = { [k: string]: any }>(props: IProps<T>) {
       return (
         <div key={key} className={cx(row, styleItemRow)} style={styleObj}>
           <div className={cx(styleLabel, props.labelClassName)}>{item.label}:</div>
-          <div className={cx(expand, styleValueArea, item.valueClassName, item.className)} style={item.style}>
+          <div className={cx(expand, styleValueArea, item.valueClassName, item.className)} style={item.style} data-field={item.name}>
             {renderValueItem(item)}
           </div>
         </div>
@@ -72,7 +72,11 @@ function useFilterForm<T = { [k: string]: any }>(props: IProps<T>) {
     });
   };
 
-  let ui = <div className={cx(row, flexWrap, styleItemsContainer, props.className)}>{renderItems(props.items)}</div>;
+  let ui = (
+    <div className={cx(row, flexWrap, styleItemsContainer, props.className)} data-area="filter-form">
+      {renderItems(props.items)}
+    </div>
+  );
 
   return { ui, formData: form, updateForm };
 }

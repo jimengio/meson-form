@@ -385,7 +385,7 @@ export function MesonFormDropdown<T>(props: {
     footerRenderer = (isLoading, onSubmit, onCancel, form) => {
       return (
         <div className={styleFooterContainer}>
-          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor />
+          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor data-action="submit" />
         </div>
       );
     };
