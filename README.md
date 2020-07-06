@@ -33,6 +33,8 @@ let formItems: IMesonFieldItem[] = [
 ];
 ```
 
+[meson-drafter](http://tools.mvc-works.org/meson-drafter/) can be helpful in generating JSON configs.
+
 The pass items to the form:
 
 ```tsx
