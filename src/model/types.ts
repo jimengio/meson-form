@@ -25,7 +25,7 @@ export enum EMesonValidate {
   Boolean = "boolean",
 }
 
-export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, formValue?: T) => string;
+export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, formValue?: T) => string | Promise<string>;
 
 /** expose a function to modify form values directly, FR-97
  * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.

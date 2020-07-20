@@ -10,7 +10,7 @@ export let validateValueRequired = <T>(x: any, item: IMesonFieldItemHasValue<T>)
   }
 };
 
-export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonValidator<T>)[], item: IMesonFieldItemHasValue<T>): string => {
+export let validateByMethods = async <T>(x: any, methods: (EMesonValidate | FuncMesonValidator<T>)[], item: IMesonFieldItemHasValue<T>): Promise<string> => {
   for (let idx in methods) {
     let method = methods[idx];
     if (method === EMesonValidate.Number) {
@@ -26,7 +26,7 @@ export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonV
         return formatString(lingual.labelShouldBeBoolean, { label: item.label });
       }
     } else if (is.function(x)) {
-      return method(x, item);
+      return await method(x, item);
     } else {
       console.warn("Unknown method", method);
     }
@@ -34,15 +34,15 @@ export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonV
   return null;
 };
 
-export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>, formValue: T): string => {
+export let validateItem = async <T>(x: any, item: IMesonFieldItemHasValue<T>, formValue: T): Promise<string> => {
   if (item.validator != null) {
-    let ret = item.validator(x, item, formValue);
+    let ret = await item.validator(x, item, formValue);
     if (ret != null) {
       return ret;
     }
   }
   if (is.array(item.validateMethods)) {
-    let ret = validateByMethods(x, item.validateMethods, item);
+    let ret = await validateByMethods(x, item.validateMethods, item);
     if (ret != null) {
       return ret;
     }

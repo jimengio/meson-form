@@ -28,9 +28,9 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
 
-    traverseItems(props.items, latestForm, (i) => {
+    traverseItems(props.items, latestForm, async (i) => {
       const item = i as IMesonFieldItemHasValue<T>;
-      let result = validateItem(latestForm[item.name], item, form);
+      let result = await validateItem(latestForm[item.name], item, form);
       if (result != null) {
         currentErrors[item.name] = result;
         hasErrors = true;
@@ -76,7 +76,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     }
   };
 
-  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
+  let checkItemWithValue = async (x: any, item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
@@ -85,7 +85,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
       return;
     }
 
-    let result = validateItem(x, item, form);
+    let result = await validateItem(x, item, form);
     updateErrors((draft) => {
       draft[`${item.name}`] = result;
     });

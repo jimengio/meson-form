@@ -33,6 +33,17 @@ let formItems: IMesonFieldItem[] = [
     },
   },
   {
+    type: "input",
+    required: true,
+    label: "promise",
+    name: "username",
+    validator: async (value) => {
+      if (!value) {
+        return "这个错误信息是测试promise错误信息是否正常展示";
+      }
+    },
+  },
+  {
     type: "custom",
     label: "性别",
     name: "sex",
