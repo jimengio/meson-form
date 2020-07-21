@@ -4,6 +4,8 @@ import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCu
 import { validateItem, hasErrorInObject } from "../util/validation";
 import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
 import produce, { Draft } from "immer";
+import { union, isFunction, isEmpty } from "lodash-es";
+import { isEmptyErrorsObject } from "../util/data";
 
 export interface ICheckSubmitOptions<T extends FieldValues, TD> {
   onSubmit?: (form: T, onServerErrors?: (x: IMesonErrors<T>) => void, transferData?: any) => void;
@@ -76,7 +78,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     }
   };
 
-  let checkItemWithValue = (x: any, item: IMesonFieldItemHasValue<T>) => {
+  let checkItemWithValue = async (x: any, item: IMesonFieldItemHasValue<T>) => {
     if (props.submitOnEdit) {
       let newForm = produce(form, (draft) => {
         draft[item.name] = x;
@@ -86,12 +88,22 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     }
 
     let result = validateItem(x, item, form);
-    updateErrors((draft) => {
-      draft[`${item.name}`] = result;
-    });
+
+    // only after local validation is passed(or no validator), then try async one
+    if (result == null && isFunction(item.asyncValidator)) {
+      let result = await item.asyncValidator(x, item, form);
+      updateErrors((draft) => {
+        draft[`${item.name}`] = result;
+      });
+    } else {
+      // errors checked locally
+      updateErrors((draft) => {
+        draft[`${item.name}`] = result;
+      });
+    }
   };
 
-  let checkItemCustomMultiple = (values: Partial<T>, item: IMesonCustomMultipleField<T>) => {
+  let checkItemCustomMultiple = async (values: Partial<T>, item: IMesonCustomMultipleField<T>) => {
     let newForm = produce(form, (draft) => {
       Object.assign(draft, values);
     });
@@ -102,13 +114,26 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     }
 
     let results = item.validateMultiple ? item.validateMultiple(newForm, item) : {};
-    updateErrors((draft) => {
-      // reset errors of related fields first
-      item.names.forEach((name) => {
-        draft[`${name}`] = null;
+
+    if (isEmptyErrorsObject(results) && isFunction(item.asyncValidateMultiple)) {
+      let results = await item.asyncValidateMultiple(newForm, item);
+      updateErrors((draft) => {
+        // reset errors of related fields first
+        item.names.forEach((name) => {
+          draft[`${name}`] = null;
+        });
+        Object.assign(draft, results);
       });
-      Object.assign(draft, results);
-    });
+    } else {
+      // errors checked locally
+      updateErrors((draft) => {
+        // reset errors of related fields first
+        item.names.forEach((name) => {
+          draft[`${name}`] = null;
+        });
+        Object.assign(draft, results);
+      });
+    }
   };
 
   let updateItem = (x: any, item: IMesonFieldItemHasValue<T>) => {

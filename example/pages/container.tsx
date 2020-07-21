@@ -33,6 +33,7 @@ import ExampleTreeSelect from "forms/tree-select";
 import ExampleFilterForm from "forms/filter-form";
 import FormInputSuffix from "forms/input-suffix";
 import CustomThemePage from "./custom-theme";
+import FormAsyncValidation from "forms/async-validation";
 
 let items: ISidebarEntry[] = [
   {
@@ -175,6 +176,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "定制主题",
     path: genRouter.customTheme.name,
   },
+  {
+    title: "Async validation",
+    cnTitle: "异步校验",
+    path: genRouter.asyncValidation.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -243,6 +249,8 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         return <FormInputSuffix />;
       case "custom-theme":
         return <CustomThemePage />;
+      case "async-validation":
+        return <FormAsyncValidation />;
       default:
         return <FormBasic />;
     }

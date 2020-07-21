@@ -183,6 +183,12 @@ export let genRouter = {
     path: () => `/custom-theme`,
     go: () => switchPath(`/custom-theme`),
   },
+  asyncValidation: {
+    name: "async-validation",
+    raw: "async-validation",
+    path: () => `/async-validation`,
+    go: () => switchPath(`/async-validation`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -224,6 +230,7 @@ export interface GenRouterTypeTree {
     | GenRouterTypeTree["filterForm"]
     | GenRouterTypeTree["inputSuffix"]
     | GenRouterTypeTree["customTheme"]
+    | GenRouterTypeTree["asyncValidation"]
     | GenRouterTypeTree["$"];
   home: {
     name: "home";
@@ -389,6 +396,12 @@ export interface GenRouterTypeTree {
   };
   customTheme: {
     name: "custom-theme";
+    params: {};
+    query: {};
+    next: null;
+  };
+  asyncValidation: {
+    name: "async-validation";
     params: {};
     query: {};
     next: null;
