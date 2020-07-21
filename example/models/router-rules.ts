@@ -32,5 +32,6 @@ export const routerRules: IRouteRule[] = [
   { path: "input-suffix" },
   { path: "custom-theme" },
   { path: "preview-mode" },
+  { path: "async-validation" },
   { path: "", name: "home" },
 ];

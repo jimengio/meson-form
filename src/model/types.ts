@@ -25,6 +25,7 @@ export enum EMesonValidate {
 }
 
 export type FuncMesonValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, formValue?: T) => string;
+export type FuncMesonAsyncValidator<T> = (x: any, item?: IMesonFieldItemHasValue<T>, formValue?: T) => Promise<string>;
 
 /** expose a function to modify form values directly, FR-97
  * Caution, it does not trigger field validation! So don't use it to mofidy fields before current one.
@@ -82,10 +83,12 @@ export interface IMesonInputField<T extends FieldValues, K extends FieldName<T> 
   useBlank?: boolean;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
-  validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
    * by default validation performs after each blur event
    */
+  validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   checkOnChange?: boolean;
   /** add styles to container of value, which is inside each field and around the value */
   valueContainerClassName?: string;
@@ -104,10 +107,12 @@ export interface IMesonTexareaField<T extends FieldValues, K extends FieldName<T
   useBlank?: boolean;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
-  validator?: FuncMesonValidator<T>;
   /** validate immediately after content change,
    * by default validation performs after each blur event
    */
+  validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   enableCounter?: boolean;
   checkOnChange?: boolean;
   /** add styles to container of value, which is inside each field and around the value */
@@ -120,14 +125,16 @@ export interface IMesonNumberField<T extends FieldValues, K extends FieldName<T>
   placeholder?: string;
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  /** append icon/text after input box as suffix,
+   * since antd input use width:100%, a suffix node is actually placed out of base box
+   */
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   min?: number;
   max?: number;
   inputProps?: InputNumberProps;
   valueContainerClassName?: string;
-  /** append icon/text after input box as suffix,
-   * since antd input use width:100%, a suffix node is actually placed out of base box
-   */
   suffixNode?: ReactNode;
 }
 
@@ -142,6 +149,8 @@ export interface IMesonDatePickerField<T extends FieldValues, K extends FieldNam
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   datePickerProps?: DatePickerProps;
   valueContainerClassName?: string;
 }
@@ -156,6 +165,8 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   treeSelectProps?: TreeSelectProps<TreeNodeValue>;
   valueContainerClassName?: string;
 }
@@ -186,6 +197,8 @@ export interface IMesonDropdownTreeField<T extends FieldValues, K extends FieldN
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   treeSelectProps?: IFormDropdownTreeProps;
   valueContainerClassName?: string;
 }
@@ -196,6 +209,8 @@ export interface IMesonSwitchField<T extends FieldValues, K extends FieldName<T>
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   valueContainerClassName?: string;
 }
 
@@ -220,6 +235,8 @@ export interface IMesonSelectField<T extends FieldValues, K extends FieldName<T>
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
   selectProps?: SelectProps;
@@ -249,6 +266,8 @@ export interface IMesonDropdownSelectField<T extends FieldValues, K extends Fiel
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
   selectProps?: IFormDropdownSelectProps;
@@ -269,6 +288,8 @@ export interface IMesonCustomField<T extends FieldValues, K extends FieldName<T>
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
 }
 
 export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
@@ -282,6 +303,7 @@ export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends Fie
   renderMultiple: (form: T, modifyForm: FuncMesonModifyForm<T>, checkForm: (changedValues: Partial<T>) => void) => ReactNode;
   /** get form and return errors of related fields in object */
   validateMultiple?: (form: T, item: IMesonCustomMultipleField<T, K1>) => IMesonErrors<T>;
+  asyncValidateMultiple?: (form: T, item: IMesonCustomMultipleField<T, K1>) => Promise<IMesonErrors<T>>;
 }
 
 export interface IMesonNestedFields<T> extends IMesonFieldBaseProps<T> {
@@ -317,6 +339,8 @@ export interface IMesonRadioField<T extends FieldValues, K extends FieldName<T> 
   onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
   validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
   validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
   valueContainerClassName?: string;
 }
 
