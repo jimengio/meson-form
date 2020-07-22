@@ -75,8 +75,43 @@ let styleDemo = css`
 `;
 
 let content = `
+设置了 \`registerMesonFormRenderer\` 方法, 注册一个渲染函数, 这样表单使用的时候就可以用 \`renderType\` 和 \`renderOptions\` 控制调用渲染函数进行渲染.
+方便业务开发当中定义自己的通用渲染函数.
 `;
 
 let code = `
+registerMesonFormRenderer("my-input", (value, onChange, onCheck, form, options: { placeholder: string }, fieldItem) => {
+  return (
+    <div className={rowMiddle}>
+      my global input
+      <Space width={8} />
+      <Input
+        value={value}
+        style={{ width: 200 }}
+        placeholder={options.placeholder}
+        onChange={(event) => {
+          onChange(event.target.value);
+        }}
+        onBlur={() => {
+          onCheck(value);
+        }}
+      />
+      <Space width={8} />
+      with texts
+    </div>
+  );
+});
 
+let formItems: IMesonFieldItem[] = [
+  {
+    type: "registered",
+    name: "name",
+    label: "名字",
+    required: true,
+    renderType: "my-input",
+    renderOptions: {
+      placeholder: "name field",
+    },
+  },
+];
 `;
