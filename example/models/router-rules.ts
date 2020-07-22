@@ -33,5 +33,6 @@ export const routerRules: IRouteRule[] = [
   { path: "custom-theme" },
   { path: "preview-mode" },
   { path: "async-validation" },
+  { path: "registered-renderer" },
   { path: "", name: "home" },
 ];
