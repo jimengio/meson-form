@@ -57,6 +57,7 @@ export interface IMesonFieldBaseProps<T> {
   label?: string;
   required?: boolean;
   shouldHide?: (form: T) => boolean;
+  onlyShow?: (form: T) => boolean;
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -70,6 +71,7 @@ export interface IMesonDecorativeField<T extends FieldValues> {
   className?: string;
   style?: React.CSSProperties;
   shouldHide?: (form: T) => boolean;
+  onlyShow?: (form: T) => boolean;
 }
 
 export interface IMesonInputField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
@@ -335,6 +337,7 @@ export interface IMesonGroupFields<T> {
   type: "group";
   children: IMesonFieldItem<T>[];
   shouldHide?: (form: T) => boolean;
+  onlyShow?: (form: T) => boolean;
   /**
    * Group(flexWrap) 内元素水平布局
    */

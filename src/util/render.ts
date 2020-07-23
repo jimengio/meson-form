@@ -24,6 +24,9 @@ export function traverseItemsReachCustomMultiple<T extends FieldValues>(xs: IMes
     if (x.shouldHide != null && x.shouldHide(form)) {
       return null;
     }
+    if (x.onlyShow != null && !x.onlyShow(form)) {
+      return null;
+    }
     switch (x.type) {
       case "custom-multiple":
         method(x);
