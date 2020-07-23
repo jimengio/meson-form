@@ -35,6 +35,7 @@ import FormInputSuffix from "forms/input-suffix";
 import CustomThemePage from "./custom-theme";
 import PreviewMode from "./preview-mode";
 import FormAsyncValidation from "forms/async-validation";
+import FormRegisteredRenderer from "forms/registered-renderer";
 
 let items: ISidebarEntry[] = [
   {
@@ -182,6 +183,11 @@ let items: ISidebarEntry[] = [
     cnTitle: "异步校验",
     path: genRouter.asyncValidation.name,
   },
+  {
+    title: "Registered renderer",
+    cnTitle: "注册渲染器",
+    path: genRouter.registeredRenderer.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -252,6 +258,8 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         return <CustomThemePage />;
       case "async-validation":
         return <FormAsyncValidation />;
+      case "registered-renderer":
+        return <FormRegisteredRenderer />;
       default:
         return <FormBasic />;
     }

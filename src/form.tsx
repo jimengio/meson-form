@@ -27,6 +27,8 @@ import {
 import { lingual } from "./lingual";
 import { JimoButton } from "@jimengio/jimo-basics";
 import { createItemKey } from "./util/string";
+import { getFormRenderer } from "./registered-renderer";
+import { isFunction } from "lodash-es";
 
 export interface MesonFormProps<T extends FieldValues, TD = any> {
   initialValue: T;
@@ -145,6 +147,30 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
           hideLabel,
           itemWidth
         );
+      }
+
+      if (item.type === "registered") {
+        let onChange = (value: any) => {
+          updateItem(value, item);
+        };
+
+        let onCheck = (value: any) => {
+          checkItemWithValue(value, item);
+        };
+
+        let renderFn = getFormRenderer(item.renderType);
+        let valueNode: ReactNode;
+        if (isFunction(renderFn)) {
+          valueNode = renderFn(form[item.name], onChange, onCheck, form as any, item.renderOptions || {}, item);
+        } else {
+          valueNode = (
+            <div className={styleRenderPlaceholder}>
+              failed to find renderer for {JSON.stringify(item.renderType)} {JSON.stringify(item.renderOptions)}
+            </div>
+          );
+        }
+
+        return renderItemLayout(key, item, error, valueNode, props.labelClassName, props.errorClassName, hideLabel, itemWidth);
       }
 
       if (item.type === "custom-multiple") {
@@ -434,4 +460,10 @@ let styleFooterButton = css`
 
 let styleFooterContainer = css`
   padding: 0px 12px 10px 12px;
+`;
+
+let styleRenderPlaceholder = css`
+  background-color: hsla(357, 91%, 55%, 1);
+  color: white;
+  padding: 0 6px;
 `;

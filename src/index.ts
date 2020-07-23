@@ -7,3 +7,5 @@ export { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "./model/type
 export { default as FooterButtons, IFooterButtonOptions } from "./component/footer-buttons";
 
 export { attachMesonFormThemeVariables } from "./theme";
+
+export { registerMesonFormRenderer } from "./registered-renderer";

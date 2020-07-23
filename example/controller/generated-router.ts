@@ -195,6 +195,12 @@ export let genRouter = {
     path: () => `/async-validation`,
     go: () => switchPath(`/async-validation`),
   },
+  registeredRenderer: {
+    name: "registered-renderer",
+    raw: "registered-renderer",
+    path: () => `/registered-renderer`,
+    go: () => switchPath(`/registered-renderer`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -238,6 +244,7 @@ export interface GenRouterTypeTree {
     | GenRouterTypeTree["customTheme"]
     | GenRouterTypeTree["previewMode"]
     | GenRouterTypeTree["asyncValidation"]
+    | GenRouterTypeTree["registeredRenderer"]
     | GenRouterTypeTree["$"];
   home: {
     name: "home";
@@ -415,6 +422,12 @@ export interface GenRouterTypeTree {
   };
   asyncValidation: {
     name: "async-validation";
+    params: {};
+    query: {};
+    next: null;
+  };
+  registeredRenderer: {
+    name: "registered-renderer";
     params: {};
     query: {};
     next: null;

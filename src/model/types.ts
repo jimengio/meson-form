@@ -292,6 +292,26 @@ export interface IMesonCustomField<T extends FieldValues, K extends FieldName<T>
   asyncValidator?: FuncMesonAsyncValidator<T>;
 }
 
+export interface IMesonRegisteredField<T extends FieldValues, K extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
+  name: K;
+  type: "registered";
+  /** parent container is using column,
+   * for antd inputs with default with 100%, you need to take care of that by yourself
+   * @param current value in this field
+   * @param onChange update value in this field
+   * @param form the form
+   * @param onCheck pass in latest value and it will be validated based on rules. mostly called after blurred or selected.
+   */
+  onChange?: (x: any, modifyFormObject?: FuncMesonModifyForm<T>, internals?: IChangeInternals<T>) => void;
+  validateMethods?: (EMesonValidate | FuncMesonValidator<T>)[];
+  validator?: FuncMesonValidator<T>;
+  /** async validation, it only works during single item check, and it's inactive during submit */
+  asyncValidator?: FuncMesonAsyncValidator<T>;
+  /** choose a globally registered renderer */
+  renderType: string;
+  renderOptions?: object;
+}
+
 export interface IMesonCustomMultipleField<T extends FieldValues, K1 extends FieldName<T> = FieldName<T>> extends IMesonFieldBaseProps<T> {
   type: "custom-multiple";
   /** multiple fields to edit and to check
@@ -356,6 +376,7 @@ export type IMesonFieldItemHasValue<T extends FieldValues = FieldValues, K exten
   | IMesonDatePickerField<T, K>
   | IMesonTreeSelectField<T, K>
   | IMesonDropdownTreeField<T, K>
+  | IMesonRegisteredField<T, K>
   | IMesonSwitchField<T, K>;
 
 // 默认any过渡
@@ -374,4 +395,5 @@ export type IMesonFieldItem<T extends FieldValues = FieldValues, K extends Field
   | IMesonDatePickerField<T, K>
   | IMesonTreeSelectField<T, K>
   | IMesonDropdownTreeField<T, K>
+  | IMesonRegisteredField<T, K>
   | IMesonCustomMultipleField<T, K>;
