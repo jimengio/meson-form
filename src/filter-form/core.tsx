@@ -58,6 +58,9 @@ function useFilterForm<T = { [k: string]: any }>(props: IProps<T>) {
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
+      if (item.onlyShow != null && !item.onlyShow(form)) {
+        return false;
+      }
 
       let styleObj: CSSProperties = itemWidth == null ? undefined : { width: itemWidth };
 

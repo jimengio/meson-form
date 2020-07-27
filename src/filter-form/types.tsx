@@ -6,6 +6,7 @@ import { DatePickerProps } from "antd/lib/date-picker/interface";
 export interface IFilterFieldBaseProps<T> {
   label?: string;
   shouldHide?: (form: T) => boolean;
+  onlyShow?: (form: T) => boolean;
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;

@@ -113,6 +113,9 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
       if (item.shouldHide != null && item.shouldHide(form)) {
         return null;
       }
+      if (item.onlyShow != null && !item.onlyShow(form)) {
+        return false;
+      }
 
       if (item.type === "group") {
         const nextItemWidth = item.itemWidth != null ? item.itemWidth : itemWidth;
