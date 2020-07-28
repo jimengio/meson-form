@@ -5,6 +5,7 @@ export { MesonFormForwarded } from "./form-forwarded";
 export { IMesonFieldItem, EMesonFieldType, IMesonSelectItem } from "./model/types";
 
 export { default as FooterButtons, IFooterButtonOptions } from "./component/footer-buttons";
+export { default as DebouncedInput } from "./component/debounced-input";
 
 export { attachMesonFormThemeVariables } from "./theme";
 
