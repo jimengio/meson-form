@@ -34,5 +34,6 @@ export const routerRules: IRouteRule[] = [
   { path: "preview-mode" },
   { path: "async-validation" },
   { path: "registered-renderer" },
+  { path: "debounced-input" },
   { path: "", name: "home" },
 ];
