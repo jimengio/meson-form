@@ -80,9 +80,15 @@ export const styleSelect = css`
 
 let code = `
 attachMesonFormThemeVariables({
-  input: styleInput,
-  select: styleSelect,
-  // 其他属性...
+  input: styleInput, // 输入框样式
+  select: styleSelect, // antd 选择菜单样式
+  number: null, // 数字输入框样式
+  textArea: null, // 多行文本框样式
+  treeSelect: null, // 属性选择器样式
+  datePicker: styleDatePicker, // 日期选择器样式
+  dropdownSelect: styleDropdownSelect, // 自己开发的选择器样式
+  dropdownTree: null, // 自己开发的树形选择器样式
+  fieldValueArea: null, // 表单值的区域
 });
 `;
 
