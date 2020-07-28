@@ -92,6 +92,7 @@ attachMesonFormThemeVariables({
   datePicker: styleDatePicker, // 日期选择器样式
   dropdownSelect: styleDropdownSelect, // 自己开发的选择器样式
   dropdownTree: null, // 自己开发的树形选择器样式
+  fieldValueArea: null, // 表单值的区域
 });
 `;
 

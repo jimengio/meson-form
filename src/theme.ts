@@ -13,6 +13,7 @@ export let GlobalThemeVariables = {
   datePicker: emptyStyle,
   dropdownSelect: emptyStyle,
   dropdownTree: emptyStyle,
+  fieldValueArea: emptyStyle,
 };
 
 export let attachMesonFormThemeVariables = (customVariables: Partial<typeof GlobalThemeVariables>): void => {
