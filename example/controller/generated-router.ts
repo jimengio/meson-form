@@ -201,6 +201,12 @@ export let genRouter = {
     path: () => `/registered-renderer`,
     go: () => switchPath(`/registered-renderer`),
   },
+  debouncedInput: {
+    name: "debounced-input",
+    raw: "debounced-input",
+    path: () => `/debounced-input`,
+    go: () => switchPath(`/debounced-input`),
+  },
   $: {
     name: "home",
     raw: "",
@@ -245,6 +251,7 @@ export interface GenRouterTypeTree {
     | GenRouterTypeTree["previewMode"]
     | GenRouterTypeTree["asyncValidation"]
     | GenRouterTypeTree["registeredRenderer"]
+    | GenRouterTypeTree["debouncedInput"]
     | GenRouterTypeTree["$"];
   home: {
     name: "home";
@@ -428,6 +435,12 @@ export interface GenRouterTypeTree {
   };
   registeredRenderer: {
     name: "registered-renderer";
+    params: {};
+    query: {};
+    next: null;
+  };
+  debouncedInput: {
+    name: "debounced-input";
     params: {};
     query: {};
     next: null;

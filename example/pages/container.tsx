@@ -36,6 +36,7 @@ import CustomThemePage from "./custom-theme";
 import PreviewMode from "./preview-mode";
 import FormAsyncValidation from "forms/async-validation";
 import FormRegisteredRenderer from "forms/registered-renderer";
+import PageDebouncedInput from "./debounced-input";
 
 let items: ISidebarEntry[] = [
   {
@@ -188,6 +189,10 @@ let items: ISidebarEntry[] = [
     cnTitle: "注册渲染器",
     path: genRouter.registeredRenderer.name,
   },
+  {
+    title: "Debounced input",
+    path: genRouter.debouncedInput.name,
+  },
 ];
 
 let onSwitchPage = (path: string) => {
@@ -260,6 +265,8 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         return <FormAsyncValidation />;
       case "registered-renderer":
         return <FormRegisteredRenderer />;
+      case "debounced-input":
+        return <PageDebouncedInput />;
       default:
         return <FormBasic />;
     }
