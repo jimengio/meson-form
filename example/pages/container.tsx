@@ -203,7 +203,7 @@ let onSwitchPage = (path: string) => {
 };
 
 let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
-  let renderChild = (x) => {
+  let renderChild = () => {
     switch (props.router.name) {
       case "home":
         return <FormBasic />;
@@ -287,7 +287,7 @@ let Container: FC<{ router: GenRouterTypeTree["next"] }> = (props) => {
         items={items}
       />
 
-      <div className={cx(expand, stylePage)}>{renderChild(props.router)}</div>
+      <div className={cx(expand, stylePage)}>{renderChild()}</div>
     </div>
   );
 };

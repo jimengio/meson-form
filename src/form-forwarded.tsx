@@ -1,4 +1,4 @@
-import React, { ReactText } from "react";
+import React, { ReactText, ReactNode } from "react";
 import { row, column, expand, displayFlex, flexWrap } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, IMesonFieldBaseProps } from "./model/types";
@@ -29,7 +29,7 @@ import { createItemKey } from "./util/string";
 function clearDraftValue<T>(draft: Draft<T>) {
   Object.keys(draft).forEach((key) => {
     if (key in draft) {
-      draft[key] = undefined;
+      draft[key as keyof Draft<T>] = undefined;
     }
   });
 }
@@ -102,7 +102,7 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText, prefixKey?: string) => {
+  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText, prefixKey?: string): ReactNode => {
     return items.map((item, idx) => {
       const basePropsItem = item as IMesonFieldBaseProps<T>;
       const hideLabel = basePropsItem.hideLabel === false ? false : basePropsItem.hideLabel || props.noLabel;
