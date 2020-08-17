@@ -161,6 +161,11 @@
   resolved "https://registry.npm.taobao.org/@jimengio/flex-styles/download/@jimengio/flex-styles-0.1.6.tgz#d37e37aa4a85c72feff386c27b920a5f8c5f6335"
   integrity sha1-0343qkqFxy/v84bCe5IKX4xfYzU=
 
+"@jimengio/flex-styles@^0.2.0-a1":
+  version "0.2.0-a1"
+  resolved "https://registry.npmjs.org/@jimengio/flex-styles/-/flex-styles-0.2.0-a1.tgz#f01a4ab32d267ecfad93e25b8f74bff90e782b86"
+  integrity sha512-yVTEGBpZdUhnkeO8uXy6E/AwX9jNGlAllP5vwlMLqBdy1KeoRpBuCRCEtJRgY+F0/1dNPNoU6Mx5jkvv4jLBfQ==
+
 "@jimengio/jimo-basics@^0.1.0", "@jimengio/jimo-basics@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.1.2.tgz#9f0e053246b1d9357f19446f8453370c80a9f09d"
