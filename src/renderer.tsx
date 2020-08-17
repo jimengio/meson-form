@@ -30,7 +30,7 @@ import { DropdownTree } from "@jimengio/dropdown";
 import Switch from "antd/lib/switch";
 import Radio from "antd/lib/radio";
 import { DropdownMenu } from "@jimengio/dropdown";
-import { flex, column, row, relative } from "@jimengio/flex-styles";
+import { expand, column, row, relative } from "@jimengio/flex-styles";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
 import { styleInput, styleSelect, styleTextArea, styleInputNumber, styleSwitch, styleRadio, styleDatePicker, styleTree } from "./style";
@@ -459,7 +459,7 @@ export function renderItemLayout<T>(
   return (
     <div key={key} className={mergeItemClassName} style={styleObj}>
       {labelNode}
-      <div className={cx(flex, column, styleValueArea, GlobalThemeVariables.fieldValueArea, item.className)} style={item.style} data-field={item.name || key}>
+      <div className={cx(expand, column, styleValueArea, GlobalThemeVariables.fieldValueArea, item.className)} style={item.style} data-field={item.name || key}>
         {field}
         {mergeErrorClassName && (
           <div className={mergeErrorClassName} data-error-field={item.name}>

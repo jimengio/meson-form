@@ -173,18 +173,23 @@
   resolved "https://registry.npm.taobao.org/@jimengio/flex-styles/download/@jimengio/flex-styles-0.1.6.tgz#d37e37aa4a85c72feff386c27b920a5f8c5f6335"
   integrity sha1-0343qkqFxy/v84bCe5IKX4xfYzU=
 
-"@jimengio/jimo-basics@^0.1.4":
-  version "0.1.6"
-  resolved "https://registry.npm.taobao.org/@jimengio/jimo-basics/download/@jimengio/jimo-basics-0.1.6.tgz#cbdda62b5d243b2de6eeb96888317b0dd00ce299"
-  integrity sha1-y92mK10kOy3m7rloiDF7DdAM4pk=
+"@jimengio/flex-styles@^0.2.0-a1":
+  version "0.2.0-a1"
+  resolved "https://registry.npmjs.org/@jimengio/flex-styles/-/flex-styles-0.2.0-a1.tgz#f01a4ab32d267ecfad93e25b8f74bff90e782b86"
+  integrity sha512-yVTEGBpZdUhnkeO8uXy6E/AwX9jNGlAllP5vwlMLqBdy1KeoRpBuCRCEtJRgY+F0/1dNPNoU6Mx5jkvv4jLBfQ==
+
+"@jimengio/jimo-basics@^0.1.10-a1":
+  version "0.1.10-a1"
+  resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.1.10-a1.tgz#4bb769ea8abb3a8e7fb816934210652ab881b20f"
+  integrity sha512-QDcEsuX5GCYzd2b839SA1368e6OTjVIUgUKClVvhP+/AOft7O2gSuXS9vN2H5IguaW7XVD8z+S0t1z4jrg3k1Q==
   dependencies:
     emotion "^10.0.27"
     react-transition-group "^4.4.1"
 
-"@jimengio/jimo-basics@^0.1.5":
-  version "0.1.7"
-  resolved "https://registry.npm.taobao.org/@jimengio/jimo-basics/download/@jimengio/jimo-basics-0.1.7.tgz#ef36cbb487a1ff3d69e278ae3178ae5befb8914c"
-  integrity sha1-7zbLtIeh/z1p4niuMXiuW++4kUw=
+"@jimengio/jimo-basics@^0.1.4":
+  version "0.1.6"
+  resolved "https://registry.npm.taobao.org/@jimengio/jimo-basics/download/@jimengio/jimo-basics-0.1.6.tgz#cbdda62b5d243b2de6eeb96888317b0dd00ce299"
+  integrity sha1-y92mK10kOy3m7rloiDF7DdAM4pk=
   dependencies:
     emotion "^10.0.27"
     react-transition-group "^4.4.1"
@@ -194,14 +199,14 @@
   resolved "https://registry.npm.taobao.org/@jimengio/jimo-icons/download/@jimengio/jimo-icons-0.3.11.tgz#56fea11471fc163e55f25f4357ca9d372f2ed91a"
   integrity sha1-Vv6hFHH8Fj5V8l9DV8qdNy8u2Ro=
 
-"@jimengio/meson-modal@^0.3.8":
-  version "0.3.8"
-  resolved "https://registry.npm.taobao.org/@jimengio/meson-modal/download/@jimengio/meson-modal-0.3.8.tgz#56bd405e7505bb62f5fe26535ec0bd1f26929484"
-  integrity sha1-Vr1AXnUFu2L1/iZTXsC9HyaSlIQ=
+"@jimengio/meson-modal@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.npmjs.org/@jimengio/meson-modal/-/meson-modal-0.3.10.tgz#b7f71e7659ed0c3450a47f4146567caf0eb55209"
+  integrity sha512-QDAW2ujqNPOSQGCRVkkCqvoIyRUH2tpdQ5WKOGdqqa4WG+kRDWk44zy5gHYdlmR6FI4FPF1h0rO1O7nojUBdKA==
   dependencies:
     dayjs "^1.8.28"
     emotion "^10.0.27"
-    query-string "^6.12.1"
+    query-string "^6.13.1"
     react-transition-group "^4.4.1"
 
 "@jimengio/rex@^0.1.8":
@@ -4312,7 +4317,7 @@ qs@6.7.0:
   resolved "https://registry.npm.taobao.org/qs/download/qs-6.7.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fqs%2Fdownload%2Fqs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha1-QdwaAV49WB8WIXdr4xr7KHapsbw=
 
-query-string@^6.12.1, query-string@^6.13.1:
+query-string@^6.13.1:
   version "6.13.1"
   resolved "https://registry.npm.taobao.org/query-string/download/query-string-6.13.1.tgz?cache=0&sync_timestamp=1591853319485&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fquery-string%2Fdownload%2Fquery-string-6.13.1.tgz#d913ccfce3b4b3a713989fe6d39466d92e71ccad"
   integrity sha1-2RPM/OO0s6cTmJ/m05Rm2S5xzK0=
