@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties, ReactText } from "react";
-import { row, column, flex, flexWrap, displayFlex } from "@jimengio/flex-styles";
+import { row, column, expand, flexWrap, displayFlex } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, FieldName, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/dropdown";
@@ -194,7 +194,7 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
     });
   };
 
-  let ui = <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
+  let ui = <div className={cx(expand, styleItemsContainer, props.itemsClassName)}>{renderItems(props.items)}</div>;
 
   return {
     ui,
@@ -237,8 +237,8 @@ export function MesonForm<T = FieldValues>(props: MesonFormProps<T>) {
   let fieldsPlugin = useMesonFields(props);
 
   return (
-    <div className={cx(column, flex, props.className)} style={props.style}>
-      <div className={cx(flex, styleItemsContainer, props.itemsClassName)}>{fieldsPlugin.ui}</div>
+    <div className={cx(column, expand, props.className)} style={props.style}>
+      <div className={cx(expand, styleItemsContainer, props.itemsClassName)}>{fieldsPlugin.ui}</div>
       {props.hideFooter ? null : props.renderFooter ? (
         props.renderFooter(props.isLoading, fieldsPlugin.checkAndSubmit, props.onCancel, fieldsPlugin.formData)
       ) : (

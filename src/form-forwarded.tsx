@@ -1,5 +1,5 @@
 import React, { ReactText } from "react";
-import { row, column, flex, displayFlex, flexWrap } from "@jimengio/flex-styles";
+import { row, column, expand, displayFlex, flexWrap } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, IMesonFieldBaseProps } from "./model/types";
 
@@ -205,8 +205,8 @@ export function ForwardForm<T extends FieldValues = FieldValues>(props: MesonFor
   };
 
   return (
-    <div className={cx(column, flex, props.className)} style={props.style}>
-      <div className={cx(flex, styleItemsContainer)}>{renderItems(props.items)}</div>
+    <div className={cx(column, expand, props.className)} style={props.style}>
+      <div className={cx(expand, styleItemsContainer)}>{renderItems(props.items)}</div>
     </div>
   );
 }
