@@ -167,7 +167,8 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
           item.renderMultiple(form, modifidForm, checkForm),
           props.labelClassName,
           props.errorClassName,
-          hideLabel
+          hideLabel,
+          itemWidth
         );
       }
 
