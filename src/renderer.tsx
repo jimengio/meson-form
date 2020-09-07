@@ -182,7 +182,7 @@ export function renderSelectItem<T extends FieldValues>(
 
   if (item.translateNonStringvalue && currentValue != null) {
     if (multiple && currentValue.length) {
-      currentValue = currentValue.map((c) => `${c}`);
+      currentValue = (currentValue as string[]).map((c) => `${c}`);
     } else {
       currentValue = `${currentValue}`;
     }
@@ -194,11 +194,11 @@ export function renderSelectItem<T extends FieldValues>(
       disabled={item.disabled}
       className={cx(styleSelect, GlobalThemeVariables.select, width100)}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-      onChange={(newValue) => {
+      onChange={(newValue: string[] | string) => {
         if (item.translateNonStringvalue && newValue != null) {
           let target = null;
           if (multiple) {
-            let process = newValue.map((n) => {
+            let process = (newValue as string[]).map((n) => {
               return item.options.find((x) => `${x.value}` === n).value;
             });
             newValue = process.length > 0 ? process : undefined;
@@ -212,7 +212,7 @@ export function renderSelectItem<T extends FieldValues>(
         checkItemWithValue(newValue, item);
       }}
       allowClear={item.allowClear}
-      onBlur={(newValue) => {
+      onBlur={(newValue: string) => {
         if (multiple) {
           checkItemWithValue(newValue.length > 0 ? newValue : undefined, item);
         } else {

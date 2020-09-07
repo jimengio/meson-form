@@ -99,8 +99,8 @@ let formItems: IMesonFieldItem[] = [
         }, 1000);
       });
       let ret = {
-        province: undefined,
-        city: undefined,
+        province: undefined as string,
+        city: undefined as string,
       };
       if (form.province?.match(/\d/)) {
         ret.province = "should not contain digits";

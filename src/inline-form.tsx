@@ -85,7 +85,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
             placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
             className={cx(styleSelect, styleControlBase)}
             style={item.style}
-            onChange={(newValue) => {
+            onChange={(newValue: string) => {
               if (item.translateNonStringvalue && newValue != null) {
                 let target = item.options.find((x) => `${x.value}` === newValue);
                 newValue = target.value;
@@ -169,7 +169,7 @@ let styleItem = css`
   }
 `;
 
-let styleContainer = null;
+let styleContainer: string = null;
 
 let styleError = css`
   color: red;

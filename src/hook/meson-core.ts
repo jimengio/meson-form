@@ -55,7 +55,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     });
 
     if (!hasErrors) {
-      let handleServerErrors = (serverErrors) => {
+      let handleServerErrors = (serverErrors: Partial<Record<FieldName<T>, string>>) => {
         // errors from server not in use yet
         updateErrors((draft) => {
           return serverErrors;
@@ -93,12 +93,12 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
     if (result == null && isFunction(item.asyncValidator)) {
       let result = await item.asyncValidator(x, item, form);
       updateErrors((draft) => {
-        draft[`${item.name}`] = result;
+        (draft as Record<string, any>)[`${item.name}`] = result;
       });
     } else {
       // errors checked locally
       updateErrors((draft) => {
-        draft[`${item.name}`] = result;
+        (draft as Record<string, any>)[`${item.name}`] = result;
       });
     }
   };
@@ -120,7 +120,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
       updateErrors((draft) => {
         // reset errors of related fields first
         item.names.forEach((name) => {
-          draft[`${name}`] = null;
+          (draft as Record<string, any>)[`${name}`] = null;
         });
         Object.assign(draft, results);
       });
@@ -129,7 +129,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
       updateErrors((draft) => {
         // reset errors of related fields first
         item.names.forEach((name) => {
-          draft[`${name}`] = null;
+          (draft as Record<string, any>)[name] = null;
         });
         Object.assign(draft, results);
       });

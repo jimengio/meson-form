@@ -16,17 +16,17 @@ interface IProps<T> {
   labelClassName?: string;
 }
 
-function useFilterForm<T = { [k: string]: any }>(props: IProps<T>) {
+function useFilterForm<T extends { [k: string]: any }>(props: IProps<T>) {
   let [form, updateForm] = useImmer<T>(props.initialValue || ({} as T));
 
   let updateItem = (x: any, item: IFilterFieldItem<T>) => {
-    updateForm((draft) => {
+    updateForm((draft: Record<string, any>) => {
       draft[item.name as string] = x;
     });
 
     let newForm = {} as T;
 
-    forIn({ ...form, [item.name]: x }, (value, key) => {
+    forIn({ ...form, [item.name]: x }, (value, key: keyof T) => {
       if (value != null) {
         newForm[key] = value;
       }

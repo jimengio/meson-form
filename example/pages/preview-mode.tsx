@@ -25,7 +25,7 @@ let PreviewMode: FC<{ className?: string }> = React.memo((props) => {
   /** Effects */
 
   useEffect(() => {
-    let handleMessage = (message) => {
+    let handleMessage = (message: MessageEvent) => {
       console.log("message", message);
 
       let obj = message.data;

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { isFunction } from "util";
+import { isFunction } from "lodash-es";
 import { IMesonRegisteredField } from "./model/types";
 
 type FuncValueRenderer = (

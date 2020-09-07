@@ -102,7 +102,7 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
     return <div>Unknown type: {(item as any).type}</div>;
   };
 
-  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText, prefixKey?: string) => {
+  let renderItems = (items: IMesonFieldItem<T>[], itemWidth?: ReactText, prefixKey?: string): ReactNode => {
     return items.map((item, idx) => {
       const basePropsItem = item as IMesonFieldBaseProps<T>;
       const hideLabel = basePropsItem.hideLabel === false ? false : basePropsItem.hideLabel || props.noLabel;
@@ -128,7 +128,7 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
         );
       }
 
-      let name: string = (item as any).name;
+      let name: FieldName<T> = (item as any).name;
       let error = name != null ? errors[name] : null;
 
       if (item.type === "custom") {

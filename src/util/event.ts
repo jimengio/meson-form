@@ -4,7 +4,7 @@ export function addEventHandler(element: HTMLElement | Document, type: string, f
   } else if ((element as any).attachEvent) {
     (element as any).attachEvent("on" + type, func);
   } else {
-    element["on" + type] = func;
+    (element as any)["on" + type] = func;
   }
 }
 
@@ -14,6 +14,6 @@ export function removeEventHandler(element: HTMLElement | Document, type: string
   } else if ((element as any).detachEvent) {
     (element as any).detachEvent("on" + type, func);
   } else {
-    delete element["on" + type];
+    delete (element as any)["on" + type];
   }
 }
