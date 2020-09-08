@@ -6,7 +6,7 @@ import { useImmer } from "use-immer";
 import { renderDropdownSelectItem, renderDatePickerItem } from "./renderer";
 import { forIn } from "lodash-es";
 
-import { IFilterFieldItem } from "./types";
+import type { IFilterFieldItem } from "./types";
 
 interface IProps<T> {
   items: IFilterFieldItem<T>[];
