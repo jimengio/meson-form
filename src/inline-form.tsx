@@ -8,7 +8,6 @@ import Input from "antd/lib/input";
 import { formatString, lingual } from "./lingual";
 import Select from "antd/lib/select";
 import { RequiredMark } from "./component/misc";
-import { styleInput, styleSelect } from "./style";
 
 export function MesonInlineForm<T extends FieldValues>(props: {
   initialValue: T;
@@ -45,6 +44,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
         };
         return item.render(formAny[item.name], onChange, formAny, onCheck);
       case "input":
+        const { className: inputClassName, ...inputRestProps } = item.inputProps || {};
         return (
           <Input
             value={formAny[item.name] as any}
@@ -53,7 +53,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
             type={item.inputType || "text"}
             style={item.style}
             placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
-            className={cx(styleInput, styleControlBase)}
+            className={cx(styleControlBase, inputClassName)}
             onChange={(event) => {
               let newValue = event.target.value;
 
@@ -69,7 +69,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
             onBlur={() => {
               checkItem(item);
             }}
-            {...item.inputProps}
+            {...inputRestProps}
           />
         );
 
@@ -78,12 +78,13 @@ export function MesonInlineForm<T extends FieldValues>(props: {
         if (item.translateNonStringvalue && currentValue != null) {
           currentValue = `${currentValue}`;
         }
+        const { className: selectClassName, ...selectRestProps } = item.selectProps || {};
         return (
           <Select
             value={currentValue}
             key={`${item.name}+${idx}`}
             placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
-            className={cx(styleSelect, styleControlBase)}
+            className={cx(styleControlBase, selectClassName)}
             style={item.style}
             onChange={(newValue: string) => {
               if (item.translateNonStringvalue && newValue != null) {
@@ -97,7 +98,7 @@ export function MesonInlineForm<T extends FieldValues>(props: {
             onBlur={() => {
               checkItem(item);
             }}
-            {...item.selectProps}
+            {...selectRestProps}
           >
             {item.options.map((option) => {
               let value = option.value;
