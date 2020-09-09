@@ -17,6 +17,21 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
 
   let filterFormItems: IFilterFieldItem<IData>[] = [
     {
+      type: "select",
+      label: "发布状态",
+      name: "isPublished",
+      allowClear: true,
+      options: [
+        { value: true, display: "已发布" },
+        { value: false, display: "未发布" },
+      ],
+    },
+    {
+      type: "date-picker",
+      label: "发布时间",
+      name: "operatedAt",
+    },
+    {
       type: "dropdown-select",
       label: "类型",
       name: "categoryId",
@@ -28,24 +43,6 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
       selectProps: {
         emptyLocale: "暂无数据",
       },
-    },
-    {
-      type: "dropdown-select",
-      label: "发布状态",
-      name: "isPublished",
-      allowClear: true,
-      options: [
-        { value: true, display: "已发布" },
-        { value: false, display: "未发布" },
-      ],
-      selectProps: {
-        emptyLocale: "暂无数据",
-      },
-    },
-    {
-      type: "date-picker",
-      label: "发布时间",
-      name: "operatedAt",
     },
   ];
 
@@ -86,6 +83,21 @@ interface IData {
 
 let filterFormItems: IFilterFieldItem<IData>[] = [
   {
+    type: "select",
+    label: "发布状态",
+    name: "isPublished",
+    allowClear: true,
+    options: [
+      { value: true, display: "已发布" },
+      { value: false, display: "未发布" },
+    ],
+  },
+  {
+    type: "date-picker",
+    label: "发布时间",
+    name: "operatedAt",
+  },
+  {
     type: "dropdown-select",
     label: "类型",
     name: "categoryId",
@@ -97,25 +109,7 @@ let filterFormItems: IFilterFieldItem<IData>[] = [
     selectProps: {
       emptyLocale: "暂无数据",
     },
-  },
-  {
-    type: "dropdown-select",
-    label: "发布状态",
-    name: "isPublished",
-    allowClear: true,
-    options: [
-      { value: true, display: "已发布" },
-      { value: false, display: "未发布" },
-    ],
-    selectProps: {
-      emptyLocale: "暂无数据",
-    },
-  },
-  {
-    type: "date-picker",
-    label: "发布时间",
-    name: "operatedAt",
-  },
+  }
 ];
 
 let filterForm = useFilterForm({

@@ -3,7 +3,7 @@ import { cx, css } from "emotion";
 import { flexWrap, row, expand } from "@jimengio/flex-styles";
 
 import { useImmer } from "use-immer";
-import { renderDropdownSelectItem, renderDatePickerItem } from "./renderer";
+import { renderDropdownSelectItem, renderDatePickerItem, renderSelectItem } from "./renderer";
 import { forIn } from "lodash-es";
 
 import type { IFilterFieldItem } from "./types";
@@ -41,6 +41,8 @@ function useFilterForm<T extends { [k: string]: any }>(props: IProps<T>) {
         return renderDropdownSelectItem(form, item, updateItem);
       case "date-picker":
         return renderDatePickerItem(form, item, updateItem);
+      case "select":
+        return renderSelectItem(form, item, updateItem);
       case "custom":
         let onChange = (value: any) => {
           updateItem(value, item);
