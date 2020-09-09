@@ -1,12 +1,11 @@
 import React, { ReactNode, CSSProperties, ReactText } from "react";
-import { row, column, expand, flexWrap, displayFlex } from "@jimengio/flex-styles";
+import { column, expand, flexWrap, displayFlex } from "@jimengio/flex-styles";
 import { css, cx } from "emotion";
 import { IMesonFieldItem, FuncMesonModifyForm, IMesonErrors, FieldValues, FieldName, IMesonFieldBaseProps } from "./model/types";
 import { DropdownArea } from "@jimengio/dropdown";
 
 import { FormFooter, EMesonFooterLayout } from "./component/form-footer";
 import { MesonModal, MesonDrawer } from "@jimengio/meson-modal";
-import produce, { Draft } from "immer";
 import { useMesonCore } from "./hook/meson-core";
 import { showErrorByNames } from "./util/validation";
 import {
@@ -25,7 +24,7 @@ import {
   renderDropdownTreeItem,
 } from "./renderer";
 import { lingual } from "./lingual";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 import { createItemKey } from "./util/string";
 import { getFormRenderer } from "./registered-renderer";
 import { isFunction } from "lodash-es";
@@ -424,7 +423,7 @@ export function MesonFormDropdown<T>(props: {
     footerRenderer = (isLoading, onSubmit, onCancel, form) => {
       return (
         <div className={styleFooterContainer}>
-          <JimoButton text={lingual.confirm} className={styleFooterButton} onClick={onSubmit} fillColor data-action="submit" />
+          <Button type="primary" children={lingual.confirm} className={styleFooterButton} onClick={onSubmit} data-action="submit" />
         </div>
       );
     };

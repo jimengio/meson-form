@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
 import { IMesonFieldItem } from "../../src/model/types";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
@@ -86,9 +86,9 @@ let ModalPage: FC<{}> = (props) => {
       <DocDemo title="Modal" link={getLink("modal.tsx")}>
         <div className={styleBoxArea}>
           <div>
-            <JimoButton
-              text={"Open Form Modal"}
-              fillColor
+            <Button
+              type="primary"
+              children={"Open Form Modal"}
               onClick={() => {
                 setFormVisible(true);
               }}

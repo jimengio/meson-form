@@ -1,39 +1,29 @@
 import React, { FC } from "react";
 import { css, cx } from "emotion";
 import { rowCenter } from "@jimengio/flex-styles";
-import { JimoButton } from "@jimengio/jimo-basics";
 
-export interface IFooterButtonOptions {
-  text: string;
-  onClick: () => void;
+import Button, { ButtonProps } from "antd/lib/button";
+
+export interface IFooterButtonOptions extends ButtonProps {
+  text?: string;
+  key?: string;
   filled?: boolean;
   canceling?: boolean;
-  disabled?: boolean;
-  className?: string;
 }
 
-let FooterButtons: FC<{
+const FooterButtons: FC<{
   items: IFooterButtonOptions[];
   className?: string;
 }> = React.memo((props) => {
-  /** Methods */
-  /** Effects */
-  /** Renderers */
   return (
     <div className={cx(rowCenter, styleContainer, props.className)}>
       {props.items.map((item, idx) => {
-        return (
-          <JimoButton
-            key={idx}
-            text={item.text}
-            disabled={item.disabled}
-            onClick={item.onClick}
-            fillColor={item.filled}
-            canceling={item.canceling}
-            data-action={item.canceling ? "cancel" : "submit"}
-            className={cx(styleButton, item.className)}
-          />
-        );
+        const { text, children, filled, canceling, className, ...rest } = item;
+
+        const type: ButtonProps["type"] = filled ? "primary" : "default";
+        const remarks = canceling ? "cancel" : filled ? "submit" : text || undefined;
+
+        return <Button key={idx} type={type} children={text || children} className={cx(styleButton, className)} data-action={remarks} {...rest} />;
       })}
     </div>
   );
@@ -41,10 +31,10 @@ let FooterButtons: FC<{
 
 export default FooterButtons;
 
-let styleButton = css`
-  margin: 0 8px;
+const styleContainer = css`
+  padding: 16px;
 `;
 
-let styleContainer = css`
-  padding: 16px;
+const styleButton = css`
+  margin: 0 8px;
 `;

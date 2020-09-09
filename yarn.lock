@@ -182,15 +182,15 @@
 
 "@jimengio/flex-styles@^0.1.5":
   version "0.1.6"
-  resolved "https://registry.npmjs.org/@jimengio/flex-styles/-/flex-styles-0.1.6.tgz#d37e37aa4a85c72feff386c27b920a5f8c5f6335"
-  integrity sha512-K5Ij+DrkQFgMc4MMWJOCsI8S26xUy6a1fe0JWEtQjwhrEGXwGv/w4coD19+uMcqtLO1HHasfN2NuoJNSh9g5ag==
+  resolved "https://registry.npm.taobao.org/@jimengio/flex-styles/download/@jimengio/flex-styles-0.1.6.tgz#d37e37aa4a85c72feff386c27b920a5f8c5f6335"
+  integrity sha1-0343qkqFxy/v84bCe5IKX4xfYzU=
 
 "@jimengio/flex-styles@^0.2.0":
   version "0.2.0"
   resolved "https://registry.npmjs.org/@jimengio/flex-styles/-/flex-styles-0.2.0.tgz#9e72352692106317c893c1cf3d7e87c0ee07820c"
   integrity sha512-MojPVajIX8CPKGkKWdSqXgbYpbvTxJh+Cj1pKu9jlgG/lQMpG5jPAkYPJc8IwjvD14gtKm7vec5pH4NMI/+Z1Q==
 
-"@jimengio/jimo-basics@^0.1.11", "@jimengio/jimo-basics@^0.1.7":
+"@jimengio/jimo-basics@^0.1.7":
   version "0.1.11"
   resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.1.11.tgz#2550f8e8ee97b5ef416f5e3b6a83a3c961bd4518"
   integrity sha512-LPTc4CzyQDn8sY8X8/SgweuA8avbMHrgijeahmVMxGbMiiRi236BsNw61m3oohSBDZHMe3CpXZeCHuWPGykueQ==
@@ -200,17 +200,14 @@
 
 "@jimengio/jimo-icons@^0.3.14":
   version "0.3.14"
-  resolved "https://registry.npmjs.org/@jimengio/jimo-icons/-/jimo-icons-0.3.14.tgz#4058577b4d25169f103ea544a02c97ecf0e5f964"
+  resolved "https://registry.yarnpkg.com/@jimengio/jimo-icons/-/jimo-icons-0.3.14.tgz#4058577b4d25169f103ea544a02c97ecf0e5f964"
   integrity sha512-UEIOud3x/wQID2oQQN6YKOPo167gitU44C6tRUi2YzYioZUzxKGtk3Ofle8fDR3is5CUXlSrS2PuVcSGpU370g==
 
-"@jimengio/meson-modal@^0.3.10":
-  version "0.3.10"
-  resolved "https://registry.npmjs.org/@jimengio/meson-modal/-/meson-modal-0.3.10.tgz#b7f71e7659ed0c3450a47f4146567caf0eb55209"
-  integrity sha512-QDAW2ujqNPOSQGCRVkkCqvoIyRUH2tpdQ5WKOGdqqa4WG+kRDWk44zy5gHYdlmR6FI4FPF1h0rO1O7nojUBdKA==
+"@jimengio/meson-modal@^0.3.11":
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/@jimengio/meson-modal/-/meson-modal-0.3.11.tgz#1d3380fe14f0ae6481c427f75b37f9c73aec306d"
+  integrity sha512-2/yv3pASMqp2Ez64Dckm96Db7qoaGk9+IfrzMKB4vV6LY5+2QwxVtmNuqbEsWQ+zZd0QBf/rFSwtE0bwueAlGw==
   dependencies:
-    dayjs "^1.8.28"
-    emotion "^10.0.27"
-    query-string "^6.13.1"
     react-transition-group "^4.4.1"
 
 "@jimengio/rex@^0.1.8":
@@ -1588,7 +1585,7 @@ date-fns@^2.15.0:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
 
-dayjs@^1.8.28, dayjs@^1.8.30:
+dayjs@^1.8.30:
   version "1.8.35"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.35.tgz#67118378f15d31623f3ee2992f5244b887606888"
   integrity sha512-isAbIEenO4ilm6f8cpqvgjZCsuerDAz2Kb7ri201AiNn58aqXuaLJEnCtfIMdCvERZHNGRY5lDMTr/jdAnKSWQ==
@@ -1899,7 +1896,7 @@ emojis-list@^3.0.0:
 
 emotion@^10.0.27:
   version "10.0.27"
-  resolved "https://registry.npmjs.org/emotion/-/emotion-10.0.27.tgz#f9ca5df98630980a23c819a56262560562e5d75e"
+  resolved "https://registry.yarnpkg.com/emotion/-/emotion-10.0.27.tgz#f9ca5df98630980a23c819a56262560562e5d75e"
   integrity sha512-2xdDzdWWzue8R8lu4G76uWX5WhyQuzATon9LmNeCy/2BHVC6dsEpfhN1a0qhELgtDVdjyEA6J8Y/VlI5ZnaH0g==
   dependencies:
     babel-plugin-emotion "^10.0.27"

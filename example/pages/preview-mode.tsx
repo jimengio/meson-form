@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from "react";
 import { css, cx } from "emotion";
-import { windowObject, date } from "is";
 import { useAtom } from "@jimengio/rex";
 import { useMesonFields } from "../../src/form";
 import { IMesonFieldItem } from "../../src/model/types";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 
 let PreviewMode: FC<{ className?: string }> = React.memo((props) => {
   let states = useAtom({
@@ -53,15 +52,15 @@ let PreviewMode: FC<{ className?: string }> = React.memo((props) => {
     <div className={props.className}>
       <div>{fields.ui}</div>
       <div className={cx(styleFooter)}>
-        <JimoButton
-          text="Reset"
+        <Button
+          children="Reset"
           onClick={() => {
             fields.resetForm({});
           }}
         />
         <div className={styleSpace} />
-        <JimoButton
-          text="Check"
+        <Button
+          children="Check"
           onClick={() => {
             fields.checkAndSubmit();
           }}

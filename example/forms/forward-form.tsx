@@ -6,7 +6,7 @@ import { row, column } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 
 let formItems: IMesonFieldItem<{ name?: string }>[] = [
   {
@@ -39,9 +39,9 @@ let FormBasic: FC<{}> = (props) => {
         <div>
           <DataPreview data={form} />
           <div className={styleActions}>
-            <JimoButton text="提交" fillColor onClick={() => formRef.current.onSubmit()} />
+            <Button children="提交" type="primary" onClick={() => formRef.current.onSubmit()} />
             <div style={{ width: "12px" }} />
-            <JimoButton text="重置" canceling onClick={() => formRef.current.onReset()} />
+            <Button children="重置" onClick={() => formRef.current.onReset()} />
           </div>
         </div>
       </DocDemo>

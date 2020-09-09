@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { css } from "emotion";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 import { attachMesonFormThemeVariables } from "../../src/theme";
 import { DocBlock, DocDemo, DocSnippet } from "@jimengio/doc-frame";
 
@@ -12,8 +12,8 @@ let CustomThemePage: FC<{ className?: string }> = React.memo((props) => {
   return (
     <div className={props.className}>
       <DocDemo title={"Custom Theme"}>
-        <JimoButton
-          text="Change theme styles for input"
+        <Button
+          children="Change theme styles for input"
           onClick={() => {
             attachMesonFormThemeVariables({
               input: styleInput,
