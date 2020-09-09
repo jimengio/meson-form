@@ -65,7 +65,6 @@ DebouncedInput.defaultProps = defaultProps;
 export default DebouncedInput;
 
 let styleInput = css`
-  padding: 0 11px;
   .ant-input {
     flex-shrink: 1;
   }
