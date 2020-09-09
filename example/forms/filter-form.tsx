@@ -30,7 +30,7 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
       },
     },
     {
-      type: "dropdown-select",
+      type: "select",
       label: "发布状态",
       name: "isPublished",
       allowClear: true,
@@ -38,9 +38,6 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
         { value: true, display: "已发布" },
         { value: false, display: "未发布" },
       ],
-      selectProps: {
-        emptyLocale: "暂无数据",
-      },
     },
     {
       type: "date-picker",
@@ -99,7 +96,7 @@ let filterFormItems: IFilterFieldItem<IData>[] = [
     },
   },
   {
-    type: "dropdown-select",
+    type: "select",
     label: "发布状态",
     name: "isPublished",
     allowClear: true,
@@ -107,9 +104,6 @@ let filterFormItems: IFilterFieldItem<IData>[] = [
       { value: true, display: "已发布" },
       { value: false, display: "未发布" },
     ],
-    selectProps: {
-      emptyLocale: "暂无数据",
-    },
   },
   {
     type: "date-picker",

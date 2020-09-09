@@ -2,6 +2,8 @@ import { ReactNode, ReactText } from "react";
 
 import { Moment } from "moment";
 import { DatePickerProps } from "antd/lib/date-picker";
+import { SelectProps } from "antd/lib/select";
+import { DefaultValueType } from "rc-tree-select/lib/interface";
 
 export interface IFilterFieldBaseProps<T> {
   label?: string;
@@ -42,6 +44,17 @@ export interface IFilterDropdownSelectField<T, K extends keyof T = keyof T> exte
   valueClassName?: string;
 }
 
+export interface IFilterSelectField<T, K extends keyof T = keyof T> extends IFilterFieldBaseProps<T> {
+  name: K;
+  type: "select";
+  options: IFilterSelectItem[];
+  placeholder?: string;
+  allowClear?: boolean;
+  selectProps?: SelectProps<DefaultValueType>;
+  translateNonStringvalue?: boolean;
+  valueClassName?: string;
+}
+
 export interface IFilterDatePickerField<T, K extends keyof T = keyof T> extends IFilterFieldBaseProps<T> {
   name: K;
   type: "date-picker";
@@ -67,6 +80,6 @@ export interface IFilterCustomField<T, K extends keyof T = keyof T> extends IFil
   valueClassName?: string;
 }
 
-export type IFilterFieldItem<T = any> = IFilterDropdownSelectField<T> | IFilterDatePickerField<T> | IFilterCustomField<T>;
+export type IFilterFieldItem<T = any> = IFilterDropdownSelectField<T> | IFilterSelectField<T> | IFilterDatePickerField<T> | IFilterCustomField<T>;
 
 export type FuncUpdateItem<T> = (x: any, item: IFilterFieldItem<T>) => void;
