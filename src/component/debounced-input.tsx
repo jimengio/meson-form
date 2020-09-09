@@ -3,6 +3,7 @@ import React, { CSSProperties } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import Input, { InputProps } from "antd/lib/input";
 import JimoIcon, { EJimoIcon } from "@jimengio/jimo-icons";
+import { cx, css } from "emotion";
 
 export interface DebouncedInputProps extends InputProps {
   /** defaults to 600 */
@@ -21,7 +22,7 @@ const defaultProps: Partial<DebouncedInputProps> = {
 };
 
 const DebouncedInput: React.FC<DebouncedInputProps> = (props) => {
-  const { defaultValue, value, hideSearch, searchIconStyle, suffix, onChange, onDebouncedChange, wait, style, ...rest } = props;
+  const { defaultValue, value, hideSearch, searchIconStyle, className, suffix, onChange, onDebouncedChange, wait, style, ...rest } = props;
 
   const iconStyle: React.CSSProperties = {
     fontSize: "1.6em",
@@ -46,9 +47,29 @@ const DebouncedInput: React.FC<DebouncedInputProps> = (props) => {
 
   const suffixNode = !hideSearch && !suffix ? <JimoIcon style={iconStyle} name={EJimoIcon.search} /> : suffix;
 
-  return <Input style={style} defaultValue={defaultValue} value={keyword} onChange={onChangeEvent} suffix={suffixNode} {...rest} />;
+  return (
+    <Input
+      style={style}
+      className={cx(styleInput, className)}
+      defaultValue={defaultValue}
+      value={keyword}
+      onChange={onChangeEvent}
+      suffix={suffixNode}
+      {...rest}
+    />
+  );
 };
 
 DebouncedInput.defaultProps = defaultProps;
 
 export default DebouncedInput;
+
+let styleInput = css`
+  .ant-input {
+    flex-shrink: 1;
+  }
+
+  .ant-input-suffix {
+    line-height: 1;
+  }
+`;

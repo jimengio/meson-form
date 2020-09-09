@@ -7,6 +7,7 @@
     "noImplicitThis": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
+    "importsNotUsedAsValues": "preserve",
     "module": "esnext",
     "target": "es2015",
     "jsx": "react",
@@ -19,8 +20,5 @@
     ]
   },
   "include": ["src/*.ts", "src/*.tsx", "src/*/*.ts"],
-  "exclude": ["lib/*"],
-  "awesomeTypescriptLoaderOptions": {
-    "useCache": true
-  }
+  "exclude": ["lib/*"]
 }

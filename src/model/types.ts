@@ -1,13 +1,14 @@
 import { ReactNode, ReactText, CSSProperties } from "react";
 import { InputProps, TextAreaProps } from "antd/lib/input";
 import { InputNumberProps } from "antd/lib/input-number";
-import { DatePickerProps } from "antd/lib/date-picker/interface";
 import { SelectProps } from "antd/lib/select";
-import { TreeSelectProps, TreeNodeValue } from "antd/lib/tree-select/interface";
 
 import { IDropdownTreeProps } from "@jimengio/dropdown";
 import { Draft } from "immer";
 import { Moment } from "moment";
+import { TreeSelectProps } from "antd/lib/tree-select";
+import { DefaultValueType } from "rc-tree-select/lib/interface";
+import { DatePickerProps } from "antd/lib/date-picker";
 
 export interface ISimpleObject<T = any> {
   [k: string]: T;
@@ -169,7 +170,7 @@ export interface IMesonTreeSelectField<T extends FieldValues, K extends FieldNam
   validator?: FuncMesonValidator<T>;
   /** async validation, it only works during single item check, and it's inactive during submit */
   asyncValidator?: FuncMesonAsyncValidator<T>;
-  treeSelectProps?: TreeSelectProps<TreeNodeValue>;
+  treeSelectProps?: TreeSelectProps<DefaultValueType>;
   valueContainerClassName?: string;
 }
 
@@ -241,7 +242,7 @@ export interface IMesonSelectField<T extends FieldValues, K extends FieldName<T>
   asyncValidator?: FuncMesonAsyncValidator<T>;
   translateNonStringvalue?: boolean;
   allowClear?: boolean;
-  selectProps?: SelectProps;
+  selectProps?: SelectProps<DefaultValueType>;
   valueContainerClassName?: string;
 }
 
