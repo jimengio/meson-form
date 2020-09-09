@@ -50,7 +50,8 @@
     "html-webpack-tags-plugin": "^2.0.17",
     "immer": "^7.0.8",
     "moment": "^2.27.0",
-    "prettier": "^2.1.1",
+    "prettier": "^2.0.5",
+    "query-string": "^6.13.1",
     "raw-loader": "^4.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -71,24 +72,18 @@
   },
   "peerDependencies": {
     "@jimengio/dropdown": "*",
-    "@jimengio/fa-icons": "*",
     "@jimengio/flex-styles": "^0.2.0-a1",
     "@jimengio/jimo-icons": "*",
     "@jimengio/meson-modal": ">=0.2.16",
-    "@jimengio/safe-property": "*",
     "antd": "^3.18.2",
+    "emotion": "*",
     "immer": "*",
     "moment": "^2.24.0",
     "react": "*",
     "react-dom": "*"
   },
   "dependencies": {
-    "dayjs": "^1.8.35",
-    "emotion": "^10.0.27",
-    "font-awesome": "^4.7.0",
-    "is": "*",
     "lodash-es": "^4.17.15",
-    "react-transition-group": "^4.4.1",
-    "use-immer": "^0.4.1"
+    "use-immer": "^0.4.0"
   }
 }

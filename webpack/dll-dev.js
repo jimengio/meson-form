@@ -6,7 +6,7 @@ let { matchCssRule, matchFontsRule } = require("./shared");
 
 module.exports = {
   mode: "development",
-  entry: ["react", "react-dom", "emotion", "immer", "dayjs"],
+  entry: ["react", "react-dom", "emotion", "immer"],
   output: {
     filename: "dll_vendors_[hash:8].js",
     path: path.join(__dirname, "dll"),

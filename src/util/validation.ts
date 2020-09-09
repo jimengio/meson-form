@@ -1,6 +1,6 @@
-import { IMesonFieldItem, IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
+import { IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
 import { formatString, lingual } from "../lingual";
-import is from "is";
+import { isNumber, isString, isBoolean, isFunction, isArray } from "lodash-es";
 
 export let validateValueRequired = <T>(x: any, item: IMesonFieldItemHasValue<T>) => {
   if (x == null || x === "") {
@@ -14,18 +14,18 @@ export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonV
   for (let idx in methods) {
     let method = methods[idx];
     if (method === EMesonValidate.Number) {
-      if (!is.number(x)) {
+      if (!isNumber(x)) {
         return formatString(lingual.labelShouldBeNumber, { label: item.label });
       }
     } else if (method === EMesonValidate.String) {
-      if (!is.string) {
+      if (!isString(x)) {
         return formatString(lingual.labelShouldBeString, { label: item.label });
       }
     } else if (method === EMesonValidate.Boolean) {
-      if (!is.boolean(x)) {
+      if (!isBoolean(x)) {
         return formatString(lingual.labelShouldBeBoolean, { label: item.label });
       }
-    } else if (is.function(x)) {
+    } else if (isFunction(x)) {
       return method(x, item);
     } else {
       console.warn("Unknown method", method);
@@ -41,7 +41,7 @@ export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>, formValu
       return ret;
     }
   }
-  if (is.array(item.validateMethods)) {
+  if (isArray(item.validateMethods)) {
     let ret = validateByMethods(x, item.validateMethods, item);
     if (ret != null) {
       return ret;
