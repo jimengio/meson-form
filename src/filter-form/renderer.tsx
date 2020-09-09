@@ -4,7 +4,7 @@ import { cx, css } from "emotion";
 import { DropdownMenu } from "@jimengio/dropdown";
 import DatePicker from "antd/lib/date-picker";
 import dataPickerLocale from "antd/es/date-picker/locale/zh_CN";
-import { Select } from "antd";
+import Select from "antd/lib/select";
 
 import { formatString, lingual } from "../lingual";
 import moment from "moment";

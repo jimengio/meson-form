@@ -17,19 +17,6 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
 
   let filterFormItems: IFilterFieldItem<IData>[] = [
     {
-      type: "dropdown-select",
-      label: "类型",
-      name: "categoryId",
-      options: [
-        { value: "a", display: "数据 A" },
-        { value: "b", display: "数据 B" },
-      ],
-      allowClear: true,
-      selectProps: {
-        emptyLocale: "暂无数据",
-      },
-    },
-    {
       type: "select",
       label: "发布状态",
       name: "isPublished",
@@ -43,6 +30,19 @@ let ExampleFilterForm: FC<{ className?: string }> = React.memo((props) => {
       type: "date-picker",
       label: "发布时间",
       name: "operatedAt",
+    },
+    {
+      type: "dropdown-select",
+      label: "类型",
+      name: "categoryId",
+      options: [
+        { value: "a", display: "数据 A" },
+        { value: "b", display: "数据 B" },
+      ],
+      allowClear: true,
+      selectProps: {
+        emptyLocale: "暂无数据",
+      },
     },
   ];
 
@@ -83,19 +83,6 @@ interface IData {
 
 let filterFormItems: IFilterFieldItem<IData>[] = [
   {
-    type: "dropdown-select",
-    label: "类型",
-    name: "categoryId",
-    options: [
-      { value: "a", display: "数据 A" },
-      { value: "b", display: "数据 B" },
-    ],
-    allowClear: true,
-    selectProps: {
-      emptyLocale: "暂无数据",
-    },
-  },
-  {
     type: "select",
     label: "发布状态",
     name: "isPublished",
@@ -110,6 +97,19 @@ let filterFormItems: IFilterFieldItem<IData>[] = [
     label: "发布时间",
     name: "operatedAt",
   },
+  {
+    type: "dropdown-select",
+    label: "类型",
+    name: "categoryId",
+    options: [
+      { value: "a", display: "数据 A" },
+      { value: "b", display: "数据 B" },
+    ],
+    allowClear: true,
+    selectProps: {
+      emptyLocale: "暂无数据",
+    },
+  }
 ];
 
 let filterForm = useFilterForm({
