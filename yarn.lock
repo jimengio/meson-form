@@ -190,7 +190,12 @@
   resolved "https://registry.npmjs.org/@jimengio/flex-styles/-/flex-styles-0.2.0.tgz#9e72352692106317c893c1cf3d7e87c0ee07820c"
   integrity sha512-MojPVajIX8CPKGkKWdSqXgbYpbvTxJh+Cj1pKu9jlgG/lQMpG5jPAkYPJc8IwjvD14gtKm7vec5pH4NMI/+Z1Q==
 
-"@jimengio/jimo-basics@^0.1.7":
+"@jimengio/jimo-antd-theme@^0.2.0-alpha10":
+  version "0.2.0-alpha10"
+  resolved "https://registry.yarnpkg.com/@jimengio/jimo-antd-theme/-/jimo-antd-theme-0.2.0-alpha10.tgz#f6af5fd4b3da4551c3a3f05cb2ce4def335f76f2"
+  integrity sha512-lBfYXOa5kcJ6/iSQC4D9DrYOIraiVtGAMALoc+8PqAqWrzIr+a0ALNO4DJEv1GrSWyttsDSnZgtwaI7FWoyYmA==
+
+"@jimengio/jimo-basics@^0.1.11", "@jimengio/jimo-basics@^0.1.7":
   version "0.1.11"
   resolved "https://registry.npmjs.org/@jimengio/jimo-basics/-/jimo-basics-0.1.11.tgz#2550f8e8ee97b5ef416f5e3b6a83a3c961bd4518"
   integrity sha512-LPTc4CzyQDn8sY8X8/SgweuA8avbMHrgijeahmVMxGbMiiRi236BsNw61m3oohSBDZHMe3CpXZeCHuWPGykueQ==

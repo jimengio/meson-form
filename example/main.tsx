@@ -7,10 +7,8 @@ import { routerRules } from "./models/router-rules";
 
 import Container from "./pages/container";
 
-import "antd/dist/antd.css";
+import "@jimengio/jimo-antd-theme/lib/platform.min.css";
 import "./main.css";
-import { mesonUseEn } from "../src/lingual";
-import { GenRouterTypeTree } from "controller/generated-router";
 
 const renderApp = () => {
   let routerTree = parseRoutePath(window.location.hash.slice(1), routerRules);

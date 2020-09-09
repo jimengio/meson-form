@@ -26,6 +26,8 @@
     "@jimengio/dropdown": "^0.1.38",
     "@jimengio/fa-icons": "^0.2.0",
     "@jimengio/flex-styles": "^0.2.0",
+    "@jimengio/jimo-antd-theme": "^0.2.0-alpha10",
+    "@jimengio/jimo-basics": "^0.1.11",
     "@jimengio/jimo-icons": "^0.3.14",
     "@jimengio/meson-modal": "^0.3.11",
     "@jimengio/rex": "^0.1.8",

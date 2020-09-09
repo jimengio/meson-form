@@ -40,8 +40,6 @@ export default CustomThemePage;
 let content = `
 目前支持基础元素的样式定义, 注意要使用 Emotion 定义样式.
 
-参考 https://github.com/jimengio/meson-form/blob/master/src/style.ts .
-
 对于 antd 的组件, 由于本身已经包含了 \`!important\` 设定的样式, 需要再增加样式把 input 重置掉.
 `;
 
