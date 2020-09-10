@@ -24,7 +24,7 @@ import {
   renderDropdownTreeItem,
 } from "./renderer";
 import { lingual } from "./lingual";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import { createItemKey } from "./util/string";
 import { getFormRenderer } from "./registered-renderer";
 import { isFunction } from "lodash-es";
