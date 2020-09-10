@@ -235,6 +235,11 @@
     lodash-es "^4.17.15"
     query-string "^6.13.1"
 
+"@jimengio/ruled-validator@^0.1.1-a1":
+  version "0.1.1-a1"
+  resolved "https://registry.npmjs.org/@jimengio/ruled-validator/-/ruled-validator-0.1.1-a1.tgz#5277e05c23d65710b622ea11a0040f5b23f4d3f2"
+  integrity sha512-9pNccR8wYXiKpEdIolcPJb5l+w0uvaBVFzvgycQa0B4MloJMpgP9QuGDchKCFqiJ1ezAiIq+ICmXw70CPfcYUw==
+
 "@jimengio/safe-property@^0.0.2":
   version "0.0.2"
   resolved "https://registry.npmjs.org/@jimengio/safe-property/-/safe-property-0.0.2.tgz#62d824660a56a6eb29628c1c795b256b9639743b"
