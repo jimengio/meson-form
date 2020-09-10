@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { css } from "emotion";
 import { useMesonCore } from "../../src/hook/meson-core";
-import { IMesonCustomField, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
+import { IMesonCustomField, IMesonFieldItem } from "../../src/model/types";
 import { column } from "@jimengio/flex-styles";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";

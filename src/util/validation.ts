@@ -1,6 +1,7 @@
-import { IMesonFieldItemHasValue, EMesonValidate, FuncMesonValidator, IMesonErrors } from "../model/types";
+import { IMesonFieldItemHasValue, FuncMesonValidator, IMesonErrors } from "../model/types";
 import { formatString, lingual } from "../lingual";
 import { isNumber, isString, isBoolean, isFunction, isArray } from "lodash-es";
+import { ruledValidate } from "@jimengio/ruled-validator";
 
 export let validateValueRequired = <T>(x: any, item: IMesonFieldItemHasValue<T>) => {
   if (x == null || x === "") {
@@ -10,30 +11,6 @@ export let validateValueRequired = <T>(x: any, item: IMesonFieldItemHasValue<T>)
   }
 };
 
-export let validateByMethods = <T>(x: any, methods: (EMesonValidate | FuncMesonValidator<T>)[], item: IMesonFieldItemHasValue<T>): string => {
-  for (let idx in methods) {
-    let method = methods[idx];
-    if (method === EMesonValidate.Number) {
-      if (!isNumber(x)) {
-        return formatString(lingual.labelShouldBeNumber, { label: item.label });
-      }
-    } else if (method === EMesonValidate.String) {
-      if (!isString(x)) {
-        return formatString(lingual.labelShouldBeString, { label: item.label });
-      }
-    } else if (method === EMesonValidate.Boolean) {
-      if (!isBoolean(x)) {
-        return formatString(lingual.labelShouldBeBoolean, { label: item.label });
-      }
-    } else if (isFunction(x)) {
-      return method(x, item);
-    } else {
-      console.warn("Unknown method", method);
-    }
-  }
-  return null;
-};
-
 export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>, formValue: T): string => {
   if (item.validator != null) {
     let ret = item.validator(x, item, formValue);
@@ -41,8 +18,8 @@ export let validateItem = <T>(x: any, item: IMesonFieldItemHasValue<T>, formValu
       return ret;
     }
   }
-  if (isArray(item.validateMethods)) {
-    let ret = validateByMethods(x, item.validateMethods, item);
+  if (item.validateRules != null) {
+    let ret = ruledValidate(x, item.validateRules);
     if (ret != null) {
       return ret;
     }

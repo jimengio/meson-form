@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
-import { IMesonSelectItem, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
+import { IMesonSelectItem, IMesonFieldItem } from "../../src/model/types";
 import Input from "antd/lib/input";
 import { row, expand } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";

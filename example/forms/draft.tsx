@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { css, cx } from "emotion";
 import { MesonForm } from "meson-form";
 import { EMesonFooterLayout } from "../../src/component/form-footer";
-import { IMesonSelectItem, IMesonFieldItem, EMesonValidate } from "../../src/model/types";
+import { IMesonSelectItem, IMesonFieldItem } from "../../src/model/types";
 import Input from "antd/lib/input";
 import { row } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
@@ -64,7 +64,7 @@ let formItems: IMesonFieldItem<IDemo>[] = [
     label: "计数",
     name: "count",
     required: true,
-    validateMethods: [EMesonValidate.Number],
+    validateRules: { type: "number", failText: "required a number", next: [{ type: "min", n: 0, failText: "less than zero" }] },
   },
   {
     type: "input",
