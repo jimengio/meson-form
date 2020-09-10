@@ -1,9 +1,8 @@
 import React, { FC, useState } from "react";
 import { css } from "emotion";
-import { lingual } from "../../src/lingual";
 import { MesonFormModal } from "meson-form";
 import { IMesonFieldItem } from "../../src/model/types";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocSnippet, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";

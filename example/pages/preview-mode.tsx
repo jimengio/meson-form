@@ -3,7 +3,7 @@ import { css, cx } from "emotion";
 import { useAtom } from "@jimengio/rex";
 import { useMesonFields } from "../../src/form";
 import { IMesonFieldItem } from "../../src/model/types";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 
 let PreviewMode: FC<{ className?: string }> = React.memo((props) => {
   let states = useAtom({

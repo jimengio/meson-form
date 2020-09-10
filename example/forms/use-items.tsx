@@ -6,7 +6,7 @@ import { row, Space } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 
 let selectItems: IMesonSelectItem[] = [
   { value: "shanghai", display: "上海" },

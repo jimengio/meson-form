@@ -6,7 +6,7 @@ import { row, column } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 
 let formItems: IMesonFieldItem<{ name?: string }>[] = [
   {

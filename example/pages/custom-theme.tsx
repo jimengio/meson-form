@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { css } from "emotion";
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import { attachMesonFormThemeVariables } from "../../src/theme";
 import { DocBlock, DocDemo, DocSnippet } from "@jimengio/doc-frame";
 

@@ -4,7 +4,7 @@ import { lingual } from "../lingual";
 import { css, cx } from "emotion";
 import { rowMiddle, rowParted, rowCenter } from "@jimengio/flex-styles";
 
-import { Button } from "antd";
+import Button from "antd/lib/button";
 import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
 
 export enum EMesonFooterLayout {
