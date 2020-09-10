@@ -9,3 +9,9 @@ body * {
   box-sizing: border-box;
   flex-shrink: 0;
 }
+
+/* wait antd >4.6.3 */
+.ant-select-selection-placeholder {
+  opacity: 1;
+  color: #979797;
+}

@@ -6,7 +6,7 @@ import { row, Space } from "@jimengio/flex-styles";
 import DataPreview from "kits/data-preview";
 import { DocDemo, DocBlock, DocSnippet } from "@jimengio/doc-frame";
 import { getLink } from "util/link";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 
 let selectItems: IMesonSelectItem[] = [
   { value: "shanghai", display: "上海" },
@@ -45,18 +45,18 @@ let FormUseItems: FC<{}> = (props) => {
         <div style={{ padding: 16 }}>
           Custom UI
           <Space width={16} />
-          <JimoButton
+          <Button
             onClick={() => {
               fieldsPlugin.updateInternalForm((draft) => {
                 draft.city = undefined;
                 draft.name = "JIMENGIO";
               });
             }}
-            text="Reset name"
+            children="Reset name"
           />
           <Space width={16} />
-          <JimoButton
-            fillColor
+          <Button
+            type="primary"
             onClick={() => {
               fieldsPlugin.checkAndSubmit({
                 onSubmit: (form) => {
@@ -64,7 +64,7 @@ let FormUseItems: FC<{}> = (props) => {
                 },
               });
             }}
-            text="onSubmit"
+            children="onSubmit"
           />
         </div>
 
@@ -93,15 +93,15 @@ let FormUseItems: FC<{}> = (props) => {
         <div>{transferPlugin.ui}</div>
         <div className={row}>
           <Space width={240} />
-          <JimoButton
-            fillColor
-            text="Submit"
+          <Button
+            type="primary"
+            children="Submit"
             onClick={() => {
               transferPlugin.checkAndSubmit({
                 transferData: "data passed",
               });
             }}
-          ></JimoButton>
+          />
         </div>
         <DocSnippet code={transferCode} />
       </DocDemo>
@@ -162,13 +162,13 @@ let codeUse = `
   <div style={{ padding: 16 }}>
     Custom UI
 
-    <JimoButton
+    <Button
       onClick={() => {
         fieldsPlugin.updateInternalForm((draft) => {
           draft.name = "JIMENGIO";
         });
       }}
-      text="Reset name"
+      children="Reset name"
     />
 
     <button onClick={fieldsPlugin.checkAndSubmit}>onSubmit</button>

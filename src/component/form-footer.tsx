@@ -1,9 +1,10 @@
-import { css, cx } from "emotion";
 import React, { FC } from "react";
-import { JimoButton } from "@jimengio/jimo-basics";
-import { row, rowMiddle, rowParted, rowCenter } from "@jimengio/flex-styles";
+
 import { lingual } from "../lingual";
-import Icon from "antd/lib/icon";
+import { css, cx } from "emotion";
+import { rowMiddle, rowParted, rowCenter } from "@jimengio/flex-styles";
+
+import { Button } from "antd";
 import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
 
 export enum EMesonFooterLayout {
@@ -22,9 +23,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Aligned) {
     return (
       <div className={cx(rowMiddle, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
+        <Button type="primary" children={lingual.confirm} icon={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} data-action="submit" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
+        <Button children={lingual.cancel} onClick={props.onCancel} data-action="cancel" />
       </div>
     );
   }
@@ -32,9 +33,9 @@ export let FormFooter: FC<{
   if (props.layout === EMesonFooterLayout.Center) {
     return (
       <div className={cx(rowCenter, styleFooter, props.hideSeparator ? null : styleBorder)}>
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
+        <Button children={lingual.cancel} onClick={props.onCancel} data-action="cancel" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
+        <Button type="primary" children={lingual.confirm} icon={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} data-action="submit" />
       </div>
     );
   }
@@ -44,9 +45,9 @@ export let FormFooter: FC<{
     <div className={cx(rowParted, styleFooter, props.hideSeparator ? null : styleBorder)}>
       <span />
       <div className={cx(rowMiddle)}>
-        <JimoButton text={lingual.cancel} onClick={props.onCancel} canceling data-action="cancel" />
+        <Button children={lingual.cancel} onClick={props.onCancel} data-action="cancel" />
         <div style={{ width: 12 }} />
-        <JimoButton text={lingual.confirm} prepend={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} fillColor data-action="submit" />
+        <Button type="primary" children={lingual.confirm} icon={props.isLoading ? <LoadingOutlined /> : null} onClick={props.onSubmit} data-action="submit" />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { css } from "emotion";
-import { JimoButton } from "@jimengio/jimo-basics";
+import { Button } from "antd";
 import { attachMesonFormThemeVariables } from "../../src/theme";
 import { DocBlock, DocDemo, DocSnippet } from "@jimengio/doc-frame";
 
@@ -12,8 +12,8 @@ let CustomThemePage: FC<{ className?: string }> = React.memo((props) => {
   return (
     <div className={props.className}>
       <DocDemo title={"Custom Theme"}>
-        <JimoButton
-          text="Change theme styles for input"
+        <Button
+          children="Change theme styles for input"
           onClick={() => {
             attachMesonFormThemeVariables({
               input: styleInput,
@@ -39,8 +39,6 @@ export default CustomThemePage;
 
 let content = `
 目前支持基础元素的样式定义, 注意要使用 Emotion 定义样式.
-
-参考 https://github.com/jimengio/meson-form/blob/master/src/style.ts .
 
 对于 antd 的组件, 由于本身已经包含了 \`!important\` 设定的样式, 需要再增加样式把 input 重置掉.
 `;

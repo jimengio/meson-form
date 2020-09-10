@@ -33,7 +33,6 @@ import { DropdownMenu } from "@jimengio/dropdown";
 import { expand, column, row, relative } from "@jimengio/flex-styles";
 import { RequiredMark } from "./component/misc";
 import { isArray, isString, isNumber } from "lodash-es";
-import { styleInput, styleSelect, styleTextArea, styleInputNumber, styleSwitch, styleRadio, styleDatePicker, styleTree } from "./style";
 import { GlobalThemeVariables } from "./theme";
 
 type FuncUpdateItem<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
@@ -41,11 +40,13 @@ type FuncCheckItem<T> = (item: IMesonFieldItemHasValue<T>) => void;
 type FuncCheckItemWithValue<T> = (x: any, item: IMesonFieldItemHasValue<T>) => void;
 
 export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonTexareaField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
-  let textLength = isString(form[item.name]) ? form[item.name].length : 0;
+  const textLength = isString(form[item.name]) ? form[item.name].length : 0;
+
+  const { className, ...textareaRestProps } = item.textareaProps || {};
 
   const textAreaElement = (
     <TextArea
-      className={cx(styleTextArea, GlobalThemeVariables.textarea)}
+      className={cx(GlobalThemeVariables.textarea, className)}
       value={form[item.name] as any}
       disabled={item.disabled}
       placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -56,7 +57,7 @@ export function renderTextAreaItem<T extends FieldValues>(form: T, item: IMesonT
       onBlur={(event: any) => {
         checkItem(item);
       }}
-      {...item.textareaProps}
+      {...textareaRestProps}
     ></TextArea>
   );
 
@@ -81,10 +82,12 @@ export function renderInputItem<T extends FieldValues>(
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
+  const { className, ...inputRestProps } = item.inputProps || {};
+
   return (
     <div className={rowMiddle}>
       <Input
-        className={cx(styleInput, GlobalThemeVariables.input)}
+        className={cx(GlobalThemeVariables.input, className)}
         value={form[item.name] as any}
         disabled={item.disabled}
         type={item.inputType || "text"}
@@ -108,7 +111,7 @@ export function renderInputItem<T extends FieldValues>(
         onBlur={() => {
           checkItem(item);
         }}
-        {...item.inputProps}
+        {...inputRestProps}
       />
       {item.suffixNode != null ? (
         <>
@@ -121,10 +124,12 @@ export function renderInputItem<T extends FieldValues>(
 }
 
 export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNumberField<T>, updateItem: FuncUpdateItem<T>, checkItem: FuncCheckItem<T>) {
+  const { className, ...inputRestProps } = item.inputProps || {};
+
   return (
     <>
       <InputNumber
-        className={cx(styleInputNumber, GlobalThemeVariables.number)}
+        className={cx(GlobalThemeVariables.number, className)}
         value={form[item.name] as any}
         disabled={item.disabled}
         placeholder={item.placeholder || formatString(lingual.pleaseInputLabel, { label: item.label })}
@@ -136,7 +141,7 @@ export function renderNumberItem<T extends FieldValues>(form: T, item: IMesonNum
         }}
         min={item.min}
         max={item.max}
-        {...item.inputProps}
+        {...inputRestProps}
       />
       {item.suffixNode != null ? (
         <>
@@ -157,7 +162,7 @@ export function renderSwitchItem<T extends FieldValues>(
   const checked = form[item.name] ? true : false;
 
   return (
-    <div className={styleSwitch}>
+    <div>
       <Switch
         checked={checked}
         disabled={item.disabled}
@@ -188,11 +193,13 @@ export function renderSelectItem<T extends FieldValues>(
     }
   }
 
+  const { className, ...selectRestProps } = item.selectProps || {};
+
   return (
     <Select
       value={currentValue}
       disabled={item.disabled}
-      className={cx(styleSelect, GlobalThemeVariables.select, width100)}
+      className={cx(GlobalThemeVariables.select, width100, className)}
       placeholder={item.placeholder || formatString(lingual.pleaseSelectLabel, { label: item.label })}
       onChange={(newValue: string[] | string) => {
         if (item.translateNonStringvalue && newValue != null) {
@@ -219,7 +226,7 @@ export function renderSelectItem<T extends FieldValues>(
           checkItem(item);
         }
       }}
-      {...item.selectProps}
+      {...selectRestProps}
     >
       {item.options.map((option) => {
         let value = option.value;
@@ -290,13 +297,14 @@ export function renderTreeSelectItem<T extends FieldValues>(
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
   let currentValue = form[item.name];
+  const { className, ...treeRestProps } = item.treeSelectProps || {};
 
   return (
     <TreeSelect
       value={currentValue as any}
       multiple={item.multiple}
       disabled={item.disabled}
-      className={cx(styleTree, GlobalThemeVariables.treeSelect, width100)}
+      className={cx(GlobalThemeVariables.treeSelect, width100, className)}
       allowClear={item.allowClear}
       placeholder={item.placeholder || lingual.pleaseSelect}
       onChange={(newValue) => {
@@ -314,7 +322,7 @@ export function renderTreeSelectItem<T extends FieldValues>(
         checkItemWithValue(newValue, item);
         updateItem(newValue, item);
       }}
-      {...item.treeSelectProps}
+      {...treeRestProps}
     ></TreeSelect>
   );
 }
@@ -355,7 +363,7 @@ export function renderRadioItem<T extends FieldValues>(
     const radios = item.options;
     return radios.map((radio) => {
       return (
-        <Radio className={styleRadio} value={radio.value} disabled={radio.disabled} key={radio.key || radio.value}>
+        <Radio value={radio.value} disabled={radio.disabled} key={radio.key || radio.value}>
           {radio.display}
         </Radio>
       );
@@ -382,6 +390,8 @@ export function renderDatePickerItem<T extends FieldValues>(
   checkItem: FuncCheckItem<T>,
   checkItemWithValue: FuncCheckItemWithValue<T>
 ) {
+  const { className, ...restProps } = item.datePickerProps || {};
+
   return (
     <DatePicker
       locale={dataPickerLocale}
@@ -389,7 +399,7 @@ export function renderDatePickerItem<T extends FieldValues>(
       allowClear={item.allowClear}
       disabled={item.disabled}
       placeholder={item.placeholder || lingual.pleaseSelect}
-      className={cx(styleDatePicker, GlobalThemeVariables.datePicker, item.className)}
+      className={cx(GlobalThemeVariables.datePicker, item.className, className)}
       style={item.style}
       onChange={(dateObj, dateString) => {
         if (dateString == null || dateString === "") {
@@ -403,7 +413,7 @@ export function renderDatePickerItem<T extends FieldValues>(
           updateItem(dateString, item);
         }
       }}
-      {...item.datePickerProps}
+      {...restProps}
     />
   );
 }
