@@ -2,7 +2,10 @@
 
 > React form component with focus on immer and JSON
 
-Preview http://fe.jimu.io/meson-form/
+Snippets and Preview http://fe.jimu.io/meson-form/ . This library is now based on `antd@4.x` .
+
+- [Chinese Intro](https://github.com/jimengio/meson-form/issues/159)
+- [meson-drafter](http://tools.mvc-works.org/meson-drafter/) can be helpful in generating JSON configs.
 
 ### Usage
 
@@ -12,7 +15,7 @@ Preview http://fe.jimu.io/meson-form/
 yarn add @jimengio/meson-form
 ```
 
-Define forms in an array with mostly JSON(with functions and enumerables):
+Define forms JSON-like configs(with functions and enumerables):
 
 ```tsx
 let formItems: IMesonFieldItem[] = [
@@ -33,56 +36,46 @@ let formItems: IMesonFieldItem[] = [
 ];
 ```
 
-[meson-drafter](http://tools.mvc-works.org/meson-drafter/) can be helpful in generating JSON configs.
-
-The pass items to the form:
+Normal way of rendering a form(with cancel/submit buttons):
 
 ```tsx
 import { MesonForm } from "@jimengio/meson-form";
 
-let FormBasic: FC<{}> = (props) => {
-  let [form, setForm] = useState({});
-
-  return (
-    <div className={cx(row, styleContainer)}>
-      <MesonForm
-        initialValue={form}
-        items={formItems}
-        onSubmit={(form) => {
-          setForm(form);
-        }}
-      />
-    </div>
-  );
-};
+<MesonForm
+  initialValue={{}}
+  items={formItems}
+  onSubmit={(form) => {
+    console.log("data to submit:", form);
+  }}
+/>;
 ```
 
-### Hooks API for items
-
-`useMesonItems` API is like `<MesonForm>` but instead returns elements and a `onCheckSubmit` function. Thus any kind of footer can be rendered by user:
+Or, only render form fields, and control with your own buttons:
 
 ```tsx
-let [formElements, onCheckSubmit, formInternals] = useMesonItems({
-  initialValue: form,
+import { useMesonFields } from "@jimengio/meson-form";
+
+let fieldsPlugin = useMesonFields({
+  initialValue: {},
   items: formItems,
   onSubmit: (form) => {
-    setForm(form);
+    console.log("After validation:", form);
   },
 });
 
-return (
-  <div>
-    {formElements}
-    <button onClick={onCheckSubmit}>Submit</button>
-  </div>
-);
+// ReactNode
+fieldsPlugin.ui;
+
+// trigger submit
+fieldsPlugin.checkAndSubmit();
+
+// reset form data
+fieldsPlugin.resetForm(data);
 ```
 
-> This API is in early stage. Return values can be extended in the future.
+### Modal usages
 
-### Modal API
-
-Probably it's used in a Modal:
+Used with a modal container:
 
 ```tsx
 import { MesonFormModal } from "@jimengio/meson-form";
@@ -106,24 +99,46 @@ let [formVisible, setFormVisible] = useState(false);
 />;
 ```
 
-Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFormModal`.
+Props for `MesonFormDrawer` and `MesonFormDropdown` are mostly same as `MesonFormModal`'s.
 
-### Form fields
+### Field Types
 
-`IMesonFieldItem` 的不同类型, 对应的表单上的不同元素或者结构
+`IMesonFieldItem` has some types, roughly in 3 kinds:
 
-- `Input`, 文本框类型, 设置 `textarea: true` 之后样式显示为多行输入, 逻辑保持一致. 默认属性用 `inputProps` 传入.
-- `Number`, 数字类型,
-- `Select`, 单选菜单, 需要传入 JSON 结构的 `options` 参数,
-- `Radio`, 单选, 需要传入 JSON 结构的 `options` 参数,
-- `Switch`, 开关类型,
-- `Custom`, 自定义渲染, 需要定义渲染函数, 基于给出的表单的值和 `onChange` 函数进行渲染,
-- `CustomMultiple`, 自定义渲染, 但是可以直接拿到 form 对象的, 进行渲染和校验, 相比 `Custom` 对应的多个字段.
-- `Group`, 不嵌套的分组, 用在属性批量控制显示隐藏的情况,
-- `Nested`, 嵌套的分组.
-- `Decorative`, 自定义穿插 Node ，在 formItem 中间渲染不影响 formData 的对象
+- control types:
 
-对于自定义渲染的位置, 配置 `Custom` 类型, 并且需要传入一个 `render` 方法用于渲染值以及操作区域,
+| Type              | Usage                         |
+| ----------------- | ----------------------------- |
+| `input`           | renders antd `<Input/>`       |
+| `textarea`        | renders antd `<TextArea/>`    |
+| `number`          | renders antd `<InputNumber/>` |
+| `select`          | renders antd `<Select/>`      |
+| `dropdown-select` | renders custom select         |
+| `tree-select`     | renders antd `<TreeSelect/>`  |
+| `dropdown-tree`   | renders cursom tree select    |
+| `radio`           | renders radio groups          |
+| `switch`          | renders antd `<Switch/>`      |
+| `date-picker`     | renders antd `<DatePicker/>`  |
+
+- custom control types:
+
+| Type              | Usage                                                           |
+| ----------------- | --------------------------------------------------------------- |
+| `custom`          | render a custom ReactNode, corresponding to 1 property          |
+| `custom-multiple` | render a custom ReactNode, controlling multiple form properties |
+| `registered`      | render a user registered renderer, by a name                    |
+
+- layout types:
+
+| Type         | Usage                                                 |
+| ------------ | ----------------------------------------------------- |
+| `group`      | _no visual change, just grouping..._                  |
+| `decorative` | any ReactNode, for decoration, no access to form data |
+| `nested`     | get fields nested inside a field                      |
+
+### Custom type
+
+Custom type provides the chance to render your own field:
 
 ```ts
 {
@@ -151,10 +166,12 @@ Props for `MesonFormDrawer` and `MesonFormDropdown` are almost same to `MesonFor
 },
 ```
 
-其中,
+Notice the usages of those methods:
 
-- `onChange: (x: any) => void` 用来更新 `form` 当中当前字段的值.
-- `onCheck: (x: any) => void` 用来校验当前该字段提供的值, 需要传入最新的值, 或者 `value` 认为是最新的值传入.
+- `onChange: (x: any) => void` updates current property in form `form` data.
+- `onCheck: (x: any) => void` perform validations on the value, which may cause its error message being displayed.
+
+### Explanations on props
 
 关于表单的具体参数:
 
@@ -204,18 +221,6 @@ export let MesonForm: FC<{
 }> = (props) => {
   // Form
 };
-```
-
-### Low level Hooks API
-
-`useMesonCore` is a low level API for maintaining form states. The UI part need extra code.
-
-```ts
-let { formAny, errors, onCheckSubmit, checkItem, updateItem } = useMesonCore({
-  initialValue: submittedForm,
-  items: formItems,
-  onSubmit: onSubmit,
-});
 ```
 
 ### Workflow
