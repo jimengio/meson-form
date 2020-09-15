@@ -256,7 +256,7 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
   };
 }
 
-/** Deprecating, better use `useMesonFields` */
+/** @deprecated, better use `useMesonFields` */
 export function useMesonItems<T = FieldValues>(props: MesonFormProps<T>) {
   let fieldsPlugin = useMesonFields(props);
 
