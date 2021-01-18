@@ -15,11 +15,20 @@ let formItems: IMesonFieldItem[] = [
     required: true,
     placeholder: "不能有数字",
     asyncValidator: async (x, item, form) => {
-      await new Promise((resolve, reject) => {
+      const errInfo: string = await new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve();
+          if (x === "test") {
+            resolve("duplicate last name");
+          } else {
+            resolve();
+          }
         }, 1000);
       });
+
+      if (errInfo) {
+        return errInfo;
+      }
+
       if (x?.match(/\d/)) {
         return "should not have digits in name";
       }
@@ -93,11 +102,22 @@ let formItems: IMesonFieldItem[] = [
       return {};
     },
     asyncValidateMultiple: async (form) => {
-      await new Promise((resolve, reject) => {
+      const errInfo: Record<string, string> = await new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve();
+          if (form.province === "test") {
+            resolve({
+              province: "province does not exist",
+            });
+          } else {
+            resolve();
+          }
         }, 1000);
       });
+
+      if (errInfo) {
+        return errInfo;
+      }
+
       let ret = {
         province: undefined,
         city: undefined,
