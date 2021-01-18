@@ -42,9 +42,6 @@ export async function asyncCustomeValidateItems<T extends FieldValues>(xs: IMeso
     if (x.shouldHide != null && x.shouldHide(form)) {
       return null;
     }
-    if (x.onlyShow != null && !x.onlyShow(form)) {
-      return null;
-    }
 
     switch (x.type) {
       case "decorative":
