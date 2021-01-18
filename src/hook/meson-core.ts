@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useImmer } from "use-immer";
 import { IMesonFieldItem, IMesonFieldItemHasValue, FuncMesonModifyForm, IMesonCustomMultipleField, IMesonErrors, FieldValues, FieldName } from "../model/types";
 import { validateItem, hasErrorInObject } from "../util/validation";
-import { traverseItems, traverseItemsReachCustomMultiple } from "../util/render";
+import { traverseItems, traverseItemsReachCustomMultiple, asyncCustomeValidateItems } from "../util/render";
 import produce, { Draft } from "immer";
 import { union, isFunction, isEmpty } from "lodash-es";
 import { isEmptyErrorsObject } from "../util/data";
@@ -25,7 +25,7 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
   let [errors, updateErrors] = useImmer<IMesonErrors<T>>({});
   let modifiedState = useRef(false);
 
-  let onCheckSubmitWithValue = (passedForm?: T, options?: ICheckSubmitOptions<T, TransferData>) => {
+  let onCheckSubmitWithValue = async (passedForm?: T, options?: ICheckSubmitOptions<T, TransferData>) => {
     let latestForm = passedForm;
     let currentErrors: IMesonErrors<T> = {};
     let hasErrors = false;
@@ -47,6 +47,30 @@ export let useMesonCore = <T extends FieldValues, TransferData>(props: {
           Object.assign(currentErrors, results);
           hasErrors = true;
         }
+      }
+    });
+
+    await asyncCustomeValidateItems(props.items, latestForm, async (i) => {
+      switch (i.type) {
+        case "custom-multiple":
+          const multItem = i as IMesonCustomMultipleField<T>;
+          if (isFunction(multItem.asyncValidateMultiple)) {
+            let results = await multItem.asyncValidateMultiple(latestForm, multItem);
+            if (hasErrorInObject(results)) {
+              Object.assign(currentErrors, results);
+              hasErrors = true;
+            }
+          }
+          break;
+        default:
+          const item = i as IMesonFieldItemHasValue<T>;
+          if (isFunction(item.asyncValidator)) {
+            let result = await item.asyncValidator(latestForm[item.name], item, latestForm);
+            if (result) {
+              currentErrors[item.name] = result;
+              hasErrors = true;
+            }
+          }
       }
     });
 
