@@ -117,7 +117,7 @@ export function useMesonFields<T = FieldValues, TD = any>(props: MesonFormProps<
         const mergeClassName = item.horizontal ? cx(displayFlex, flexWrap) : undefined;
 
         return (
-          <div key={key} className={mergeClassName}>
+          <div key={key} className={cx(mergeClassName, item.className)}>
             {renderItems(item.children, nextItemWidth, key)}
           </div>
         );
