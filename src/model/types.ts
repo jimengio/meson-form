@@ -338,6 +338,7 @@ export interface IMesonGroupFields<T> {
    * 单个 Item 所占宽度
    */
   itemWidth?: ReactText;
+  className?: string;
 }
 
 type IChangeInternals<T> = {
