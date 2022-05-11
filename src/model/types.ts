@@ -52,6 +52,7 @@ export interface IMesonFieldBaseProps<T> {
   onlyShow?: (form: T) => boolean;
   disabled?: boolean;
   className?: string;
+  labelClassName?: string;
   style?: React.CSSProperties;
   hideLabel?: boolean;
   fullWidth?: boolean;
