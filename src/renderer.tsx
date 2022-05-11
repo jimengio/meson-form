@@ -443,9 +443,9 @@ export function renderItemLayout<T>(
   width?: ReactText
 ) {
   let labelNode = hideLabel ? null : item.label == null ? (
-    <div className={cx(styleLabel, labelClassName)} />
+    <div className={cx(styleLabel, labelClassName, item.labelClassName)} />
   ) : (
-    <div className={cx(styleLabel, labelClassName)}>
+    <div className={cx(styleLabel, labelClassName, item.labelClassName)}>
       {item.required ? <RequiredMark /> : null}
       {item.label}:
     </div>
